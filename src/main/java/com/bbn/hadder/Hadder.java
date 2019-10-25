@@ -1,5 +1,6 @@
 package com.bbn.hadder;
 
+import com.bbn.hadder.listener.MentionListener;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -33,6 +34,8 @@ public class Hadder {
         builder.setShardsTotal(1);
         builder.setActivity(Activity.streaming("auf dem BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
         builder.setToken(config.getString("Token"));
+
+        builder.addEventListeners(new MentionListener());
 
         try {
             ShardManager shardManager = builder.build();
