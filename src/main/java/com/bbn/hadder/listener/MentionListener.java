@@ -11,7 +11,7 @@ public class MentionListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        if (event.getMessage().getContentRaw().equals(event.getJDA().getSelfUser().getAsMention())) {
+        if (event.getMessage().getMentionedMembers().contains(event.getGuild().getSelfMember())) {
             EmbedBuilder builder = new EmbedBuilder()
                     .setTitle("Hello I'm Hadder.")
                     .setAuthor(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl(), event.getJDA().getSelfUser().getAvatarUrl())
