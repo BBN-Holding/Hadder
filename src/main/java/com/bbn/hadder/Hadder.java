@@ -1,5 +1,6 @@
 package com.bbn.hadder;
 
+import com.bbn.hadder.listener.MentionListener;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import org.json.JSONObject;
@@ -31,6 +32,8 @@ public class Hadder {
 
         builder.setShardsTotal(1);
         builder.setToken(config.getString("Token"));
+
+        builder.addEventListeners(new MentionListener());
 
         try {
             ShardManager shardManager = builder.build();
