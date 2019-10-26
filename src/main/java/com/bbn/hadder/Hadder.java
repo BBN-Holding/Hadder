@@ -1,5 +1,9 @@
 package com.bbn.hadder;
 
+import com.bbn.hadder.commands.Command;
+import com.bbn.hadder.commands.TestCommand;
+import com.bbn.hadder.commands.moderation.BanCommand;
+import com.bbn.hadder.core.CommandHandler;
 import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -35,7 +39,13 @@ public class Hadder {
         builder.setActivity(Activity.streaming("auf dem BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
         builder.setToken(config.getString("Token"));
 
-        builder.addEventListeners(new MentionListener(), new PrivateMessageListener());
+        CommandHandler.cmdlist.put("test", new TestCommand());
+        CommandHandler.cmdlist.put("ban", new BanCommand());
+
+        builder.addEventListeners(
+                new MentionListener(),
+                new PrivateMessageListener(),
+                new CommandListener());
 
         try {
             ShardManager shardManager = builder.build();
