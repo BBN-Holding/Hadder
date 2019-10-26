@@ -17,7 +17,15 @@ public class MessageEditor {
                 break;
 
             case WARNING:
-                embedBuilder.setColor(Color.ORANGE);
+                embedBuilder.setTitle("⚠ Warning ⚠").setColor(Color.ORANGE);
+                break;
+
+            case NO_PERMISSION:
+                embedBuilder.setTitle("⛔ No Permission ⛔").setDescription("You are not authorized to execute this command!").setColor(Color.RED);
+                break;
+
+            case NO_SELF_PERMISSION:
+                embedBuilder.setTitle("⛔ No Permission ⛔").setDescription("Unfortunately, I do not have the required ban rights to perform this action").setColor(Color.RED);
                 break;
         }
         return embedBuilder;
@@ -26,7 +34,9 @@ public class MessageEditor {
     public enum Messagetype {
         ERROR,
         WARNING,
-        INFO
+        INFO,
+        NO_PERMISSION,
+        NO_SELF_PERMISSION
     }
 
 }
