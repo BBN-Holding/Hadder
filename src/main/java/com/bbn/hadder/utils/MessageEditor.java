@@ -1,4 +1,4 @@
-package com.bbn.hadder;
+package com.bbn.hadder.utils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
