@@ -48,4 +48,9 @@ public class BanCommand implements Command {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_PERMISSION, builder).build()).queue();
         }
     }
+
+    @Override
+    public String[] labels() {
+        return new String[]{"ban"};
+    }
 }
