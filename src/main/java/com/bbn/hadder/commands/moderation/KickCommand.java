@@ -47,6 +47,6 @@ public class KickCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[0];
+        return new String[]{"kick"};
     }
 }
