@@ -42,10 +42,14 @@ public class BanCommand implements Command {
                     EmbedBuilder builder = new EmbedBuilder();
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("We will be adding multiple banning within a command in the future.").build()).queue();
                 }
-
         } else {
             EmbedBuilder builder = new EmbedBuilder();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_PERMISSION, builder).build()).queue();
         }
+    }
+
+    @Override
+    public String[] labels() {
+        return new String[]{"ban"};
     }
 }

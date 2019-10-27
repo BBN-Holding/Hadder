@@ -1,6 +1,8 @@
 package com.bbn.hadder;
 
 import com.bbn.hadder.commands.TestCommand;
+import com.bbn.hadder.commands.fun.GifCommand;
+import com.bbn.hadder.commands.general.PingCommand;
 import com.bbn.hadder.commands.moderation.BanCommand;
 import com.bbn.hadder.commands.moderation.KickCommand;
 import com.bbn.hadder.commands.owner.ShutdownCommand;
@@ -17,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class Hadder {
 
@@ -44,12 +47,8 @@ public class Hadder {
         builder.setActivity(Activity.streaming("auf dem BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
         builder.setToken(config.getString("Token"));
 
-        CommandHandler.cmdlist.put("test", new TestCommand());
-        CommandHandler.cmdlist.put("ban", new BanCommand());
-        CommandHandler.cmdlist.put("prefix", new PrefixCommand());
-        CommandHandler.cmdlist.put("stop", new ShutdownCommand());
-        CommandHandler.cmdlist.put("shutdown", new ShutdownCommand());
-        CommandHandler.cmdlist.put("kick", new KickCommand());
+
+        CommandHandler.cmdlist.addAll(List.of(new TestCommand(), new BanCommand(), new PrefixCommand(), new ShutdownCommand(), new KickCommand(), new PingCommand(), new GifCommand()));
 
         builder.addEventListeners(
                 new MentionListener(),

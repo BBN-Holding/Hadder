@@ -6,16 +6,18 @@ package com.bbn.hadder.core;
 
 import com.bbn.hadder.commands.Command;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class CommandHandler {
 
-    public static HashMap<String, Command> cmdlist = new HashMap<>();
+    public static ArrayList<Command> cmdlist = new ArrayList<>();
 
     public static void handleCommand(CommandParser.commandContainer cmd) {
-        if(cmdlist.containsKey(cmd.invoke)) {
-            cmdlist.get(cmd.invoke).executed(cmd.args, cmd.event);
-        }
+        for (Command command : cmdlist) {
+            for (String label : command.labels()) {
+                if (label.equals(cmd.invoke)) command.executed(cmd.args, cmd.event);
+            }
 
+        }
     }
 }
