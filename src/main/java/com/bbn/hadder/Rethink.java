@@ -18,10 +18,10 @@ public class Rethink {
     public static boolean connect() {
         try {
             conn = r.connection().hostname("127.0.0.1").db("Hadder").port(28015).connect();
-            System.out.println("CONNECTED");
+            System.out.println("DB CONNECTED");
         } catch (Exception e) {
             System.out.println(e.toString());
-            System.out.println("CONNECTION FAILED");
+            System.out.println("DB CONNECTION FAILED");
         }
         return true;
     }

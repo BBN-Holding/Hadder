@@ -13,7 +13,7 @@ public class MentionListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         if (event.isFromType(ChannelType.TEXT)) {
-            if (event.getMessage().getContentRaw().equals("<@!" + event.getJDA().getSelfUser().getId() + ">")) {
+            if (event.getMessage().getContentRaw().equals(event.getGuild().getSelfMember().getAsMention())) {
                 EmbedBuilder builder = new EmbedBuilder()
                         .setTitle("Hello I'm Hadder.")
                         .setAuthor(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl(), event.getJDA().getSelfUser().getAvatarUrl())
