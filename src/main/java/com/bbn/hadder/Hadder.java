@@ -2,6 +2,8 @@ package com.bbn.hadder;
 
 import com.bbn.hadder.commands.TestCommand;
 import com.bbn.hadder.commands.moderation.BanCommand;
+import com.bbn.hadder.commands.moderation.KickCommand;
+import com.bbn.hadder.commands.owner.ShutdownCommand;
 import com.bbn.hadder.commands.settings.PrefixCommand;
 import com.bbn.hadder.core.CommandHandler;
 import com.bbn.hadder.listener.*;
@@ -45,13 +47,17 @@ public class Hadder {
         CommandHandler.cmdlist.put("test", new TestCommand());
         CommandHandler.cmdlist.put("ban", new BanCommand());
         CommandHandler.cmdlist.put("prefix", new PrefixCommand());
+        CommandHandler.cmdlist.put("stop", new ShutdownCommand());
+        CommandHandler.cmdlist.put("shutdown", new ShutdownCommand());
+        CommandHandler.cmdlist.put("kick", new KickCommand());
 
         builder.addEventListeners(
                 new MentionListener(),
                 new PrivateMessageListener(),
                 new CommandListener(),
                 new GuildJoinListener(),
-                new GuildLeaveListener());
+                new GuildLeaveListener(),
+                new BotListListener());
 
         try {
             ShardManager shardManager = builder.build();
