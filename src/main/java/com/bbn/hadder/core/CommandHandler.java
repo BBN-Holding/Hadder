@@ -14,7 +14,7 @@ public class CommandHandler {
 
     public static void handleCommand(CommandParser.commandContainer cmd) {
         if(cmdlist.containsKey(cmd.invoke)) {
-            cmdlist.get(cmd.invoke).executed(cmd.event);
+            cmdlist.get(cmd.invoke).executed(cmd.args, cmd.event);
         }
 
     }

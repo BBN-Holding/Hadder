@@ -4,6 +4,7 @@ package com.bbn.hadder.core;
  * @author Skidder / GregTCLTK
  */
 
+import com.bbn.hadder.Rethink;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Collections;
 public class CommandParser {
     public static commandContainer parser(String raw, MessageReceivedEvent event) {
 
-        String cmd = raw.replaceFirst("h.", "");
+        String cmd = raw.replaceFirst(Rethink.get("server", "id", event.getGuild().getId(), "prefix"), "");
         String[] cmdsplit = cmd.split(" ");
         String invoke = cmdsplit[0];
         ArrayList<String> split = new ArrayList<>();

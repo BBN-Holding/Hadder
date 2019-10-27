@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class BanCommand implements Command {
 
-    public void executed(MessageReceivedEvent event) {
+    public void executed(String[] args, MessageReceivedEvent event) {
         if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.BAN_MEMBERS) || event.getGuild().getOwner().getId().equals(event.getAuthor().getId())) {
                 if (event.getMessage().getMentionedMembers().size() == 1) {
                     Member victim = event.getMessage().getMentionedMembers().get(0);

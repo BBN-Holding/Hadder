@@ -25,7 +25,7 @@ public class MessageEditor {
                 break;
 
             case NO_SELF_PERMISSION:
-                embedBuilder.setTitle("⛔ No Permission ⛔").setDescription("Unfortunately, I do not have the required ban rights to perform this action").setColor(Color.RED);
+                embedBuilder.setTitle("⛔ No Permission ⛔").setDescription("Unfortunately, I do not have the required rights to perform this action").setColor(Color.RED);
                 break;
         }
         return embedBuilder;
