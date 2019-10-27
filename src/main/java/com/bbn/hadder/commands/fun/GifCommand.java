@@ -5,6 +5,8 @@ package com.bbn.hadder.commands.fun;
  */
 
 import com.bbn.hadder.commands.Command;
+import com.bbn.hadder.utils.MessageEditor;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -48,7 +50,8 @@ public class GifCommand implements Command {
             url = (String) array.getJSONObject(gifIndex).get("url");
             event.getTextChannel().sendMessage(url).queue();
         } catch (Exception e) {
-            event.getTextChannel().sendMessage("Meddl Bruder. Ich hab heut leider kein gif für dich").queue();
+            EmbedBuilder builder = new EmbedBuilder();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.ERROR, builder).setTitle("Error").setDescription("Please try again with another term.").build()).queue();
         }
     }
 
