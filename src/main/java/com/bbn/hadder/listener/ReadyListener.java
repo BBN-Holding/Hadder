@@ -11,6 +11,7 @@ public class ReadyListener extends ListenerAdapter {
 
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
+        Rethink.setup();
         for (Guild g : event.getJDA().getGuilds()) {
             Rethink.insertServer(g.getId());
         }
