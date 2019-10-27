@@ -18,13 +18,18 @@ public class BanCommand implements Command {
                 if (event.getMessage().getMentionedMembers().size() == 1) {
                     Member victim = event.getMessage().getMentionedMembers().get(0);
                     if (!event.getAuthor().getId().equals(victim.getId())) {
-                        if (event.getGuild().getSelfMember().canInteract(victim)) {
-                            event.getGuild().ban(victim, 0, "Banned by " + event.getAuthor().getAsTag()).queue();
-                            EmbedBuilder builder = new EmbedBuilder();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully banned ✅").setDescription("I successfully baned " + victim.getUser().getName() + ".").build()).queue();
+                        if (event.getJDA().getSelfUser().getId().equals(victim.getId())) {
+                            if (event.getGuild().getSelfMember().canInteract(victim)) {
+                                event.getGuild().ban(victim, 0, "Banned by " + event.getAuthor().getAsTag()).queue();
+                                EmbedBuilder builder = new EmbedBuilder();
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully banned ✅").setDescription("I successfully baned " + victim.getUser().getName() + ".").build()).queue();
+                            } else {
+                                EmbedBuilder builder = new EmbedBuilder();
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_SELF_PERMISSION, builder).build()).queue();
+                            }
                         } else {
                             EmbedBuilder builder = new EmbedBuilder();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_SELF_PERMISSION, builder).build()).queue();
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("I can not ban myself").build()).queue();
                         }
                     } else {
                         EmbedBuilder builder = new EmbedBuilder();
