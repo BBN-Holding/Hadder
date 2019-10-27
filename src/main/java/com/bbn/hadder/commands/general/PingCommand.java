@@ -14,7 +14,9 @@ public class PingCommand implements Command {
     @Override
     public void executed(String[] args, MessageReceivedEvent event) {
         EmbedBuilder builder = new EmbedBuilder();
-        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("Ping").setDescription("0").build()).queue();
+        event.getJDA().getRestPing().queue(ping -> {
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("Ping").setDescription(String.valueOf(ping)).build()).queue();
+        });
     }
 
     @Override
