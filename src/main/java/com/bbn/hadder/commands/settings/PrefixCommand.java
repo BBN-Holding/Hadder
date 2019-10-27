@@ -36,4 +36,9 @@ public class PrefixCommand implements Command {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_PERMISSION, builder).build()).queue();
         }
     }
+
+    @Override
+    public String[] labels() {
+        return new String[]{"prefix"};
+    }
 }
