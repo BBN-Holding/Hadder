@@ -16,11 +16,20 @@ public class ShutdownCommand implements Command {
         if (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")) {
             EmbedBuilder builder = new EmbedBuilder();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("Shutdown").build()).queue();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             event.getJDA().shutdown();
-            Rethink.disconnect();
         } else {
             EmbedBuilder builder = new EmbedBuilder();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_PERMISSION, builder).build()).queue();
         }
+    }
+
+    @Override
+    public String[] labels() {
+        return new String[]{"shutdown"};
     }
 }
