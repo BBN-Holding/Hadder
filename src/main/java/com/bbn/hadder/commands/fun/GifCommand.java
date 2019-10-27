@@ -28,11 +28,8 @@ public class GifCommand implements Command {
             query += arg.toLowerCase() + "+";
             query = query.substring(0, query.length()-1);
         }
+
         File configfile = new File("./config.json");
-        if (!configfile.exists()) {
-            System.err.println("No Config File Found!");
-            System.exit(1);
-        }
 
         JSONObject config = null;
         try {
@@ -50,7 +47,7 @@ public class GifCommand implements Command {
             int gifIndex = rand.nextInt(array.length());
             url = (String) array.getJSONObject(gifIndex).get("url");
             event.getTextChannel().sendMessage(url).queue();
-        } catch (IOException | NullPointerException e) {
+        } catch (Exception e) {
             event.getTextChannel().sendMessage("Meddl Bruder. Ich hab heut leider kein gif für dich").queue();
         }
     }
