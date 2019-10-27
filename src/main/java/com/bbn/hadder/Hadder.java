@@ -1,6 +1,8 @@
 package com.bbn.hadder;
 
 import com.bbn.hadder.commands.TestCommand;
+import com.bbn.hadder.commands.fun.GifCommand;
+import com.bbn.hadder.commands.general.PingCommand;
 import com.bbn.hadder.commands.moderation.BanCommand;
 import com.bbn.hadder.commands.moderation.KickCommand;
 import com.bbn.hadder.commands.owner.ShutdownCommand;
@@ -46,7 +48,7 @@ public class Hadder {
         builder.setToken(config.getString("Token"));
 
 
-        CommandHandler.cmdlist.addAll(List.of(new TestCommand(), new BanCommand(), new PrefixCommand(), new ShutdownCommand(), new KickCommand()));
+        CommandHandler.cmdlist.addAll(List.of(new TestCommand(), new BanCommand(), new PrefixCommand(), new ShutdownCommand(), new KickCommand(), new PingCommand(), new GifCommand()));
 
         builder.addEventListeners(
                 new MentionListener(),
