@@ -1,6 +1,10 @@
 package com.bbn.hadder;
 
-import com.bbn.hadder.listener.MentionListener;
+import com.bbn.hadder.commands.TestCommand;
+import com.bbn.hadder.commands.moderation.BanCommand;
+import com.bbn.hadder.commands.settings.PrefixCommand;
+import com.bbn.hadder.core.CommandHandler;
+import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -16,18 +20,21 @@ public class Hadder {
 
     public static void main(String[] args) {
 
-        File jsonfile = new File("./config.json");
-        if (!jsonfile.exists()) {
+        File configfile = new File("./config.json");
+        if (!configfile.exists()) {
             System.err.println("No Config File Found!");
             System.exit(1);
         }
 
         JSONObject config = null;
         try {
-            config = new JSONObject(new String(Files.readAllBytes(Paths.get(jsonfile.toURI()))));
+            config = new JSONObject(new String(Files.readAllBytes(Paths.get(configfile.toURI()))));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+            Rethink.connect();
+
 
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
 
@@ -35,7 +42,16 @@ public class Hadder {
         builder.setActivity(Activity.streaming("auf dem BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
         builder.setToken(config.getString("Token"));
 
-        builder.addEventListeners(new MentionListener());
+        CommandHandler.cmdlist.put("test", new TestCommand());
+        CommandHandler.cmdlist.put("ban", new BanCommand());
+        CommandHandler.cmdlist.put("prefix", new PrefixCommand());
+
+        builder.addEventListeners(
+                new MentionListener(),
+                new PrivateMessageListener(),
+                new CommandListener(),
+                new GuildJoinListener(),
+                new GuildLeaveListener());
 
         try {
             ShardManager shardManager = builder.build();
