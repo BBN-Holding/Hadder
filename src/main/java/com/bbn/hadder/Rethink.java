@@ -72,6 +72,18 @@ public class Rethink {
         return out;
     }
 
+    public static String insertUser(String id) {
+        String out = "";
+        try {
+            Cursor cursor = r.table("user")
+                    .insert(r.hashMap("id", id)
+                            .with("prefix", "h.")
+                    ).run(conn);
+            out = cursor.next().toString();
+        } catch (ClassCastException ignored) {}
+        return out;
+    }
+
     public static void setup() {
         try {
             r.dbCreate("Hadder").run(conn);
