@@ -1,6 +1,7 @@
 package com.bbn.hadder;
 
 import com.rethinkdb.RethinkDB;
+import com.rethinkdb.gen.exc.ReqlOpFailedError;
 import com.rethinkdb.net.Connection;
 import com.rethinkdb.net.Cursor;
 import com.google.gson.JsonParser;
@@ -69,5 +70,24 @@ public class Rethink {
             out = cursor.next().toString();
         } catch (ClassCastException ignored) {}
         return out;
+    }
+
+    public static void setup() {
+        try {
+            r.dbCreate("Hadder").run(conn);
+        } catch (ReqlOpFailedError e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            r.tableCreate("server").run(conn);
+        } catch (ReqlOpFailedError e) {
+           System.out.println(e.getMessage());
+        }
+        try {
+            r.tableCreate("user").run(conn);
+        } catch (ReqlOpFailedError e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }
