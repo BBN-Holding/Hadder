@@ -1,8 +1,8 @@
 package com.bbn.hadder;
 
-import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.TestCommand;
 import com.bbn.hadder.commands.moderation.BanCommand;
+import com.bbn.hadder.commands.settings.PrefixCommand;
 import com.bbn.hadder.core.CommandHandler;
 import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.entities.Activity;
@@ -33,6 +33,9 @@ public class Hadder {
             e.printStackTrace();
         }
 
+            Rethink.connect();
+
+
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
 
         builder.setShardsTotal(1);
@@ -41,11 +44,14 @@ public class Hadder {
 
         CommandHandler.cmdlist.put("test", new TestCommand());
         CommandHandler.cmdlist.put("ban", new BanCommand());
+        CommandHandler.cmdlist.put("prefix", new PrefixCommand());
 
         builder.addEventListeners(
                 new MentionListener(),
                 new PrivateMessageListener(),
-                new CommandListener());
+                new CommandListener(),
+                new GuildJoinListener(),
+                new GuildLeaveListener());
 
         try {
             ShardManager shardManager = builder.build();
