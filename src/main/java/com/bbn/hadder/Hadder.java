@@ -38,8 +38,7 @@ public class Hadder {
             e.printStackTrace();
         }
 
-            Rethink.connect();
-
+        Rethink.connect();
 
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
 
