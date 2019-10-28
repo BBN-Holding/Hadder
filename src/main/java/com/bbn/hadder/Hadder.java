@@ -54,7 +54,7 @@ public class Hadder {
                 new CommandListener(),
                 new GuildJoinListener(),
                 new GuildLeaveListener(),
-                new BotListListener(),
+                new GuildListener(),
                 new ReadyListener());
 
         try {
