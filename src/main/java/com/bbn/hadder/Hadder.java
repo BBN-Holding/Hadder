@@ -38,8 +38,7 @@ public class Hadder {
             e.printStackTrace();
         }
 
-            Rethink.connect();
-
+        Rethink.connect();
 
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
 
@@ -56,7 +55,7 @@ public class Hadder {
                 new CommandListener(),
                 new GuildJoinListener(),
                 new GuildLeaveListener(),
-                new BotListListener(),
+                new GuildListener(),
                 new ReadyListener());
 
         try {
