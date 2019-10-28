@@ -52,8 +52,6 @@ public class Hadder {
                 new MentionListener(),
                 new PrivateMessageListener(),
                 new CommandListener(),
-                new GuildJoinListener(),
-                new GuildLeaveListener(),
                 new GuildListener(),
                 new ReadyListener());
 
