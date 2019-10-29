@@ -3,10 +3,10 @@ jdk:
   - oraclejdk12
   - openjdk12
   
- addons:
-   apt:
-       packages:
-            - sshpass
+addons:
+  apt:
+    packages:
+      - sshpass
   
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
