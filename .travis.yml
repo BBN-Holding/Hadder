@@ -1,6 +1,5 @@
 language: java
 jdk:
-  - oraclejdk12
   - openjdk12
   
 addons:
