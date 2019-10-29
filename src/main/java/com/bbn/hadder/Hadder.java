@@ -3,8 +3,7 @@ package com.bbn.hadder;
 import com.bbn.hadder.commands.TestCommand;
 import com.bbn.hadder.commands.fun.GifCommand;
 import com.bbn.hadder.commands.general.PingCommand;
-import com.bbn.hadder.commands.moderation.BanCommand;
-import com.bbn.hadder.commands.moderation.KickCommand;
+import com.bbn.hadder.commands.moderation.*;
 import com.bbn.hadder.commands.owner.ShutdownCommand;
 import com.bbn.hadder.commands.settings.PrefixCommand;
 import com.bbn.hadder.core.CommandHandler;
@@ -38,8 +37,7 @@ public class Hadder {
             e.printStackTrace();
         }
 
-            Rethink.connect();
-
+        Rethink.connect();
 
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
 
@@ -48,14 +46,12 @@ public class Hadder {
         builder.setToken(config.getString("Token"));
 
 
-        CommandHandler.cmdlist.addAll(List.of(new TestCommand(), new BanCommand(), new PrefixCommand(), new ShutdownCommand(), new KickCommand(), new PingCommand(), new GifCommand()));
+        CommandHandler.cmdlist.addAll(List.of(new TestCommand(), new BanCommand(), new PrefixCommand(), new ShutdownCommand(), new KickCommand(), new PingCommand(), new GifCommand(), new ClearCommand()));
 
         builder.addEventListeners(
                 new MentionListener(),
                 new PrivateMessageListener(),
                 new CommandListener(),
-                new GuildJoinListener(),
-                new GuildLeaveListener(),
                 new GuildListener(),
                 new ReadyListener());
 
