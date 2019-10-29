@@ -8,7 +8,7 @@ after_success:
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
   
-  - curl -T filename
+  - curl -T Hadder.jar --g
        sftp://${SFTP_USER}:${SFTP_PASSWORD}@${SFTP_IP}${SFTP_DIR}
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
