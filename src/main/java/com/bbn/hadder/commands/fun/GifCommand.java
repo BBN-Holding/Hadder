@@ -25,8 +25,6 @@ public class GifCommand implements Command {
     @Override
     public void executed(String[] args, MessageReceivedEvent event) {
         if (args.length > 0) {
-            String url;
-            JSONArray array;
             StringBuilder query = new StringBuilder();
             for (String arg : args) {
                 query.append(arg.toLowerCase()).append("+");
@@ -47,9 +45,9 @@ public class GifCommand implements Command {
                 Random rand = new Random();
                 Response response = caller.newCall(request).execute();
                 JSONObject json = new JSONObject(response.body().string());
-                array = json.getJSONArray("data");
+                JSONArray array = json.getJSONArray("data");
                 int gifIndex = rand.nextInt(array.length());
-                url = (String) array.getJSONObject(gifIndex).get("url");
+                String url = array.getJSONObject(gifIndex).get("url").toString();
                 event.getTextChannel().sendMessage(url).queue();
             } catch (Exception e) {
                 EmbedBuilder builder = new EmbedBuilder();
