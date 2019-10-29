@@ -3,10 +3,19 @@ jdk:
   - oraclejdk12
   - openjdk12
   
+addons:
+  apt:
+    packages:
+      - sshpass
+  
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
+  
+  - export SSHPASS=$SFTP_PASSWORD
+  - sshpass -e scp Hadder.jar $SFTP_USER@$SFTP_IP:$SFTP_DIR
+  - sshpass -e ssh $SFTP_USER@$SFTP_IP $SFTP_DIR/deploy.sh
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
