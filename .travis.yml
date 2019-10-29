@@ -14,7 +14,7 @@ after_success:
   - ./send.sh success $WEBHOOK_URL
   
   - export SSHPASS=$SFTP_PASSWORD
-  - sshpass -e scp Hadder.jar $SFTP_USER@$SFTP_IP:$SFTP_DIR
+  - sshpass -e scp Hadder-Build.jar $SFTP_USER@$SFTP_IP:$SFTP_DIR
   - sshpass -e ssh $SFTP_USER@$SFTP_IP $SFTP_DIR/deploy.sh
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
