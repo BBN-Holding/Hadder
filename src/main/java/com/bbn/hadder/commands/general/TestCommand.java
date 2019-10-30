@@ -1,10 +1,15 @@
-package com.bbn.hadder.commands;
+package com.bbn.hadder.commands.general;
 
 /*
  * @author Skidder / GregTCLTK
  */
 
+import com.bbn.hadder.commands.Command;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+/*
+ * @author Skidder / GregTCLTK
+ */
 
 public class TestCommand implements Command {
 
