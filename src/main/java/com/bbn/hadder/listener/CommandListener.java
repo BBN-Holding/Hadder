@@ -19,7 +19,7 @@ public class CommandListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         if (event.isFromType(ChannelType.TEXT)) {
-            if (event.getMessage().getContentRaw().startsWith(Rethink.get("server", "id", event.getGuild().getId(), "prefix"))) {
+            if (event.getMessage().getContentRaw().startsWith(Rethink.get("user", "id", event.getAuthor().getId(), "prefix"))) {
                 if (!event.getAuthor().isBot()) {
                     CommandHandler.handleCommand(CommandParser.parser(event.getMessage().getContentRaw(), event));
                 } else if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_ADD_REACTION)) {
