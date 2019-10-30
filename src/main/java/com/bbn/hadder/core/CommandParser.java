@@ -13,7 +13,7 @@ import java.util.Collections;
 public class CommandParser {
     public static commandContainer parser(String raw, MessageReceivedEvent event) {
 
-        String cmd = raw.replaceFirst(Rethink.get("server", "id", event.getGuild().getId(), "prefix"), "");
+        String cmd = raw.replaceFirst(Rethink.get("user", "id", event.getAuthor().getId(), "prefix"), "");
         String[] cmdsplit = cmd.split(" ");
         String invoke = cmdsplit[0];
         ArrayList<String> split = new ArrayList<>();

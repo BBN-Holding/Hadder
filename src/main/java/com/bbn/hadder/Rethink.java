@@ -65,7 +65,6 @@ public class Rethink {
         try {
             Cursor cursor = r.table("server")
                     .insert(r.hashMap("id", id)
-                            .with("prefix", "h.")
                     ).run(conn);
             out = cursor.next().toString();
         } catch (ClassCastException ignored) {}
