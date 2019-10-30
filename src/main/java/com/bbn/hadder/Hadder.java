@@ -1,8 +1,7 @@
 package com.bbn.hadder;
 
-import com.bbn.hadder.commands.TestCommand;
+import com.bbn.hadder.commands.general.*;
 import com.bbn.hadder.commands.fun.GifCommand;
-import com.bbn.hadder.commands.general.PingCommand;
 import com.bbn.hadder.commands.moderation.*;
 import com.bbn.hadder.commands.owner.ShutdownCommand;
 import com.bbn.hadder.commands.settings.PrefixCommand;
