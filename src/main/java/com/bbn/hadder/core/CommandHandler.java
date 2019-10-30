@@ -15,7 +15,7 @@ public class CommandHandler {
     public static void handleCommand(CommandParser.commandContainer cmd) {
         for (Command command : cmdlist) {
             for (String label : command.labels()) {
-                if (label.equals(cmd.invoke)) command.executed(cmd.args, cmd.event);
+                if (label.toLowerCase().equals(cmd.invoke.toLowerCase())) command.executed(cmd.args, cmd.event);
             }
 
         }
