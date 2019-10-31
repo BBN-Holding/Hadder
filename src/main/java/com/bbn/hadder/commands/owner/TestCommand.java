@@ -1,4 +1,4 @@
-package com.bbn.hadder.commands.general;
+package com.bbn.hadder.commands.owner;
 
 /*
  * @author Skidder / GregTCLTK
