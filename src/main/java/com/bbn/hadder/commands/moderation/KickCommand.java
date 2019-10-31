@@ -38,10 +38,10 @@ public class KickCommand implements Command {
             } else if (event.getMessage().getMentionedMembers().size() == 0) {
             EmbedBuilder builder = new EmbedBuilder();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to mention a user!").build()).queue();
-        } else {
+            } else {
             EmbedBuilder builder = new EmbedBuilder();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("We will be adding multiple kicking within a command in the future.").build()).queue();
-        }
+            }
         }
     }
 
