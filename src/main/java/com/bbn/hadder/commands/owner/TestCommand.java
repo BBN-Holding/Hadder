@@ -1,4 +1,4 @@
-package com.bbn.hadder.commands.general;
+package com.bbn.hadder.commands.owner;
 
 /*
  * @author Skidder / GregTCLTK
@@ -20,5 +20,15 @@ public class TestCommand implements Command {
     @Override
     public String[] labels() {
         return new String[]{"test"};
+    }
+
+    @Override
+    public String description() {
+        return "Sub to bbn";
+    }
+
+    @Override
+    public String usage() {
+        return labels()[0];
     }
 }

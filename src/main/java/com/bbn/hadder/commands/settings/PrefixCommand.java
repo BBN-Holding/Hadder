@@ -8,7 +8,6 @@ import com.bbn.hadder.Rethink;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 
@@ -35,5 +34,15 @@ public class PrefixCommand implements Command {
     @Override
     public String[] labels() {
         return new String[]{"prefix"};
+    }
+
+    @Override
+    public String description() {
+        return "Changes the prefix";
+    }
+
+    @Override
+    public String usage() {
+        return labels()[0]+" <New Prefix>";
     }
 }
