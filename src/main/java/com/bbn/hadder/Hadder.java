@@ -4,7 +4,9 @@ import com.bbn.hadder.commands.general.*;
 import com.bbn.hadder.commands.fun.GifCommand;
 import com.bbn.hadder.commands.misc.GitHubCommand;
 import com.bbn.hadder.commands.moderation.*;
+import com.bbn.hadder.commands.owner.RebootCommand;
 import com.bbn.hadder.commands.owner.ShutdownCommand;
+import com.bbn.hadder.commands.owner.TestCommand;
 import com.bbn.hadder.commands.settings.PrefixCommand;
 import com.bbn.hadder.core.CommandHandler;
 import com.bbn.hadder.listener.*;
@@ -23,7 +25,10 @@ import java.util.List;
 public class Hadder {
 
     public static void main(String[] args) {
+        startBot();
+    }
 
+    public static void startBot() {
         File configfile = new File("./config.json");
         if (!configfile.exists()) {
             System.err.println("No Config File Found!");
@@ -46,8 +51,8 @@ public class Hadder {
         builder.setToken(config.getString("Token"));
 
 
-        CommandHandler.cmdlist.addAll(List.of(new TestCommand(), new BanCommand(), new PrefixCommand(), new ShutdownCommand(), new KickCommand(), new PingCommand(), new GifCommand(), new ClearCommand(), new GitHubCommand()));
-
+        CommandHandler.cmdlist.addAll(List.of(new HelpCommand(), new TestCommand(), new BanCommand(), new PrefixCommand(), new ShutdownCommand(), new KickCommand(), new PingCommand(), new GifCommand(), new ClearCommand(), new GitHubCommand(), new RebootCommand()));
+       
         builder.addEventListeners(
                 new MentionListener(),
                 new PrivateMessageListener(),
@@ -60,7 +65,5 @@ public class Hadder {
         } catch (LoginException e) {
             e.printStackTrace();
         }
-
     }
-    
 }

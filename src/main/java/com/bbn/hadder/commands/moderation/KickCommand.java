@@ -49,4 +49,14 @@ public class KickCommand implements Command {
     public String[] labels() {
         return new String[]{"kick"};
     }
+
+    @Override
+    public String description() {
+        return "Kicks an user";
+    }
+
+    @Override
+    public String usage() {
+        return labels()[0]+" <@User>";
+    }
 }

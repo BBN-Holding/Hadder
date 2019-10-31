@@ -63,4 +63,14 @@ public class GifCommand implements Command {
     public String[] labels() {
         return new String[]{"gif"};
     }
+
+    @Override
+    public String description() {
+        return "Displays a gif";
+    }
+
+    @Override
+    public String usage() {
+        return labels()[0]+" <Searchterm>";
+    }
 }

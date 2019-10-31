@@ -59,4 +59,14 @@ public class ClearCommand implements Command {
     public String[] labels() {
         return new String[]{"clear"};
     }
+
+    @Override
+    public String description() {
+        return "Clears messages";
+    }
+
+    @Override
+    public String usage() {
+        return labels()[0]+" <Number>";
+    }
 }
