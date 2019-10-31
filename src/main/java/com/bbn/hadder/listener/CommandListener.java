@@ -17,12 +17,12 @@ public class CommandListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.isFromType(ChannelType.TEXT)) {
-            if (event.getMessage().getContentRaw().startsWith(Rethink.get("user", "id", event.getAuthor().getId(), "prefix"))) {
-                if (!event.getAuthor().isBot()) {
+            if (!event.getAuthor().isBot()) {
+                if (event.getMessage().getContentRaw().startsWith(Rethink.get("user", "id", event.getAuthor().getId(), "prefix"))) {
                     CommandHandler.handleCommand(CommandParser.parser(event.getMessage().getContentRaw(), event));
-                } else if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_ADD_REACTION)) {
-                    event.getMessage().addReaction("🙅").queue();
                 }
+            } else if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_ADD_REACTION)) {
+                    event.getMessage().addReaction("🙅").queue();
             }
         }
     }
