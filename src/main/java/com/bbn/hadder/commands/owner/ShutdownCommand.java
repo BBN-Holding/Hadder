@@ -29,4 +29,14 @@ public class ShutdownCommand implements Command {
     public String[] labels() {
         return new String[]{"shutdown"};
     }
+
+    @Override
+    public String description() {
+        return "Shuts the Bot down";
+    }
+
+    @Override
+    public String usage() {
+        return labels()[0];
+    }
 }

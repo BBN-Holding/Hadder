@@ -21,4 +21,14 @@ public class TestCommand implements Command {
     public String[] labels() {
         return new String[]{"test"};
     }
+
+    @Override
+    public String description() {
+        return "Sub to bbn";
+    }
+
+    @Override
+    public String usage() {
+        return labels()[0];
+    }
 }

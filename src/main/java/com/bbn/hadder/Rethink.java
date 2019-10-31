@@ -1,10 +1,10 @@
 package com.bbn.hadder;
 
+import com.google.gson.JsonParser;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlOpFailedError;
 import com.rethinkdb.net.Connection;
 import com.rethinkdb.net.Cursor;
-import com.google.gson.JsonParser;
 
 import java.util.NoSuchElementException;
 
