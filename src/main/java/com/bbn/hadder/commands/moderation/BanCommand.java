@@ -52,4 +52,14 @@ public class BanCommand implements Command {
     public String[] labels() {
         return new String[]{"ban"};
     }
+
+    @Override
+    public String description() {
+        return "Bans an user";
+    }
+
+    @Override
+    public String usage() {
+        return labels()[0]+" <@User>";
+    }
 }

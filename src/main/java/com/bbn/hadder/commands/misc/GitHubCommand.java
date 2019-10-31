@@ -73,4 +73,14 @@ public class GitHubCommand implements Command {
     public String[] labels() {
         return new String[]{"GitHub"};
     }
+
+    @Override
+    public String description() {
+        return "Shows info of an user";
+    }
+
+    @Override
+    public String usage() {
+        return labels()[0]+" <Username>";
+    }
 }

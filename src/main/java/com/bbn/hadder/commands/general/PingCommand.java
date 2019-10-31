@@ -23,4 +23,14 @@ public class PingCommand implements Command {
     public String[] labels() {
         return new String[]{"ping"};
     }
+
+    @Override
+    public String description() {
+        return "Shows the ping to the discord api";
+    }
+
+    @Override
+    public String usage() {
+        return labels()[0];
+    }
 }
