@@ -3,7 +3,6 @@ package com.bbn.hadder.listener;
 import com.bbn.hadder.Rethink;
 import com.bbn.hadder.core.CommandHandler;
 import com.bbn.hadder.core.CommandParser;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -21,8 +20,6 @@ public class CommandListener extends ListenerAdapter {
                 if (event.getMessage().getContentRaw().startsWith(Rethink.get("user", "id", event.getAuthor().getId(), "prefix"))) {
                     CommandHandler.handleCommand(CommandParser.parser(event.getMessage().getContentRaw(), event));
                 }
-            } else if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_ADD_REACTION)) {
-                    event.getMessage().addReaction("🙅").queue();
             }
         }
     }
