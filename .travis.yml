@@ -15,7 +15,7 @@ after_success:
   - cd target
   - sshpass -p $SFTP_PASSWORD scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r Hadder-Build.jar $SFTP_USER@$SFTP_IP:/home/Bots/Hadder-Build.jar
   - echo $?
-  - sshpass -p $SFTP_PASSWORD ssh $SFTP_IP ./home/Bots/deploy.sh
+  - sshpass -p $SFTP_PASSWORD ssh $SFTP_IP /home/Bots/deploy.sh
   - echo $?   
   
 after_failure:
