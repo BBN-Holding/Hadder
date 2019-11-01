@@ -86,6 +86,11 @@
           <version>3.1.2</version>
           <configuration>
             <finalName>Hadder-Build</finalName>
+            <archive>
+              <manifest>
+                <mainClass>com.bbn.hadder.Hadder</mainClass>
+              </manifest>
+            </archive>
           </configuration>
         </plugin>
         <plugin>
