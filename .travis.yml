@@ -13,7 +13,7 @@ after_success:
   - ./send.sh success $WEBHOOK_URL
   - mvn package
   - cd target
-  - sshpass -p "$SSH_PASSWORD" scp -r $SSH_USER@$SSH_URL:/home/Bots/Hadder-Build.jar Hadder-Build.jar
+  - sshpass -p "$SFTP_PASSWORD" scp -r $SFTP_USER@$SFTP_IP:/home/Bots/Hadder-Build.jar Hadder-Build.jar
   
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
