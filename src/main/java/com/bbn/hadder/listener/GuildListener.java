@@ -7,6 +7,7 @@ package com.bbn.hadder.listener;
 import com.bbn.hadder.Rethink;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -17,6 +18,12 @@ import java.time.Instant;
 public class GuildListener extends ListenerAdapter {
 
     public void onGuildJoin(GuildJoinEvent event) {
+        for (User user : event.getJDA().getUsers()) {
+            if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
+                Rethink.insertUser(user.getId());
+            }
+        }
+
         Rethink.insertServer(event.getGuild().getId());
         EmbedBuilder builder = new EmbedBuilder();
         event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder)

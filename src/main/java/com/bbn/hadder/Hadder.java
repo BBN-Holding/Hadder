@@ -47,7 +47,7 @@ public class Hadder {
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
 
         builder.setShardsTotal(1);
-        builder.setActivity(Activity.streaming("auf dem BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
+        builder.setActivity(Activity.streaming("on the BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
         builder.setToken(config.getString("Token"));
 
 
