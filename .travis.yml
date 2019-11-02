@@ -11,6 +11,12 @@ after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
+  - mvn clean compile assembly:single
+  - cd target
+  - sshpass -p $SFTP_PASSWORD scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r Hadder-Build.jar $SFTP_USER@$SFTP_IP:/home/Bots/Hadder-Build.jar
+  - echo $?
+  - sshpass -p $SFTP_PASSWORD ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $SFTP_IP /home/Bots/deploy.sh
+  - echo $?   
   
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
