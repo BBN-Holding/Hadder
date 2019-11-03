@@ -6,6 +6,7 @@ package com.bbn.hadder.commands.owner;
 
 import com.bbn.hadder.Rethink;
 import com.bbn.hadder.commands.Command;
+import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -18,7 +19,7 @@ import static com.bbn.hadder.Hadder.startBot;
 public class RebootCommand implements Command {
 
     @Override
-    public void executed(String[] args, MessageReceivedEvent event) {
+    public void executed(String[] args, CommandEvent event) {
         if (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")) {
             
         } else {
@@ -39,6 +40,6 @@ public class RebootCommand implements Command {
 
     @Override
     public String usage() {
-        return labels()[0];
+        return "";
     }
 }

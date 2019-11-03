@@ -11,17 +11,14 @@ import com.bbn.hadder.commands.owner.ShutdownCommand;
 import com.bbn.hadder.commands.owner.TestCommand;
 import com.bbn.hadder.commands.settings.PrefixCommand;
 import com.bbn.hadder.core.CommandHandler;
+import com.bbn.hadder.core.Config;
 import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
-import org.json.JSONObject;
 
 import javax.security.auth.login.LoginException;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class Hadder {
@@ -33,29 +30,21 @@ public class Hadder {
     }
 
     public static void startBot() {
-        File configfile = new File("./config.json");
-        if (!configfile.exists()) {
-            System.err.println("No Config File Found!");
-            System.exit(1);
-        }
+        Config config = new Config("./config.json");
+        if (!config.fileExists()) config.create();
+        config.load();
 
-        JSONObject config = null;
-        try {
-            config = new JSONObject(new String(Files.readAllBytes(Paths.get(configfile.toURI()))));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Rethink.connect();
+        Rethink rethink = new Rethink(config);
+        rethink.connect();
 
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
 
         builder.setShardsTotal(1);
         builder.setActivity(Activity.streaming("on the BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
-        builder.setToken(config.getString("Token"));
+        builder.setToken(config.getToken());
 
 
-        CommandHandler.cmdlist.addAll(
+        CommandHandler commandHandler = new CommandHandler(
                 List.of(
                         new HelpCommand(),
                         new TestCommand(),
@@ -69,14 +58,14 @@ public class Hadder {
                         new GitHubCommand(),
                         new ScreenshareCommand(),
                         new RebootCommand(),
-                        new EqualsCommand()));
+                        new EqualsCommand()), config);
        
         builder.addEventListeners(
                 new MentionListener(),
                 new PrivateMessageListener(),
-                new CommandListener(),
-                new GuildListener(),
-                new ReadyListener());
+                new CommandListener(rethink, commandHandler),
+                new GuildListener(rethink),
+                new ReadyListener(rethink));
 
         try {
             shardManager = builder.build();

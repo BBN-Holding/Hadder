@@ -1,10 +1,11 @@
 package com.bbn.hadder;
 
-import com.google.gson.JsonParser;
+import com.bbn.hadder.core.Config;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlOpFailedError;
 import com.rethinkdb.net.Connection;
 import com.rethinkdb.net.Cursor;
+import org.json.JSONArray;
 
 import java.util.NoSuchElementException;
 
@@ -13,12 +14,22 @@ import java.util.NoSuchElementException;
  */
 
 public class Rethink {
-    private static RethinkDB r = RethinkDB.r;
-    static Connection conn;
+    private RethinkDB r = RethinkDB.r;
+    private Connection conn;
+    private Config config;
 
-    public static boolean connect() {
+    public Rethink(Config config) {
+        this.config = config;
+    }
+
+    public boolean connect() {
         try {
-            conn = r.connection().hostname("127.0.0.1").db("Hadder").port(28015).connect();
+            conn = r.connection()
+                    .hostname(config.getDatabaseIP())
+                    .db(config.getDatabaseName())
+                    .port(config.getDatabasePort())
+                    .user(config.getDatabaseUsername(), config.getDatabasePassword())
+                    .connect();
             System.out.println("DB CONNECTED");
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -27,31 +38,29 @@ public class Rethink {
         return true;
     }
 
-    public static void disconnect() {
+    public void disconnect() {
         conn.close();
         System.out.println("DISCONNECTED");
     }
 
-    public static String get(String table, String where, String value, String column) {
+    private JSONArray getAsArray(String table, String where, String value) {
         try {
-            Cursor cursor = r.table(table).filter(row -> row.g(where.toLowerCase()).eq(value)).run(conn);
-            if (cursor.hasNext()) {
-                String sad = new JsonParser().parse(cursor.next().toString()).getAsJsonObject().get(column).toString();
-                if (sad.startsWith("\"") && sad.endsWith("\"")) {
-                    return sad.substring(1, sad.length()-1);
-                } else {
-                    return sad;
-                }
-            } else return null;
+            String string = r.table(table).filter(row -> row.g(where.toLowerCase()).eq(value)).coerceTo("array").toJson().run(conn);
+            JSONArray jsonArray = new JSONArray(string);
+            return jsonArray;
         } catch (NoSuchElementException e) {
             return null;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "<3";
+        return new JSONArray();
     }
 
-    public static String update(String table, String whatvalue, String where, String wherevalue) {
+    private String get(String table, String where, String value, String column) {
+        return this.getAsArray(table, where, value).getJSONObject(0).getString(column);
+    }
+
+    private String update(String table, String whatvalue, String where, String wherevalue) {
         String out="";
         try {
             Cursor cursor = r.table(table).get(whatvalue).update(r.hashMap(where, wherevalue)).run(conn);
@@ -60,30 +69,16 @@ public class Rethink {
         return out;
     }
 
-    public static String insertServer(String id) {
+    private String insert(String table, Object object) {
         String out = "";
         try {
-            Cursor cursor = r.table("server")
-                    .insert(r.hashMap("id", id)
-                    ).run(conn);
+            Cursor cursor = r.table(table).insert(object).run(conn);
             out = cursor.next().toString();
         } catch (ClassCastException ignored) {}
         return out;
     }
 
-    public static String insertUser(String id) {
-        String out = "";
-        try {
-            Cursor cursor = r.table("user")
-                    .insert(r.hashMap("id", id)
-                            .with("prefix", "h.")
-                    ).run(conn);
-            out = cursor.next().toString();
-        } catch (ClassCastException ignored) {}
-        return out;
-    }
-
-    public static void setup() {
+    public void setup() {
         try {
             r.dbCreate("Hadder").run(conn);
         } catch (ReqlOpFailedError e) {
@@ -101,4 +96,29 @@ public class Rethink {
         }
 
     }
+
+    public String setUserPrefix(String prefix, String userid) {
+        return this.update("user", userid, "prefix", prefix);
+    }
+
+    public String getUserPrefix(String id) {
+        return this.get("user", "id", id, "prefix");
+    }
+
+    public String setServerPrefix(String prefix, String guildid) {
+        return this.update("server", guildid, "prefix", prefix);
+    }
+
+    public String getServerPrefix(String id) {
+        return this.get("server", "id", id, "prefix");
+    }
+
+    public String insertServer(String id) {
+        return this.insert("server", r.hashMap("id", id).with("prefix", "h."));
+    }
+
+    public String insertUser(String id) {
+        return this.insert("user", r.hashMap("id", id).with("prefix", "h."));
+    }
+
 }

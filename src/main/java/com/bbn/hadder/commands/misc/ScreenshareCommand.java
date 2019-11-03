@@ -1,6 +1,7 @@
 package com.bbn.hadder.commands.misc;
 
 import com.bbn.hadder.commands.Command;
+import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class ScreenshareCommand implements Command {
     @Override
-    public void executed(String[] args, MessageReceivedEvent event) {
+    public void executed(String[] args, CommandEvent event) {
         if (args.length>0) {
             if (args[0].matches("[0-9]*")&&args.length==1) {
                 for (VoiceChannel vc : event.getGuild().getVoiceChannels()) {
@@ -83,6 +84,6 @@ public class ScreenshareCommand implements Command {
 
     @Override
     public String usage() {
-        return "screenshare <voicechannelid|voicechannelname>";
+        return "<voicechannelid|voicechannelname>";
     }
 }

@@ -5,6 +5,7 @@ package com.bbn.hadder.commands.moderation;
  */
 
 import com.bbn.hadder.commands.Command;
+import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -12,8 +13,9 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class KickCommand implements Command {
+
     @Override
-    public void executed(String[] args, MessageReceivedEvent event) {
+    public void executed(String[] args, CommandEvent event) {
         if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.KICK_MEMBERS) || event.getGuild().getOwnerId().equals(event.getAuthor().getId())) {
             if (event.getMessage().getMentionedMembers().size() == 1) {
                 Member victim = event.getMessage().getMentionedMembers().get(0);
@@ -57,6 +59,6 @@ public class KickCommand implements Command {
 
     @Override
     public String usage() {
-        return labels()[0]+" <@User>";
+        return "<@User>";
     }
 }
