@@ -24,6 +24,8 @@ import java.util.List;
 
 public class Hadder {
 
+    public static  ShardManager shardManager;
+
     public static void main(String[] args) {
         startBot();
     }
@@ -61,7 +63,7 @@ public class Hadder {
                 new ReadyListener());
 
         try {
-            ShardManager shardManager = builder.build();
+            shardManager = builder.build();
         } catch (LoginException e) {
             e.printStackTrace();
         }

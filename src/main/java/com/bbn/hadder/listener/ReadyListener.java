@@ -1,6 +1,7 @@
 package com.bbn.hadder.listener;
 
 import com.bbn.hadder.Rethink;
+import com.bbn.hadder.utils.BotList;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -21,5 +22,7 @@ public class ReadyListener extends ListenerAdapter {
         for (Guild g : event.getJDA().getGuilds()) {
             Rethink.insertServer(g.getId());
         }
+
+        BotList.post();
     }
 }
