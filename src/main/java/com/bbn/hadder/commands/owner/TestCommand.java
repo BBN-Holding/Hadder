@@ -5,6 +5,7 @@ package com.bbn.hadder.commands.owner;
  */
 
 import com.bbn.hadder.commands.Command;
+import com.bbn.hadder.commands.CommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /*
@@ -13,7 +14,8 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class TestCommand implements Command {
 
-    public void executed(String[] args, MessageReceivedEvent event) {
+    @Override
+    public void executed(String[] args, CommandEvent event) {
         event.getTextChannel().sendMessage("TEST my friends").queue();
     }
 
@@ -29,6 +31,6 @@ public class TestCommand implements Command {
 
     @Override
     public String usage() {
-        return labels()[0];
+        return "";
     }
 }

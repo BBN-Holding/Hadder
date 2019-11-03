@@ -5,6 +5,7 @@ package com.bbn.hadder.commands.fun;
  */
 
 import com.bbn.hadder.commands.Command;
+import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -23,7 +24,7 @@ import java.util.Random;
 public class GifCommand implements Command {
 
     @Override
-    public void executed(String[] args, MessageReceivedEvent event) {
+    public void executed(String[] args, CommandEvent event) {
         if (args.length > 0) {
             StringBuilder query = new StringBuilder();
             for (String arg : args) {
@@ -71,6 +72,6 @@ public class GifCommand implements Command {
 
     @Override
     public String usage() {
-        return labels()[0]+" <Searchterm>";
+        return "<Searchterm>";
     }
 }

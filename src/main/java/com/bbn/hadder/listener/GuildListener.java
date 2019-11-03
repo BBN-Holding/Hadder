@@ -18,14 +18,20 @@ import java.time.Instant;
 
 public class GuildListener extends ListenerAdapter {
 
+    private Rethink rethink;
+
+    public GuildListener(Rethink rethink) {
+        this.rethink = rethink;
+    }
+
     public void onGuildJoin(GuildJoinEvent event) {
         for (User user : event.getJDA().getUsers()) {
             if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
-                Rethink.insertUser(user.getId());
+                rethink.insertUser(user.getId());
             }
         }
 
-        Rethink.insertServer(event.getGuild().getId());
+        rethink.insertServer(event.getGuild().getId());
         EmbedBuilder builder = new EmbedBuilder();
         event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder)
                 .setTitle("Joined Server").setThumbnail(event.getGuild().getIconUrl())
@@ -55,7 +61,7 @@ public class GuildListener extends ListenerAdapter {
 
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
         if (!event.getUser().getId().equals(event.getJDA().getSelfUser().getId())) {
-            Rethink.insertUser(event.getUser().getId());
+            rethink.insertUser(event.getUser().getId());
         }
     }
 }

@@ -17,7 +17,7 @@ public class MessageEditor {
                 break;
 
             case WARNING:
-                embedBuilder.setTitle("⚠ Warning ⚠").setColor(Color.ORANGE);
+                embedBuilder.setColor(Color.ORANGE);
                 break;
 
             case NO_PERMISSION:
