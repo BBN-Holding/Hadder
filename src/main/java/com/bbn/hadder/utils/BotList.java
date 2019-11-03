@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 
 public class BotList {
 
-    private static String MythicalBotList = "https://mythicalbots.xyz/api";
+    private static String MythicalBotList = "https://mythicalbots.xyz/api/bot/637002314162372639";
 
     private static JSONObject json = new JSONObject();
 
