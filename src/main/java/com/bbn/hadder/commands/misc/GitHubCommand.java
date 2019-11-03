@@ -5,6 +5,7 @@ package com.bbn.hadder.commands.misc;
  */
 
 import com.bbn.hadder.commands.Command;
+import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -17,8 +18,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class GitHubCommand implements Command {
+
     @Override
-    public void executed(String[] args, MessageReceivedEvent event) {
+    public void executed(String[] args, CommandEvent event) {
         if (args.length > 0) {
             Request request = new Request.Builder().url("https://api.github.com/users/" + args[0]).build();
             try {
@@ -81,6 +83,6 @@ public class GitHubCommand implements Command {
 
     @Override
     public String usage() {
-        return labels()[0]+" <Username>";
+        return "<Username>";
     }
 }

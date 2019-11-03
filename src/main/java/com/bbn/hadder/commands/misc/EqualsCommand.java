@@ -1,14 +1,16 @@
 package com.bbn.hadder.commands.misc;
 
 import com.bbn.hadder.commands.Command;
+import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class EqualsCommand implements Command {
+
     @Override
-    public void executed(String[] args, MessageReceivedEvent event) {
+    public void executed(String[] args, CommandEvent event) {
         event.getChannel().sendMessage(
                 new MessageEditor()
                         .setDefaultSettings(
@@ -53,6 +55,6 @@ public class EqualsCommand implements Command {
 
     @Override
     public String usage() {
-        return "equals";
+        return "";
     }
 }

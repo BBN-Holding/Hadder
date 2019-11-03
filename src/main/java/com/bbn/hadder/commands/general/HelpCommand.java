@@ -1,23 +1,22 @@
 package com.bbn.hadder.commands.general;
 
-import com.bbn.hadder.Rethink;
 import com.bbn.hadder.commands.Command;
+import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.CommandHandler;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class HelpCommand implements Command {
+
     @Override
-    public void executed(String[] args, MessageReceivedEvent event) {
+    public void executed(String[] args, CommandEvent event) {
         if (args.length == 0) {
             HashMap<String, ArrayList<Command>> hashMap = new HashMap<>();
-            for (Command cmd : CommandHandler.cmdlist) {
+            for (Command cmd : event.getCommandHandler().getCommandList()) {
                 if (!hashMap.containsKey(cmd.getClass().getPackageName())) {
                     ArrayList<Command> cmdlist = new ArrayList<>();
                     cmdlist.add(cmd);
@@ -42,14 +41,14 @@ public class HelpCommand implements Command {
             new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, eb);
             event.getChannel().sendMessage(eb.build()).queue();
         } else {
-            for (Command cmd : CommandHandler.cmdlist) {
+            for (Command cmd : event.getCommandHandler().getCommandList()) {
                 for (String label : cmd.labels()) {
                     if (label.toLowerCase().equals(args[0])) {
                         if (!cmd.getClass().getPackageName().endsWith("owner") || (cmd.getClass().getPackageName().endsWith("owner") && (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")))) {
                             EmbedBuilder eb = new EmbedBuilder();
                             String name = cmd.labels()[0];
                             eb.setDescription(cmd.description()).setTitle(name.replaceFirst(String.valueOf(name.charAt(0)), String.valueOf(name.charAt(0)).toUpperCase()));
-                            eb.addField("Usage", Rethink.get("user", "id", event.getAuthor().getId(), "prefix") + cmd.usage(), false);
+                            eb.addField("Usage", event.getRethink().getUserPrefix(event.getAuthor().getId()) + cmd.labels()[0] + " " + cmd.usage(), false);
                             new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, eb);
                             event.getChannel().sendMessage(eb.build()).queue();
                         }
@@ -71,6 +70,6 @@ public class HelpCommand implements Command {
 
     @Override
     public String usage() {
-        return "help [Commandname]";
+        return "[Commandname]";
     }
 }

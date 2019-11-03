@@ -10,16 +10,22 @@ import javax.annotation.Nonnull;
 
 public class ReadyListener extends ListenerAdapter {
 
+    private Rethink rethink;
+
+    public ReadyListener(Rethink rethink) {
+        this.rethink = rethink;
+    }
+
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
-        Rethink.setup();
+        rethink.setup();
         for (User user : event.getJDA().getUsers()) {
             if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
-                Rethink.insertUser(user.getId());
+                rethink.insertUser(user.getId());
             }
         }
         for (Guild g : event.getJDA().getGuilds()) {
-            Rethink.insertServer(g.getId());
+            rethink.insertServer(g.getId());
         }
     }
 }
