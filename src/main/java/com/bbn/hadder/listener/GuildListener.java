@@ -5,6 +5,7 @@ package com.bbn.hadder.listener;
  */
 
 import com.bbn.hadder.Rethink;
+import com.bbn.hadder.utils.BotList;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
@@ -40,6 +41,8 @@ public class GuildListener extends ListenerAdapter {
                 .setFooter(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl())
                 .setTimestamp(Instant.now())
                 .build()).queue();
+
+        BotList.post();
     }
 
     public void onGuildLeave(GuildLeaveEvent event) {
@@ -52,6 +55,8 @@ public class GuildListener extends ListenerAdapter {
                 .setFooter(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl())
                 .setTimestamp(Instant.now())
                 .build()).queue();
+
+        BotList.post();
     }
 
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
