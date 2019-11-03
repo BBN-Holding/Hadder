@@ -21,6 +21,7 @@ public class BotList {
     private static String MythicalBotList = "https://mythicalbots.xyz/api/bot/637002314162372639";
     private static String BotsForDiscord = "https://botsfordiscord.com/api/bot/637002314162372639";
     private static String DiscordBotList = "https://discordbotlist.com/api/bots/637002314162372639/stats";
+    private static String DiscordBestBots = "https://discordsbestbots.xyz/api/bots/637002314162372639/stats";
 
     private static JSONObject json = new JSONObject();
 
@@ -81,6 +82,21 @@ public class BotList {
         try {
             new OkHttpClient().newCall(discordbotlist).execute().close();
             System.out.println("Successfully posted count for the Discord Bot List");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Discord Best Bots
+
+        Request discordbestbots = new Request.Builder()
+                .url(DiscordBestBots)
+                .post(body)
+                .addHeader("Authorization", config.getString("DiscordBestBots"))
+                .build();
+
+        try {
+            new OkHttpClient().newCall(discordbestbots).execute().close();
+            System.out.println("Successfully posted count to Discord Best Bots!");
         } catch (IOException e) {
             e.printStackTrace();
         }
