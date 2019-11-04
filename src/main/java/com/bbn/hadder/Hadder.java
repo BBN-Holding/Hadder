@@ -18,7 +18,6 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
-import java.io.File;
 import java.util.List;
 
 public class Hadder {
@@ -41,7 +40,7 @@ public class Hadder {
 
         builder.setShardsTotal(1);
         builder.setActivity(Activity.streaming("on the BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
-        builder.setToken(config.getToken());
+        builder.setToken(config.getBotToken());
 
 
         CommandHandler commandHandler = new CommandHandler(
@@ -58,14 +57,15 @@ public class Hadder {
                         new GitHubCommand(),
                         new ScreenshareCommand(),
                         new RebootCommand(),
-                        new EqualsCommand()), config);
+                        new EqualsCommand(),
+                        new GuildPrefixCommand()), config);
        
         builder.addEventListeners(
-                new MentionListener(),
+                new MentionListener(rethink),
                 new PrivateMessageListener(),
                 new CommandListener(rethink, commandHandler),
-                new GuildListener(rethink),
-                new ReadyListener(rethink));
+                new GuildListener(rethink, config),
+                new ReadyListener(rethink, config));
 
         try {
             shardManager = builder.build();

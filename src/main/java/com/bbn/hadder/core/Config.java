@@ -43,7 +43,6 @@ public class Config {
 
     private String defaultConfigContent() {
         return new JSONStringer().object()
-                .key("Token").value(null)
                 .key("Owners").value(new Long[]{477141528981012511L, 261083609148948488L})
                 .key("Database").object()
                 .key("IP").value("127.0.0.1")
@@ -51,11 +50,20 @@ public class Config {
                 .key("DBName").value("Hadder")
                 .key("Username").value(null)
                 .key("Password").value(null)
+                .endObject()
+                .key("Tokens").object()
+                .key("BotToken").value(null)
+                .key("Giphy").value(null)
+                .key("MythicalBotList").value(null)
+                .key("BotsForDiscord").value(null)
+                .key("DiscordBotList").value(null)
+                .key("DiscordBestBots").value(null)
+                .key("DiscordBoats").value(null)
                 .endObject().endObject().toString();
     }
 
-    public String getToken() {
-        return config.getString("Token");
+    public String getBotToken() {
+        return config.getJSONObject("Tokens").getString("BotToken");
     }
 
     public List<Object> getOwners() {
@@ -82,4 +90,27 @@ public class Config {
         return config.getJSONObject("Database").getString("Password");
     }
 
+    public String getGiphyToken() {
+        return config.getJSONObject("Tokens").getString("Giphy");
+    }
+
+    public String getMythicalBotListToken() {
+        return config.getJSONObject("Tokens").getString("MythicalBotList");
+    }
+
+    public String getBotsForDiscordToken() {
+        return config.getJSONObject("Tokens").getString("BotsForDiscord");
+    }
+
+    public String getDiscordBotListToken() {
+        return config.getJSONObject("Tokens").getString("DiscordBotList");
+    }
+
+    public String getDiscordBestBotsToken() {
+        return config.getJSONObject("Tokens").getString("DiscordBestBots");
+    }
+
+    public String getDiscordBoatsToken() {
+        return config.getJSONObject("Tokens").getString("DiscordBoats");
+    }
 }
