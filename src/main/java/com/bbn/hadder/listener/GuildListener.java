@@ -37,7 +37,8 @@ public class GuildListener extends ListenerAdapter {
         rethink.insertServer(event.getGuild().getId());
         EmbedBuilder builder = new EmbedBuilder();
         event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder)
-                .setTitle("Joined Server").setThumbnail(event.getGuild().getIconUrl())
+                .setTitle("Joined Server")
+                .setThumbnail(event.getGuild().getIconUrl())
                 .addField("Name", event.getGuild().getName(), true)
                 .addField("Guild ID", event.getGuild().getId(), true)
                 .addField("Guild Owner", event.getGuild().getOwner().getUser().getAsTag(), true)
@@ -51,7 +52,8 @@ public class GuildListener extends ListenerAdapter {
     public void onGuildLeave(GuildLeaveEvent event) {
         EmbedBuilder builder = new EmbedBuilder();
         event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder)
-                .setTitle("Left Server").setThumbnail(event.getGuild().getIconUrl())
+                .setTitle("Left Server")
+                .setThumbnail(event.getGuild().getIconUrl())
                 .addField("Name", event.getGuild().getName(), true)
                 .addField("Guild ID", event.getGuild().getId(), true)
                 .addField("Guild Owner", event.getGuild().getOwner().getUser().getAsTag(), true)

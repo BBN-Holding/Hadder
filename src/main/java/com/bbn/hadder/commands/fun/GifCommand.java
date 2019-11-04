@@ -6,6 +6,7 @@ package com.bbn.hadder.commands.fun;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.core.Config;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -23,6 +24,12 @@ import java.util.Random;
 
 public class GifCommand implements Command {
 
+    private Config config;
+
+    public GifCommand(Config config) {
+        this.config = config;
+    }
+
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length > 0) {
@@ -32,16 +39,8 @@ public class GifCommand implements Command {
                 query = new StringBuilder(query.substring(0, query.length() - 1));
             }
 
-            File configfile = new File("./config.json");
-
-            JSONObject config = null;
-            try {
-                config = new JSONObject(new String(Files.readAllBytes(Paths.get(configfile.toURI()))));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             OkHttpClient caller = new OkHttpClient();
-            Request request = new Request.Builder().url("http://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=" + config.getString("Giphy")).build();
+            Request request = new Request.Builder().url("http://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=" + config.getGiphyToken()).build();
             try {
                 Random rand = new Random();
                 Response response = caller.newCall(request).execute();
