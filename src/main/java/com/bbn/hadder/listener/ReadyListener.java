@@ -1,6 +1,7 @@
 package com.bbn.hadder.listener;
 
 import com.bbn.hadder.Rethink;
+import com.bbn.hadder.core.Config;
 import com.bbn.hadder.utils.BotList;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
@@ -12,9 +13,11 @@ import javax.annotation.Nonnull;
 public class ReadyListener extends ListenerAdapter {
 
     private Rethink rethink;
+    private Config config;
 
-    public ReadyListener(Rethink rethink) {
+    public ReadyListener(Rethink rethink, Config config) {
         this.rethink = rethink;
+        this.config = config;
     }
 
     @Override
@@ -29,6 +32,6 @@ public class ReadyListener extends ListenerAdapter {
             rethink.insertServer(g.getId());
         }
 
-        BotList.post();
+        new BotList(config).post();
     }
 }

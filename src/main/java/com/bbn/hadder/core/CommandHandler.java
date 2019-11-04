@@ -19,12 +19,12 @@ public class CommandHandler {
 
     public void handle(MessageReceivedEvent event, Rethink rethink, String prefix) {
         StringBuilder regexBuilder = new StringBuilder().append("\\").append(prefix);
-        String invoke = event.getMessage().getContentRaw().replaceFirst(regexBuilder.toString(), "").split(" ")[0];
+        String invoke = event.getMessage().getContentRaw().replaceFirst(prefix, "").split(" ")[0];
         for (Command cmd : commandList) {
             for (String label : cmd.labels()) {
                 if (label.equals(invoke)) {
                     String argString = event.getMessage().getContentRaw()
-                            .replaceFirst(regexBuilder.toString(), "").replaceFirst(invoke, "");
+                            .replaceFirst(prefix, "").replaceFirst(invoke, "");
                     if (argString.startsWith(" ")) argString = argString.replaceFirst(" ", "");
                     String[] args = argString.split(" ");
                     if (args.length>0&&args[0].equals("")) args = new String[0];
