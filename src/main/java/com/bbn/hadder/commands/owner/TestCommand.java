@@ -1,12 +1,7 @@
 package com.bbn.hadder.commands.owner;
 
-/*
- * @author Skidder / GregTCLTK
- */
-
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /*
  * @author Skidder / GregTCLTK
