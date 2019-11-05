@@ -6,7 +6,6 @@ import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.VoiceChannel;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
@@ -25,8 +24,8 @@ public class ScreenshareCommand implements Command {
                         }
                     } catch (NumberFormatException e) {
                         event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.ERROR, new EmbedBuilder()
-                                .setTitle("Wait, thats illegal")
-                                .setDescription("This Id is invalid. \nMaybe you entered a wrong Id? \n\nNote: Make sure the Voicechannel is on this Guild.")).build()).queue();
+                                .setTitle("Wait, that's illegal")
+                                .setDescription("This ID is invalid. \nMaybe you entered a wrong ID? \n\nNote: Make sure the Voice Channel is on this Guild.")).build()).queue();
                         return;
                     }
                 }
