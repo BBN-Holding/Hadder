@@ -1,17 +1,12 @@
 package com.bbn.hadder;
 
 import com.bbn.hadder.commands.general.*;
-import com.bbn.hadder.commands.fun.GifCommand;
-import com.bbn.hadder.commands.misc.EqualsCommand;
-import com.bbn.hadder.commands.misc.GitHubCommand;
-import com.bbn.hadder.commands.misc.ScreenshareCommand;
+import com.bbn.hadder.commands.misc.*;
 import com.bbn.hadder.commands.moderation.*;
-import com.bbn.hadder.commands.owner.RebootCommand;
-import com.bbn.hadder.commands.owner.ShutdownCommand;
-import com.bbn.hadder.commands.owner.TestCommand;
+import com.bbn.hadder.commands.owner.*;
+import com.bbn.hadder.commands.fun.GifCommand;
 import com.bbn.hadder.commands.settings.PrefixCommand;
-import com.bbn.hadder.core.CommandHandler;
-import com.bbn.hadder.core.Config;
+import com.bbn.hadder.core.*;
 import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -52,7 +47,7 @@ public class Hadder {
                         new ShutdownCommand(),
                         new KickCommand(),
                         new PingCommand(),
-                        new GifCommand(),
+                        new GifCommand(config),
                         new ClearCommand(),
                         new GitHubCommand(),
                         new ScreenshareCommand(),

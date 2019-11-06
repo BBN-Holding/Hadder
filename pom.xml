@@ -5,7 +5,7 @@
 
   <groupId>Hadder</groupId>
   <artifactId>Hadder</artifactId>
-  <version>0.3-ALPHA</version>
+  <version>0.7-ALPHA</version>
 
   <name>Hadder</name>
 
@@ -25,7 +25,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>LATEST</version>
+      <version>4.0.0_56</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -83,7 +83,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>3.1.2</version>
+          <version>3.2.0</version>
           <configuration>
             <finalName>Hadder-Build</finalName>
             <archive>
