@@ -33,7 +33,7 @@ public class Config {
     public void create() {
         try {
             if (Files.notExists(file)) {
-                file = Files.createFile(file);
+                Files.createFile(file);
             }
             Files.write(file, defaultConfigContent().getBytes());
         } catch (IOException e) {

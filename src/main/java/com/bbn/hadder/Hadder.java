@@ -23,7 +23,7 @@ public class Hadder {
         startBot();
     }
 
-    public static void startBot() {
+    private static void startBot() {
         Config config = new Config("./config.json");
         if (!config.fileExists()) config.create();
         config.load();

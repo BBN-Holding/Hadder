@@ -18,11 +18,11 @@ public class Rethink {
     private Connection conn;
     private Config config;
 
-    public Rethink(Config config) {
+    Rethink(Config config) {
         this.config = config;
     }
 
-    public boolean connect() {
+    public void connect() {
         try {
             conn = r.connection()
                     .hostname(config.getDatabaseIP())
@@ -35,7 +35,6 @@ public class Rethink {
             System.out.println(e.toString());
             System.out.println("DB CONNECTION FAILED");
         }
-        return true;
     }
 
     public void disconnect() {
@@ -46,8 +45,7 @@ public class Rethink {
     private JSONArray getAsArray(String table, String where, String value) {
         try {
             String string = r.table(table).filter(row -> row.g(where.toLowerCase()).eq(value)).coerceTo("array").toJson().run(conn);
-            JSONArray jsonArray = new JSONArray(string);
-            return jsonArray;
+            return new JSONArray(string);
         } catch (NoSuchElementException e) {
             return null;
         } catch (Exception e) {
