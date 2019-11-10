@@ -33,14 +33,10 @@ public class GitHubCommand implements Command {
                 String website = "None";
                 try {
                     bio = json.getString("bio");
-                } catch (JSONException e) {
-
-                }
+                } catch (JSONException ignored) {}
                 try {
                     location = json.getString("location");
-                } catch (JSONException e) {
-
-                }
+                } catch (JSONException ignored) {}
 
                 if(!json.getString("blog").equals("")) website = json.getString("blog");
 
