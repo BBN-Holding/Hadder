@@ -9,8 +9,8 @@ import java.util.List;
 
 public class CommandHandler {
 
-    List<Command> commandList;
-    Config config;
+    private List<Command> commandList;
+    private Config config;
 
     public CommandHandler(List<Command> commandList, Config config) {
         this.commandList = commandList;
@@ -18,7 +18,6 @@ public class CommandHandler {
     }
 
     public void handle(MessageReceivedEvent event, Rethink rethink, String prefix) {
-        StringBuilder regexBuilder = new StringBuilder().append("\\").append(prefix);
         String invoke = event.getMessage().getContentRaw().replaceFirst(prefix, "").split(" ")[0];
         for (Command cmd : commandList) {
             for (String label : cmd.labels()) {
