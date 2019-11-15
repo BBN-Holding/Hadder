@@ -61,7 +61,7 @@ public class KickCommand implements Command {
                     }
                 }
                 EmbedBuilder builder = new EmbedBuilder();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("Title xD").setDescription("Yo it worked xD").build()).queue();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully kicked ✅").setDescription("I successfully kicked " + event.getMessage().getMentionedMembers().size() + " Members!").build()).queue();
             }
         }
     }
