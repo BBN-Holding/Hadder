@@ -53,6 +53,8 @@ public class Hadder {
                         new ScreenshareCommand(),
                         new RebootCommand(),
                         new EqualsCommand(),
+                        new InviteCommand(),
+                        new NickCommand(),
                         new GuildPrefixCommand()), config);
        
         builder.addEventListeners(
