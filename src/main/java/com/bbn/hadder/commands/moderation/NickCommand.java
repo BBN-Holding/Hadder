@@ -16,7 +16,9 @@ public class NickCommand implements Command {
     public void executed(String[] args, CommandEvent event) {
         if (event.getMember().hasPermission(Permission.NICKNAME_MANAGE)) {
             if (event.getGuild().getSelfMember().hasPermission(Permission.NICKNAME_MANAGE)) {
+                if (args.length < 1) {
 
+                }
             } else {
                 EmbedBuilder builder = new EmbedBuilder();
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_SELF_PERMISSION, builder).build()).queue();
