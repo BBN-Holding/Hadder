@@ -29,7 +29,7 @@ public class ReadyListener extends ListenerAdapter {
             }
         }
         for (Guild g : event.getJDA().getGuilds()) {
-            rethink.insertServer(g.getId());
+            rethink.insertGuild(g.getId());
         }
 
         new BotList(config).post();

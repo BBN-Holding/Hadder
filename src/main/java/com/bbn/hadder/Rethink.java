@@ -103,15 +103,15 @@ public class Rethink {
         return this.get("user", "id", id, "prefix");
     }
 
-    public String setServerPrefix(String prefix, String guildid) {
+    public String setGuildPrefix(String prefix, String guildid) {
         return this.update("server", guildid, "prefix", prefix);
     }
 
-    public String getServerPrefix(String id) {
+    public String getGuildPrefix(String id) {
         return this.get("server", "id", id, "prefix");
     }
 
-    public String insertServer(String id) {
+    public String insertGuild(String id) {
         return this.insert("server", r.hashMap("id", id).with("prefix", "h."));
     }
 

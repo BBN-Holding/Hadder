@@ -14,7 +14,7 @@ public class GuildPrefixCommand implements Command {
             if (args.length == 1) {
                 if (!args[0].contains("\"")) {
 
-                    event.getRethink().setServerPrefix(args[0], event.getGuild().getId());
+                    event.getRethink().setGuildPrefix(args[0], event.getGuild().getId());
 
                     EmbedBuilder builder = new EmbedBuilder();
 
