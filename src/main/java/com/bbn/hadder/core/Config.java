@@ -33,7 +33,7 @@ public class Config {
     public void create() {
         try {
             if (Files.notExists(file)) {
-                file = Files.createFile(file);
+                Files.createFile(file);
             }
             Files.write(file, defaultConfigContent().getBytes());
         } catch (IOException e) {
@@ -112,5 +112,13 @@ public class Config {
 
     public String getDiscordBoatsToken() {
         return config.getJSONObject("Tokens").getString("DiscordBoats");
+    }
+
+    public String getYetAnotherBotListToken() {
+        return config.getJSONObject("Tokens").getString("YetAnotherBotList");
+    }
+
+    public String getDiscordExtremeListToken() {
+        return config.getJSONObject("Tokens").getString("DiscordExtremeList");
     }
 }

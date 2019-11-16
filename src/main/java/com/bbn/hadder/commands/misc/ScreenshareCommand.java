@@ -33,7 +33,7 @@ public class ScreenshareCommand implements Command {
                 List<VoiceChannel> vcs = event.getGuild().getVoiceChannelsByName(String.join(" ", args), true);
                 if (vcs.size() > 1) {
                     EmbedBuilder eb = new EmbedBuilder()
-                            .setTitle("Please Choose a Voicechannel")
+                            .setTitle("Please Choose a Voice Channel")
                             .setDescription("There is more than one channel with this name");
                     for (int i = 0; i < vcs.size(); i++) {
                         VoiceChannel voiceChannel = vcs.get(i);
@@ -54,14 +54,14 @@ public class ScreenshareCommand implements Command {
                             }
                         } catch (NumberFormatException e) {
                             event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.ERROR, new EmbedBuilder()
-                                    .setTitle("Wait, thats illegal")
+                                    .setTitle("Wait, that's illegal")
                                     .setDescription("This isn't a Number.")).build()).queue();
                         }
                     }, event.getJDA(), event.getAuthor());
                 } else if (vcs.size()==0) {
                     event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.ERROR, new EmbedBuilder()
                             .setTitle("Hol' up")
-                            .setDescription("There is no Voicechannel named like this. \n\nNote: Make sure the Voicechannel is on this Guild.")).build()).queue();
+                            .setDescription("There is no Voice Channel named like this. \n\nNote: Make sure the Voice Channel is on this Guild.")).build()).queue();
                 } else {
                     event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, new EmbedBuilder()
                             .setTitle("Here's your Url to share your Screen")

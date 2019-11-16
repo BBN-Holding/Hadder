@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 
+
 public class KickCommand implements Command {
 
     @Override
@@ -30,18 +31,37 @@ public class KickCommand implements Command {
                         }
                     } else {
                         EmbedBuilder builder = new EmbedBuilder();
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("I can not kick myself").build()).queue();
+                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("I can not kick myself!").build()).queue();
                     }
                 } else {
                     EmbedBuilder builder = new EmbedBuilder();
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You can't kick yourself.").build()).queue();
                 }
             } else if (event.getMessage().getMentionedMembers().size() == 0) {
-            EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to mention a user!").build()).queue();
-            } else {
-            EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("We will be adding multiple kicking within a command in the future.").build()).queue();
+                EmbedBuilder builder = new EmbedBuilder();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to mention at least one user!").build()).queue();
+            } else if (event.getMessage().getMentionedMembers().size() > 1) {
+                for (int i = 0; i < event.getMessage().getMentionedMembers().size(); i++) {
+                    Member member = event.getMessage().getMentionedMembers().get(i);
+                    if (!event.getAuthor().getId().equals(member.getId())) {
+                        if (!event.getJDA().getSelfUser().getId().equals(member.getId())) {
+                            if (event.getGuild().getSelfMember().canInteract(member)) {
+                                event.getGuild().kick(member).reason("Mass Kicked by " + event.getAuthor().getAsTag()).queue();
+                            } else {
+                                EmbedBuilder builder = new EmbedBuilder();
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_SELF_PERMISSION, builder).build()).queue();
+                            }
+                        } else {
+                            EmbedBuilder builder = new EmbedBuilder();
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("I can not kick myself!").build()).queue();
+                        }
+                    } else {
+                        EmbedBuilder builder = new EmbedBuilder();
+                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You can't kick yourself.").build()).queue();
+                    }
+                }
+                EmbedBuilder builder = new EmbedBuilder();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully kicked ✅").setDescription("I successfully kicked " + event.getMessage().getMentionedMembers().size() + " Members!").build()).queue();
             }
         }
     }

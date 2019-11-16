@@ -27,7 +27,7 @@ public class MentionListener extends ListenerAdapter {
                         .addField("Users", String.valueOf(event.getJDA().getUsers().size()), false)
                         .addField("Guilds", String.valueOf(event.getJDA().getGuilds().size()), false)
                         .addField("Prefix (User)", rethink.getUserPrefix(event.getAuthor().getId()), false)
-                        .addField("Prefix (Guild)", rethink.getServerPrefix(event.getGuild().getId()), false);
+                        .addField("Prefix (Guild)", rethink.getGuildPrefix(event.getGuild().getId()), false);
                 event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).build()).queue();
             }
         }

@@ -23,6 +23,8 @@ public class BotList {
     private static String DiscordBotList = "https://discordbotlist.com/api/bots/637002314162372639/stats";
     private static String DiscordBestBots = "https://discordsbestbots.xyz/api/bots/637002314162372639/stats";
     private static String DiscordBoats = "https://discord.boats/api/bot/637002314162372639";
+    private static String YetAnotherBotList = "https://yabl.xyz/api/bot/637002314162372639/stats";
+    private static String DiscordExtremeList = "https://discordextremelist.xyz/api/bot/637002314162372639";
 
     private Config config;
 
@@ -34,6 +36,7 @@ public class BotList {
         if (Files.notExists(Paths.get("./DEBUG"))) {
             JSONObject json = new JSONObject();
             json.put("server_count", Hadder.shardManager.getGuilds().size());
+            json.put("guildCount", Hadder.shardManager.getGuilds().size());
             json.put("guilds", Hadder.shardManager.getGuilds().size());
             json.put("users", Hadder.shardManager.getUsers().size());
 
@@ -110,6 +113,35 @@ public class BotList {
             try {
                 new OkHttpClient().newCall(discordboats).execute().close();
                 System.out.println("Successfully posted count to Discord Boats!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Yet Another Bot List
+
+            Request yetanotherbotlist = new Request.Builder()
+                    .url(YetAnotherBotList)
+                    .post(body)
+                    .addHeader("Authorization", config.getYetAnotherBotListToken())
+                    .build();
+
+            try {
+                new OkHttpClient().newCall(yetanotherbotlist).execute().close();
+                System.out.println("Successfully posted count to Yet Another Bot List!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Discord Extreme List
+
+            Request discordextremelist = new Request.Builder()
+                    .url(DiscordExtremeList)
+                    .post(body)
+                    .addHeader("Authorizaion", config.getDiscordExtremeListToken())
+                    .build();
+
+            try {
+                new OkHttpClient().newCall(discordextremelist).execute().close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -34,7 +34,7 @@ public class GuildListener extends ListenerAdapter {
             }
         }
 
-        rethink.insertServer(event.getGuild().getId());
+        rethink.insertGuild(event.getGuild().getId());
         EmbedBuilder builder = new EmbedBuilder();
         event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder)
                 .setTitle("Joined Server")

@@ -23,7 +23,7 @@ public class Hadder {
         startBot();
     }
 
-    public static void startBot() {
+    private static void startBot() {
         Config config = new Config("./config.json");
         if (!config.fileExists()) config.create();
         config.load();
@@ -47,12 +47,14 @@ public class Hadder {
                         new ShutdownCommand(),
                         new KickCommand(),
                         new PingCommand(),
-                        new GifCommand(config),
+                        new GifCommand(),
                         new ClearCommand(),
                         new GitHubCommand(),
                         new ScreenshareCommand(),
                         new RebootCommand(),
                         new EqualsCommand(),
+                        new InviteCommand(),
+                        new NickCommand(),
                         new GuildPrefixCommand()), config);
        
         builder.addEventListeners(

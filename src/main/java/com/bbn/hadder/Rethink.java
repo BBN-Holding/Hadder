@@ -18,11 +18,11 @@ public class Rethink {
     private Connection conn;
     private Config config;
 
-    public Rethink(Config config) {
+    Rethink(Config config) {
         this.config = config;
     }
 
-    public boolean connect() {
+    public void connect() {
         try {
             conn = r.connection()
                     .hostname(config.getDatabaseIP())
@@ -35,7 +35,6 @@ public class Rethink {
             System.out.println(e.toString());
             System.out.println("DB CONNECTION FAILED");
         }
-        return true;
     }
 
     public void disconnect() {
@@ -46,8 +45,7 @@ public class Rethink {
     private JSONArray getAsArray(String table, String where, String value) {
         try {
             String string = r.table(table).filter(row -> row.g(where.toLowerCase()).eq(value)).coerceTo("array").toJson().run(conn);
-            JSONArray jsonArray = new JSONArray(string);
-            return jsonArray;
+            return new JSONArray(string);
         } catch (NoSuchElementException e) {
             return null;
         } catch (Exception e) {
@@ -105,15 +103,15 @@ public class Rethink {
         return this.get("user", "id", id, "prefix");
     }
 
-    public String setServerPrefix(String prefix, String guildid) {
+    public String setGuildPrefix(String prefix, String guildid) {
         return this.update("server", guildid, "prefix", prefix);
     }
 
-    public String getServerPrefix(String id) {
+    public String getGuildPrefix(String id) {
         return this.get("server", "id", id, "prefix");
     }
 
-    public String insertServer(String id) {
+    public String insertGuild(String id) {
         return this.insert("server", r.hashMap("id", id).with("prefix", "h."));
     }
 

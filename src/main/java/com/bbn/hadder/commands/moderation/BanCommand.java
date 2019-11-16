@@ -38,10 +38,29 @@ public class BanCommand implements Command {
                     }
                 } else if (event.getMessage().getMentionedMembers().size() == 0) {
                     EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to mention a user!").build()).queue();
-                } else {
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to mention at least one user!").build()).queue();
+                } else if (event.getMessage().getMentionedMembers().size() > 1) {
+                    for (int i = 0; i < event.getMessage().getMentionedMembers().size(); i++) {
+                        Member member = event.getMessage().getMentionedMembers().get(i);
+                        if (!event.getAuthor().getId().equals(member.getId())) {
+                            if (!event.getJDA().getSelfUser().getId().equals(member.getId())) {
+                                if (event.getGuild().getSelfMember().canInteract(member)) {
+                                    event.getGuild().ban(member, 0).reason("Mass Ban by " + event.getAuthor().getAsTag()).queue();
+                                } else {
+                                    EmbedBuilder builder = new EmbedBuilder();
+                                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_SELF_PERMISSION, builder).build()).queue();
+                                }
+                            } else {
+                                EmbedBuilder builder = new EmbedBuilder();
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("I can not ban myself!").build()).queue();
+                            }
+                        } else {
+                            EmbedBuilder builder = new EmbedBuilder();
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You can't ban yourself.").build()).queue();
+                        }
+                    }
                     EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("We will be adding multiple banning within a command in the future.").build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully banned ✅").setDescription("I successfully banned " + event.getMessage().getMentionedMembers().size() + " Members!").build()).queue();
                 }
         } else {
             EmbedBuilder builder = new EmbedBuilder();
