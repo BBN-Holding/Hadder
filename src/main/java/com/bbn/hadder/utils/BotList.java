@@ -122,7 +122,7 @@ public class BotList {
             Request yetanotherbotlist = new Request.Builder()
                     .url(YetAnotherBotList)
                     .post(body)
-                    .addHeader("Authorization", config.getYetAnotherBotListToken())
+                    .addHeader("Authorization", config.getDiscordExtremeListToken())
                     .build();
 
             try {
