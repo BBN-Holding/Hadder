@@ -19,12 +19,6 @@ import java.util.Random;
 
 public class GifCommand implements Command {
 
-    private Config config;
-
-    public GifCommand(Config config) {
-        this.config = config;
-    }
-
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length > 0) {
@@ -35,7 +29,7 @@ public class GifCommand implements Command {
             }
 
             OkHttpClient caller = new OkHttpClient();
-            Request request = new Request.Builder().url("http://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=" + config.getGiphyToken()).build();
+            Request request = new Request.Builder().url("http://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=" + event.getConfig().getGiphyToken()).build();
             try {
                 Random rand = new Random();
                 Response response = caller.newCall(request).execute();

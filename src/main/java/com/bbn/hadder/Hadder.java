@@ -47,7 +47,7 @@ public class Hadder {
                         new ShutdownCommand(),
                         new KickCommand(),
                         new PingCommand(),
-                        new GifCommand(config),
+                        new GifCommand(),
                         new ClearCommand(),
                         new GitHubCommand(),
                         new ScreenshareCommand(),
