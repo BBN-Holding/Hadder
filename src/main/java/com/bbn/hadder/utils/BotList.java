@@ -126,7 +126,7 @@ public class BotList {
 
             try {
                 new OkHttpClient().newCall(yetanotherbotlist).execute().close();
-                System.out.println("Successfully postes count to Yet Another Bot List!");
+                System.out.println("Successfully posted count to Yet Another Bot List!");
             } catch (IOException e) {
                 e.printStackTrace();
             }
