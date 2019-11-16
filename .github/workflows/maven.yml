@@ -19,6 +19,7 @@ jobs:
       needs: test
       if: github.ref == 'refs/heads/master'
       steps:
+      - uses: actions/checkout@v1
       - name: Build Final Jar
         run:  mvn clean compile assembly:single
       - name: Copy folder content recursively to remote
