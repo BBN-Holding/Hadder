@@ -56,7 +56,7 @@ public class Hadder {
                         new InviteCommand(),
                         new NickCommand(),
                         new GuildPrefixCommand(),
-                        new AddRoleCommand()), config);
+                        new RoleCommand()), config);
        
         builder.addEventListeners(
                 new MentionListener(rethink),
