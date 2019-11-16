@@ -24,6 +24,7 @@ public class BotList {
     private static String DiscordBestBots = "https://discordsbestbots.xyz/api/bots/637002314162372639/stats";
     private static String DiscordBoats = "https://discord.boats/api/bot/637002314162372639";
     private static String YetAnotherBotList = "https://yabl.xyz/api/bot/637002314162372639/stats";
+    private static String DiscordExtremeList = "https://discordextremelist.xyz/api/bot/637002314162372639";
 
     private Config config;
 
@@ -127,6 +128,20 @@ public class BotList {
             try {
                 new OkHttpClient().newCall(yetanotherbotlist).execute().close();
                 System.out.println("Successfully posted count to Yet Another Bot List!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Discord Extreme List
+
+            Request discordextremelist = new Request.Builder()
+                    .url(DiscordExtremeList)
+                    .post(body)
+                    .addHeader("Authorizaion", config.getDiscordExtremeListToken())
+                    .build();
+
+            try {
+                new OkHttpClient().newCall(discordextremelist).execute().close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

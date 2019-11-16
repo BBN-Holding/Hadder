@@ -117,4 +117,8 @@ public class Config {
     public String getYetAnotherBotListToken() {
         return config.getJSONObject("Tokens").getString("YetAnotherBotList");
     }
+
+    public String getDiscordExtremeListToken() {
+        return config.getJSONObject("Tokens").getString("DiscordExtremeList");
+    }
 }

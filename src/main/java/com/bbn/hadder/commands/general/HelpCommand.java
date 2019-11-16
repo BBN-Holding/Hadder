@@ -32,7 +32,7 @@ public class HelpCommand implements Command {
                         StringBuilder sb = new StringBuilder();
                         for (int i = 0; i < entry.getValue().size(); i++) {
                             Command cmd = entry.getValue().get(i);
-                            sb.append("`" + cmd.labels()[0] + "`");
+                            sb.append("`").append(cmd.labels()[0]).append("`");
                             if (i < entry.getValue().size() - 1) sb.append(", ");
                         }
                         String[] packagesplit = entry.getKey().split("\\.");
