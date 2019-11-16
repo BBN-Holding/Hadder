@@ -113,4 +113,8 @@ public class Config {
     public String getDiscordBoatsToken() {
         return config.getJSONObject("Tokens").getString("DiscordBoats");
     }
+
+    public String getYetAnotherBotListToken() {
+        return config.getJSONObject("Tokens").getString("YetAnotherBotList");
+    }
 }
