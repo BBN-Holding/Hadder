@@ -25,8 +25,8 @@ public class NickCommand implements Command {
                                     event.getGuild().modifyNickname(event.getMessage().getMentionedMembers().get(0), event.getMessage().getContentRaw().replaceFirst(event.getRethink().getUserPrefix(event.getMember().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
                                     EmbedBuilder builder = new EmbedBuilder();
                                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully nicked ✅").setDescription("I successfully nicked " + event.getMessage().getMentionedMembers().get(0).getUser().getAsTag() + ".").build()).queue();
-                                } else if (event.getMessage().getContentRaw().startsWith(event.getRethink().getServerPrefix(event.getGuild().getId()))) {
-                                    event.getGuild().modifyNickname(event.getMessage().getMentionedMembers().get(0), event.getMessage().getContentRaw().replaceFirst(event.getRethink().getServerPrefix(event.getGuild().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
+                                } else if (event.getMessage().getContentRaw().startsWith(event.getRethink().getGuildPrefix(event.getGuild().getId()))) {
+                                    event.getGuild().modifyNickname(event.getMessage().getMentionedMembers().get(0), event.getMessage().getContentRaw().replaceFirst(event.getRethink().getGuildPrefix(event.getGuild().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
                                     EmbedBuilder builder = new EmbedBuilder();
                                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully nicked ✅").setDescription("I successfully nicked " + event.getMessage().getMentionedMembers().get(0).getUser().getAsTag() + ".").build()).queue();
                                 }
@@ -43,8 +43,8 @@ public class NickCommand implements Command {
                             event.getGuild().getSelfMember().modifyNickname(event.getMessage().getContentRaw().replaceFirst(event.getRethink().getUserPrefix(event.getMember().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
                             EmbedBuilder builder = new EmbedBuilder();
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully nicked ✅").setDescription("I successfully changed my nickname.").build()).queue();
-                        } else if (event.getMessage().getContentRaw().startsWith(event.getRethink().getServerPrefix(event.getGuild().getId()))) {
-                            event.getGuild().getSelfMember().modifyNickname(event.getMessage().getContentRaw().replaceFirst(event.getRethink().getServerPrefix(event.getGuild().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
+                        } else if (event.getMessage().getContentRaw().startsWith(event.getRethink().getGuildPrefix(event.getGuild().getId()))) {
+                            event.getGuild().getSelfMember().modifyNickname(event.getMessage().getContentRaw().replaceFirst(event.getRethink().getGuildPrefix(event.getGuild().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
                             EmbedBuilder builder = new EmbedBuilder();
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully nicked ✅").setDescription("I successfully changed my nickname.").build()).queue();
                         }

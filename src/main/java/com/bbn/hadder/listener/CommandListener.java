@@ -24,7 +24,7 @@ public class CommandListener extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.isFromType(ChannelType.TEXT)) {
             if (!event.getAuthor().isBot()) {
-                String[] prefixes = {rethink.getUserPrefix(event.getAuthor().getId()), rethink.getServerPrefix(event.getGuild().getId()), event.getGuild().getSelfMember().getAsMention()+" ", event.getGuild().getSelfMember().getAsMention()};
+                String[] prefixes = {rethink.getUserPrefix(event.getAuthor().getId()), rethink.getGuildPrefix(event.getGuild().getId()), event.getGuild().getSelfMember().getAsMention()+" ", event.getGuild().getSelfMember().getAsMention()};
                 for (String prefix : prefixes) {
                     if (event.getMessage().getContentRaw().startsWith(prefix)) {
                         handler.handle(event, rethink, prefix);
