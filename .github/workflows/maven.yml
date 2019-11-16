@@ -21,7 +21,7 @@ jobs:
         local: ./target/Hadder-Build.jar
         remote: /home/Bots/Hadder-Build.jar
         host: ${{ secrets.HOST }}
-        username: ${{ secrets.SSH_USER }}
+        username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
