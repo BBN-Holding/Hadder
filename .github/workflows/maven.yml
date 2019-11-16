@@ -15,6 +15,8 @@ jobs:
         java-version: 1.13
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Build Final Jar
+      run:  mvn clean compile assembly:single
     - name: Copy folder content recursively to remote
       uses: garygrossgarten/github-action-scp@release
       with:
