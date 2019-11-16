@@ -39,7 +39,7 @@ public class KickCommand implements Command {
                 }
             } else if (event.getMessage().getMentionedMembers().size() == 0) {
                 EmbedBuilder builder = new EmbedBuilder();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to mention a user!").build()).queue();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to mention at least one user!").build()).queue();
             } else if (event.getMessage().getMentionedMembers().size() > 1) {
                 for (int i = 0; i < event.getMessage().getMentionedMembers().size(); i++) {
                     Member member = event.getMessage().getMentionedMembers().get(i);
