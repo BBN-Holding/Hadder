@@ -122,7 +122,7 @@ public class BotList {
             Request yetanotherbotlist = new Request.Builder()
                     .url(YetAnotherBotList)
                     .post(body)
-                    .addHeader("Authorization", config.getYetAnotherBotListToken())
+                    .addHeader("Authorization", config.getDiscordExtremeListToken())
                     .build();
 
             try {
@@ -142,6 +142,7 @@ public class BotList {
 
             try {
                 new OkHttpClient().newCall(discordextremelist).execute().close();
+                System.out.println("Successfully posted count to Discord Extreme List!");
             } catch (IOException e) {
                 e.printStackTrace();
             }
