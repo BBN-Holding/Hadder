@@ -17,54 +17,41 @@ public class RoleCommand implements Command {
                 if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
                     switch (args[0].toLowerCase()) {
                         case "add":
-                            if (event.getMessage().getMentionedMembers().size() > 0 && event.getMessage().getMentionedRoles().size() == 1) {
+                            if (event.getMessage().getMentionedMembers().size() > 0 && event.getMessage().getMentionedRoles().size() > 0) {
                                 for (Member member : event.getMessage().getMentionedMembers()) {
-                                    if (event.getGuild().getSelfMember().canInteract(member)) {
-                                        if (!member.getRoles().contains(event.getMessage().getMentionedRoles().get(0))) {
-                                            event.getGuild().addRoleToMember(member, event.getMessage().getMentionedRoles().get(0))
-                                                    .reason("Role Command executed by " + event.getAuthor().getAsTag()).queue();
+                                    for (Role role : event.getMessage().getMentionedRoles()) {
+                                        if (event.getGuild().getSelfMember().canInteract(member)) {
+                                            if (event.getGuild().getSelfMember().canInteract(role)) {
+                                                event.getGuild().addRoleToMember(member, role).reason("Role added by " + event.getAuthor().getAsTag()).queue();
+                                            } else {
+                                                EmbedBuilder builder = new EmbedBuilder();
+                                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
+                                            }
+                                        } else {
+                                            EmbedBuilder builder = new EmbedBuilder();
+                                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
                                         }
                                     }
                                 }
-                                event.getChannel().sendMessage(
-                                        new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO,
-                                                new EmbedBuilder().setTitle("Successfully added all " +
-                                                        event.getMessage().getMentionedMembers().size() +
-                                                        " Members the " + event.getMessage().getMentionedRoles().get(0).getName() + " Role")).build()).queue();
-                            } else if (event.getMessage().getMentionedRoles().size() > 1) {
-                                for (Role role : event.getMessage().getMentionedRoles()) {
-                                    if (role == event.getMessage().getMentionedRoles().get(event.getMessage().getMentionedRoles().size() - 1)) {
-                                        if (event.getGuild().getSelfMember().canInteract(role)) {
-                                            int highestrole = 0;
-                                            for (Role testrole : event.getGuild().getSelfMember().getRoles()) {
-                                                if (testrole.getPosition() > highestrole) {
-                                                    highestrole = testrole.getPosition();
-                                                }
-                                            }
-                                            for (Member member : event.getGuild().getMembers()) {
-                                                if (member.getRoles().contains(role)) {
-                                                    event.getGuild().addRoleToMember(member, event.getMessage().getMentionedRoles().get(0))
-                                                            .reason("Role Command executed by " + event.getAuthor().getAsTag()).queue();
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                EmbedBuilder builder = new EmbedBuilder();
+                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder)
+                                        .setTitle("✅ Successfully added role(s) ✅")
+                                        .setDescription("I successfully added " + event.getMessage().getMentionedRoles().size() + " roles to " + event.getMessage().getMentionedMembers().size() + " members.")
+                                        .build()).queue();
                             }
                             break;
 
                         case "remove":
-
-
+                            event.getTextChannel().sendMessage("SOON").queue();
                             break;
                     }
                 } else {
                     EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_SELF_PERMISSION, builder).build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
                 }
             } else {
                 EmbedBuilder builder = new EmbedBuilder();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_PERMISSION, builder).build()).queue();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();
             }
         } else {
             event.getTextChannel().sendMessage("Missing args").queue();
@@ -78,11 +65,11 @@ public class RoleCommand implements Command {
 
     @Override
     public String description() {
-        return null;
+        return "Adds and removes roles from one or more user";
     }
 
     @Override
     public String usage() {
-        return null;
+        return "<@role> <@user>";
     }
 }

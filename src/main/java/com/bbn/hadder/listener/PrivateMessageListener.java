@@ -28,8 +28,8 @@ public class PrivateMessageListener extends ListenerAdapter {
                         .setDescription(event.getMessage().getContentRaw())
                         .setTimestamp(Instant.now());
 
-                Skidder.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, message).build()).queue();
-                Hax.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, message).build()).queue();
+                Skidder.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, message).build()).queue();
+                Hax.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, message).build()).queue();
             }
         }
     }

@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class MessageEditor {
 
-    public EmbedBuilder setDefaultSettings(Messagetype type, EmbedBuilder embedBuilder) {
+    public EmbedBuilder setDefaultSettings(MessageType type, EmbedBuilder embedBuilder) {
         switch (type) {
             case INFO:
                 embedBuilder.setColor(new Color(47,94,105));
@@ -31,7 +31,7 @@ public class MessageEditor {
         return embedBuilder;
     }
 
-    public enum Messagetype {
+    public enum MessageType {
         ERROR,
         WARNING,
         INFO,

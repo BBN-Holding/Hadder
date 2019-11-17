@@ -13,7 +13,7 @@ public class EqualsCommand implements Command {
         event.getChannel().sendMessage(
                 new MessageEditor()
                         .setDefaultSettings(
-                                MessageEditor.Messagetype.INFO,
+                                MessageEditor.MessageType.INFO,
                                 new EmbedBuilder()
                                         .setTitle("Please send me the first String")
                         ).build()
@@ -23,7 +23,7 @@ public class EqualsCommand implements Command {
             event.getChannel().sendMessage(
                     new MessageEditor()
                             .setDefaultSettings(
-                                    MessageEditor.Messagetype.INFO,
+                                    MessageEditor.MessageType.INFO,
                                     new EmbedBuilder()
                                             .setTitle("Please send me the second String")
                             ).build()
@@ -31,7 +31,7 @@ public class EqualsCommand implements Command {
             new EventWaiter().newOnMessageEventWaiter(msgevent2 -> {
                 String secondString = msgevent2.getMessage().getContentRaw();
                 event.getChannel().sendMessage(
-                        new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, new EmbedBuilder()
+                        new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                                 .setTitle((firstString.equals(secondString)) ? "Yes! The first string equals the second string!" : "Well yes, but actually No. This isn't the same.")
                                 .addField("First String", firstString, false)
                                 .addField("Second String", secondString, false)
@@ -49,7 +49,7 @@ public class EqualsCommand implements Command {
 
     @Override
     public String description() {
-        return "Check's if two string are equal to each other";
+        return "Check if two strings are the same";
     }
 
     @Override
