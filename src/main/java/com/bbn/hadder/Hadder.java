@@ -3,9 +3,10 @@ package com.bbn.hadder;
 import com.bbn.hadder.commands.general.*;
 import com.bbn.hadder.commands.misc.*;
 import com.bbn.hadder.commands.moderation.*;
+import com.bbn.hadder.commands.nsfw.*;
 import com.bbn.hadder.commands.owner.*;
-import com.bbn.hadder.commands.fun.GifCommand;
-import com.bbn.hadder.commands.settings.PrefixCommand;
+import com.bbn.hadder.commands.fun.*;
+import com.bbn.hadder.commands.settings.*;
 import com.bbn.hadder.core.*;
 import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.entities.Activity;
@@ -56,6 +57,15 @@ public class Hadder {
                         new InviteCommand(),
                         new NickCommand(),
                         new GuildPrefixCommand(),
+                        new BlowjobCommand(),
+                        new PornCommand(),
+                        new AnalCommand(),
+                        new CumCommand(),
+                        new TransCommand(),
+                        new PussyCommand(),
+                        new BoobsCommand(),
+                        new FeetCommand(),
+                        new EroticCommand(),
                         new RoleCommand()), config);
        
         builder.addEventListeners(
