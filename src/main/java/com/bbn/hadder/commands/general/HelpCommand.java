@@ -35,11 +35,11 @@ public class HelpCommand implements Command {
                             sb.append("`").append(cmd.labels()[0]).append("`");
                             if (i < entry.getValue().size() - 1) sb.append(", ");
                         }
-                        String[] packagesplit = entry.getKey().split("\\.");
-                        eb.addField(packagesplit[packagesplit.length - 1], sb.toString(), false);
+                        String[] ps = entry.getKey().split("\\.");
+                        eb.addField(ps[ps.length - 1], sb.toString(), false);
                     }
                 }
-                new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, eb);
+                new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, eb);
                 event.getChannel().sendMessage(eb.build()).queue();
             } else {
                 for (Command cmd : event.getCommandHandler().getCommandList()) {
@@ -50,7 +50,7 @@ public class HelpCommand implements Command {
                                 String name = cmd.labels()[0];
                                 eb.setDescription(cmd.description()).setTitle(name.replaceFirst(String.valueOf(name.charAt(0)), String.valueOf(name.charAt(0)).toUpperCase()));
                                 eb.addField("Usage", event.getRethink().getUserPrefix(event.getAuthor().getId()) + cmd.labels()[0] + " " + cmd.usage(), false);
-                                new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, eb);
+                                new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, eb);
                                 event.getChannel().sendMessage(eb.build()).queue();
                             }
                         }
@@ -69,11 +69,11 @@ public class HelpCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows every Command or explains a Command";
+        return "Shows each command or explains its usage";
     }
 
     @Override
     public String usage() {
-        return "[Commandname]";
+        return "[CommandName]";
     }
 }

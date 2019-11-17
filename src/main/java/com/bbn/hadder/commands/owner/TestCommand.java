@@ -2,6 +2,9 @@ package com.bbn.hadder.commands.owner;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import net.dv8tion.jda.api.entities.Activity;
+
+import java.util.Arrays;
 
 /*
  * @author Skidder / GregTCLTK
@@ -21,7 +24,7 @@ public class TestCommand implements Command {
 
     @Override
     public String description() {
-        return "Sub to bbn";
+        return "Just a little Test Command";
     }
 
     @Override

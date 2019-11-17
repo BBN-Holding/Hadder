@@ -17,13 +17,13 @@ public class ScreenshareCommand implements Command {
                 for (VoiceChannel vc : event.getGuild().getVoiceChannels()) {
                     try {
                         if (vc.getIdLong() == Long.parseLong(args[0])) {
-                            event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, new EmbedBuilder()
+                            event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                                     .setTitle("Here's your Url to share your Screen")
                                     .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + vc.getId() + "/")).build()).queue();
                             return;
                         }
                     } catch (NumberFormatException e) {
-                        event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.ERROR, new EmbedBuilder()
+                        event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, new EmbedBuilder()
                                 .setTitle("Wait, that's illegal")
                                 .setDescription("This ID is invalid. \nMaybe you entered a wrong ID? \n\nNote: Make sure the Voice Channel is on this Guild.")).build()).queue();
                         return;
@@ -39,31 +39,31 @@ public class ScreenshareCommand implements Command {
                         VoiceChannel voiceChannel = vcs.get(i);
                         eb.addField(i + ": " + voiceChannel.getName(), voiceChannel.getId(), false);
                     }
-                    event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, eb).build()).queue();
+                    event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, eb).build()).queue();
                     new EventWaiter().newOnMessageEventWaiter(msgevent -> {
                         try {
                             int i = Integer.parseInt(msgevent.getMessage().getContentRaw());
                             if (vcs.size() > i) {
-                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, new EmbedBuilder()
+                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                                         .setTitle("Here's your Url to share your Screen")
                                         .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + vcs.get(i).getId() + "/")).build()).queue();
                             } else {
 
-                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.ERROR, new EmbedBuilder()
+                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, new EmbedBuilder()
                                         .setTitle("You specified a wrong number!")).build()).queue();
                             }
                         } catch (NumberFormatException e) {
-                            event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.ERROR, new EmbedBuilder()
+                            event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, new EmbedBuilder()
                                     .setTitle("Wait, that's illegal")
                                     .setDescription("This isn't a Number.")).build()).queue();
                         }
                     }, event.getJDA(), event.getAuthor());
                 } else if (vcs.size()==0) {
-                    event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.ERROR, new EmbedBuilder()
+                    event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, new EmbedBuilder()
                             .setTitle("Hol' up")
                             .setDescription("There is no Voice Channel named like this. \n\nNote: Make sure the Voice Channel is on this Guild.")).build()).queue();
                 } else {
-                    event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, new EmbedBuilder()
+                    event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                             .setTitle("Here's your Url to share your Screen")
                             .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + vcs.get(0).getId() + "/")).build()).queue();
                 }
@@ -78,11 +78,11 @@ public class ScreenshareCommand implements Command {
 
     @Override
     public String description() {
-        return "Give you a link with the screenshare url";
+        return "Shows you the link to share your screen";
     }
 
     @Override
     public String usage() {
-        return "<voicechannelid|voicechannelname>";
+        return "<VoiceChannelID|VoiceChannelName>";
     }
 }

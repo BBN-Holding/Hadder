@@ -15,7 +15,7 @@ public class InviteCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         EmbedBuilder builder = new EmbedBuilder();
-        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("Invite me!").setDescription("[Invite me here!](https://discordapp.com/oauth2/authorize?client_id="  + Hadder.shardManager.getGuilds().get(0).getSelfMember().getId() + "&scope=bot&permissions=470133879)").build()).queue();
+        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("Invite me!").setDescription("[Invite me here!](https://discordapp.com/oauth2/authorize?client_id="  + Hadder.shardManager.getGuilds().get(0).getSelfMember().getId() + "&scope=bot&permissions=470133879)").build()).queue();
     }
 
     @Override
@@ -25,7 +25,7 @@ public class InviteCommand implements Command {
 
     @Override
     public String description() {
-        return "Hadder Bot Invite";
+        return "Shows the invitation to invite Hadder to your server";
     }
 
     @Override
