@@ -42,6 +42,7 @@ public class GuildListener extends ListenerAdapter {
                 .addField("Name", event.getGuild().getName(), true)
                 .addField("Guild ID", event.getGuild().getId(), true)
                 .addField("Guild Owner", event.getGuild().getOwner().getUser().getAsTag(), true)
+                .addField("Users", String.valueOf(event.getGuild().getMembers().size()), true)
                 .setFooter(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl())
                 .setTimestamp(Instant.now())
                 .build()).queue();
@@ -57,6 +58,7 @@ public class GuildListener extends ListenerAdapter {
                 .addField("Name", event.getGuild().getName(), true)
                 .addField("Guild ID", event.getGuild().getId(), true)
                 .addField("Guild Owner", event.getGuild().getOwner().getUser().getAsTag(), true)
+                .addField("Users", String.valueOf(event.getGuild().getMembers().size()), true)
                 .setFooter(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl())
                 .setTimestamp(Instant.now())
                 .build()).queue();
