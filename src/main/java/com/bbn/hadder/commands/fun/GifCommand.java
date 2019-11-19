@@ -40,11 +40,11 @@ public class GifCommand implements Command {
                 event.getTextChannel().sendMessage(url).queue();
             } catch (Exception e) {
                 EmbedBuilder builder = new EmbedBuilder();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.ERROR, builder).setTitle("Error").setDescription("Please try again with another term.").build()).queue();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, builder).setTitle("Error").setDescription("Please try again with another term.").build()).queue();
             }
         } else {
             EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to write at least one search term!").build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to write at least one search term!").build()).queue();
         }
     }
 
@@ -55,11 +55,11 @@ public class GifCommand implements Command {
 
     @Override
     public String description() {
-        return "Displays a gif";
+        return "Look for a GIF on Giphy";
     }
 
     @Override
     public String usage() {
-        return "<Searchterm>";
+        return "<SearchTerm>";
     }
 }

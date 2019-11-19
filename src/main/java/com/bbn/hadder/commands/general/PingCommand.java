@@ -14,9 +14,7 @@ public class PingCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         EmbedBuilder builder = new EmbedBuilder();
-        event.getJDA().getRestPing().queue(ping -> {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("Ping").setDescription(String.valueOf(ping)).build()).queue();
-        });
+        event.getJDA().getRestPing().queue(ping -> event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("Ping").setDescription(String.valueOf(ping)).build()).queue());
     }
 
     @Override
@@ -26,7 +24,7 @@ public class PingCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows the ping to the discord api";
+        return "Shows the ping to the Discord API";
     }
 
     @Override

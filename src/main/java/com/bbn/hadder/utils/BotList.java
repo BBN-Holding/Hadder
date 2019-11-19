@@ -82,7 +82,7 @@ public class BotList {
 
             try {
                 new OkHttpClient().newCall(discordbotlist).execute().close();
-                System.out.println("Successfully posted count for the Discord Bot List");
+                System.out.println("Successfully posted count for the Discord Bot List!");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -122,7 +122,7 @@ public class BotList {
             Request yetanotherbotlist = new Request.Builder()
                     .url(YetAnotherBotList)
                     .post(body)
-                    .addHeader("Authorization", config.getDiscordExtremeListToken())
+                    .addHeader("Authorization", config.getYetAnotherBotListToken())
                     .build();
 
             try {
@@ -142,7 +142,7 @@ public class BotList {
 
             try {
                 new OkHttpClient().newCall(discordextremelist).execute().close();
-                System.out.println("Successfully posted count to Discord Extreme List!");
+                System.out.println("Successfully posted count to the Discord Extreme List!");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -24,7 +24,7 @@ public class TestCommand implements Command {
 
     @Override
     public String description() {
-        return "Sub to bbn";
+        return "Just a little Test Command";
     }
 
     @Override

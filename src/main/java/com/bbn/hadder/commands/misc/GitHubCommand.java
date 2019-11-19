@@ -23,7 +23,7 @@ public class GitHubCommand implements Command {
         if (args.length > 0) {
             if (args[0].equals("link")) {
                 EmbedBuilder builder = new EmbedBuilder();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("Link your GitHub Account").setDescription("https://github.com/login/oauth/authorize?client_id=25321f690bb1b6952942").build()).queue();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("Link your GitHub Account").setDescription("https://github.com/login/oauth/authorize?client_id=25321f690bb1b6952942").build()).queue();
             } else {
                 Request request = new Request.Builder().url("https://api.github.com/users/" + args[0]).build();
                 try {
@@ -47,7 +47,7 @@ public class GitHubCommand implements Command {
                     if (!json.getString("blog").equals("")) website = json.getString("blog");
 
                     EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder)
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder)
                             .setAuthor("Information about " + nickname + " (" + args[0] + ")", "https://github.com/" + args[0] + "", "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
                             .setThumbnail(json.getString("avatar_url"))
                             .addField("User bio", bio, false)
@@ -61,10 +61,10 @@ public class GitHubCommand implements Command {
 
                 } catch (IOException | NullPointerException e) {
                     EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.ERROR, builder).setDescription("The GitHub API might be down at the moment!").build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, builder).setDescription("The GitHub API might be down at the moment!").build()).queue();
                 } catch (JSONException e) {
                     EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("This user does not exist!").build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("This user does not exist!").build()).queue();
                 }
             }
         } else {
@@ -74,12 +74,12 @@ public class GitHubCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"GitHub"};
+        return new String[]{"github"};
     }
 
     @Override
     public String description() {
-        return "Shows info of an user";
+        return "Displays information about a GitHub user profile";
     }
 
     @Override

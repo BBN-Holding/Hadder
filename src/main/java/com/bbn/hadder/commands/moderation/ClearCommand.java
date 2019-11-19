@@ -26,7 +26,7 @@ public class ClearCommand implements Command {
                         int nbToDelete = Integer.parseInt(args[0]);
                         if(nbToDelete < 1 || nbToDelete > 200) {
                             EmbedBuilder builder = new EmbedBuilder();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to choose a number between 1 and 200!").build()).queue();
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to choose a number between 1 and 200!").build()).queue();
                             return;
                         }
                         List<Message> history = event.getTextChannel().getHistory().retrievePast(nbToDelete +1).complete();
@@ -34,22 +34,22 @@ public class ClearCommand implements Command {
                         msgToDelete.addAll(history);
                         event.getTextChannel().deleteMessages(msgToDelete).queue();
                         EmbedBuilder builder = new EmbedBuilder();
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setDescription("Successfully deleted " + nbToDelete + " messages.").build()).queue();
+                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setDescription("Successfully deleted " + nbToDelete + " messages.").build()).queue();
                     } catch (NumberFormatException e) {
                         EmbedBuilder builder = new EmbedBuilder();
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to specify a number!").build()).queue();
+                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to specify a number!").build()).queue();
                     }
                 } else {
                     EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_SELF_PERMISSION, builder).build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
                 }
             } else {
                 EmbedBuilder builder = new EmbedBuilder();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_PERMISSION, builder).build()).queue();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();
             }
         } else {
             EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to specify a number!").build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to specify a number!").build()).queue();
         }
     }
 
@@ -60,7 +60,7 @@ public class ClearCommand implements Command {
 
     @Override
     public String description() {
-        return "Clears messages";
+        return "Deletes the specified number of messages";
     }
 
     @Override

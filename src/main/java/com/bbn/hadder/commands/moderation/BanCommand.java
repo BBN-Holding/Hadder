@@ -23,22 +23,22 @@ public class BanCommand implements Command {
                             if (event.getGuild().getSelfMember().canInteract(victim)) {
                                 event.getGuild().ban(victim, 0, "Banned by " + event.getAuthor().getAsTag()).queue();
                                 EmbedBuilder builder = new EmbedBuilder();
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully banned ✅").setDescription("I successfully baned " + victim.getUser().getName() + ".").build()).queue();
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("✅ Successfully banned ✅").setDescription("I successfully baned " + victim.getUser().getName() + ".").build()).queue();
                             } else {
                                 EmbedBuilder builder = new EmbedBuilder();
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_SELF_PERMISSION, builder).build()).queue();
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
                             }
                         } else {
                             EmbedBuilder builder = new EmbedBuilder();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("I can not ban myself").build()).queue();
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("I can not ban myself").build()).queue();
                         }
                     } else {
                         EmbedBuilder builder = new EmbedBuilder();
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setTitle("Not possible").setDescription("You can't ban yourself.").build()).queue();
+                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setTitle("Not possible").setDescription("You can't ban yourself.").build()).queue();
                     }
                 } else if (event.getMessage().getMentionedMembers().size() == 0) {
                     EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You have to mention at least one user!").build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to mention at least one user!").build()).queue();
                 } else if (event.getMessage().getMentionedMembers().size() > 1) {
                     for (int i = 0; i < event.getMessage().getMentionedMembers().size(); i++) {
                         Member member = event.getMessage().getMentionedMembers().get(i);
@@ -48,23 +48,23 @@ public class BanCommand implements Command {
                                     event.getGuild().ban(member, 0).reason("Mass Ban by " + event.getAuthor().getAsTag()).queue();
                                 } else {
                                     EmbedBuilder builder = new EmbedBuilder();
-                                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_SELF_PERMISSION, builder).build()).queue();
+                                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
                                 }
                             } else {
                                 EmbedBuilder builder = new EmbedBuilder();
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("I can not ban myself!").build()).queue();
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("I can not ban myself!").build()).queue();
                             }
                         } else {
                             EmbedBuilder builder = new EmbedBuilder();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.WARNING, builder).setDescription("You can't ban yourself.").build()).queue();
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You can't ban yourself.").build()).queue();
                         }
                     }
                     EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.INFO, builder).setTitle("✅ Successfully banned ✅").setDescription("I successfully banned " + event.getMessage().getMentionedMembers().size() + " Members!").build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("✅ Successfully banned ✅").setDescription("I successfully banned " + event.getMessage().getMentionedMembers().size() + " Members!").build()).queue();
                 }
         } else {
             EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.Messagetype.NO_PERMISSION, builder).build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();
         }
     }
 
@@ -75,7 +75,7 @@ public class BanCommand implements Command {
 
     @Override
     public String description() {
-        return "Bans an user";
+        return "Bans one ore more user from the server";
     }
 
     @Override
