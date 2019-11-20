@@ -75,6 +75,7 @@ public class Hadder {
                 new PrivateMessageListener(),
                 new CommandListener(rethink, commandHandler),
                 new GuildListener(rethink, config),
+                new RulesListener(rethink),
                 new ReadyListener(rethink, config));
 
         try {
