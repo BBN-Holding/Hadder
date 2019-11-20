@@ -16,13 +16,13 @@ import java.util.concurrent.ExecutionException;
 
 public class LinkUtils {
 
-    public void sendAll(JSONArray jsonArray, JDA jda, Message message, User user) {
+    public void sendAll(JSONArray jsonArray, JDA jda, Message message, User user, List<String> reactions) {
         for (int i = 0; jsonArray.length() > i; i++) {
-            this.send(message, jda.getTextChannelById(jsonArray.getString(i)), user);
+            this.send(message, jda.getTextChannelById(jsonArray.getString(i)), user, reactions);
         }
     }
 
-    private void send(Message message, TextChannel channel, User user) {
+    private void send(Message message, TextChannel channel, User user, List<String> reactions) {
 
         channel.retrieveWebhooks().queue(
                 webhooks -> {
@@ -35,16 +35,16 @@ public class LinkUtils {
 
                     if (webhook==null) {
                         channel.createWebhook("Hadder GuildLink").queue(
-                                webhook1 -> sendMessage(webhook1, user, message)
+                                webhook1 -> sendMessage(webhook1, channel, user, message, reactions)
                         );
-                    } else sendMessage(webhook, user, message);
+                    } else sendMessage(webhook, channel, user, message, reactions);
                 }
         );
 
 
     }
 
-    private void sendMessage(Webhook webhook, User user, Message message) {
+    private void sendMessage(Webhook webhook, TextChannel channel, User user, Message message, List<String> reactions) {
         WebhookClientBuilder builder = new WebhookClientBuilder(webhook.getId());
         WebhookClient client = builder.build();
         WebhookMessageBuilder mb = new WebhookMessageBuilder();
@@ -69,7 +69,20 @@ public class LinkUtils {
                     new WebhookEmbed.EmbedTitle(embed.getTitle(), embed.getUrl()),
                     new WebhookEmbed.EmbedAuthor(embed.getAuthor().getName(), embed.getAuthor().getIconUrl(), embed.getAuthor().getUrl()), fields));
         }
-        client.send(mb.build());
+        try {
+            long msgid = client.send(mb.build()).get().getId();
+            channel.retrieveMessageById(msgid).queue(
+                    msg -> {
+                        for (String reaction: reactions) {
+                            msg.addReaction(reaction).queue();
+                        }
+                    }
+            );
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
 }
