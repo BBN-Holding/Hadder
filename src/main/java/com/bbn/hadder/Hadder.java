@@ -66,7 +66,8 @@ public class Hadder {
                         new BoobsCommand(),
                         new FeetCommand(),
                         new EroticCommand(),
-                        new RoleCommand()), config);
+                        new RoleCommand(),
+                        new LinkCommand()), config);
        
         builder.addEventListeners(
                 new MentionListener(rethink),
