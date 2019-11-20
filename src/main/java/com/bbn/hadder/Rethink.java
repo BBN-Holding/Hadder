@@ -54,14 +54,14 @@ public class Rethink {
         return new JSONArray();
     }
 
-    private String get(String table, String where, String value, String column) {
-        return this.getAsArray(table, where, value).getJSONObject(0).getString(column);
+    private Object get(String table, String where, String value, String column) {
+        return this.getAsArray(table, where, value).getJSONObject(0).get(column);
     }
 
-    private String update(String table, String whatvalue, String where, String wherevalue) {
+    private String update(String table, String wherevalue, String what, String whatvalue) {
         String out="";
         try {
-            Cursor cursor = r.table(table).get(whatvalue).update(r.hashMap(where, wherevalue)).run(conn);
+            Cursor cursor = r.table(table).get(wherevalue).update(r.hashMap(what, whatvalue)).run(conn);
             out=cursor.toString();
         } catch (ClassCastException ignored) {}
         return out;
@@ -100,7 +100,7 @@ public class Rethink {
     }
 
     public String getUserPrefix(String id) {
-        return this.get("user", "id", id, "prefix");
+        return (String) this.get("user", "id", id, "prefix");
     }
 
     public String setGuildPrefix(String prefix, String guildid) {
@@ -108,15 +108,56 @@ public class Rethink {
     }
 
     public String getGuildPrefix(String id) {
-        return this.get("server", "id", id, "prefix");
+        return (String) this.get("server", "id", id, "prefix");
+    }
+
+    public JSONArray getLinks(String id) {
+        return new JSONArray((String) this.get("server", "id", id, "links"));
+    }
+
+    public String addLinkedGuild(String guildid, String linkid) {
+        return this.update("server", guildid, "links", this.getLinks(guildid).put(linkid).toString());
+    }
+
+    public String removeLinkedGuild(String guildid, String linkid) {
+        JSONArray linkedguildslist = this.getLinks(guildid);
+        for (int i = 0; linkedguildslist.length()>i; i++) {
+            if (linkedguildslist.getString(i).equals(linkid)) {
+                linkedguildslist.remove(i);
+                break;
+            }
+        }
+        return this.update("server", guildid, "links", linkedguildslist.toString());
+    }
+
+    public String setLinkChannel(String guildid, String channelid) {
+        return this.update("server", guildid, "linkchannel", channelid);
+    }
+
+    public String getLinkChannel(String guildid) {
+        return (String) this.get("server", "id", guildid, "linkchannel");
     }
 
     public String insertGuild(String id) {
-        return this.insert("server", r.hashMap("id", id).with("prefix", "h."));
+        return this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", ""));
     }
 
     public String insertUser(String id) {
         return this.insert("user", r.hashMap("id", id).with("prefix", "h."));
+    }
+
+    public String updateRules(String guild_id, String message_id, String role_id) {
+        this.update("server", guild_id, "message_id", message_id);
+        this.update("server", guild_id, "role_id", role_id);
+        return null;
+    }
+
+    public String getRulesMID(String guild_id) {
+        return (String) this.get("server", "id", guild_id, "message_id");
+    }
+
+    public String getRulesRID(String guild_id) {
+        return (String) this.get("server", "id", guild_id, "role_id");
     }
 
 }
