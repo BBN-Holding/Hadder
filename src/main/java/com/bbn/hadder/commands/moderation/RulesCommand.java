@@ -11,6 +11,8 @@ import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class RulesCommand implements Command {
 
@@ -22,33 +24,36 @@ public class RulesCommand implements Command {
                         .setTitle("Set up rules")
                         .setDescription("Please specify the channel on which I should send the rules. Your message should look like: #rules."))
                         .build()).queue();
-
                 new EventWaiter().newOnMessageEventWaiter(event1 -> {
                     if (event1.getMessage().getMentionedChannels().size() > 0) {
+                        TextChannel channel = event1.getMessage().getMentionedChannels().get(0);
                         event1.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                                 .setTitle("Rules")
-                                .setDescription("Please send me the rules now."))
+                                .setDescription("The channel was successfully set to "  +  channel.getName() + ". Please send me the rules now."))
                                 .build()).queue();
                         new EventWaiter().newOnMessageEventWaiter(event2 -> {
+                            String message = event2.getMessage().getContentDisplay();
                             event2.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                                     .setTitle("Role to assign"))
-                                    .setDescription("Please send me the name of the role the user receives after he has accepted the rules.")
+                                    .setDescription("The rules were successfully set. Please send me the name of the role which the user receives after he accepted the rules.")
                                     .build()).queue();
                             new EventWaiter().newOnMessageEventWaiter(event3 -> {
-                                try {
-                                    event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), true).get(0);
-                                    event3.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder().setTitle("Successfully set the rules")).build()).queue();
-                                    Message rules = event1.getMessage().getMentionedChannels().get(0).sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
-                                            .setTitle("Rules"))
-                                            .setDescription(event2.getMessage().getContentDisplay())
-                                            .build()).complete();
-                                    rules.addReaction("✅").queue();
-                                    rules.addReaction("❌").queue();
-
-                                    event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), false).get(0).getId());
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                                    Role role = event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), true).get(0);
+                                    if (event3.getGuild().getSelfMember().canInteract(role)) {
+                                        event3.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                                                .setTitle("The role has been successfully set to " + role.getName() + "."))
+                                                .build()).queue();
+                                        Message rules = channel.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                                                .setTitle("Rules"))
+                                                .setDescription(message)
+                                                .build()).complete();
+                                        rules.addReaction("✅").queue();
+                                        rules.addReaction("❌").queue();
+                                        event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId());
+                                    } else {
+                                        EmbedBuilder builder = new EmbedBuilder();
+                                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
+                                    }
                             }, event.getJDA(), event.getAuthor());
                         }, event.getJDA(), event.getAuthor());
                     } else {
