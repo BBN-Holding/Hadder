@@ -19,33 +19,33 @@ public class RulesCommand implements Command {
         if (event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
             if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
-                        .setTitle("Rules setup")
-                        .setDescription("Please mention the channel în which I should send the rules. This should look like #rules."))
+                        .setTitle("Set up rules")
+                        .setDescription("Please specify the channel on which I should send the rules. Your message should look like: #rules."))
                         .build()).queue();
 
-                new EventWaiter().newOnMessageEventWaiter(msgevent -> {
-                    if (msgevent.getMessage().getMentionedChannels().size() > 0) {
-                        msgevent.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                new EventWaiter().newOnMessageEventWaiter(event1 -> {
+                    if (event1.getMessage().getMentionedChannels().size() > 0) {
+                        event1.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                                 .setTitle("Rules")
-                                .setDescription("Now please send me the rules."))
+                                .setDescription("Please send me the rules now."))
                                 .build()).queue();
-                        new EventWaiter().newOnMessageEventWaiter(msgevent2 -> {
-                            msgevent2.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                        new EventWaiter().newOnMessageEventWaiter(event2 -> {
+                            event2.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                                     .setTitle("Role to assign"))
-                                    .setDescription("Now please send me the name of the role which the user will get after he accepted the rules.")
+                                    .setDescription("Please send me the name of the role the user receives after he has accepted the rules.")
                                     .build()).queue();
-                            new EventWaiter().newOnMessageEventWaiter(msgevent3 -> {
+                            new EventWaiter().newOnMessageEventWaiter(event3 -> {
                                 try {
-                                    msgevent3.getGuild().getRolesByName(msgevent3.getMessage().getContentRaw(), false).get(0);
-                                    msgevent3.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder().setTitle("Successfully set the rules")).build()).queue();
-                                    Message rules = msgevent.getMessage().getMentionedChannels().get(0).sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                                    event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), true).get(0);
+                                    event3.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder().setTitle("Successfully set the rules")).build()).queue();
+                                    Message rules = event1.getMessage().getMentionedChannels().get(0).sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                                             .setTitle("Rules"))
-                                            .setDescription(msgevent2.getMessage().getContentDisplay())
+                                            .setDescription(event2.getMessage().getContentDisplay())
                                             .build()).complete();
                                     rules.addReaction("✅").queue();
                                     rules.addReaction("❌").queue();
 
-                                    event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), msgevent3.getGuild().getRolesByName(msgevent3.getMessage().getContentRaw(), false).get(0).getId());
+                                    event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), false).get(0).getId());
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
