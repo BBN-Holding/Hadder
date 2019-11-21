@@ -19,7 +19,9 @@ public class RulesListener extends ListenerAdapter {
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId()))) {
-            event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).queue();
+            if (!event.getMember().getUser().isBot()) {
+                event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).queue();
+            }
         }
     }
 }
