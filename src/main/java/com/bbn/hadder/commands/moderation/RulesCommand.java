@@ -27,17 +27,18 @@ public class RulesCommand implements Command {
                 new EventWaiter().newOnMessageEventWaiter(event1 -> {
                     if (event1.getMessage().getMentionedChannels().size() > 0) {
                         TextChannel channel = event1.getMessage().getMentionedChannels().get(0);
-                        event1.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
-                                .setTitle("Rules")
-                                .setDescription("The channel was successfully set to "  +  channel.getName() + ". Please send me the rules now."))
-                                .build()).queue();
-                        new EventWaiter().newOnMessageEventWaiter(event2 -> {
-                            String message = event2.getMessage().getContentDisplay();
-                            event2.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
-                                    .setTitle("Role to assign"))
-                                    .setDescription("The rules were successfully set. Please send me the name of the role which the user receives after he accepted the rules.")
+                        if (channel.getGuild().getId().equals(event1.getGuild().getId())) {
+                            event1.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                                    .setTitle("Rules")
+                                    .setDescription("The channel was successfully set to " + channel.getName() + ". Please send me the rules now."))
                                     .build()).queue();
-                            new EventWaiter().newOnMessageEventWaiter(event3 -> {
+                            new EventWaiter().newOnMessageEventWaiter(event2 -> {
+                                String message = event2.getMessage().getContentDisplay();
+                                event2.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                                        .setTitle("Role to assign"))
+                                        .setDescription("The rules were successfully set. Please send me the name of the role which the user receives after he accepted the rules.")
+                                        .build()).queue();
+                                new EventWaiter().newOnMessageEventWaiter(event3 -> {
                                     Role role = event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), true).get(0);
                                     if (event3.getGuild().getSelfMember().canInteract(role)) {
                                         event3.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
@@ -54,8 +55,14 @@ public class RulesCommand implements Command {
                                         EmbedBuilder builder = new EmbedBuilder();
                                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
                                     }
+                                }, event.getJDA(), event.getAuthor());
                             }, event.getJDA(), event.getAuthor());
-                        }, event.getJDA(), event.getAuthor());
+                        } else {
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, new EmbedBuilder()
+                                    .setTitle("Wrong Guild")
+                                    .setDescription("The mentioned channel must be on this guid!"))
+                                    .build()).queue();
+                        }
                     } else {
                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, new EmbedBuilder()
                                 .setTitle("No Channel mentioned"))
