@@ -68,6 +68,7 @@ public class Hadder {
                         new EroticCommand(),
                         new RoleCommand(),
                         new RulesCommand(),
+                        new FeedbackCommand(),
                         new LinkCommand()), config);
 
         builder.addEventListeners(
