@@ -42,7 +42,28 @@ public class RoleCommand implements Command {
                             break;
 
                         case "remove":
-                            event.getTextChannel().sendMessage("SOON").queue();
+                            if (event.getMessage().getMentionedMembers().size() > 0 && event.getMessage().getMentionedRoles().size() > 0) {
+                                for (Member member : event.getMessage().getMentionedMembers()) {
+                                    for (Role role : event.getMessage().getMentionedRoles()) {
+                                        if (event.getGuild().getSelfMember().canInteract(member)) {
+                                            if (event.getGuild().getSelfMember().canInteract(role)) {
+                                                event.getGuild().removeRoleFromMember(member, role).reason("Role removed by " + event.getAuthor().getAsTag()).queue();
+                                            } else {
+                                                EmbedBuilder builder = new EmbedBuilder();
+                                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
+                                            }
+                                        } else {
+                                            EmbedBuilder builder = new EmbedBuilder();
+                                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
+                                        }
+                                    }
+                                }
+                                EmbedBuilder builder = new EmbedBuilder();
+                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder)
+                                        .setTitle("✅ Successfully removed role(s) ✅")
+                                        .setDescription("I successfully removed " + event.getMessage().getMentionedRoles().size() + " roles from " + event.getMessage().getMentionedMembers().size() + " members.")
+                                        .build()).queue();
+                            }
                             break;
                     }
                 } else {
@@ -70,6 +91,6 @@ public class RoleCommand implements Command {
 
     @Override
     public String usage() {
-        return "<@role> <@user>";
+        return "add/remove <@role> <@user>";
     }
 }
