@@ -38,10 +38,11 @@ public class Hadder {
         builder.setActivity(Activity.streaming("on the BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
         builder.setToken(config.getBotToken());
 
+        HelpCommand helpCommand = new HelpCommand();
 
         CommandHandler commandHandler = new CommandHandler(
                 List.of(
-                        new HelpCommand(),
+                        helpCommand,
                         new TestCommand(),
                         new BanCommand(),
                         new PrefixCommand(),
@@ -69,15 +70,17 @@ public class Hadder {
                         new RoleCommand(),
                         new RulesCommand(),
                         new FeedbackCommand(),
-                        new LinkCommand()), config);
+                        new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
                 new PrivateMessageListener(),
                 new CommandListener(rethink, commandHandler),
                 new GuildListener(rethink, config),
-                new RulesListener(rethink),
-                new ReadyListener(rethink, config));
+                new ReadyListener(rethink, config),
+                new LinkListener(rethink),
+                new RulesListener(rethink));
+               
 
         try {
             shardManager = builder.build();
