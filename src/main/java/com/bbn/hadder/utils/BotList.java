@@ -138,7 +138,7 @@ public class BotList {
             Request discordextremelist = new Request.Builder()
                     .url(DiscordExtremeList)
                     .post(body)
-                    .addHeader("Authorizaion", config.getDiscordExtremeListToken())
+                    .addHeader("Authorization", config.getDiscordExtremeListToken())
                     .build();
 
             try {
@@ -153,7 +153,7 @@ public class BotList {
             Request discordbotreviews = new Request.Builder()
                     .url(DiscordBotReviews)
                     .post(body)
-                    .addHeader("Authorizaion", config.getDiscordBotReviewsToken())
+                    .addHeader("Authorization", config.getDiscordBotReviewsToken())
                     .build();
 
             try {
