@@ -26,6 +26,7 @@ public class GuildPrefixCommand implements Command {
             } else {
                 EmbedBuilder builder = new EmbedBuilder();
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to set a prefix.").build()).queue();
+                event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
             }
         } else {
             EmbedBuilder builder = new EmbedBuilder();
