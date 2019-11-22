@@ -153,7 +153,7 @@ public class RulesCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"rules"};
+        return new String[]{"rules", "rule"};
     }
 
     @Override
