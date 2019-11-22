@@ -38,10 +38,11 @@ public class Hadder {
         builder.setActivity(Activity.streaming("on the BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
         builder.setToken(config.getBotToken());
 
+        HelpCommand helpCommand = new HelpCommand();
 
         CommandHandler commandHandler = new CommandHandler(
                 List.of(
-                        new HelpCommand(),
+                        helpCommand,
                         new TestCommand(),
                         new BanCommand(),
                         new PrefixCommand(),
@@ -67,7 +68,7 @@ public class Hadder {
                         new FeetCommand(),
                         new EroticCommand(),
                         new RoleCommand(),
-                        new LinkCommand()), config);
+                        new LinkCommand()), config, helpCommand);
        
         builder.addEventListeners(
                 new MentionListener(rethink),

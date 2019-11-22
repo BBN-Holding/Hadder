@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.entities.Guild;
 public class LinkCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (args.length == 0) return;
+        if (args.length == 0) event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
         switch (args[0]) {
 
             case "add":
