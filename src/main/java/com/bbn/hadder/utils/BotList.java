@@ -143,7 +143,7 @@ public class BotList {
 
             try {
                 new OkHttpClient().newCall(discordextremelist).execute().close();
-                System.out.println("Successfully posted count to the Discord Extreme List!");
+                System.out.println("Successfully posted count for the Discord Extreme List!");
             } catch (IOException e) {
                 e.printStackTrace();
             }
