@@ -20,9 +20,13 @@ public class RulesListener extends ListenerAdapter {
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId()))) {
             if (!event.getMember().getUser().isBot()) {
-
+                if (event.getReactionEmote().getEmoji().equals("✅")) {
                     event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).queue();
-                
+                } else if (event.getReactionEmote().getEmoji().equals("❌")) {
+                    if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
+                        event.getMember().kick().reason("Declined the rules");
+                    }
+                }
             }
         }
     }
