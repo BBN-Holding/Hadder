@@ -26,6 +26,7 @@ public class ScreenshareCommand implements Command {
                         event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, new EmbedBuilder()
                                 .setTitle("Wait, that's illegal")
                                 .setDescription("This ID is invalid. \nMaybe you entered a wrong ID? \n\nNote: Make sure the Voice Channel is on this Guild.")).build()).queue();
+                        event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
                         return;
                     }
                 }
@@ -51,17 +52,20 @@ public class ScreenshareCommand implements Command {
 
                                 event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, new EmbedBuilder()
                                         .setTitle("You specified a wrong number!")).build()).queue();
+                                event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
                             }
                         } catch (NumberFormatException e) {
                             event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, new EmbedBuilder()
                                     .setTitle("Wait, that's illegal")
                                     .setDescription("This isn't a Number.")).build()).queue();
+                            event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
                         }
                     }, event.getJDA(), event.getAuthor());
                 } else if (vcs.size()==0) {
                     event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, new EmbedBuilder()
                             .setTitle("Hol' up")
                             .setDescription("There is no Voice Channel named like this. \n\nNote: Make sure the Voice Channel is on this Guild.")).build()).queue();
+                    event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
                 } else {
                     event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                             .setTitle("Here's your Url to share your Screen")
