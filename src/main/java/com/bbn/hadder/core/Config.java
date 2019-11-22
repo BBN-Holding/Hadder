@@ -94,6 +94,10 @@ public class Config {
         return config.getJSONObject("Tokens").getString("Giphy");
     }
 
+    public String getGitHubToken() {
+        return config.getJSONObject("Tokens").getString("GitHub");
+    }
+
     public String getMythicalBotListToken() {
         return config.getJSONObject("Tokens").getString("MythicalBotList");
     }
