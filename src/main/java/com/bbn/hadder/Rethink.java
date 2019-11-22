@@ -116,6 +116,10 @@ public class Rethink {
     }
 
     public String addLinkedGuild(String guildid, String linkid) {
+        JSONArray links = getLinks(guildid);
+        for (int i = 0; links.length()>i; i++) {
+            if (links.getString(i).equals(linkid)) return null;
+        }
         return this.update("server", guildid, "links", this.getLinks(guildid).put(linkid).toString());
     }
 

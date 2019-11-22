@@ -23,14 +23,16 @@ public class ReadyListener extends ListenerAdapter {
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
         rethink.setup();
-        for (User user : event.getJDA().getUsers()) {
-            if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
-                rethink.insertUser(user.getId());
+        new Thread(() -> {
+            for (User user : event.getJDA().getUsers()) {
+                if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
+                    rethink.insertUser(user.getId());
+                }
             }
-        }
-        for (Guild g : event.getJDA().getGuilds()) {
-            rethink.insertGuild(g.getId());
-        }
+            for (Guild g : event.getJDA().getGuilds()) {
+                rethink.insertGuild(g.getId());
+            }
+        }).start();
 
         new BotList(config).post();
     }

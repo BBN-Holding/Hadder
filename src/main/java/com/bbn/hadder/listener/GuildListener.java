@@ -9,7 +9,7 @@ import com.bbn.hadder.core.Config;
 import com.bbn.hadder.utils.BotList;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -28,11 +28,13 @@ public class GuildListener extends ListenerAdapter {
     }
 
     public void onGuildJoin(GuildJoinEvent event) {
-        for (User user : event.getJDA().getUsers()) {
-            if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
-                rethink.insertUser(user.getId());
+        new Thread(() -> {
+            for (Member member : event.getGuild().getMembers()) {
+                if (!member.getUser().getId().equals(event.getJDA().getSelfUser().getId())) {
+                    rethink.insertUser(member.getUser().getId());
+                }
             }
-        }
+        }).start();
 
         rethink.insertGuild(event.getGuild().getId());
         EmbedBuilder builder = new EmbedBuilder();

@@ -74,7 +74,8 @@ public class Hadder {
                 new PrivateMessageListener(),
                 new CommandListener(rethink, commandHandler),
                 new GuildListener(rethink, config),
-                new ReadyListener(rethink, config));
+                new ReadyListener(rethink, config),
+                new LinkListener(rethink));
 
         try {
             shardManager = builder.build();
