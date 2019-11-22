@@ -143,11 +143,25 @@ public class Rethink {
     }
 
     public String insertGuild(String id) {
-        return this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", ""));
+        return this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", ""));
     }
 
     public String insertUser(String id) {
         return this.insert("user", r.hashMap("id", id).with("prefix", "h."));
+    }
+
+    public String updateRules(String guild_id, String message_id, String role_id) {
+        this.update("server", guild_id, "message_id", message_id);
+        this.update("server", guild_id, "role_id", role_id);
+        return null;
+    }
+
+    public String getRulesMID(String guild_id) {
+        return (String) this.get("server", "id", guild_id, "message_id");
+    }
+
+    public String getRulesRID(String guild_id) {
+        return (String) this.get("server", "id", guild_id, "role_id");
     }
 
 }

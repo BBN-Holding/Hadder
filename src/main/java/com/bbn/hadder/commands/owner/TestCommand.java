@@ -2,9 +2,6 @@ package com.bbn.hadder.commands.owner;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
-import net.dv8tion.jda.api.entities.Activity;
-
-import java.util.Arrays;
 
 /*
  * @author Skidder / GregTCLTK

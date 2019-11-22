@@ -68,15 +68,19 @@ public class Hadder {
                         new FeetCommand(),
                         new EroticCommand(),
                         new RoleCommand(),
+                        new RulesCommand(),
+                        new FeedbackCommand(),
                         new LinkCommand()), config, helpCommand);
-       
+
         builder.addEventListeners(
                 new MentionListener(rethink),
                 new PrivateMessageListener(),
                 new CommandListener(rethink, commandHandler),
                 new GuildListener(rethink, config),
                 new ReadyListener(rethink, config),
-                new LinkListener(rethink));
+                new LinkListener(rethink),
+                new RulesListener(rethink));
+               
 
         try {
             shardManager = builder.build();

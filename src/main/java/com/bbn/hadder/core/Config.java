@@ -94,6 +94,10 @@ public class Config {
         return config.getJSONObject("Tokens").getString("Giphy");
     }
 
+    public String getGitHubToken() {
+        return config.getJSONObject("Tokens").getString("GitHub");
+    }
+
     public String getMythicalBotListToken() {
         return config.getJSONObject("Tokens").getString("MythicalBotList");
     }
@@ -120,5 +124,9 @@ public class Config {
 
     public String getDiscordExtremeListToken() {
         return config.getJSONObject("Tokens").getString("DiscordExtremeList");
+    }
+
+    public String getDiscordBotReviewsToken() {
+        return config.getJSONObject("Tokens").getString("DiscordBotReviews");
     }
 }
