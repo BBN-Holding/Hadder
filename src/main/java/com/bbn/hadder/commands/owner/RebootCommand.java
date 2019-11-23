@@ -15,8 +15,8 @@ public class RebootCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")) {
-
+        if (event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
+            System.exit(69);
         } else {
             EmbedBuilder builder = new EmbedBuilder();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();

@@ -52,7 +52,7 @@ public class Hadder {
                         new GifCommand(),
                         new ClearCommand(),
                         new GitHubCommand(),
-                        new ScreenshareCommand(),
+                        new ScreenShareCommand(),
                         new RebootCommand(),
                         new EqualsCommand(),
                         new InviteCommand(),
@@ -71,6 +71,7 @@ public class Hadder {
                         new RulesCommand(),
                         new FeedbackCommand(),
                         new AvatarCommand(),
+                        new EvalCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(

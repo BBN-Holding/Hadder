@@ -68,7 +68,10 @@ public class GitHubCommand implements Command {
                 }
             }
         } else {
-            event.getTextChannel().sendMessage("SOON").queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                    .setTitle("Connect you GH account"))
+                    .setDescription("[Please connect your GitHub account here](https://github.com/login/oauth/authorize?client_id=25321f690bb1b6952942)")
+                    .build()).queue();
         }
     }
 

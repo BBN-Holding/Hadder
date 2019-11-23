@@ -38,8 +38,6 @@ public class KickCommand implements Command {
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You can't kick yourself.").build()).queue();
                 }
             } else if (event.getMessage().getMentionedMembers().size() == 0) {
-                EmbedBuilder builder = new EmbedBuilder();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to mention at least one user!").build()).queue();
                 event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
             } else if (event.getMessage().getMentionedMembers().size() > 1) {
                 for (int i = 0; i < event.getMessage().getMentionedMembers().size(); i++) {

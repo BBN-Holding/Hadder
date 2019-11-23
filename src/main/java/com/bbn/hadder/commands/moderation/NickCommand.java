@@ -31,8 +31,6 @@ public class NickCommand implements Command {
                                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("✅ Successfully nicked ✅").setDescription("I successfully nicked " + event.getMessage().getMentionedMembers().get(0).getUser().getAsTag() + ".").build()).queue();
                                 }
                             } else {
-                                EmbedBuilder builder = new EmbedBuilder();
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setTitle("Missing arguments").setDescription("You have to specify a new nickname for the user(s).").build()).queue();
                                 event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
                             }
                         } else {
@@ -51,8 +49,6 @@ public class NickCommand implements Command {
                         }
                     }
                 } else if (event.getMessage().getMentionedMembers().size() == 0) {
-                    EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to mention at least one user!").build()).queue();
                     event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
                 } else {
                     for (int i = 0; i < event.getMessage().getMentionedMembers().size(); i++) {

@@ -36,8 +36,6 @@ public class ClearCommand implements Command {
                         EmbedBuilder builder = new EmbedBuilder();
                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setDescription("Successfully deleted " + nbToDelete + " messages.").build()).queue();
                     } catch (NumberFormatException e) {
-                        EmbedBuilder builder = new EmbedBuilder();
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to specify a number!").build()).queue();
                         event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
                     }
                 } else {
@@ -49,8 +47,6 @@ public class ClearCommand implements Command {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();
             }
         } else {
-            EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to specify a number!").build()).queue();
             event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
         }
     }
