@@ -36,7 +36,6 @@ public class EvalCommand implements Command {
                 engine.put("message", event.getMessage());
                 engine.put("guild", event.getGuild());
                 engine.put("channel", event.getChannel());
-                engine.put("vc", event.getMember().getVoiceState().getChannel());
                 engine.put("author", event.getAuthor());
                 engine.put("member", event.getMember());
                 engine.put("self", event.getGuild().getSelfMember());
