@@ -18,7 +18,7 @@ public class RulesCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
+        if (event.getMember().hasPermission(Permission.MANAGE_SERVER) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
             if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                         .setTitle("Set up rules")
