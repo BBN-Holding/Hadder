@@ -15,7 +15,7 @@ public class BanCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.BAN_MEMBERS) || event.getGuild().getOwner().getId().equals(event.getAuthor().getId())) {
+        if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.BAN_MEMBERS) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
                 if (event.getMessage().getMentionedMembers().size() == 1) {
                     Member victim = event.getMessage().getMentionedMembers().get(0);
                     if (!event.getAuthor().getId().equals(victim.getId())) {
@@ -37,8 +37,6 @@ public class BanCommand implements Command {
                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setTitle("Not possible").setDescription("You can't ban yourself.").build()).queue();
                     }
                 } else if (event.getMessage().getMentionedMembers().size() == 0) {
-                    EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to mention at least one user!").build()).queue();
                     event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
                 } else if (event.getMessage().getMentionedMembers().size() > 1) {
                     for (int i = 0; i < event.getMessage().getMentionedMembers().size(); i++) {

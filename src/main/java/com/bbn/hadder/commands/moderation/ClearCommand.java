@@ -20,7 +20,7 @@ public class ClearCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length > 0) {
-            if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.MESSAGE_MANAGE) || event.getGuild().getOwnerId().equals(event.getAuthor().getId())) {
+            if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.MESSAGE_MANAGE)  || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
                 if (event.getGuild().getMemberById(event.getJDA().getSelfUser().getId()).hasPermission(Permission.MESSAGE_MANAGE)) {
                     try {
                         int nbToDelete = Integer.parseInt(args[0]);

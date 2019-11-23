@@ -70,6 +70,7 @@ public class Hadder {
                         new RoleCommand(),
                         new RulesCommand(),
                         new FeedbackCommand(),
+                        new AvatarCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(
@@ -80,7 +81,7 @@ public class Hadder {
                 new ReadyListener(rethink, config),
                 new LinkListener(rethink),
                 new RulesListener(rethink));
-               
+
 
         try {
             shardManager = builder.build();

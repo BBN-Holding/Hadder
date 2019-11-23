@@ -15,7 +15,7 @@ public class NickCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getMember().hasPermission(Permission.NICKNAME_MANAGE) || event.getGuild().getOwnerId().equals(event.getMember().getId())) {
+        if (event.getMember().hasPermission(Permission.NICKNAME_MANAGE) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
             if (event.getGuild().getSelfMember().hasPermission(Permission.NICKNAME_MANAGE)) {
                 if (event.getMessage().getMentionedMembers().size() == 1) {
                     if (!event.getMessage().getMentionedMembers().get(0).getId().equals(event.getGuild().getSelfMember().getId())) {

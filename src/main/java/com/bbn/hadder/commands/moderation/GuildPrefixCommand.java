@@ -10,7 +10,7 @@ public class GuildPrefixCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.MANAGE_SERVER) || event.getGuild().getOwnerId().equals(event.getAuthor().getId())) {
+        if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.MANAGE_SERVER) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
             if (args.length == 1) {
                 if (!args[0].contains("\"")) {
 

@@ -16,7 +16,7 @@ public class KickCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.KICK_MEMBERS) || event.getGuild().getOwnerId().equals(event.getAuthor().getId())) {
+        if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.KICK_MEMBERS) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
             if (event.getMessage().getMentionedMembers().size() == 1) {
                 Member victim = event.getMessage().getMentionedMembers().get(0);
                 if (!event.getAuthor().getId().equals(victim.getId())) {
