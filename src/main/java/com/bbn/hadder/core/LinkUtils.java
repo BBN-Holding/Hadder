@@ -25,7 +25,7 @@ public class LinkUtils {
 
     private void send(Message message, TextChannel channel, User user, List<String> reactions, boolean usedmessagebuilder) {
         if (!channel.getGuild().getSelfMember().hasPermission(Permission.MANAGE_WEBHOOKS)) {
-            channel.sendMessage(new EmbedBuilder().setTitle("Wait a sec").setDescription("Please contact the owner of the server to give me the manage webhook permission").build()).queue();
+            channel.sendMessage(new EmbedBuilder().setTitle("Wait a sec").setDescription("Please contact the owner of the server to give me the Manage Webhooks permission").build()).queue();
         } else {
             channel.retrieveWebhooks().queue(
                     webhooks -> {
@@ -87,9 +87,7 @@ public class LinkUtils {
                         }
                     }
             );
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }

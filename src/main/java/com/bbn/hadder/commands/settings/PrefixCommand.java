@@ -18,8 +18,6 @@ public class PrefixCommand implements Command {
             EmbedBuilder builder = new EmbedBuilder();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("✅ Successfully set ✅").setDescription("I successfully set the new prefix for you to " + args[0]).build()).queue();
         } else {
-            EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setDescription("You have to set a prefix.").build()).queue();
             event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
         }
     }

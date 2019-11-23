@@ -9,7 +9,8 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 
 import java.util.List;
 
-public class ScreenshareCommand implements Command {
+public class ScreenShareCommand implements Command {
+
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length>0) {
