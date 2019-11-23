@@ -71,6 +71,7 @@ public class Hadder {
                         new RulesCommand(),
                         new FeedbackCommand(),
                         new AvatarCommand(),
+                        new EvalCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(

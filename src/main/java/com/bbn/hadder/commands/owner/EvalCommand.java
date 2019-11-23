@@ -9,14 +9,12 @@ import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-
-public class RebootCommand implements Command {
-
+public class EvalCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
-            System.exit(69);
+            
         } else {
             EmbedBuilder builder = new EmbedBuilder();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();
@@ -25,16 +23,16 @@ public class RebootCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"restart"};
+        return new String[]{"eval"};
     }
 
     @Override
     public String description() {
-        return "Restart the bot";
+        return "You know what a eval command is ;)";
     }
 
     @Override
     public String usage() {
-        return "";
+        return "<Code to execute>";
     }
 }

@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 public class ShutdownCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")) {
+        if (event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
             EmbedBuilder builder = new EmbedBuilder();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("Shutdown").build()).queue();
             event.getJDA().getShardManager().shutdown();
