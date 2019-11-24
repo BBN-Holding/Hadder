@@ -6,9 +6,9 @@ package com.bbn.hadder.commands.music;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
-import com.bbn.hadder.utils.AudioPlayerSendHandler;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
 
@@ -21,8 +21,16 @@ public class JoinCommand implements Command {
             AudioManager audioManager = event.getGuild().getAudioManager();
             if(!audioManager.isAttemptingToConnect()) {
                 VoiceChannel vc = event.getMember().getVoiceState().getChannel();
-                audioManager.setSendingHandler(new AudioPlayerSendHandler());
-                audioManager.openAudioConnection(vc);
+                if (vc.getMemberPermissionOverrides().contains(Permission.VOICE_CONNECT)) {
+                    event.getGuild().getAudioManager().openAudioConnection(vc);
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                            .setTitle("Successfully connected"))
+                            .setDescription("I successfully connected to " + vc.getName() + ".")
+                            .build()).queue();
+                } else {
+                    EmbedBuilder builder = new EmbedBuilder();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
+                }
             } else {
                 EmbedBuilder builder = new EmbedBuilder();
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder)
