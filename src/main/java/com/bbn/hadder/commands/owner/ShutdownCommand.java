@@ -10,6 +10,7 @@ import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 public class ShutdownCommand implements Command {
+
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
