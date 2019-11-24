@@ -12,7 +12,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 public class RebootCommand implements Command {
 
-
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
@@ -25,7 +24,7 @@ public class RebootCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"restart"};
+        return new String[]{"restart", "restart"};
     }
 
     @Override
