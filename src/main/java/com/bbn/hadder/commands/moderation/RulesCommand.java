@@ -79,14 +79,14 @@ public class RulesCommand implements Command {
                                         }, event.getJDA(), event.getAuthor());
                                     }, event.getJDA(), event.getAuthor());
                                 } else {
-                                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, new EmbedBuilder()
-                                            .setTitle("Wrong Guild")
-                                            .setDescription("The mentioned channel must be on this guid!"))
+                                    EmbedBuilder builder = new EmbedBuilder();
+                                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder)
                                             .build()).queue();
                                 }
                             } else {
-                                EmbedBuilder builder = new EmbedBuilder();
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder)
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, new EmbedBuilder()
+                                        .setTitle("Wrong Guild")
+                                        .setDescription("The mentioned channel must be on this guid!"))
                                         .build()).queue();
                             }
                         } catch (Exception e) {
@@ -149,14 +149,14 @@ public class RulesCommand implements Command {
                                         }, event.getJDA(), event.getAuthor());
                                     }, event.getJDA(), event.getAuthor());
                                 } else {
-                                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, new EmbedBuilder()
-                                            .setTitle("Wrong Guild")
-                                            .setDescription("The mentioned channel must be on this guid!"))
+                                    EmbedBuilder builder = new EmbedBuilder();
+                                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder)
                                             .build()).queue();
                                 }
                             } else {
-                                EmbedBuilder builder = new EmbedBuilder();
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder)
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, new EmbedBuilder()
+                                        .setTitle("Wrong Guild")
+                                        .setDescription("The mentioned channel must be on this guid!"))
                                         .build()).queue();
                             }
                         } catch (Exception e) {
