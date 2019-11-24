@@ -7,9 +7,11 @@ import com.bbn.hadder.commands.nsfw.*;
 import com.bbn.hadder.commands.owner.*;
 import com.bbn.hadder.commands.fun.*;
 import com.bbn.hadder.commands.settings.*;
+import com.bbn.hadder.commands.music.*;
 import com.bbn.hadder.core.*;
 import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.managers.AudioManager;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
@@ -18,7 +20,8 @@ import java.util.List;
 
 public class Hadder {
 
-    public static  ShardManager shardManager;
+    public static ShardManager shardManager;
+    public static AudioManager audioManager;
 
     public static void main(String[] args) {
         startBot();
@@ -72,6 +75,7 @@ public class Hadder {
                         new FeedbackCommand(),
                         new AvatarCommand(),
                         new EvalCommand(),
+                        new JoinCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(
