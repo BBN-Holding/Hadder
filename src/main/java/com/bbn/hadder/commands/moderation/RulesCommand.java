@@ -58,7 +58,7 @@ public class RulesCommand implements Command {
                                                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
                                             }
                                         } else {
-                                            Role role = event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), true).get(0);
+                                            Role role = event3.getGuild().getRolesByName(event3.getMessage().getContentRaw().replace("h.rules", ""), true).get(0);
                                             if (event3.getGuild().getSelfMember().canInteract(role)) {
                                                 event3.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                                                         .setTitle("The role has been successfully set to " + role.getName() + "."))
