@@ -26,7 +26,7 @@ public class ShutdownCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"shutdown"};
+        return new String[]{"shutdown", "exit"};
     }
 
     @Override

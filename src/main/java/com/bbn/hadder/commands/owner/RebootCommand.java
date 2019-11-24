@@ -25,7 +25,7 @@ public class RebootCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"restart"};
+        return new String[]{"restart", "restart"};
     }
 
     @Override
