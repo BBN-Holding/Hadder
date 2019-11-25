@@ -3,29 +3,30 @@ package com.bbn.hadder.utils;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
+import java.time.Instant;
 
 public class MessageEditor {
 
     public EmbedBuilder setDefaultSettings(MessageType type, EmbedBuilder embedBuilder) {
         switch (type) {
             case INFO:
-                embedBuilder.setColor(new Color(47,94,105));
+                embedBuilder.setColor(new Color(47,94,105)).setTimestamp(Instant.now());
                 break;
 
             case ERROR:
-                embedBuilder.setColor(Color.RED);
+                embedBuilder.setColor(Color.RED).setTimestamp(Instant.now());
                 break;
 
             case WARNING:
-                embedBuilder.setColor(Color.ORANGE);
+                embedBuilder.setColor(Color.ORANGE).setTimestamp(Instant.now());
                 break;
 
             case NO_PERMISSION:
-                embedBuilder.setTitle("⛔ No Permission ⛔").setDescription("You are not authorized to execute this command!").setColor(Color.RED);
+                embedBuilder.setTitle("⛔ No Permission ⛔").setDescription("You are not authorized to execute this command!").setColor(Color.RED).setTimestamp(Instant.now());
                 break;
 
             case NO_SELF_PERMISSION:
-                embedBuilder.setTitle("⛔ No Permission ⛔").setDescription("Unfortunately, I do not have the required rights to perform this action").setColor(Color.RED);
+                embedBuilder.setTitle("⛔ No Permission ⛔").setDescription("Unfortunately, I do not have the required rights to perform this action").setColor(Color.RED).setTimestamp(Instant.now());
                 break;
         }
         return embedBuilder;

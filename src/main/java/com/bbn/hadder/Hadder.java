@@ -76,6 +76,7 @@ public class Hadder {
                         new JoinCommand(),
                         new LeaveCommand(),
                         new GuildLeaveCommand(),
+                        new MemeCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(

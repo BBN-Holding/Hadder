@@ -33,7 +33,6 @@ public class FeetCommand implements Command {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder)
                         .setAuthor("Image not showing? Click here", url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
-                        .setTimestamp(Instant.now())
                         .setFooter("Feet")
                         .build()).queue();
 

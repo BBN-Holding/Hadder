@@ -33,7 +33,6 @@ public class PornCommand implements Command {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder)
                         .setAuthor("GIF not showing? Click here", url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
-                        .setTimestamp(Instant.now())
                         .setFooter("Porn")
                         .build()).queue();
 
