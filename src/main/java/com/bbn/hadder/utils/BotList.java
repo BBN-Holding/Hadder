@@ -26,6 +26,7 @@ public class BotList {
     private static String YetAnotherBotList = "https://yabl.xyz/api/bot/637002314162372639/stats";
     private static String DiscordExtremeList = "https://discordextremelist.xyz/api/bot/637002314162372639";
     private static String DiscordBotReviews = "https://discordbotreviews.xyz/api/bot/637002314162372639/stats";
+    private static String DiscordBots = "https://top.gg/api/bots/637002314162372639/stats";
 
     private Config config;
 
@@ -40,6 +41,8 @@ public class BotList {
             json.put("guildCount", Hadder.shardManager.getGuilds().size());
             json.put("guilds", Hadder.shardManager.getGuilds().size());
             json.put("users", Hadder.shardManager.getUsers().size());
+            json.put("shard_count", Hadder.shardManager.getShards().size());
+            json.put("shards", Hadder.shardManager.getShards());
 
             RequestBody body = RequestBody.create(MediaType.parse("application/json"), json.toString());
 
@@ -159,6 +162,21 @@ public class BotList {
             try {
                 new OkHttpClient().newCall(discordbotreviews).execute().close();
                 System.out.println("Successfully posted count to Discord Bot Reviews!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Discord Bots
+
+            Request discordbots = new Request.Builder()
+                    .url(DiscordBots)
+                    .post(body)
+                    .addHeader("Authorization", config.getDiscordBotsToken())
+                    .build();
+
+            try {
+                new OkHttpClient().newCall(discordbots).execute().close();
+                System.out.println("Successfully posted count to Discord Bots!");
             } catch (IOException e) {
                 e.printStackTrace();
             }

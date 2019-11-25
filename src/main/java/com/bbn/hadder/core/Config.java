@@ -59,6 +59,10 @@ public class Config {
                 .key("DiscordBotList").value(null)
                 .key("DiscordBestBots").value(null)
                 .key("DiscordBoats").value(null)
+                .key("YetAnotherBotList").value(null)
+                .value("DiscordExtremeList").value(null)
+                .value("DiscordBotReviews").value(null)
+                .value("DiscordBots").value(null)
                 .endObject().endObject().toString();
     }
 
@@ -128,5 +132,9 @@ public class Config {
 
     public String getDiscordBotReviewsToken() {
         return config.getJSONObject("Tokens").getString("DiscordBotReviews");
+    }
+
+    public String getDiscordBotsToken() {
+        return config.getJSONObject("Tokens").getString("DiscordBots");
     }
 }
