@@ -42,7 +42,6 @@ public class BotList {
             json.put("guilds", Hadder.shardManager.getGuilds().size());
             json.put("users", Hadder.shardManager.getUsers().size());
             json.put("shard_count", Hadder.shardManager.getShards().size());
-            json.put("shards", Hadder.shardManager.getShards());
 
             RequestBody body = RequestBody.create(MediaType.parse("application/json"), json.toString());
 
