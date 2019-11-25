@@ -167,6 +167,18 @@ public class BotList {
 
             // Discord Bots
 
+            Request discordbots = new Request.Builder()
+                    .url(DiscordBots)
+                    .post(body)
+                    .addHeader("Authorization", config.getDiscordBotsToken())
+                    .build();
+
+            try {
+                new OkHttpClient().newCall(discordbots).execute().close();
+                System.out.println("Successfully posted count to Discord Bots!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
