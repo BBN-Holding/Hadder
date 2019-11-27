@@ -1,0 +1,23 @@
+{
+  "Owners":
+  [],
+  "Database":{"IP":"",
+    "Port":6775,
+    "DBName":"",
+    "Username":"",
+    "Password":""},
+  "Tokens":{
+    "BotToken":"",
+    "Giphy":"",
+    "GitHub": "",
+    "MythicalBotList":"",
+    "BotsForDiscord":"",
+    "DiscordBotList":"",
+    "DiscordBestBots":"",
+    "DiscordBoats": "",
+    "YetAnotherBotList": "",
+    "DiscordExtremeList": "",
+    "DiscordBotReviews": "",
+    "DiscordBots": ""
+  }
+}
