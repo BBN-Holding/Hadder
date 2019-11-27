@@ -60,7 +60,7 @@
     <dependency>
       <groupId>org.kohsuke</groupId>
       <artifactId>github-api</artifactId>
-      <version>1.99</version>
+      <version>1.100</version>
     </dependency>
     <dependency>
       <groupId>com.sedmelluq</groupId>
