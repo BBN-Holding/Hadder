@@ -4,6 +4,7 @@ package com.bbn.hadder.commands.owner;
  * @author Skidder / GregTCLTK
  */
 
+import com.bbn.hadder.Hadder;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
@@ -31,6 +32,9 @@ public class EvalCommand implements Command {
                     ex.printStackTrace();
                 }
 
+                engine.put("msg", event.getMessage());
+                engine.put("shradmanager", Hadder.shardManager);
+                engine.put("rethink", event.getRethink());
                 engine.put("event", event);
                 engine.put("jda", event.getJDA());
                 engine.put("message", event.getMessage());
