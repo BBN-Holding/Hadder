@@ -21,16 +21,11 @@ public class JoinCommand implements Command {
             AudioManager audioManager = event.getGuild().getAudioManager();
             if(!audioManager.isAttemptingToConnect()) {
                 VoiceChannel vc = event.getMember().getVoiceState().getChannel();
-                if (vc.getMemberPermissionOverrides().contains(Permission.VOICE_CONNECT)) {
                     event.getGuild().getAudioManager().openAudioConnection(vc);
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
                             .setTitle("Successfully connected"))
                             .setDescription("I successfully connected to " + vc.getName() + ".")
                             .build()).queue();
-                } else {
-                    EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
-                }
             } else {
                 EmbedBuilder builder = new EmbedBuilder();
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder)
