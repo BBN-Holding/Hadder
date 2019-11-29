@@ -27,11 +27,11 @@ public class GifCommand implements Command {
                 query = new StringBuilder(query.substring(0, query.length() - 1));
             }
 
-            OkHttpClient caller = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder().url("http://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=" + event.getConfig().getGiphyToken()).build();
             try {
                 Random rand = new Random();
-                Response response = caller.newCall(request).execute();
+                Response response = client.newCall(request).execute();
                 JSONObject json = new JSONObject(response.body().string());
                 JSONArray array = json.getJSONArray("data");
                 int gifIndex = rand.nextInt(array.length());
