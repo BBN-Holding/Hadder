@@ -22,14 +22,18 @@ public class PrivateMessageListener extends ListenerAdapter {
                 PrivateChannel Skidder = event.getJDA().getUserById("477141528981012511").openPrivateChannel().complete();
                 PrivateChannel Hax = event.getJDA().getUserById("261083609148948488").openPrivateChannel().complete();
 
-                EmbedBuilder message = new EmbedBuilder()
+                Skidder.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                         .setTitle("New DM by " + event.getAuthor().getAsTag())
                         .setAuthor(event.getAuthor().getName(), event.getAuthor().getAvatarUrl(), event.getAuthor().getAvatarUrl())
                         .setDescription(event.getMessage().getContentRaw())
-                        .setTimestamp(Instant.now());
-
-                Skidder.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).build()).queue();
-                Hax.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).build()).queue();
+                        .setTimestamp(Instant.now())
+                        .build()).queue();
+                Hax.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                        .setTitle("New DM by " + event.getAuthor().getAsTag())
+                        .setAuthor(event.getAuthor().getName(), event.getAuthor().getAvatarUrl(), event.getAuthor().getAvatarUrl())
+                        .setDescription(event.getMessage().getContentRaw())
+                        .setTimestamp(Instant.now())
+                        .build()).queue();
             }
         }
     }

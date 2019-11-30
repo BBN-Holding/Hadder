@@ -21,14 +21,14 @@ public class MentionListener extends ListenerAdapter {
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         if (event.isFromType(ChannelType.TEXT)) {
             if (event.getMessage().getContentRaw().equals(event.getGuild().getSelfMember().getAsMention())) {
-                EmbedBuilder builder = new EmbedBuilder()
+                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                         .setTitle("Hello I'm Hadder.")
                         .setAuthor(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl(), event.getJDA().getSelfUser().getAvatarUrl())
                         .addField("Users", String.valueOf(event.getJDA().getUsers().size()), false)
                         .addField("Guilds", String.valueOf(event.getJDA().getGuilds().size()), false)
                         .addField("Prefix (User)", rethink.getUserPrefix(event.getAuthor().getId()), false)
-                        .addField("Prefix (Guild)", rethink.getGuildPrefix(event.getGuild().getId()), false);
-                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).build()).queue();
+                        .addField("Prefix (Guild)", rethink.getGuildPrefix(event.getGuild().getId()), false)
+                        .build()).queue();
             }
         }
     }
