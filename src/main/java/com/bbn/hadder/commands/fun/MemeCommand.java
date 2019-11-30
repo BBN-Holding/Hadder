@@ -7,7 +7,6 @@ package com.bbn.hadder.commands.fun;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -15,7 +14,6 @@ import org.json.JSONObject;
 
 import java.awt.*;
 import java.io.IOException;
-import java.time.Instant;
 
 public class MemeCommand implements Command {
 
@@ -29,13 +27,13 @@ public class MemeCommand implements Command {
             Response response = client.newCall(request).execute();
             JSONObject json = new JSONObject(response.body().string());
             String url = json.get("image").toString();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder())
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                     .setTitle("Your random meme")
                     .setImage(url)
                     .build()).queue();
         } catch (IOException e) {
             e.printStackTrace();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, new EmbedBuilder())
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
                     .setTitle("Error!")
                     .setDescription("The request to the meme API could not be processed. Please try it again later.")
                     .setColor(Color.RED)

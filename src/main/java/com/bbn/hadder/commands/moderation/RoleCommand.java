@@ -24,17 +24,14 @@ public class RoleCommand implements Command {
                                             if (event.getGuild().getSelfMember().canInteract(role)) {
                                                 event.getGuild().addRoleToMember(member, role).reason("Role added by " + event.getAuthor().getAsTag()).queue();
                                             } else {
-                                                EmbedBuilder builder = new EmbedBuilder();
-                                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
+                                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                             }
                                         } else {
-                                            EmbedBuilder builder = new EmbedBuilder();
-                                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
+                                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                         }
                                     }
                                 }
-                                EmbedBuilder builder = new EmbedBuilder();
-                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder)
+                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                                         .setTitle("✅ Successfully added role(s) ✅")
                                         .setDescription("I successfully added " + event.getMessage().getMentionedRoles().size() + " roles to " + event.getMessage().getMentionedMembers().size() + " members.")
                                         .build()).queue();
@@ -49,17 +46,14 @@ public class RoleCommand implements Command {
                                             if (event.getGuild().getSelfMember().canInteract(role)) {
                                                 event.getGuild().removeRoleFromMember(member, role).reason("Role removed by " + event.getAuthor().getAsTag()).queue();
                                             } else {
-                                                EmbedBuilder builder = new EmbedBuilder();
-                                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
+                                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                             }
                                         } else {
-                                            EmbedBuilder builder = new EmbedBuilder();
-                                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
+                                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                         }
                                     }
                                 }
-                                EmbedBuilder builder = new EmbedBuilder();
-                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder)
+                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                                         .setTitle("✅ Successfully removed role(s) ✅")
                                         .setDescription("I successfully removed " + event.getMessage().getMentionedRoles().size() + " roles from " + event.getMessage().getMentionedMembers().size() + " members.")
                                         .build()).queue();
@@ -67,12 +61,10 @@ public class RoleCommand implements Command {
                             break;
                     }
                 } else {
-                    EmbedBuilder builder = new EmbedBuilder();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION, builder).build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                 }
             } else {
-                EmbedBuilder builder = new EmbedBuilder();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             }
         } else {
             event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());

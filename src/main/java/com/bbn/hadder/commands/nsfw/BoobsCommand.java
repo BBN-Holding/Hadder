@@ -13,7 +13,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
-import java.time.Instant;
 
 public class BoobsCommand implements Command {
 
@@ -29,8 +28,7 @@ public class BoobsCommand implements Command {
                 Response response = caller.newCall(request).execute();
                 String url = response.body().string().replace("{\"url\":\"", "");
 
-                EmbedBuilder builder = new EmbedBuilder();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder)
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                         .setAuthor("GIF not showing? Click here", url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Boobs")
@@ -41,8 +39,7 @@ public class BoobsCommand implements Command {
             }
 
         } else {
-            EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING, builder).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
         }
     }
 

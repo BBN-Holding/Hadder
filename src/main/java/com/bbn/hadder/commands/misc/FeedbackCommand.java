@@ -8,7 +8,6 @@ import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
@@ -19,15 +18,15 @@ public class FeedbackCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                 .setTitle("Feedback Topic")
-                .setDescription("Please send me the feedback topic."))
+                .setDescription("Please send me the feedback topic.")
                 .build()).queue();
         new EventWaiter().newOnMessageEventWaiter(event1 -> {
                 String title = event1.getMessage().getContentDisplay();
-                event1.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                event1.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                         .setTitle("Feedback Description")
-                        .setDescription("Please send me the feedback description now."))
+                        .setDescription("Please send me the feedback description now.")
                         .build()).queue();
             new EventWaiter().newOnMessageEventWaiter(event2 -> {
                 String description = event2.getMessage().getContentDisplay();
@@ -35,8 +34,8 @@ public class FeedbackCommand implements Command {
                     GitHub connection = GitHub.connectUsingOAuth(event.getConfig().getGitHubToken());
                     GHRepository Hadder = connection.getOrganization("BigBotNetwork").getRepository("Hadder");
                     GHIssue issue = Hadder.createIssue(title).body("<strong>Feedback by " + event.getAuthor().getAsTag() + "</strong><br>" + description).label("feedback").create();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
-                            .setTitle("Feedback successfully sent"))
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                            .setTitle("Feedback successfully sent")
                             .setDescription(issue.getHtmlUrl().toString())
                             .build()).queue();
                 } catch (IOException e) {

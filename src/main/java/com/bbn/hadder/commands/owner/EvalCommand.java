@@ -68,7 +68,7 @@ public class EvalCommand implements Command {
                     }
 
                     builder.addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false);
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("Eval Command").build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("Eval Command").build()).queue();
 
                     service.shutdownNow();
 
@@ -78,8 +78,7 @@ public class EvalCommand implements Command {
                 event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
             }
         } else {
-            EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }
     }
 
