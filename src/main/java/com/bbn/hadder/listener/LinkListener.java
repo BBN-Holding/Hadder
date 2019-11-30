@@ -46,15 +46,15 @@ public class LinkListener extends ListenerAdapter {
 
                                                     msg.delete().queue();
 
-                                                    MessageEmbed msgembed = new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO,
-                                                            new EmbedBuilder().setTitle("Guilds linked!").setDescription("The Guild allowed the link. Have fun!")).build();
+                                                    MessageEmbed msgembed = new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                                                            .setTitle("Guilds linked!").setDescription("The Guild allowed the link. Have fun!").build();
                                                     event.getChannel().sendMessage(msgembed).queue();
                                                     event.getJDA().getTextChannelById(rethink.getLinkChannel(requestguildid)).sendMessage(msgembed).queue();
                                                 } else if (event.getReactionEmote().getName().equals("❌")) {
                                                     msg.delete().queue();
 
-                                                    MessageEmbed msgembed = new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO,
-                                                            new EmbedBuilder().setTitle("Guild linking denied.").setDescription("The Guild denied the link. :(")).build();
+                                                    MessageEmbed msgembed = new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                                                            .setTitle("Guild linking denied.").setDescription("The Guild denied the link. :(").build();
                                                     event.getChannel().sendMessage(msgembed).queue();
                                                     event.getJDA().getTextChannelById(rethink.getLinkChannel(requestguildid)).sendMessage(msgembed).queue();
                                                 }

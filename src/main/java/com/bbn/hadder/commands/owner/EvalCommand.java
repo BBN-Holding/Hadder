@@ -4,6 +4,7 @@ package com.bbn.hadder.commands.owner;
  * @author Skidder / GregTCLTK
  */
 
+import com.bbn.hadder.Hadder;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
@@ -31,6 +32,9 @@ public class EvalCommand implements Command {
                     ex.printStackTrace();
                 }
 
+                engine.put("msg", event.getMessage());
+                engine.put("shradmanager", Hadder.shardManager);
+                engine.put("rethink", event.getRethink());
                 engine.put("event", event);
                 engine.put("jda", event.getJDA());
                 engine.put("message", event.getMessage());
@@ -64,7 +68,7 @@ public class EvalCommand implements Command {
                     }
 
                     builder.addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false);
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("Eval Command").build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("Eval Command").build()).queue();
 
                     service.shutdownNow();
 
@@ -74,8 +78,7 @@ public class EvalCommand implements Command {
                 event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
             }
         } else {
-            EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }
     }
 

@@ -7,7 +7,6 @@ package com.bbn.hadder.commands.owner;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 
 public class GuildLeaveCommand implements Command {
@@ -18,16 +17,15 @@ public class GuildLeaveCommand implements Command {
             if (args.length > 0) {
                 Guild guild = event.getJDA().getGuildById(args[0]);
                 guild.leave().queue();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, new EmbedBuilder()
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                         .setTitle("Successfully left")
-                        .setDescription("I successfully left " + guild.getName()))
+                        .setDescription("I successfully left " + guild.getName())
                         .build()).queue();
             } else {
                 event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
             }
         } else {
-            EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }
     }
 
