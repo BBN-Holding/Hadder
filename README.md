@@ -8,3 +8,4 @@ The Hadder Discord bot is a multi-purpose Discord Bot.
 
 <a href="https://discordextremelist.xyz/bots/Hadder"><img src="https://discordextremelist.xyz/api/bot/637002314162372639/widget"/></a>
 [![Discord Bots](https://top.gg/api/widget/637002314162372639.svg)](https://top.gg/bot/637002314162372639)
+[![Hadder's Widget](https://api.botlist.space/widget/637002314162372639/2 "Hadder's Widget")](https://botlist.space/bot/637002314162372639?utm_source=bls&utm_medium=widget&utm_campaign=637002314162372639)
