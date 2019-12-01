@@ -27,7 +27,7 @@ public class BotList {
     private static String DiscordExtremeList = "https://discordextremelist.xyz/api/bot/637002314162372639";
     private static String DiscordBotReviews = "https://discordbotreviews.xyz/api/bot/637002314162372639/stats";
     private static String DiscordBots = "https://top.gg/api/bots/637002314162372639/stats";
-    private static String BotListSpace = "https://api.botlist.space/v1/bots/:637002314162372639";
+    private static String BotListSpace = "https://api.botlist.space/v1/bots/637002314162372639";
 
     private Config config;
 
