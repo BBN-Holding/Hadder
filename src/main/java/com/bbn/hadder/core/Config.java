@@ -137,4 +137,8 @@ public class Config {
     public String getDiscordBotsToken() {
         return config.getJSONObject("Tokens").getString("DiscordBots");
     }
+
+    public String getBotListSpaceToken() {
+        return config.getJSONObject("Tokens").getString("BotListSpace");
+    }
 }
