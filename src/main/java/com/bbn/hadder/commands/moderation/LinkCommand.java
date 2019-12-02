@@ -10,8 +10,7 @@ public class LinkCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length == 0) event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
-        switch (args[0]) {
-
+        switch (args[0].toLowerCase()) {
             case "add":
                 if (args.length != 2) return;
                 String linkid = args[1];
