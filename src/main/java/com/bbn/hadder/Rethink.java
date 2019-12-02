@@ -32,7 +32,7 @@ public class Rethink {
                     .connect();
             System.out.println("DB CONNECTED");
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             System.out.println("DB CONNECTION FAILED");
         }
     }
@@ -59,7 +59,7 @@ public class Rethink {
     }
 
     private String update(String table, String wherevalue, String what, String whatvalue) {
-        String out="";
+        String out = "";
         try {
             Cursor cursor = r.table(table).get(wherevalue).update(r.hashMap(what, whatvalue)).run(conn);
             out=cursor.toString();
@@ -95,16 +95,16 @@ public class Rethink {
 
     }
 
-    public String setUserPrefix(String prefix, String userid) {
-        return this.update("user", userid, "prefix", prefix);
+    public void setUserPrefix(String prefix, String userid) {
+        this.update("user", userid, "prefix", prefix);
     }
 
     public String getUserPrefix(String id) {
         return (String) this.get("user", "id", id, "prefix");
     }
 
-    public String setGuildPrefix(String prefix, String guildid) {
-        return this.update("server", guildid, "prefix", prefix);
+    public void setGuildPrefix(String prefix, String guildid) {
+        this.update("server", guildid, "prefix", prefix);
     }
 
     public String getGuildPrefix(String id) {
@@ -115,12 +115,12 @@ public class Rethink {
         return new JSONArray((String) this.get("server", "id", id, "links"));
     }
 
-    public String addLinkedGuild(String guildid, String linkid) {
+    public void addLinkedGuild(String guildid, String linkid) {
         JSONArray links = getLinks(guildid);
         for (int i = 0; links.length()>i; i++) {
-            if (links.getString(i).equals(linkid)) return null;
+            if (links.getString(i).equals(linkid)) return;
         }
-        return this.update("server", guildid, "links", this.getLinks(guildid).put(linkid).toString());
+        this.update("server", guildid, "links", this.getLinks(guildid).put(linkid).toString());
     }
 
     public String removeLinkedGuild(String guildid, String linkid) {
@@ -134,26 +134,25 @@ public class Rethink {
         return this.update("server", guildid, "links", linkedguildslist.toString());
     }
 
-    public String setLinkChannel(String guildid, String channelid) {
-        return this.update("server", guildid, "linkchannel", channelid);
+    public void setLinkChannel(String guildid, String channelid) {
+        this.update("server", guildid, "linkchannel", channelid);
     }
 
     public String getLinkChannel(String guildid) {
         return (String) this.get("server", "id", guildid, "linkchannel");
     }
 
-    public String insertGuild(String id) {
-        return this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", ""));
+    public void insertGuild(String id) {
+        this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", "").with("invite_detect", false));
     }
 
-    public String insertUser(String id) {
-        return this.insert("user", r.hashMap("id", id).with("prefix", "h."));
+    public void insertUser(String id) {
+        this.insert("user", r.hashMap("id", id).with("prefix", "h."));
     }
 
-    public String updateRules(String guild_id, String message_id, String role_id) {
+    public void updateRules(String guild_id, String message_id, String role_id) {
         this.update("server", guild_id, "message_id", message_id);
         this.update("server", guild_id, "role_id", role_id);
-        return null;
     }
 
     public String getRulesMID(String guild_id) {
@@ -162,6 +161,18 @@ public class Rethink {
 
     public String getRulesRID(String guild_id) {
         return (String) this.get("server", "id", guild_id, "role_id");
+    }
+
+    public void setInviteDetection(String guild_id, boolean b) {
+        try {
+            r.table("server").get(guild_id).update(r.hashMap("invite_detect", b)).run(conn);
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Boolean getInviteDetection(String guild_id) {
+        return (Boolean) this.get("server", "id", guild_id, "invite_detect");
     }
 
 }

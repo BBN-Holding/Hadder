@@ -4,6 +4,7 @@ import com.bbn.hadder.Rethink;
 import com.bbn.hadder.core.LinkUtils;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
@@ -70,11 +71,9 @@ public class LinkListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        if (!event.isWebhookMessage()) {
-            if (event.getChannel().getId().equals(rethink.getLinkChannel(event.getGuild().getId()))) {
+        if (!event.isWebhookMessage() && event.getChannel().getId().equals(rethink.getLinkChannel(event.getGuild().getId())) && event.isFromType(ChannelType.TEXT)) {
                 new LinkUtils().sendAll(rethink.getLinks(event.getGuild().getId()), event.getJDA(), event.getMessage(), event.getAuthor(), new ArrayList<>() {
                 }, rethink, false);
-            }
         }
     }
 }
