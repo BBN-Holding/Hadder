@@ -25,8 +25,8 @@ public class LinkListener extends ListenerAdapter {
     public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {
         event.getChannel().retrieveMessageById(event.getMessageId()).queue(
                 msg -> {
-                    if (event.getMember().hasPermission(Permission.MANAGE_CHANNEL)) {
-                        if (!event.getMember().getUser().equals(event.getJDA().getSelfUser()) && msg.getAuthor().equals(event.getJDA().getSelfUser()) && msg.getEmbeds().size() == 1 && msg.getEmbeds().get(0).getFooter() == null && msg.getEmbeds().get(0).getTitle().endsWith(") wants to link guilds!")) {
+                    if (!event.getMember().getUser().equals(event.getJDA().getSelfUser()) && msg.getAuthor().equals(event.getJDA().getSelfUser()) && msg.getEmbeds().size() == 1 && msg.getEmbeds().get(0).getFooter() == null && msg.getEmbeds().get(0).getTitle().endsWith(") wants to link guilds!")) {
+                        if (event.getMember().hasPermission(Permission.MANAGE_CHANNEL)) {
                             String requestguild = msg.getEmbeds().get(0).getTitle().replaceAll("\\) wants to link guilds!", "");
                             String requestguildid = null;
                             for (int i = requestguild.length() - 1; i >= 0; i--) {
@@ -55,9 +55,9 @@ public class LinkListener extends ListenerAdapter {
                                     event.getJDA().getTextChannelById(rethink.getLinkChannel(requestguildid)).sendMessage(msgembed).queue();
                                 }
                             }
+                        } else {
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
                         }
-                    } else {
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
                     }
                 }
         );
