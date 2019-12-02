@@ -87,7 +87,7 @@ public class Hadder {
                 new CommandListener(rethink, commandHandler),
                 new GuildListener(rethink, config),
                 new ReadyListener(rethink, config),
-                new LinkListener(rethink),
+                //new LinkListener(rethink),
                 new InviteLinkListener(rethink),
                 new RulesListener(rethink));
 
