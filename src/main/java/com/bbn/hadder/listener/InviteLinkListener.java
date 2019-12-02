@@ -5,7 +5,6 @@ package com.bbn.hadder.listener;
  */
 
 import com.bbn.hadder.Rethink;
-import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
