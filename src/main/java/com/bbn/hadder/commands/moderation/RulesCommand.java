@@ -106,25 +106,32 @@ public class RulesCommand implements Command {
                             .build()).queue();
                     new EventWaiter().newOnMessageEventWaiter(event5 -> {
                         Emote demote = event5.getMessage().getEmotes().get(0);
-                        Message rules = channel.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                .setTitle("Rules")
-                                .setDescription(message)
-                                .build()).complete();
-                        try {
-                            rules.addReaction(aemote).queue();
-                            rules.addReaction(demote).queue();
-                            event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set the rules")
-                                    .setDescription("I successfully send the rules in " + channel.getAsMention() + ".")
+                        if (!aemote.equals(demote)) {
+                            Message rules = channel.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                                    .setTitle("Rules")
+                                    .setDescription(message)
+                                    .build()).complete();
+                            try {
+                                rules.addReaction(aemote).queue();
+                                rules.addReaction(demote).queue();
+                                event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                                        .setTitle("Successfully set the rules")
+                                        .setDescription("I successfully send the rules in " + channel.getAsMention() + ".")
+                                        .build()).queue();
+                            } catch (Exception e) {
+                                event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
+                                        .setTitle("Error")
+                                        .setDescription("I can not access the custom emote(s),")
+                                        .build()).queue();
+                                e.printStackTrace();
+                            }
+                            event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote.toString(), demote.toString());
+                        } else {
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
+                                    .setTitle("Emotes are equal")
+                                    .setDescription("The 1st and 2nd emote equals each other.")
                                     .build()).queue();
-                        } catch (Exception e) {
-                            event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                    .setTitle("Error")
-                                    .setDescription("I can not access the custom emote(s),")
-                                    .build()).queue();
-                            e.printStackTrace();
                         }
-                        event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote.toString(), demote.toString());
                     }, event.getJDA(), event.getAuthor());
                 } else {
                     String aemote = event4.getMessage().getContentRaw();
@@ -134,25 +141,32 @@ public class RulesCommand implements Command {
                             .build()).queue();
                     new EventWaiter().newOnMessageEventWaiter(event5 -> {
                         String demote = event5.getMessage().getContentRaw();
-                        Message rules = channel.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                .setTitle("Rules")
-                                .setDescription(message)
-                                .build()).complete();
-                        try {
-                            rules.addReaction(aemote).queue();
-                            rules.addReaction(demote).queue();
-                            event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set the rules")
-                                    .setDescription("I successfully send the rules in " + channel.getAsMention() + ".")
+                        if (!aemote.equals(demote)) {
+                            Message rules = channel.sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                                    .setTitle("Rules")
+                                    .setDescription(message)
+                                    .build()).complete();
+                            try {
+                                rules.addReaction(aemote).queue();
+                                rules.addReaction(demote).queue();
+                                event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                                        .setTitle("Successfully set the rules")
+                                        .setDescription("I successfully send the rules in " + channel.getAsMention() + ".")
+                                        .build()).queue();
+                            } catch (Exception e) {
+                                event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
+                                        .setTitle("Error")
+                                        .setDescription("The given emote can't be used.")
+                                        .build()).queue();
+                                e.printStackTrace();
+                            }
+                            event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote, demote);
+                        } else {
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
+                                    .setTitle("Emotes are equal")
+                                    .setDescription("The 1st and 2nd emote equals each other.")
                                     .build()).queue();
-                        } catch (Exception e) {
-                            event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                    .setTitle("Error")
-                                    .setDescription("The given emote can't be used.")
-                                    .build()).queue();
-                            e.printStackTrace();
                         }
-                        event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote, demote);
                     }, event.getJDA(), event.getAuthor());
                 }
             }, event.getJDA(), event.getAuthor());

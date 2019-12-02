@@ -11,23 +11,42 @@ public class MessageEditor {
         EmbedBuilder builder = new EmbedBuilder();
         switch (type) {
             case INFO:
-                builder.setColor(new Color(47, 94, 105)).setTimestamp(Instant.now());
+                builder
+                        .setColor(new Color(47, 94, 105))
+                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setTimestamp(Instant.now());
                 break;
 
             case ERROR:
-                builder.setColor(Color.RED).setTimestamp(Instant.now());
+                builder
+                        .setColor(Color.RED)
+                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setTimestamp(Instant.now());
                 break;
 
             case WARNING:
-                builder.setColor(Color.ORANGE).setTimestamp(Instant.now());
+                builder
+                        .setColor(Color.ORANGE)
+                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setTimestamp(Instant.now());
                 break;
 
             case NO_PERMISSION:
-                builder.setTitle("⛔ No Permission ⛔").setDescription("You are not authorized to execute this command!").setColor(Color.RED).setTimestamp(Instant.now());
+                builder
+                        .setTitle("⛔ No Permission ⛔")
+                        .setDescription("You are not authorized to execute this command!")
+                        .setColor(Color.RED)
+                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setTimestamp(Instant.now());
                 break;
 
             case NO_SELF_PERMISSION:
-                builder.setTitle("⛔ No Permission ⛔").setDescription("Unfortunately, I do not have the required rights to perform this action").setColor(Color.RED).setTimestamp(Instant.now());
+                builder
+                        .setTitle("⛔ No Permission ⛔")
+                        .setDescription("Unfortunately, I do not have the required rights to perform this action")
+                        .setColor(Color.RED)
+                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setTimestamp(Instant.now());
                 break;
         }
         return builder;
