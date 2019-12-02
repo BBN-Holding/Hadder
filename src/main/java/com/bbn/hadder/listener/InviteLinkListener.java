@@ -67,7 +67,7 @@ public class InviteLinkListener extends ListenerAdapter {
 
     @Override
     public void onMessageUpdate(@Nonnull MessageUpdateEvent event) {
-        if (event.isFromType(ChannelType.TEXT) && event.getMessage().getContentRaw().contains("discord.gg/") && event.getMember().hasPermission(Permission.MANAGE_SERVER) && rethink.getInviteDetection(event.getGuild().getId())) {
+        if (event.isFromType(ChannelType.TEXT) && event.getMessage().getContentRaw().contains("discord.gg/") && !event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId())) {
             String split = event.getMessage().getContentRaw().split("discord.gg/", 10)[1];
             String invite = split.split(" ")[0];
             OkHttpClient client = new OkHttpClient();
@@ -81,7 +81,7 @@ public class InviteLinkListener extends ListenerAdapter {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && event.getMember().hasPermission(Permission.MANAGE_SERVER) && rethink.getInviteDetection(event.getGuild().getId())) {
+        } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && !event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId())) {
             String split = event.getMessage().getContentRaw().split("discordapp.com/invite/", 10)[1];
             String invite = split.split(" ")[0];
             OkHttpClient client = new OkHttpClient();
