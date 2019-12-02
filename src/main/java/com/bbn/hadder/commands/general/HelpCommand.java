@@ -47,7 +47,7 @@ public class HelpCommand implements Command {
             } else {
                 for (Command cmd : event.getCommandHandler().getCommandList()) {
                     for (String label : cmd.labels()) {
-                        if (label.toLowerCase().equals(args[0])) {
+                        if (label.equalsIgnoreCase(args[0])) {
                             sendHelp(cmd, event.getRethink(), event.getAuthor(), event.getTextChannel());
                         }
                     }

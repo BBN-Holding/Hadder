@@ -1,4 +1,4 @@
-package com.bbn.hadder.commands.misc;
+package com.bbn.hadder.commands.general;
 
 /*
  * @author Skidder / GregTCLTK
@@ -8,6 +8,10 @@ import com.bbn.hadder.Hadder;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
+
+/*
+ * @author Skidder / GregTCLTK
+ */
 
 public class InviteCommand implements Command {
 

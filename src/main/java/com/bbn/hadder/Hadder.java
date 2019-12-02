@@ -78,6 +78,7 @@ public class Hadder {
                         new LeaveCommand(),
                         new GuildLeaveCommand(),
                         new MemeCommand(),
+                        new InviteDetectCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(
@@ -87,6 +88,7 @@ public class Hadder {
                 new GuildListener(rethink, config),
                 new ReadyListener(rethink, config),
                 new LinkListener(rethink),
+                new InviteLinkListener(rethink),
                 new RulesListener(rethink));
 
         try {

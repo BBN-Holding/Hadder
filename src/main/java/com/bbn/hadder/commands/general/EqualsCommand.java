@@ -1,9 +1,13 @@
-package com.bbn.hadder.commands.misc;
+package com.bbn.hadder.commands.general;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
+
+/*
+ * @author Skidder / GregTCLTK
+ */
 
 public class EqualsCommand implements Command {
 

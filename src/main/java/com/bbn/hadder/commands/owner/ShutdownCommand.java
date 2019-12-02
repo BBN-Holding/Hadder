@@ -16,7 +16,7 @@ public class ShutdownCommand implements Command {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("Shutdown").build()).queue();
             event.getJDA().getShardManager().shutdown();
             System.out.println("Bot shut down via Command...");
-            System.exit(0);
+            Runtime.getRuntime().exit(69);
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }

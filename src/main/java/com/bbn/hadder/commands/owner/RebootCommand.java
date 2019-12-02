@@ -14,7 +14,7 @@ public class RebootCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
-            System.exit(69);
+            Runtime.getRuntime().exit(69);
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }

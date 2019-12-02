@@ -9,9 +9,9 @@ public class MessageEditor {
 
     public EmbedBuilder setDefaultSettings(MessageType type) {
         EmbedBuilder builder = new EmbedBuilder();
-                switch (type) {
+        switch (type) {
             case INFO:
-                builder.setColor(new Color(47,94,105)).setTimestamp(Instant.now());
+                builder.setColor(new Color(47, 94, 105)).setTimestamp(Instant.now());
                 break;
 
             case ERROR:
@@ -40,5 +40,4 @@ public class MessageEditor {
         NO_PERMISSION,
         NO_SELF_PERMISSION
     }
-
 }

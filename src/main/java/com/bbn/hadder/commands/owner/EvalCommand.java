@@ -8,14 +8,12 @@ import com.bbn.hadder.Hadder;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class EvalCommand implements Command {
@@ -46,11 +44,10 @@ public class EvalCommand implements Command {
 
                 ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 
-                ScheduledFuture<?> future = service.schedule(() -> {
+                service.schedule(() -> {
 
                     long startExec = System.currentTimeMillis();
-                    Object out = null;
-                    EmbedBuilder builder = new EmbedBuilder();
+                    Object out;
 
                     try {
                         String script = "";
@@ -58,17 +55,22 @@ public class EvalCommand implements Command {
                             args[i] = args[i].replace("```java", "").replace("```", "");
                             script += i == args.length-1 ? args[i]:args[i]+" ";
                         }
-                        builder.addField("Input", "```java\n\n" + script + "```", false);
-
                         out = engine.eval(script);
-                        builder.addField("Output", "```java\n\n" + out.toString() + "```", false);
 
+                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                                .setTitle("Eval Command")
+                                .addField("Input", "```java\n\n" + script + "```", false)
+                                .addField("Output", "```java\n\n" + out.toString() + "```", false)
+                                .addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false)
+                                .build()).queue();
                     } catch (Exception ex) {
-                        builder.addField("Error", "```java\n\n" + ex.getMessage() + "```", false);
-                    }
+                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                                .setTitle("Eval Command")
+                                .addField("Error", "```java\n\n" + ex.getMessage() + "```", false)
+                                .addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false)
+                                .build()).queue();
 
-                    builder.addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false);
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("Eval Command").build()).queue();
+                    }
 
                     service.shutdownNow();
 
@@ -89,7 +91,7 @@ public class EvalCommand implements Command {
 
     @Override
     public String description() {
-        return "You know what a eval command is ;)";
+        return "Execute the given code";
     }
 
     @Override

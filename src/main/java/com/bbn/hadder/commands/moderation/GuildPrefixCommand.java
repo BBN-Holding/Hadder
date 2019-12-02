@@ -14,7 +14,7 @@ public class GuildPrefixCommand implements Command {
                 if (!args[0].contains("\"")) {
 
                     event.getRethink().setGuildPrefix(args[0], event.getGuild().getId());
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("✅ Successfully set ✅").setDescription("I successfully set the new prefix for you to " + args[0]).build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("✅ Successfully set ✅").setDescription("I successfully set the new prefix for the guild to " + args[0]).build()).queue();
                 } else {
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription("The prefix must not contain **\"**").build()).queue();
                 }
