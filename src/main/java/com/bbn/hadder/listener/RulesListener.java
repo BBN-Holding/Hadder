@@ -19,24 +19,20 @@ public class RulesListener extends ListenerAdapter {
 
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
-        if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId()))) {
-            if (!event.getMember().getUser().isBot()) {
-                if (event.getReactionEmote().getEmoji().equals("✅")) {
-                    event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
-                } else if (event.getReactionEmote().getEmoji().equals("❌") && event.getGuild().getSelfMember().canInteract(event.getMember())) {
-                    event.getReaction().removeReaction().queue();
-                    event.getMember().kick().reason("Declined the rules");
-                }
+        if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId())) && !event.getMember().getUser().isBot()) {
+            if (event.getReactionEmote().getEmoji().equals("✅")) {
+                event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
+            } else if (event.getReactionEmote().getEmoji().equals("❌") && event.getGuild().getSelfMember().canInteract(event.getMember())) {
+                event.getReaction().removeReaction().queue();
+                event.getMember().kick().reason("Declined the rules");
             }
         }
     }
 
     @Override
     public void onMessageReactionRemove(MessageReactionRemoveEvent event) {
-        if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId()))) {
-            if (!event.getMember().getUser().isBot() && event.getReactionEmote().getEmoji().equals("✅")) {
+        if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId())) && !event.getMember().getUser().isBot() && event.getReactionEmote().getEmoji().equals("✅")) {
                 event.getGuild().removeRoleFromMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Withdrawal of the acceptance of the rules").queue();
-            }
         }
     }
 }
