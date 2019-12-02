@@ -14,7 +14,8 @@ public class RoleCommand implements Command {
         if (args.length > 0) {
             if (event.getMember().hasPermission(Permission.MANAGE_ROLES)) {
                 if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
-                    switch (args[0].toLowerCase()) {
+                    String action = args[0].toLowerCase();
+                    switch (action) {
                         case "add":
                             if (event.getMessage().getMentionedMembers().size() > 0 && event.getMessage().getMentionedRoles().size() > 0) {
                                 for (Member member : event.getMessage().getMentionedMembers()) {

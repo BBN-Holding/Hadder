@@ -30,41 +30,35 @@ public class InviteLinkListener extends ListenerAdapter {
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         if (event.isFromType(ChannelType.TEXT)) {
             if (event.getMessage().getContentRaw().contains("discord.gg/")) {
-                if (!event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
-                    if (rethink.getInviteDetection(event.getGuild().getId())) {
-                        String split = event.getMessage().getContentRaw().split("discord.gg/", 10)[1];
-                        String invite = split.split(" ")[0];
-                        OkHttpClient client = new OkHttpClient();
-                        Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invites/" + invite).build();
-                        try {
-                            Response response = client.newCall(request).execute();
-                            JSONObject json = new JSONObject(response.body().string());
-                            if (!json.toString().contains("\"message\":")) {
-                                event.getMessage().delete().reason("Invite Link detected").queue();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                if (!event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId())) {
+                    String split = event.getMessage().getContentRaw().split("discord.gg/", 10)[1];
+                    String invite = split.split(" ")[0];
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invites/" + invite).build();
+                    try {
+                        Response response = client.newCall(request).execute();
+                        JSONObject json = new JSONObject(response.body().string());
+                        if (!json.toString().contains("\"message\":")) {
+                            event.getMessage().delete().reason("Invite Link detected").queue();
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } else {
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
                 }
             } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite")) {
-                if (!event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
-                    if (rethink.getInviteDetection(event.getGuild().getId())) {
-                        String split = event.getMessage().getContentRaw().split("discordapp.com/invite/", 10)[1];
-                        String invite = split.split(" ")[0];
-                        OkHttpClient client = new OkHttpClient();
-                        Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invites/" + invite).build();
-                        try {
-                            Response response = client.newCall(request).execute();
-                            JSONObject json = new JSONObject(response.body().string());
-                            if (!json.toString().contains("\"message\":")) {
-                                event.getMessage().delete().reason("Invite Link detected").queue();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                if (!event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId())) {
+                    String split = event.getMessage().getContentRaw().split("discordapp.com/invite/", 10)[1];
+                    String invite = split.split(" ")[0];
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invites/" + invite).build();
+                    try {
+                        Response response = client.newCall(request).execute();
+                        JSONObject json = new JSONObject(response.body().string());
+                        if (!json.toString().contains("\"message\":")) {
+                            event.getMessage().delete().reason("Invite Link detected").queue();
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -74,43 +68,33 @@ public class InviteLinkListener extends ListenerAdapter {
     @Override
     public void onMessageUpdate(@Nonnull MessageUpdateEvent event) {
         if (event.isFromType(ChannelType.TEXT)) {
-            if (event.getMessage().getContentRaw().contains("discord.gg/")) {
-                if (event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
-                    if (rethink.getInviteDetection(event.getGuild().getId())) {
-                        String split = event.getMessage().getContentRaw().split("discord.gg/", 10)[1];
-                        String invite = split.split(" ")[0];
-                        OkHttpClient client = new OkHttpClient();
-                        Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invites/" + invite).build();
-                        try {
-                            Response response = client.newCall(request).execute();
-                            JSONObject json = new JSONObject(response.body().string());
-                            if (!json.toString().contains("\"message\":")) {
-                                event.getMessage().delete().reason("Invite Link detected").queue();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+            if (event.getMessage().getContentRaw().contains("discord.gg/") && event.getMember().hasPermission(Permission.MANAGE_SERVER) && rethink.getInviteDetection(event.getGuild().getId())) {
+                String split = event.getMessage().getContentRaw().split("discord.gg/", 10)[1];
+                String invite = split.split(" ")[0];
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invites/" + invite).build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    JSONObject json = new JSONObject(response.body().string());
+                    if (!json.toString().contains("\"message\":")) {
+                        event.getMessage().delete().reason("Invite Link detected").queue();
                     }
-                } else {
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite")) {
-                if (event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
-                    if (rethink.getInviteDetection(event.getGuild().getId())) {
-                        String split = event.getMessage().getContentRaw().split("discordapp.com/invite/", 10)[1];
-                        String invite = split.split(" ")[0];
-                        OkHttpClient client = new OkHttpClient();
-                        Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invites/" + invite).build();
-                        try {
-                            Response response = client.newCall(request).execute();
-                            JSONObject json = new JSONObject(response.body().string());
-                            if (!json.toString().contains("\"message\":")) {
-                                event.getMessage().delete().reason("Invite Link detected").queue();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+            } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && event.getMember().hasPermission(Permission.MANAGE_SERVER) && rethink.getInviteDetection(event.getGuild().getId())) {
+                String split = event.getMessage().getContentRaw().split("discordapp.com/invite/", 10)[1];
+                String invite = split.split(" ")[0];
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invites/" + invite).build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    JSONObject json = new JSONObject(response.body().string());
+                    if (!json.toString().contains("\"message\":")) {
+                        event.getMessage().delete().reason("Invite Link detected").queue();
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }

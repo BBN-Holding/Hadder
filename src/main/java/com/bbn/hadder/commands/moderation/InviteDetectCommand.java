@@ -15,7 +15,8 @@ public class InviteDetectCommand implements Command {
     public void executed(String[] args, CommandEvent event) {
         if (args.length == 1) {
             if (event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
-                    switch (args[0].toLowerCase()) {
+                String opinion = args[0].toLowerCase();
+                    switch (opinion) {
                         case "on":
                             if (!event.getRethink().getInviteDetection(event.getGuild().getId())) {
                                 event.getRethink().setInviteDetection(event.getGuild().getId(), true);
