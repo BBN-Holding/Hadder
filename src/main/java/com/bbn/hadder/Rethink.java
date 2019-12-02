@@ -150,11 +150,9 @@ public class Rethink {
         this.insert("user", r.hashMap("id", id).with("prefix", "h."));
     }
 
-    public void updateRules(String guild_id, String message_id, String role_id, String accept_emote, String decline_emote) {
+    public void updateRules(String guild_id, String message_id, String role_id) {
         this.update("server", guild_id, "message_id", message_id);
         this.update("server", guild_id, "role_id", role_id);
-        this.update("server", guild_id, "accept_emote", accept_emote);
-        this.update("server", guild_id, "decline_emote", decline_emote);
     }
 
     public String getRulesMID(String guild_id) {
@@ -163,14 +161,6 @@ public class Rethink {
 
     public String getRulesRID(String guild_id) {
         return (String) this.get("server", "id", guild_id, "role_id");
-    }
-
-    public String getRulesAEmote(String guild_id) {
-        return (String) this.get("server", "id", guild_id, "accept_emote");
-    }
-
-    public String getRulesDEmote(String guild_id) {
-        return (String) this.get("server", "id", guild_id, "decline_emote");
     }
 
     public void setInviteDetection(String guild_id, boolean b) {
