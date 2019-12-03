@@ -30,16 +30,7 @@ public class RulesListener extends ListenerAdapter {
                     }
                 }
             } else {
-                System.out.println(event.getReactionEmote().getEmoji());
-                System.out.println(rethink.getRulesAEmote(event.getGuild().getId()));
-                if (rethink.getRulesAEmote(event.getGuild().getId()).contains(event.getReactionEmote().getEmoji())) {
                     event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
-                } else if (rethink.getRulesDEmote(event.getGuild().getId()).contains(event.getReactionEmote().getEmoji())) {
-                    event.getReaction().removeReaction(event.getUser()).queue();
-                    if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
-                        event.getMember().kick().reason("Declined the rules");
-                    }
-                }
             }
         }
     }
