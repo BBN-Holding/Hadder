@@ -10,6 +10,7 @@ import com.bbn.hadder.utils.MessageEditor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -20,15 +21,18 @@ public class FeetCommand implements Command {
         if (event.getTextChannel().isNSFW()) {
 
             OkHttpClient caller = new OkHttpClient();
-            Request request = new Request.Builder().url("https://nekos.life/api/v2/img/feet").build();
+            Request request = new Request.Builder().url("https://api.nekos.dev/api/v3/images/nsfw/gif/feet/").build();
 
             try {
 
                 Response response = caller.newCall(request).execute();
-                String url = response.body().string().replace("{\"url\":\"", "");
+                JSONObject json = new JSONObject(response.body().string());
+                JSONObject data = json.getJSONObject("data");
+                JSONObject response1 = data.getJSONObject("response");
+                String url = response1.toString().replace("{\"url\":\"", "");
 
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setAuthor("Image not showing? Click here", url.replace("\"}", ""))
+                        .setAuthor("GIF not showing? Click here", url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Feet")
                         .build()).queue();
@@ -49,7 +53,7 @@ public class FeetCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows a random feet picture.";
+        return "Shows a random feet gif.";
     }
 
     @Override

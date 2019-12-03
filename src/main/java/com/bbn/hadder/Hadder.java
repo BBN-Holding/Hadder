@@ -79,6 +79,12 @@ public class Hadder {
                         new GuildLeaveCommand(),
                         new MemeCommand(),
                         new InviteDetectCommand(),
+                        new BDSMCommand(),
+                        new FingeringCommand(),
+                        new LickingCommand(),
+                        new SpankCommand(),
+                        new RandomPornCommand(),
+                        new SoloCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(
@@ -87,7 +93,7 @@ public class Hadder {
                 new CommandListener(rethink, commandHandler),
                 new GuildListener(rethink, config),
                 new ReadyListener(rethink, config),
-                //new LinkListener(rethink),
+                // new LinkListener(rethink),
                 new InviteLinkListener(rethink),
                 new RulesListener(rethink));
 
