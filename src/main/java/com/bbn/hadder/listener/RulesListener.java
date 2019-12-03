@@ -20,29 +20,23 @@ public class RulesListener extends ListenerAdapter {
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId())) && !event.getMember().getUser().isBot()) {
-            System.out.println("Debug -1");
             if (event.getReactionEmote().isEmote()) {
-                System.out.println("Debug 0");
                 if (rethink.getRulesAEmote(event.getGuild().getId()).contains(event.getReactionEmote().getId())) {
-                    System.out.println("Debug 1");
                     event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
                 } else if (rethink.getRulesDEmote(event.getGuild().getId()).contains(event.getReactionEmote().getId())) {
-                    System.out.println("Debug 2");
                     event.getReaction().removeReaction(event.getUser()).queue();
                     if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
                         event.getMember().kick().reason("Declined the rules");
                     }
-                } else {
-                    System.out.println("Debug 3");
                 }
             } else {
                 System.out.println("Debug 4");
-                System.out.println(event.getReactionEmote().getEmoji());
+                System.out.println(event.getReactionEmote().getName());
                 System.out.println(rethink.getRulesAEmote(event.getGuild().getId()));
-                if (event.getReactionEmote().getEmoji().equals(rethink.getRulesAEmote(event.getGuild().getId()))) {
+                if (event.getReactionEmote().getName().equals(rethink.getRulesAEmote(event.getGuild().getId()))) {
                     System.out.println("Debug 5");
                     event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
-                } else if (event.getReactionEmote().getEmoji().equals(rethink.getRulesDEmote(event.getGuild().getId()))) {
+                } else if (event.getReactionEmote().getName().equals(rethink.getRulesDEmote(event.getGuild().getId()))) {
                     System.out.println("Debug 6");
                     event.getReaction().removeReaction(event.getUser()).queue();
                     if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
