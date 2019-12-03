@@ -166,11 +166,11 @@ public class Rethink {
     }
 
     public String getRulesAEmote(String guild_id) {
-        return (String) this.get("server", "id", guild_id, "accept_emote");
+        return this.get("server", "id", guild_id, "accept_emote").toString().replaceAll("\"", "");
     }
 
     public String getRulesDEmote(String guild_id) {
-        return (String) this.get("server", "id", guild_id, "decline_emote");
+        return this.get("server", "id", guild_id, "decline_emote").toString().replaceAll("\"", "");
     }
 
     public void setInviteDetection(String guild_id, boolean b) {
