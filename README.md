@@ -1,6 +1,6 @@
 # Hadder
 
-The Hadder Discord Bot is a multi-purpose Discord Bot.
+Hadder Discord is a multi-purpose Discord Bot with 100% uptime.
 
 <a href="https://discord.gg/58My2dM"><img src="https://discordapp.com/api/guilds/448554629282922527/embed.png"/></a>
 [![Build Status](https://github.com/BigBotNetwork/Hadder/workflows/Hadder/badge.svg)](https://github.com/BigBotNetwork/Hadder)
