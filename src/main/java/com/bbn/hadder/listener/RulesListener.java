@@ -19,24 +19,13 @@ public class RulesListener extends ListenerAdapter {
 
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
-        if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId())) && !event.getMember().getUser().isBot()) {
-            if (event.getReactionEmote().isEmote()) {
-                if (rethink.getRulesAEmote(event.getGuild().getId()).contains(event.getReactionEmote().getId())) {
+        if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId()))) {
+            if (!event.getMember().getUser().isBot()) {
+                if (event.getReactionEmote().getEmoji().equals("✅")) {
                     event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
-                } else if (rethink.getRulesDEmote(event.getGuild().getId()).contains(event.getReactionEmote().getId())) {
-                    event.getReaction().removeReaction(event.getUser()).queue();
-                    if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
-                        event.getMember().kick().reason("Declined the rules");
-                    }
-                }
-            } else {
-                if (event.getReactionEmote().getEmoji().equals(rethink.getRulesAEmote(event.getGuild().getId()))) {
-                    event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
-                } else if (event.getReactionEmote().getEmoji().equals(rethink.getRulesDEmote(event.getGuild().getId()))) {
-                    event.getReaction().removeReaction(event.getUser()).queue();
-                    if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
-                        event.getMember().kick().reason("Declined the rules");
-                    }
+                } else if (event.getReactionEmote().getEmoji().equals("❌") && event.getGuild().getSelfMember().canInteract(event.getMember())) {
+                    event.getReaction().removeReaction().queue();
+                    event.getMember().kick().reason("Declined the rules");
                 }
             }
         }
@@ -44,8 +33,10 @@ public class RulesListener extends ListenerAdapter {
 
     @Override
     public void onMessageReactionRemove(MessageReactionRemoveEvent event) {
-        if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId())) && !event.getMember().getUser().isBot()) {
+        if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId()))) {
+            if (!event.getMember().getUser().isBot() && event.getReactionEmote().getEmoji().equals("✅")) {
                 event.getGuild().removeRoleFromMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Withdrawal of the acceptance of the rules").queue();
+            }
         }
     }
 }
