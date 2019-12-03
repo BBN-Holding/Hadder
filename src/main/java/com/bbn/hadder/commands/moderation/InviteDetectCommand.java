@@ -14,7 +14,7 @@ public class InviteDetectCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length == 1) {
-            if (event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
+            if (event.getMember().hasPermission(Permission.MANAGE_SERVER) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
                 String opinion = args[0].toLowerCase();
                     switch (opinion) {
                         case "on":
