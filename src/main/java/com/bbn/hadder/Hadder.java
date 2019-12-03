@@ -82,6 +82,9 @@ public class Hadder {
                         new BDSMCommand(),
                         new FingeringCommand(),
                         new LickingCommand(),
+                        new SpankCommand(),
+                        new RandomPornCommand(),
+                        new SoloCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(
