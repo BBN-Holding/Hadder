@@ -6,9 +6,7 @@ package com.bbn.hadder.commands.fun;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
-import com.bbn.hadder.core.Config;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -28,19 +26,18 @@ public class GifCommand implements Command {
                 query = new StringBuilder(query.substring(0, query.length() - 1));
             }
 
-            OkHttpClient caller = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder().url("http://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=" + event.getConfig().getGiphyToken()).build();
             try {
                 Random rand = new Random();
-                Response response = caller.newCall(request).execute();
+                Response response = client.newCall(request).execute();
                 JSONObject json = new JSONObject(response.body().string());
                 JSONArray array = json.getJSONArray("data");
                 int gifIndex = rand.nextInt(array.length());
                 String url = array.getJSONObject(gifIndex).get("url").toString();
                 event.getTextChannel().sendMessage(url).queue();
             } catch (Exception e) {
-                EmbedBuilder builder = new EmbedBuilder();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR, builder).setTitle("Error").setDescription("Please try again with another term.").build()).queue();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR).setTitle("Error").setDescription("Please try again with another term.").build()).queue();
             }
         } else {
             event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());

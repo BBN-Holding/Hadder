@@ -7,26 +7,24 @@ package com.bbn.hadder.commands.owner;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 
 public class ShutdownCommand implements Command {
+
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")) {
-            EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder).setTitle("Shutdown").build()).queue();
+        if (event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("Shutdown").build()).queue();
             event.getJDA().getShardManager().shutdown();
             System.out.println("Bot shut down via Command...");
-            System.exit(0);
+            Runtime.getRuntime().exit(69);
         } else {
-            EmbedBuilder builder = new EmbedBuilder();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION, builder).build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"shutdown"};
+        return new String[]{"shutdown", "exit"};
     }
 
     @Override

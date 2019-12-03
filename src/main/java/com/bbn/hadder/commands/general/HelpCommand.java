@@ -42,12 +42,12 @@ public class HelpCommand implements Command {
                         eb.addField(ps[ps.length - 1], sb.toString(), false);
                     }
                 }
-                new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, eb);
+                new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO);
                 event.getChannel().sendMessage(eb.build()).queue();
             } else {
                 for (Command cmd : event.getCommandHandler().getCommandList()) {
                     for (String label : cmd.labels()) {
-                        if (label.toLowerCase().equals(args[0])) {
+                        if (label.equalsIgnoreCase(args[0])) {
                             sendHelp(cmd, event.getRethink(), event.getAuthor(), event.getTextChannel());
                         }
                     }
@@ -65,7 +65,7 @@ public class HelpCommand implements Command {
             String name = cmd.labels()[0];
             eb.setDescription(cmd.description()).setTitle(name.replaceFirst(String.valueOf(name.charAt(0)), String.valueOf(name.charAt(0)).toUpperCase()));
             eb.addField("Usage", rethink.getUserPrefix(author.getId()) + cmd.labels()[0] + " " + cmd.usage(), false);
-            new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, eb);
+            new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO);
             channel.sendMessage(eb.build()).queue();
         }
     }

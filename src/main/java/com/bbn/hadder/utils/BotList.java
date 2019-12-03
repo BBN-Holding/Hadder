@@ -26,6 +26,8 @@ public class BotList {
     private static String YetAnotherBotList = "https://yabl.xyz/api/bot/637002314162372639/stats";
     private static String DiscordExtremeList = "https://discordextremelist.xyz/api/bot/637002314162372639";
     private static String DiscordBotReviews = "https://discordbotreviews.xyz/api/bot/637002314162372639/stats";
+    private static String DiscordBots = "https://top.gg/api/bots/637002314162372639/stats";
+    private static String BotListSpace = "https://api.botlist.space/v1/bots/637002314162372639";
 
     private Config config;
 
@@ -40,6 +42,7 @@ public class BotList {
             json.put("guildCount", Hadder.shardManager.getGuilds().size());
             json.put("guilds", Hadder.shardManager.getGuilds().size());
             json.put("users", Hadder.shardManager.getUsers().size());
+            json.put("shard_count", Hadder.shardManager.getShards().size());
 
             RequestBody body = RequestBody.create(MediaType.parse("application/json"), json.toString());
 
@@ -143,7 +146,7 @@ public class BotList {
 
             try {
                 new OkHttpClient().newCall(discordextremelist).execute().close();
-                System.out.println("Successfully posted count to the Discord Extreme List!");
+                System.out.println("Successfully posted count for the Discord Extreme List!");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -162,7 +165,36 @@ public class BotList {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            // Discord Bots
+
+            Request discordbots = new Request.Builder()
+                    .url(DiscordBots)
+                    .post(body)
+                    .addHeader("Authorization", config.getDiscordBotsToken())
+                    .build();
+
+            try {
+                new OkHttpClient().newCall(discordbots).execute().close();
+                System.out.println("Successfully posted count to Discord Bots!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // BotListSpace
+
+            Request botlistspace = new Request.Builder()
+                    .url(BotListSpace)
+                    .post(body)
+                    .addHeader("Authorization", config.getBotListSpaceToken())
+                    .build();
+
+            try {
+                new OkHttpClient().newCall(botlistspace).execute().close();
+                System.out.println("Successfully posted count to BotList.Space!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
-
 }

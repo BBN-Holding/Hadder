@@ -8,7 +8,6 @@ import com.bbn.hadder.Rethink;
 import com.bbn.hadder.core.Config;
 import com.bbn.hadder.utils.BotList;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
@@ -37,8 +36,7 @@ public class GuildListener extends ListenerAdapter {
         }).start();
 
         rethink.insertGuild(event.getGuild().getId());
-        EmbedBuilder builder = new EmbedBuilder();
-        event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder)
+        event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                 .setTitle("Joined Server")
                 .setThumbnail(event.getGuild().getIconUrl())
                 .addField("Name", event.getGuild().getName(), true)
@@ -53,8 +51,7 @@ public class GuildListener extends ListenerAdapter {
     }
 
     public void onGuildLeave(GuildLeaveEvent event) {
-        EmbedBuilder builder = new EmbedBuilder();
-        event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO, builder)
+        event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                 .setTitle("Left Server")
                 .setThumbnail(event.getGuild().getIconUrl())
                 .addField("Name", event.getGuild().getName(), true)

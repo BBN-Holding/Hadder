@@ -7,6 +7,7 @@ import com.bbn.hadder.commands.nsfw.*;
 import com.bbn.hadder.commands.owner.*;
 import com.bbn.hadder.commands.fun.*;
 import com.bbn.hadder.commands.settings.*;
+import com.bbn.hadder.commands.music.*;
 import com.bbn.hadder.core.*;
 import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.entities.Activity;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class Hadder {
 
-    public static  ShardManager shardManager;
+    public static ShardManager shardManager;
 
     public static void main(String[] args) {
         startBot();
@@ -34,6 +35,7 @@ public class Hadder {
 
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
 
+        builder.setAutoReconnect(true);
         builder.setShardsTotal(1);
         builder.setActivity(Activity.streaming("on the BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
         builder.setToken(config.getBotToken());
@@ -52,7 +54,7 @@ public class Hadder {
                         new GifCommand(),
                         new ClearCommand(),
                         new GitHubCommand(),
-                        new ScreenshareCommand(),
+                        new ScreenShareCommand(),
                         new RebootCommand(),
                         new EqualsCommand(),
                         new InviteCommand(),
@@ -70,6 +72,13 @@ public class Hadder {
                         new RoleCommand(),
                         new RulesCommand(),
                         new FeedbackCommand(),
+                        new AvatarCommand(),
+                        new EvalCommand(),
+                        new JoinCommand(),
+                        new LeaveCommand(),
+                        new GuildLeaveCommand(),
+                        new MemeCommand(),
+                        new InviteDetectCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(
@@ -78,9 +87,9 @@ public class Hadder {
                 new CommandListener(rethink, commandHandler),
                 new GuildListener(rethink, config),
                 new ReadyListener(rethink, config),
-                new LinkListener(rethink),
+                //new LinkListener(rethink),
+                new InviteLinkListener(rethink),
                 new RulesListener(rethink));
-               
 
         try {
             shardManager = builder.build();
