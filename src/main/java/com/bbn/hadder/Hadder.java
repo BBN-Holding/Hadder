@@ -80,6 +80,8 @@ public class Hadder {
                         new MemeCommand(),
                         new InviteDetectCommand(),
                         new BDSMCommand(),
+                        new FingeringCommand(),
+                        new LickingCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(

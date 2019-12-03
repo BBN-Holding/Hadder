@@ -14,14 +14,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class PornCommand implements Command {
+public class FingeringCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getTextChannel().isNSFW()) {
 
             OkHttpClient caller = new OkHttpClient();
-            Request request = new Request.Builder().url("https://api.nekos.dev/api/v3/images/nsfw/gif/classic/").build();
+            Request request = new Request.Builder().url("https://api.nekos.dev/api/v3/images/nsfw/gif/pussy_wank/").build();
 
             try {
 
@@ -34,7 +34,7 @@ public class PornCommand implements Command {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                         .setAuthor("GIF not showing? Click here", url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
-                        .setFooter("Porn")
+                        .setFooter("Fingering")
                         .build()).queue();
 
             } catch (IOException e) {
@@ -48,12 +48,12 @@ public class PornCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"porn"};
+        return new String[]{"fingering"};
     }
 
     @Override
     public String description() {
-        return "Shows a random porn gif.";
+        return "Shows a random fingering gif.";
     }
 
     @Override
