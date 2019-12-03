@@ -37,6 +37,8 @@ public class RulesListener extends ListenerAdapter {
                 }
             } else {
                 System.out.println("Debug 4");
+                System.out.println(event.getReactionEmote().getEmoji());
+                System.out.println(rethink.getRulesAEmote(event.getGuild().getId()));
                 if (event.getReactionEmote().getEmoji().equals(rethink.getRulesAEmote(event.getGuild().getId()))) {
                     System.out.println("Debug 5");
                     event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
