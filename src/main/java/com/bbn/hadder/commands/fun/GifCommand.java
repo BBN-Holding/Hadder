@@ -39,9 +39,7 @@ public class GifCommand implements Command {
             } catch (Exception e) {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR).setTitle("Error").setDescription("Please try again with another term.").build()).queue();
             }
-        } else {
-            event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
-        }
+        } else event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
     }
 
     @Override
