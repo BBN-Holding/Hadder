@@ -102,7 +102,7 @@ public class RegionChangeCommand implements Command {
                                     .setDescription("I successfully set the new server region to Singapore.")
                                     .build()).queue();
                             break;
-                        case "south_africa":
+                        case "south-africa":
                             event.getGuild().getManager().setRegion(Region.SOUTH_AFRICA).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                                     .setTitle("Successfully set region")
@@ -116,14 +116,14 @@ public class RegionChangeCommand implements Command {
                                     .setDescription("I successfully set the new server region to Sydney.")
                                     .build()).queue();
                             break;
-                        case "us_central":
+                        case "us-central":
                             event.getGuild().getManager().setRegion(Region.US_CENTRAL).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                                     .setTitle("Successfully set region")
                                     .setDescription("I successfully set the new server region to US Central.")
                                     .build()).queue();
                             break;
-                        case "us_east":
+                        case "us-east":
                             event.getGuild().getManager().setRegion(Region.US_EAST).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                                     .setTitle("Successfully set region")
@@ -144,10 +144,19 @@ public class RegionChangeCommand implements Command {
                                     .setDescription("I successfully set the new server region to US South.")
                                     .build()).queue();
                             break;
+                        case "list":
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                                    .setTitle("All regions")
+                                    .setDescription("**LOCKED:**\n`amsterdam` `frankfurt` `eu-west` `eu-central` `london`\n\n**UNLOCKED:**\n`europe` `brazil` `hongkong` `india` `japan` `singapore` `south-africa` `sydney` `us-central` `us-east` `us-west` `us-south`")
+                                    .build()).queue();
+                            break;
                     }
                 } else event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             } else event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
-        } else event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+        } else event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                .setTitle("All regions")
+                .setDescription("**LOCKED:**\n`amsterdam` `frankfurt` `eu-west` `eu-central` `london`\n\n**UNLOCKED:**\n`europe` `brazil` `hongkong` `india` `japan` `singapore` `south-africa` `sydney` `us-central` `us-east` `us-west` `us-south`")
+                .build()).queue();
     }
 
     @Override
@@ -162,6 +171,6 @@ public class RegionChangeCommand implements Command {
 
     @Override
     public String usage() {
-        return "<region>";
+        return "<region>/<list>";
     }
 }
