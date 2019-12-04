@@ -85,6 +85,7 @@ public class Hadder {
                         new SpankCommand(),
                         new RandomPornCommand(),
                         new SoloCommand(),
+                        new RegionChangeCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(
