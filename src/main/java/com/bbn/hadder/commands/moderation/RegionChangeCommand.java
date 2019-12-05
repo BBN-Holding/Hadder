@@ -161,7 +161,7 @@ public class RegionChangeCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"changeregion"};
+        return new String[]{"changeregion", "cr", "change-region"};
     }
 
     @Override
@@ -171,6 +171,6 @@ public class RegionChangeCommand implements Command {
 
     @Override
     public String usage() {
-        return "<region>/<list>";
+        return "<region>";
     }
 }

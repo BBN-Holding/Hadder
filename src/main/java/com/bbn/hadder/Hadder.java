@@ -86,6 +86,7 @@ public class Hadder {
                         new RandomPornCommand(),
                         new SoloCommand(),
                         new RegionChangeCommand(),
+                        new AboutCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(
