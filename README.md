@@ -12,7 +12,7 @@ Hadder Discord is a multi-purpose Discord Bot with 100% uptime.
 
 ## Hadder Team
 ### Developer
-Skidder#6775
+Skidder#6775 <br>
 Hax#6775
 
 ### Designer
