@@ -6,12 +6,18 @@ package com.bbn.hadder.commands.general;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.utils.MessageEditor;
 
 public class AboutCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-
+        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                .setTitle("Hadder - About")
+                .setDescription("Hadder is an open source Discord bot.")
+                .addField("Support the Developers", "Hadder is completely free for everyone. We would appreciate it you donate some money [here](https://donatebot.io/checkout/448554629282922527?buyer=" + event.getAuthor().getId() + "). :smiley:", true)
+                .setThumbnail("https://bigbotnetwork.com/images/Hadder.png")
+                .build()).queue();
     }
 
     @Override
