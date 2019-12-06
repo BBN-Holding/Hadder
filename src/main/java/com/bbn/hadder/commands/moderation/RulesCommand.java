@@ -64,7 +64,7 @@ public class RulesCommand implements Command {
                         .setDescription("The channel was successfully set to " + channel.getName() + ". Please send me the rules now.")
                         .build()).queue();
                 new EventWaiter().newOnMessageEventWaiter(event2 -> {
-                    String message = event2.getMessage().getContentDisplay();
+                    String message = event2.getMessage().getContentRaw();
                     event2.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                             .setTitle("Role to assign")
                             .setDescription("The rules were successfully set. Please send me the name of the role which the user receives after he accepted the rules.")
