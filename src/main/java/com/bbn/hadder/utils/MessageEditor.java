@@ -43,7 +43,7 @@ public class MessageEditor {
             case NO_SELF_PERMISSION:
                 builder
                         .setTitle("⛔ No Permission ⛔")
-                        .setDescription("Unfortunately, I do not have the required rights to perform this action")
+                        .setDescription("Unfortunately, I do not have the required rights to perform this action!")
                         .setColor(Color.RED)
                         .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
                         .setTimestamp(Instant.now());

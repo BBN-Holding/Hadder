@@ -10,7 +10,7 @@
   "<on/off>": "<on/off>",
   "<VoiceChannelID|VoiceChannelName>": "<VoiceChannelID|VoiceChannelName>",
   "<@user> <New Nickname>": "<@user> <New Nickname>",
-  
+
   "error": "Error",
   "none": "None",
   "success!": "Success!",
