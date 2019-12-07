@@ -185,4 +185,8 @@ public class Rethink {
         return (Boolean) this.get("server", "id", guild_id, "invite_detect");
     }
 
+    public void setLanguage(String user_id, String language) {
+        this.update("users", user_id, "language", language);
+    }
+
 }
