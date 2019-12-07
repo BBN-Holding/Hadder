@@ -53,7 +53,7 @@ public class ClearCommand implements Command {
 
     @Override
     public String description() {
-        return "Deletes the specified number of messages";
+        return "Deletes the specified number of messages.";
     }
 
     @Override

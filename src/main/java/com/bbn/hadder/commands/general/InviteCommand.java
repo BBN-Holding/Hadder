@@ -30,7 +30,7 @@ public class InviteCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows the invitation to invite Hadder to your server";
+        return "Shows the invitation to invite Hadder to your server.";
     }
 
     @Override

@@ -63,7 +63,7 @@ public class KickCommand implements Command {
 
     @Override
     public String description() {
-        return "Kicks one or more user from the server";
+        return "Kicks one or more user from the server.";
     }
 
     @Override

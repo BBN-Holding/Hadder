@@ -77,7 +77,7 @@ public class HelpCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows each command or explains its usage";
+        return "Shows each command or explains its usage.";
     }
 
     @Override

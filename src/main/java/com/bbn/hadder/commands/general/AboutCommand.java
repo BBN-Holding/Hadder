@@ -27,7 +27,7 @@ public class AboutCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows infos about Hadder";
+        return "Shows infos about Hadder.";
     }
 
     @Override
