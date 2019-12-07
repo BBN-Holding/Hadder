@@ -1,4 +1,4 @@
 base_url: https://bigbotnetwork.com
 files:
-  - source: /src/main/Translations/en_us.json
+  - source: /src/main/Translations/en_us.properties
     translation: /src/main/Translations/%two_letters_code%/%original_file_name%
