@@ -26,10 +26,10 @@ public class BanCommand implements Command {
                                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                             }
                         } else {
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription("I can not ban myself").build()).queue();
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle("Not possible").setDescription("I can not ban myself!").build()).queue();
                         }
                     } else {
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle("Not possible").setDescription("You can't ban yourself.").build()).queue();
+                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle("Not possible").setDescription("You can't ban yourself!").build()).queue();
                     }
                 } else if (event.getMessage().getMentionedMembers().size() == 0) {
                     event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
@@ -47,7 +47,7 @@ public class BanCommand implements Command {
                                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription("I can not ban myself!").build()).queue();
                             }
                         } else {
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription("You can't ban yourself.").build()).queue();
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription("You can't ban yourself!").build()).queue();
                         }
                     }
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("✅ Successfully banned ✅").setDescription("I successfully banned " + event.getMessage().getMentionedMembers().size() + " Members!").build()).queue();
@@ -64,7 +64,7 @@ public class BanCommand implements Command {
 
     @Override
     public String description() {
-        return "Bans one ore more user from the server";
+        return "Bans one ore more user from the server.";
     }
 
     @Override

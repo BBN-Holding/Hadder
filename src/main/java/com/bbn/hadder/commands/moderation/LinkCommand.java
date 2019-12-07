@@ -36,7 +36,7 @@ public class LinkCommand implements Command {
                 if (event.getGuild().getId().equals(args[1])) {
                     event.getChannel().sendMessage(
                             new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                    .setTitle("Wait thats illegal.").setDescription("You specified the same guild as the guild on which you're reading this").build()).queue();
+                                    .setTitle("Wait that's illegal.").setDescription("You specified the same guild as the guild on which you're reading this").build()).queue();
                     return;
                 }
 

@@ -22,7 +22,7 @@ public class PingCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows the ping to the Discord API";
+        return "Shows the ping to the Discord API.";
     }
 
     @Override

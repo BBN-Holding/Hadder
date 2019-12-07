@@ -85,7 +85,7 @@ public class ScreenShareCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows you the link to share your screen";
+        return "Shows you the link to share your screen.";
     }
 
     @Override
