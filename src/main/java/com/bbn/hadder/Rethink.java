@@ -143,7 +143,7 @@ public class Rethink {
     }
 
     public void insertGuild(String id) {
-        this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", "").with("invite_detect", false));
+        this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", "").with("invite_detect", false).with("language", "EN"));
     }
 
     public void insertUser(String id) {
