@@ -44,7 +44,7 @@ public class EqualsCommand implements Command {
 
     @Override
     public String description() {
-        return "Check if two strings are the same";
+        return "Check if two strings are the same.";
     }
 
     @Override

@@ -34,7 +34,7 @@ public class MemeCommand implements Command {
         } catch (IOException e) {
             e.printStackTrace();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                    .setTitle("Error!")
+                    .setTitle("Error")
                     .setDescription("The request to the meme API could not be processed. Please try it again later.")
                     .setColor(Color.RED)
                     .build()).queue();

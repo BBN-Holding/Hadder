@@ -33,7 +33,7 @@ public class GuildPrefixCommand implements Command {
 
     @Override
     public String description() {
-        return "Sets the Guild-Prefix";
+        return "Sets the Guild-Prefix.";
     }
 
     @Override

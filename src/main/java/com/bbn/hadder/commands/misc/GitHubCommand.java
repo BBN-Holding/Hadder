@@ -31,7 +31,7 @@ public class GitHubCommand implements Command {
 
                     String nickname = json.getString("name");
                     String bio = "None";
-                    String location = "Unknown";
+                    String location = "None";
                     String website = "None";
                     try {
                         bio = json.getString("bio");
@@ -77,7 +77,7 @@ public class GitHubCommand implements Command {
 
     @Override
     public String description() {
-        return "Displays information about a GitHub user profile";
+        return "Displays information about a GitHub user profile.";
     }
 
     @Override

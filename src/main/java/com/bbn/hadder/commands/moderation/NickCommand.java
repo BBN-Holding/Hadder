@@ -70,7 +70,7 @@ public class NickCommand implements Command {
 
     @Override
     public String description() {
-        return "Rename a one or more user";
+        return "Rename a one or more user.";
     }
 
     @Override
