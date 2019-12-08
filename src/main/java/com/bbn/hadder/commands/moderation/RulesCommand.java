@@ -74,8 +74,10 @@ public class RulesCommand implements Command {
                             Role role = event.getMessage().getMentionedRoles().get(0);
                             setRole(event, channel, message, event3, role);
                         } else {
-                            Role role = event3.getGuild().getRolesByName(event3.getMessage().getContentStripped(), true).get(0);
-                            setRole(event, channel, message, event3, role);
+                            if (event3.getGuild().getRolesByName(event3.getMessage().getContentStripped(), true).size()>0) {
+                                Role role = event3.getGuild().getRolesByName(event3.getMessage().getContentStripped(), true).get(0);
+                                setRole(event, channel, message, event3, role);
+                            } // TODO
                         }
                     }, event.getJDA(), event.getAuthor());
                 }, event.getJDA(), event.getAuthor());
