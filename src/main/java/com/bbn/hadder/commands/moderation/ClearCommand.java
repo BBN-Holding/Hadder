@@ -40,7 +40,7 @@ public class ClearCommand implements Command {
                         }
                         msg.delete().queue();
                     } catch (NumberFormatException e) {
-                        event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+                        event.getHelpCommand().sendHelp(this, event);
                     }
                 } else {
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
@@ -49,7 +49,7 @@ public class ClearCommand implements Command {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+            event.getHelpCommand().sendHelp(this, event);
         }
     }
 

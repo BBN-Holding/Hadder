@@ -23,7 +23,7 @@ public class LanguageCommand implements Command {
                     break;
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+            event.getHelpCommand().sendHelp(this, event);
         }
     }
 

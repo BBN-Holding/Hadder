@@ -32,7 +32,7 @@ public class BanCommand implements Command {
                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle("Not possible").setDescription("You can't ban yourself!").build()).queue();
                     }
                 } else if (event.getMessage().getMentionedMembers().size() == 0) {
-                    event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+                    event.getHelpCommand().sendHelp(this, event);
                 } else if (event.getMessage().getMentionedMembers().size() > 1) {
                     for (int i = 0; i < event.getMessage().getMentionedMembers().size(); i++) {
                         Member member = event.getMessage().getMentionedMembers().get(i);
