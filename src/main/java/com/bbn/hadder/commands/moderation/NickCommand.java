@@ -28,7 +28,7 @@ public class NickCommand implements Command {
                                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("✅ Successfully nicked ✅").setDescription("I successfully nicked " + event.getMessage().getMentionedMembers().get(0).getUser().getAsTag() + ".").build()).queue();
                                 }
                             } else {
-                                event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+                                event.getHelpCommand().sendHelp(this, event);
                             }
                         } else {
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
@@ -43,7 +43,7 @@ public class NickCommand implements Command {
                         }
                     }
                 } else if (event.getMessage().getMentionedMembers().size() == 0) {
-                    event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+                    event.getHelpCommand().sendHelp(this, event);
                 } else {
                     for (int i = 0; i < event.getMessage().getMentionedMembers().size(); i++) {
                         Member member = event.getMessage().getMentionedMembers().get(i);

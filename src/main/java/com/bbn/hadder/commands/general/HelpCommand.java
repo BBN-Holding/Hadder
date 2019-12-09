@@ -1,13 +1,10 @@
 package com.bbn.hadder.commands.general;
 
-import com.bbn.hadder.Rethink;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +45,7 @@ public class HelpCommand implements Command {
                 for (Command cmd : event.getCommandHandler().getCommandList()) {
                     for (String label : cmd.labels()) {
                         if (label.equalsIgnoreCase(args[0])) {
-                            sendHelp(cmd, event.getRethink(), event.getAuthor(), event.getTextChannel());
+                            sendHelp(cmd, event);
                         }
                     }
                 }
@@ -58,15 +55,15 @@ public class HelpCommand implements Command {
         }
     }
 
-    public void sendHelp(Command cmd, Rethink rethink, User author, TextChannel channel) {
+    public void sendHelp(Command cmd, CommandEvent event) {
         if (!cmd.getClass().getPackageName().endsWith("owner") || (cmd.getClass().getPackageName().endsWith("owner") &&
-                (author.getId().equals("477141528981012511") || author.getId().equals("261083609148948488")))) {
+                (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")))) {
             EmbedBuilder eb = new EmbedBuilder();
             String name = cmd.labels()[0];
             eb.setDescription(cmd.description()).setTitle(name.replaceFirst(String.valueOf(name.charAt(0)), String.valueOf(name.charAt(0)).toUpperCase()));
-            eb.addField("Usage", rethink.getUserPrefix(author.getId()) + cmd.labels()[0] + " " + cmd.usage(), false);
+            eb.addField("Usage", event.getRethink().getUserPrefix(event.getAuthor().getId()) + cmd.labels()[0] + " " + cmd.usage(), false);
             new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO);
-            channel.sendMessage(eb.build()).queue();
+            event.getChannel().sendMessage(eb.build()).queue();
         }
     }
 

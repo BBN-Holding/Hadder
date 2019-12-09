@@ -22,7 +22,7 @@ public class GuildLeaveCommand implements Command {
                         .setDescription("I successfully left " + guild.getName())
                         .build()).queue();
             } else {
-                event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+                event.getHelpCommand().sendHelp(this, event);
             }
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();

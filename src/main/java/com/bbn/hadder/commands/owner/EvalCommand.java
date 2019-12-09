@@ -77,7 +77,7 @@ public class EvalCommand implements Command {
                 }, 0, TimeUnit.MILLISECONDS);
 
             } else {
-                event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+                event.getHelpCommand().sendHelp(this, event);
             }
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();

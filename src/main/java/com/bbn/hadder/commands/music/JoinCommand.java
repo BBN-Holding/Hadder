@@ -19,11 +19,18 @@ public class JoinCommand implements Command {
             AudioManager audioManager = event.getGuild().getAudioManager();
             if(!audioManager.isAttemptingToConnect()) {
                 VoiceChannel vc = event.getMember().getVoiceState().getChannel();
+                if (!event.getGuild().getSelfMember().getVoiceState().getChannel().getId().equals(vc.getId())) {
                     event.getGuild().getAudioManager().openAudioConnection(vc);
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                             .setTitle("Successfully connected")
                             .setDescription("I successfully connected to " + vc.getName() + ".")
                             .build()).queue();
+                    } else {
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
+                            .setTitle("Already connected")
+                            .setDescription("I am already connected to your voice channel.")
+                            .build()).queue();
+                }
             } else {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
                         .setTitle("Already trying to connect")

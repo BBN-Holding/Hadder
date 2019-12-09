@@ -143,7 +143,7 @@ public class Rethink {
     }
 
     public void insertGuild(String id) {
-        this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", "").with("invite_detect", false));
+        this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", "").with("invite_detect", false).with("language", "EN"));
     }
 
     public void insertUser(String id) {
@@ -183,6 +183,10 @@ public class Rethink {
 
     public Boolean getInviteDetection(String guild_id) {
         return (Boolean) this.get("server", "id", guild_id, "invite_detect");
+    }
+
+    public void setLanguage(String user_id, String language) {
+        this.update("users", user_id, "language", language);
     }
 
 }
