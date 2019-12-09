@@ -54,11 +54,11 @@ public class Rethink {
         return new JSONArray();
     }
 
-    private Object get(String table, String where, String value, String column) {
+    public Object get(String table, String where, String value, String column) {
         return this.getAsArray(table, where, value).getJSONObject(0).get(column);
     }
 
-    private String update(String table, String wherevalue, String what, String whatvalue) {
+    public String update(String table, String wherevalue, String what, String whatvalue) {
         String out = "";
         try {
             Cursor cursor = r.table(table).get(wherevalue).update(r.hashMap(what, whatvalue)).run(conn);
@@ -67,7 +67,7 @@ public class Rethink {
         return out;
     }
 
-    private String insert(String table, Object object) {
+    public String insert(String table, Object object) {
         String out = "";
         try {
             Cursor cursor = r.table(table).insert(object).run(conn);
