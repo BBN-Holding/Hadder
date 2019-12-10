@@ -27,7 +27,7 @@ public class LinkCommand implements Command {
                 if (!found) {
                     event.getChannel().sendMessage(
                             new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Success!").setDescription("If i'm on this guild i sent a message to accept the link.")
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "success!")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.link.request.success.description"))
                             .build()).queue();
                     return;
                 }
@@ -36,7 +36,7 @@ public class LinkCommand implements Command {
                 if (event.getGuild().getId().equals(args[1])) {
                     event.getChannel().sendMessage(
                             new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                    .setTitle("Wait that's illegal.").setDescription("You specified the same guild as the guild on which you're reading this").build()).queue();
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.link.error.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.link.request.error.description")).build()).queue();
                     return;
                 }
 
@@ -49,8 +49,8 @@ public class LinkCommand implements Command {
                     // Send Request to link Guild
                     event.getJDA().getTextChannelById(event.getRethink().getLinkChannel(linkid)).sendMessage(
                             new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle(event.getGuild().getName() + " (" + event.getGuild().getId() + ") wants to link guilds!")
-                                            .setDescription("React with the reactions to accept or decline it").build()
+                                    .setTitle(event.getGuild().getName() + " (" + event.getGuild().getId() + MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.link.request.accept.title"))
+                                            .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.link.request.accept.description")).build()
                     ).queue(
                             msg -> {
                                 msg.addReaction("✅").queue();
@@ -62,7 +62,7 @@ public class LinkCommand implements Command {
 
                 event.getChannel().sendMessage(
                         new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                .setTitle("Success!").setDescription("If i'm on this guild i sent a message to accept the link.")
+                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "success!")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.link.request.success.description"))
                         .build()).queue();
 
                 break;
@@ -70,7 +70,7 @@ public class LinkCommand implements Command {
             case "channel":
                 if (args.length == 2) {
                     event.getRethink().setLinkChannel(event.getGuild().getId(), args[1]);
-                    event.getChannel().sendMessage(new EmbedBuilder().setTitle("Success").setDescription("Set the thing boi").build()).queue();
+                    event.getChannel().sendMessage(new EmbedBuilder().setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "success!")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.link.set.title")).build()).queue();
                 }
 
                 break;
@@ -84,7 +84,7 @@ public class LinkCommand implements Command {
 
     @Override
     public String description() {
-        return "Links two or more servers.";
+        return MessageEditor.handle("en", "commands.moderation.link.help.description");
     }
 
     @Override

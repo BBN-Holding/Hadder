@@ -189,4 +189,8 @@ public class Rethink {
         this.update("users", user_id, "language", language);
     }
 
+    public String getLanguage(String user_id) {
+        return (String) this.get("user", "id", user_id, "language");
+    }
+
 }
