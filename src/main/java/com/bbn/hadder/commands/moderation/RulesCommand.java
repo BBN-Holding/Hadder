@@ -70,19 +70,17 @@ public class RulesCommand implements Command {
                             .setDescription("The rules were successfully set. Please send me the name of the role which the user receives after he accepted the rules.")
                             .build()).queue();
                     new EventWaiter().newOnMessageEventWaiter(event3 -> {
-                        if (event.getMessage().getMentionedRoles().size() == 1) {
-                            Role role = event.getMessage().getMentionedRoles().get(0);
+                        if (event3.getMessage().getMentionedRoles().size() == 1) {
+                            Role role = event3.getMessage().getMentionedRoles().get(0);
                             setRole(event, channel, message, event3, role);
-                        } else {
-                            if (event3.getGuild().getRolesByName(event3.getMessage().getContentStripped(), true).size() > 0) {
+                        } else if (event3.getGuild().getRolesByName(event3.getMessage().getContentStripped(), true).size() > 0) {
                                 Role role = event3.getGuild().getRolesByName(event3.getMessage().getContentStripped(), true).get(0);
                                 setRole(event, channel, message, event3, role);
-                            } else {
-                                event3.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                        .setTitle("Role does not exist")
-                                        .setDescription("The specified role does not exist on this guild.")
-                                        .build()).queue();
-                            }
+                        } else {
+                            event3.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
+                                    .setTitle("Role does not exist")
+                                    .setDescription("The specified role does not exist on this guild.")
+                                    .build()).queue();
                         }
                     }, event.getJDA(), event.getAuthor());
                 }, event.getJDA(), event.getAuthor());
