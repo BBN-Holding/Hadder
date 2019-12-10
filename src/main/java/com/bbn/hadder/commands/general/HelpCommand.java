@@ -51,7 +51,7 @@ public class HelpCommand implements Command {
                 }
             }
         } else {
-            event.getTextChannel().sendMessage("I need the Embed Links Permission to send the Help Menu!").queue();
+            event.getTextChannel().sendMessage(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.help.error.description")).queue();
         }
     }
 
@@ -74,11 +74,11 @@ public class HelpCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows each command or explains its usage.";
+        return MessageEditor.handle("en", "commands.general.help.help.description");
     }
 
     @Override
     public String usage() {
-        return "[CommandName]";
+        return MessageEditor.handle("en", "commands.general.help.help.label");
     }
 }

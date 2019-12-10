@@ -19,14 +19,14 @@ public class ScreenShareCommand implements Command {
                     try {
                         if (vc.getIdLong() == Long.parseLong(args[0])) {
                             event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Here's your Url to share your Screen")
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.success.title"))
                                     .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + vc.getId() + "/").build()).queue();
                             return;
                         }
                     } catch (NumberFormatException e) {
                         event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                .setTitle("Wait, that's illegal")
-                                .setDescription("This ID is invalid. \nMaybe you entered a wrong ID? \n\nNote: Make sure the Voice Channel is on this Guild.").build()).queue();
+                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.id.error.title"))
+                                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.id.error.description")).build()).queue();
                         event.getHelpCommand().sendHelp(this, event);
                         return;
                     }
@@ -35,8 +35,8 @@ public class ScreenShareCommand implements Command {
                 List<VoiceChannel> vcs = event.getGuild().getVoiceChannelsByName(String.join(" ", args), true);
                 if (vcs.size() > 1) {
                     EmbedBuilder eb = new EmbedBuilder()
-                            .setTitle("Please Choose a Voice Channel")
-                            .setDescription("There is more than one channel with this name");
+                            .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.channel.error.title"))
+                            .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.channel.error.description"));
                     for (int i = 0; i < vcs.size(); i++) {
                         VoiceChannel voiceChannel = vcs.get(i);
                         eb.addField(i + ": " + voiceChannel.getName(), voiceChannel.getId(), false);
@@ -47,29 +47,29 @@ public class ScreenShareCommand implements Command {
                             int i = Integer.parseInt(msgevent.getMessage().getContentRaw());
                             if (vcs.size() > i) {
                                 event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle("Here's your Url to share your Screen")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.success.title"))
                                         .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + vcs.get(i).getId() + "/").build()).queue();
                             } else {
 
                                 event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                        .setTitle("You specified a wrong number!").build()).queue();
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.number.error.title")).build()).queue();
                                 event.getHelpCommand().sendHelp(this, event);
                             }
                         } catch (NumberFormatException e) {
                             event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                    .setTitle("Wait, that's illegal")
-                                    .setDescription("This isn't a Number.").build()).queue();
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.id.error.title"))
+                                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.number.error.description")).build()).queue();
                             event.getHelpCommand().sendHelp(this, event);
                         }
                     }, event.getJDA(), event.getAuthor());
                 } else if (vcs.size()==0) {
                     event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                            .setTitle("Hol' up")
-                            .setDescription("There is no Voice Channel named like this. \n\nNote: Make sure the Voice Channel is on this Guild.").build()).queue();
+                            .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.channel.existing.error"))
+                            .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.channel.existing.description")).build()).queue();
                     event.getHelpCommand().sendHelp(this, event);
                 } else {
                     event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                            .setTitle("Here's your Url to share your Screen")
+                            .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.screenshare.success.title"))
                             .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + vcs.get(0).getId() + "/").build()).queue();
                 }
             }
@@ -85,11 +85,11 @@ public class ScreenShareCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows you the link to share your screen.";
+        return MessageEditor.handle("en", "commands.misc.screenshare.help.description");
     }
 
     @Override
     public String usage() {
-        return "<VoiceChannelID|VoiceChannelName>";
+        return MessageEditor.handle("en", "vc-name/id");
     }
 }
