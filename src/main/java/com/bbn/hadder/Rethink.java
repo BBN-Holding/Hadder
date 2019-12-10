@@ -143,11 +143,11 @@ public class Rethink {
     }
 
     public void insertGuild(String id) {
-        this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", "").with("invite_detect", false).with("language", "EN"));
+        this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", "").with("invite_detect", false));
     }
 
     public void insertUser(String id) {
-        this.insert("user", r.hashMap("id", id).with("prefix", "h."));
+        this.insert("user", r.hashMap("id", id).with("prefix", "h.").with("language", "en"));
     }
 
     public void updateRules(String guild_id, String message_id, String role_id, String accept_emote, String decline_emote) {
