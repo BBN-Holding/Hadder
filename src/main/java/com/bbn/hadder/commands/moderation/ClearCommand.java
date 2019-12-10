@@ -24,15 +24,15 @@ public class ClearCommand implements Command {
                 if (event.getGuild().getMemberById(event.getJDA().getSelfUser().getId()).hasPermission(Permission.MESSAGE_MANAGE)) {
                     try {
                         int nbToDelete = Integer.parseInt(args[0]);
-                        if(nbToDelete < 1 || nbToDelete > 200) {
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription("You have to choose a number between 1 and 99!").build()).queue();
+                        if(nbToDelete < 1 || nbToDelete > 99) {
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.number.error.description")).build()).queue();
                             return;
                         }
                         List<Message> history = event.getTextChannel().getHistory().retrievePast(nbToDelete +1).complete();
                         List<Message> msgToDelete = new ArrayList<>();
                         msgToDelete.addAll(history);
                         event.getTextChannel().deleteMessages(msgToDelete).queue();
-                        Message msg = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setDescription("Successfully deleted " + nbToDelete + " messages.").build()).complete();
+                        Message msg = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.success.description") + nbToDelete + " messages.").build()).complete();
                         try {
                             TimeUnit.SECONDS.sleep(2);
                         } catch (InterruptedException e) {
@@ -60,11 +60,11 @@ public class ClearCommand implements Command {
 
     @Override
     public String description() {
-        return "Deletes the specified number of messages.";
+        return MessageEditor.handle("en", "commands.moderation.clear.help.description");
     }
 
     @Override
     public String usage() {
-        return "<Number>";
+        return MessageEditor.handle("en", "number");
     }
 }
