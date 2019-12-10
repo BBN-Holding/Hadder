@@ -16,14 +16,14 @@ public class AvatarCommand implements Command {
         if (args.length == 0) {
             Member member = event.getMember();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                    .setTitle("Avatar of " + member.getUser().getAsTag())
+                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.fun.avatar.success.title") + member.getUser().getAsTag())
                     .setImage(member.getUser().getAvatarUrl())
                     .setFooter(member.getUser().getAsTag())
                     .build()).queue();
         } else if (event.getMessage().getMentionedMembers().size() == 1) {
             Member member = event.getMessage().getMentionedMembers().get(0);
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                    .setTitle("Avatar of " + member.getUser().getAsTag())
+                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.fun.avatar.success.title") + member.getUser().getAsTag())
                     .setImage(member.getUser().getAvatarUrl())
                     .setFooter(member.getUser().getAsTag())
                     .build()).queue();
@@ -46,11 +46,11 @@ public class AvatarCommand implements Command {
 
     @Override
     public String description() {
-        return "Sends the avatar of the specified member.";
+        return MessageEditor.handle("en", "commands.fun.avatar.help.description");
     }
 
     @Override
     public String usage() {
-        return "<@User>/<ID>";
+        return "[@User]/[ID]";
     }
 }

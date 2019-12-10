@@ -28,14 +28,14 @@ public class MemeCommand implements Command {
             JSONObject json = new JSONObject(response.body().string());
             String url = json.get("image").toString();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                    .setTitle("Your random meme")
+                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.fun.meme.success.title"))
                     .setImage(url)
                     .build()).queue();
         } catch (IOException e) {
             e.printStackTrace();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                    .setTitle("Error")
-                    .setDescription("The request to the meme API could not be processed. Please try it again later.")
+                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "error"))
+                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.fun.meme.api.error"))
                     .setColor(Color.RED)
                     .build()).queue();
         }
@@ -48,7 +48,7 @@ public class MemeCommand implements Command {
 
     @Override
     public String description() {
-        return "Sends you a random meme.";
+        return MessageEditor.handle("en", "commands.fun.meme.help.description");
     }
 
     @Override
