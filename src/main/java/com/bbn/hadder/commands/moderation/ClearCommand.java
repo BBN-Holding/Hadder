@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.entities.Message;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class ClearCommand implements Command {
@@ -24,16 +25,22 @@ public class ClearCommand implements Command {
                     try {
                         int nbToDelete = Integer.parseInt(args[0]);
                         if(nbToDelete < 1 || nbToDelete > 200) {
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription("You have to choose a number between 1 and 200!").build()).queue();
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription("You have to choose a number between 1 and 99!").build()).queue();
                             return;
                         }
                         List<Message> history = event.getTextChannel().getHistory().retrievePast(nbToDelete +1).complete();
                         List<Message> msgToDelete = new ArrayList<>();
                         msgToDelete.addAll(history);
                         event.getTextChannel().deleteMessages(msgToDelete).queue();
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setDescription("Successfully deleted " + nbToDelete + " messages.").build()).queue();
+                        Message msg = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setDescription("Successfully deleted " + nbToDelete + " messages.").build()).complete();
+                        try {
+                            TimeUnit.SECONDS.sleep(2);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        msg.delete().queue();
                     } catch (NumberFormatException e) {
-                        event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+                        event.getHelpCommand().sendHelp(this, event);
                     }
                 } else {
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
@@ -42,7 +49,7 @@ public class ClearCommand implements Command {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+            event.getHelpCommand().sendHelp(this, event);
         }
     }
 

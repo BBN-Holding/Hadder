@@ -51,7 +51,7 @@ public class InviteDetectCommand implements Command {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+            event.getHelpCommand().sendHelp(this, event);
         }
     }
 

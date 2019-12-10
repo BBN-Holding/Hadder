@@ -29,8 +29,8 @@ public class RulesListener extends ListenerAdapter {
                         event.getMember().kick().reason("Declined the rules");
                     }
                 }
-            } else {
-                    event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
+            } else if (event.getReactionEmote().isEmoji()) {
+                event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
             }
         }
     }

@@ -87,6 +87,7 @@ public class Hadder {
                         new SoloCommand(),
                         new RegionChangeCommand(),
                         new AboutCommand(),
+                        new LanguageCommand(),
                         new LinkCommand()), config, helpCommand);
 
         builder.addEventListeners(

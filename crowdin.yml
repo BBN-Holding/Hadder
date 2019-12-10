@@ -1,5 +1,5 @@
 base_url: 'https://bigbotnetwork.com'
 commit_message: '[ci skip] New %language% translation'
 files:
-  - source: /src/main/Translations/en_us.properties
-    translation: /src/main/Translations/%two_letters_code%/%two_letters_code%.properties
+  - source: /src/main/resources/Translations/Translations_en.properties
+    translation: /src/main/resources/Translations/Translations_%two_letters_code%.properties

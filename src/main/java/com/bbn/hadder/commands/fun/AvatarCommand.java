@@ -35,7 +35,7 @@ public class AvatarCommand implements Command {
                     .setFooter(member.getUser().getAsTag())
                     .build()).queue();
         } else {
-            event.getHelpCommand().sendHelp(this , event.getRethink(), event.getAuthor(), event.getTextChannel());
+            event.getHelpCommand().sendHelp(this, event);
         }
     }
 

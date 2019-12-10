@@ -54,11 +54,11 @@ public class Rethink {
         return new JSONArray();
     }
 
-    private Object get(String table, String where, String value, String column) {
+    public Object get(String table, String where, String value, String column) {
         return this.getAsArray(table, where, value).getJSONObject(0).get(column);
     }
 
-    private String update(String table, String wherevalue, String what, String whatvalue) {
+    public String update(String table, String wherevalue, String what, String whatvalue) {
         String out = "";
         try {
             Cursor cursor = r.table(table).get(wherevalue).update(r.hashMap(what, whatvalue)).run(conn);
@@ -67,7 +67,7 @@ public class Rethink {
         return out;
     }
 
-    private String insert(String table, Object object) {
+    public String insert(String table, Object object) {
         String out = "";
         try {
             Cursor cursor = r.table(table).insert(object).run(conn);
@@ -147,7 +147,7 @@ public class Rethink {
     }
 
     public void insertUser(String id) {
-        this.insert("user", r.hashMap("id", id).with("prefix", "h."));
+        this.insert("user", r.hashMap("id", id).with("prefix", "h.").with("language", "en"));
     }
 
     public void updateRules(String guild_id, String message_id, String role_id, String accept_emote, String decline_emote) {
@@ -183,6 +183,10 @@ public class Rethink {
 
     public Boolean getInviteDetection(String guild_id) {
         return (Boolean) this.get("server", "id", guild_id, "invite_detect");
+    }
+
+    public void setLanguage(String user_id, String language) {
+        this.update("users", user_id, "language", language);
     }
 
 }

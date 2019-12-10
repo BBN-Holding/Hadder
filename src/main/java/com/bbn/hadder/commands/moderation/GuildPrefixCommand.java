@@ -19,7 +19,7 @@ public class GuildPrefixCommand implements Command {
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription("The prefix must not contain **\"**").build()).queue();
                 }
             } else {
-                event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+                event.getHelpCommand().sendHelp(this, event);
             }
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
