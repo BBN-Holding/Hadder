@@ -75,6 +75,6 @@ public class NickCommand implements Command {
 
     @Override
     public String usage() {
-        return "<@user> <New Nickname>";
+        return MessageEditor.handle("en", "user+nickname");
     }
 }
