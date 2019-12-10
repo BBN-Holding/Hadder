@@ -4,6 +4,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
 import java.time.Instant;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class MessageEditor {
 
@@ -58,5 +60,10 @@ public class MessageEditor {
         INFO,
         NO_PERMISSION,
         NO_SELF_PERMISSION
+    }
+
+    public static String handle(String language_code, String string) {
+        Locale locale = new Locale(language_code);
+        return ResourceBundle.getBundle("Translations", locale).getString(string).replaceAll("%prefix%", "h.");
     }
 }
