@@ -21,13 +21,13 @@ public class InviteDetectCommand implements Command {
                             if (!event.getRethink().getInviteDetection(event.getGuild().getId())) {
                                 event.getRethink().setInviteDetection(event.getGuild().getId(), true);
                                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle("Successfully activated")
-                                        .setDescription("I successfully activated the invite link detection for this guild.")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.activate.success.title"))
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.activate.success.description"))
                                         .build()).queue();
                             } else {
                                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                        .setTitle("Already activated")
-                                        .setDescription("The invite link detection is already activated on this guild.")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.activate.error.title"))
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.activate.error.description"))
                                         .build()).queue();
                             }
                             break;
@@ -36,13 +36,13 @@ public class InviteDetectCommand implements Command {
                             if (event.getRethink().getInviteDetection(event.getGuild().getId())) {
                                 event.getRethink().setInviteDetection(event.getGuild().getId(), false);
                                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle("Successfully deactivated")
-                                        .setDescription("I successfully deactivated the invite link detection for this guild.")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.deactivate.success.title"))
+                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.deactivate.success.description"))
                                         .build()).queue();
                             } else {
                                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                        .setTitle("Already deactivated")
-                                        .setDescription("The invite link detection is already deactivated on this guild.")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.deactivate.error.title"))
+                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.deactivate.error.description"))
                                         .build()).queue();
                             }
                             break;
@@ -51,7 +51,7 @@ public class InviteDetectCommand implements Command {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+            event.getHelpCommand().sendHelp(this, event);
         }
     }
 
@@ -62,7 +62,7 @@ public class InviteDetectCommand implements Command {
 
     @Override
     public String description() {
-        return "Activate or deactivate the Discord invite link detection.";
+        return MessageEditor.handle("en", "commands.moderation.invitedetect.help.description");
     }
 
     @Override

@@ -13,9 +13,9 @@ public class AboutCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                .setTitle("Hadder - About")
-                .setDescription("Hadder is an open source Discord bot.")
-                .addField("Support the Developers", "Hadder is completely free for everyone. We would appreciate it you donate some money [here](https://donatebot.io/checkout/448554629282922527?buyer=" + event.getAuthor().getId() + "). :smiley:", true)
+                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.title"))
+                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.description"))
+                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.field.one.title"), MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.field.one.description") + "(https://donatebot.io/checkout/448554629282922527?buyer=" + event.getAuthor().getId() + "). :smiley:", true)
                 .setThumbnail("https://bigbotnetwork.com/images/Hadder.png")
                 .build()).queue();
     }
@@ -27,7 +27,7 @@ public class AboutCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows infos about Hadder.";
+        return MessageEditor.handle("en", "commands.general.about.help.description");
     }
 
     @Override

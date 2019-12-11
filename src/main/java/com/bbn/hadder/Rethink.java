@@ -147,7 +147,7 @@ public class Rethink {
     }
 
     public void insertUser(String id) {
-        this.insert("user", r.hashMap("id", id).with("prefix", "h."));
+        this.insert("user", r.hashMap("id", id).with("prefix", "h.").with("language", "en"));
     }
 
     public void updateRules(String guild_id, String message_id, String role_id, String accept_emote, String decline_emote) {
@@ -183,6 +183,14 @@ public class Rethink {
 
     public Boolean getInviteDetection(String guild_id) {
         return (Boolean) this.get("server", "id", guild_id, "invite_detect");
+    }
+
+    public void setLanguage(String user_id, String language) {
+        this.update("users", user_id, "language", language);
+    }
+
+    public String getLanguage(String user_id) {
+        return (String) this.get("user", "id", user_id, "language");
     }
 
 }

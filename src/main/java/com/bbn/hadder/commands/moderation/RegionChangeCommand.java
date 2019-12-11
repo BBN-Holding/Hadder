@@ -19,130 +19,58 @@ public class RegionChangeCommand implements Command {
                 if (event.getMember().hasPermission(Permission.MANAGE_SERVER) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
                     switch (args[0].toLowerCase()) {
                         case "amsterdam":
-                            event.getGuild().getManager().setRegion(Region.AMSTERDAM).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to Amsterdam.")
-                                    .build()).queue();
+                            setRegion(Region.AMSTERDAM, "Amsterdam", event);
                             break;
                         case "frankfurt":
-                            event.getGuild().getManager().setRegion(Region.FRANKFURT).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to Frankfurt.")
-                                    .build()).queue();
+                            setRegion(Region.FRANKFURT, "Frankfurt", event);
                             break;
                         case "eu-west":
-                            event.getGuild().getManager().setRegion(Region.EU_WEST).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to EU-West.")
-                                    .build()).queue();
+                            setRegion(Region.EU_WEST, "EU West", event);
                             break;
                         case "eu-central":
-                            event.getGuild().getManager().setRegion(Region.EU_CENTRAL).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to EU-Central.")
-                                    .build()).queue();
+                            setRegion(Region.EU_CENTRAL, "EU Central", event);
                             break;
                         case "europe":
-                            event.getGuild().getManager().setRegion(Region.EUROPE).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to Europe.")
-                                    .build()).queue();
+                            setRegion(Region.EUROPE, "EUROPE", event);
                             break;
                         case "brazil":
-                            event.getGuild().getManager().setRegion(Region.BRAZIL).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to Brazil.")
-                                    .build()).queue();
+                            setRegion(Region.BRAZIL, "Brazil", event);
                             break;
                         case "hongkong":
-                            event.getGuild().getManager().setRegion(Region.HONG_KONG).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to Hong Kong.")
-                                    .build()).queue();
+                            setRegion(Region.HONG_KONG, "Hong Kong", event);
                             break;
                         case "india":
-                            event.getGuild().getManager().setRegion(Region.INDIA).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to India.")
-                                    .build()).queue();
+                            setRegion(Region.INDIA, "India", event);
                             break;
                         case "japan":
-                            event.getGuild().getManager().setRegion(Region.JAPAN).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to Japan.")
-                                    .build()).queue();
+                            setRegion(Region.JAPAN, "Japan", event);
                             break;
                         case "london":
-                            event.getGuild().getManager().setRegion(Region.LONDON).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to London.")
-                                    .build()).queue();
+                            setRegion(Region.LONDON, "London", event);
                             break;
                         case "russia":
-                            event.getGuild().getManager().setRegion(Region.RUSSIA).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to Russia.")
-                                    .build()).queue();
+                            setRegion(Region.RUSSIA, "Russia", event);
                             break;
                         case "singapore":
-                            event.getGuild().getManager().setRegion(Region.SINGAPORE).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to Singapore.")
-                                    .build()).queue();
+                            setRegion(Region.SINGAPORE, "Singapore", event);
                             break;
                         case "south-africa":
-                            event.getGuild().getManager().setRegion(Region.SOUTH_AFRICA).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to South Africa.")
-                                    .build()).queue();
+                            setRegion(Region.SOUTH_AFRICA, "South Africa", event);
                             break;
                         case "sydney":
-                            event.getGuild().getManager().setRegion(Region.SYDNEY).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to Sydney.")
-                                    .build()).queue();
+                            setRegion(Region.SYDNEY, "Sydney", event);
                             break;
                         case "us-central":
-                            event.getGuild().getManager().setRegion(Region.US_CENTRAL).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to US Central.")
-                                    .build()).queue();
+                            setRegion(Region.US_CENTRAL, "US Central", event);
                             break;
                         case "us-east":
-                            event.getGuild().getManager().setRegion(Region.US_EAST).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to US East.")
-                                    .build()).queue();
+                            setRegion(Region.US_EAST, "US East", event);
                             break;
                         case "us-west":
-                            event.getGuild().getManager().setRegion(Region.US_WEST).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to US West.")
-                                    .build()).queue();
+                            setRegion(Region.US_WEST, "US West", event);
                             break;
                         case "us-south":
-                            event.getGuild().getManager().setRegion(Region.US_SOUTH).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("Successfully set region")
-                                    .setDescription("I successfully set the new server region to US South.")
-                                    .build()).queue();
+                            setRegion(Region.US_SOUTH, "US South", event);
                             break;
                         case "list":
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
@@ -156,6 +84,14 @@ public class RegionChangeCommand implements Command {
         } else event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                 .setTitle("All regions")
                 .setDescription("**LOCKED:**\n`amsterdam` `frankfurt` `eu-west` `eu-central` `london`\n\n**UNLOCKED:**\n`europe` `brazil` `hongkong` `india` `japan` `singapore` `south-africa` `sydney` `us-central` `us-east` `us-west` `us-south`")
+                .build()).queue();
+    }
+
+    public void setRegion (Region region, String region_name, CommandEvent event) {
+        event.getGuild().getManager().setRegion(region).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
+        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                .setTitle("Successfully set region")
+                .setDescription("I successfully set the new server region to " + region_name + ".")
                 .build()).queue();
     }
 

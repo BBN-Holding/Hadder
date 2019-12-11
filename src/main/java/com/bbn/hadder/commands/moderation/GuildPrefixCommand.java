@@ -14,12 +14,12 @@ public class GuildPrefixCommand implements Command {
                 if (!args[0].contains("\"")) {
 
                     event.getRethink().setGuildPrefix(args[0], event.getGuild().getId());
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("✅ Successfully set ✅").setDescription("I successfully set the new prefix for the guild to " + args[0]).build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.prefix.success.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.prefix.success.description") + args[0]).build()).queue();
                 } else {
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription("The prefix must not contain **\"**").build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.prefix.error.description")).build()).queue();
                 }
             } else {
-                event.getHelpCommand().sendHelp(this, event.getRethink(), event.getAuthor(), event.getTextChannel());
+                event.getHelpCommand().sendHelp(this, event);
             }
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
@@ -33,11 +33,11 @@ public class GuildPrefixCommand implements Command {
 
     @Override
     public String description() {
-        return "Sets the Guild-Prefix.";
+        return MessageEditor.handle("en", "commands.moderation.prefix.help.description");
     }
 
     @Override
     public String usage() {
-        return "<New Guild-Prefix>";
+        return MessageEditor.handle("en", "guildprefix");
     }
 }
