@@ -22,8 +22,8 @@ public class RulesCommand implements Command {
         if (event.getMember().hasPermission(Permission.MANAGE_SERVER) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
             if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setTitle("Set up rules")
-                        .setDescription("Welcome to the Hadder rules setup. Please mention the channel in which I should send the rules. Your message should look like: #rules or #verify.")
+                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.setup.title"))
+                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.setup.description"))
                         .build()).queue();
                 new EventWaiter().newOnMessageEventWaiter(event1 -> {
                     if (event1.getMessage().getMentionedChannels().size() == 1) {
@@ -32,8 +32,8 @@ public class RulesCommand implements Command {
                             createRules(event, event1, channel);
                         } catch (Exception e) {
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                    .setTitle("Channel not found")
-                                    .setDescription("I can't find the specified channel. Please start the setup again.")
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.channel.error.title"))
+                                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.channel.error.description"))
                                     .build()).queue();
                         }
                     } else {
@@ -42,8 +42,8 @@ public class RulesCommand implements Command {
                             createRules(event, event1, channel);
                         } catch (Exception e) {
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                    .setTitle("Channel not found")
-                                    .setDescription("I can't find the specified channel. Please start the setup again.")
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.channel.error.title"))
+                                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.channel.error.description"))
                                     .build()).queue();
                         }
                     }
@@ -60,14 +60,14 @@ public class RulesCommand implements Command {
         if (channel.getGuild().getId().equals(event1.getGuild().getId())) {
             if (event.getGuild().getSelfMember().hasPermission(channel, Permission.MESSAGE_WRITE)) {
                 event1.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setTitle("Rules")
-                        .setDescription("The channel was successfully set to " + channel.getName() + ". Please send me the rules now.")
+                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.rules.title"))
+                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.rules.title", channel.getName()))
                         .build()).queue();
                 new EventWaiter().newOnMessageEventWaiter(event2 -> {
                     String message = event2.getMessage().getContentRaw();
                     event2.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                            .setTitle("Role to assign")
-                            .setDescription("The rules were successfully set. Please send me the name of the role which the user receives after he accepted the rules.")
+                            .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.role.title"))
+                            .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.role.description"))
                             .build()).queue();
                     new EventWaiter().newOnMessageEventWaiter(event3 -> {
                         if (event3.getMessage().getMentionedRoles().size() == 1) {
@@ -78,8 +78,8 @@ public class RulesCommand implements Command {
                                 setRole(event, channel, message, event3, role);
                         } else {
                             event3.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                    .setTitle("Role does not exist")
-                                    .setDescription("The specified role does not exist on this guild.")
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.role.error.title"))
+                                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.role.error.description"))
                                     .build()).queue();
                         }
                     }, event.getJDA(), event.getAuthor());
@@ -90,8 +90,8 @@ public class RulesCommand implements Command {
             }
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                    .setTitle("Wrong Guild")
-                    .setDescription("The mentioned channel must be on this guid!")
+                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.guild.error.title"))
+                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.guild.error.description"))
                     .build()).queue();
         }
     }
@@ -99,15 +99,15 @@ public class RulesCommand implements Command {
     public void setRole(CommandEvent event, TextChannel channel, String message, GuildMessageReceivedEvent event3, Role role) {
         if (event3.getGuild().getSelfMember().canInteract(role)) {
             event3.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                    .setTitle("Custom Accept Emote")
-                    .setDescription("The role has been successfully set to " + role.getName() + ". Now send me the emote on which your user should react to to get verified.")
+                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emote.accept.title"))
+                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emote.accept.description", role.getName()))
                     .build()).queue();
             new EventWaiter().newOnMessageEventWaiter(event4 -> {
                 if (event4.getMessage().getEmotes().size() == 1) {
                     Emote aemote = event4.getMessage().getEmotes().get(0);
                     event4.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                            .setTitle("Custom Decline Emote")
-                            .setDescription("The first emote has been successfully set to " + aemote + ". Please send me now the decline emote.")
+                            .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emote.decline.title"))
+                            .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emote.decline.title", String.valueOf(aemote)))
                             .build()).queue();
                     new EventWaiter().newOnMessageEventWaiter(event5 -> {
                         Emote demote = event5.getMessage().getEmotes().get(0);
@@ -120,29 +120,29 @@ public class RulesCommand implements Command {
                                 rules.addReaction(aemote).queue();
                                 rules.addReaction(demote).queue();
                                 event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle("Successfully set the rules")
-                                        .setDescription("I successfully send the rules in " + channel.getAsMention() + ".")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.success.title"))
+                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.success.description", channel.getAsMention()))
                                         .build()).queue();
                             } catch (Exception e) {
                                 event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                        .setTitle("Error")
-                                        .setDescription("I can not access the custom emote(s),")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "error"))
+                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emote.error.access.description"))
                                         .build()).queue();
                                 e.printStackTrace();
                             }
                             event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote.toString(), demote.toString());
                         } else {
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                    .setTitle("Emotes are equal")
-                                    .setDescription("The 1st and 2nd emote equals each other.")
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emote.error.equal.title"))
+                                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emote.error.equal.description"))
                                     .build()).queue();
                         }
                     }, event.getJDA(), event.getAuthor());
                 } else {
                     String aemote = event4.getMessage().getContentRaw();
                     event4.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                            .setTitle("Custom Decline Emote")
-                            .setDescription("The first emote has been successfully set. Please send me now the decline emote.")
+                            .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emote.decline.title"))
+                            .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emoji.decline.description"))
                             .build()).queue();
                     new EventWaiter().newOnMessageEventWaiter(event5 -> {
                         String demote = event5.getMessage().getContentRaw();
@@ -155,21 +155,21 @@ public class RulesCommand implements Command {
                                 rules.addReaction(aemote).queue();
                                 rules.addReaction(demote).queue();
                                 event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle("Successfully set the rules")
-                                        .setDescription("I successfully send the rules in " + channel.getAsMention() + ".")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.success.title"))
+                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.success.description", channel.getAsMention()))
                                         .build()).queue();
                             } catch (Exception e) {
                                 event5.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                                        .setTitle("Error")
-                                        .setDescription("The given emote can't be used.")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "error"))
+                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emoji.error.description"))
                                         .build()).queue();
                                 e.printStackTrace();
                             }
                             event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote, demote);
                         } else {
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                    .setTitle("Emotes are equal")
-                                    .setDescription("The 1st and 2nd emote equals each other.")
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emote.error.equal.title"))
+                                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.emote.error.equal.description"))
                                     .build()).queue();
                         }
                     }, event.getJDA(), event.getAuthor());
@@ -187,7 +187,7 @@ public class RulesCommand implements Command {
 
     @Override
     public String description() {
-        return "Setup the rules on your Discord server";
+        return MessageEditor.handle("en", "commands.moderation.rules.help.description");
     }
 
     @Override
