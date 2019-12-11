@@ -21,7 +21,7 @@ public class BanCommand implements Command {
                         if (!event.getJDA().getSelfUser().getId().equals(victim.getId())) {
                             if (event.getGuild().getSelfMember().canInteract(victim)) {
                                 event.getGuild().ban(victim, 0, "Banned by " + event.getAuthor().getAsTag()).queue();
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.ban.success.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.ban.success.description", victim.getUser().getName() + ".")).build()).queue();
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.ban.success.title"), "✅").setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.ban.success.description", victim.getUser().getName() + ".")).build()).queue();
                             } else {
                                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                             }
@@ -50,7 +50,7 @@ public class BanCommand implements Command {
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.ban.error.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.ban.yourself.error.description")).build()).queue();
                         }
                     }
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.ban.success.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.ban.success.description", String.valueOf(event.getMessage().getMentionedMembers().size()))).build()).queue();
+                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.ban.success.title", "✅")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.ban.massban.success.description", String.valueOf(event.getMessage().getMentionedMembers().size()))).build()).queue();
                 }
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
