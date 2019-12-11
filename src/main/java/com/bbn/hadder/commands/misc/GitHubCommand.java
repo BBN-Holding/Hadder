@@ -45,7 +45,7 @@ public class GitHubCommand implements Command {
                     if (!json.getString("blog").equals("")) website = json.getString("blog");
 
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                            .setAuthor(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.github.success.title") + nickname + " (" + args[0] + ")", "https://github.com/" + args[0] + "", "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
+                            .setAuthor(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.github.success.title", nickname + " (" + args[0] + ")"), "https://github.com/" + args[0] + "", "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
                             .setThumbnail(json.getString("avatar_url"))
                             .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.github.success.bio"), bio, false)
                             .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.github.success.location"), location, true)
@@ -65,7 +65,7 @@ public class GitHubCommand implements Command {
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                     .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.github.connect.title"))
-                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.github.connect.description") + "(https://github.com/login/oauth/authorize?client_id=25321f690bb1b6952942)")
+                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.github.connect.description", "(https://github.com/login/oauth/authorize?client_id=25321f690bb1b6952942)"))
                     .build()).queue();
         }
     }
