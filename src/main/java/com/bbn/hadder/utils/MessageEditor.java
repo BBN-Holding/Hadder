@@ -66,4 +66,9 @@ public class MessageEditor {
         Locale locale = new Locale(language_code);
         return ResourceBundle.getBundle("Translations/Translations", locale).getString(string).replaceAll("%prefix%", "h.");
     }
+
+    public static String handle(String language_code, String string, String extra) {
+        Locale locale = new Locale(language_code);
+        return ResourceBundle.getBundle("Translations/Translations", locale).getString(string).replaceAll("%prefix%", "h.").replaceAll("%extra%", extra);
+    }
 }
