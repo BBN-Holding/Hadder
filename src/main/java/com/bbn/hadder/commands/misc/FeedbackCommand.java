@@ -35,7 +35,7 @@ public class FeedbackCommand implements Command {
                     GHRepository Hadder = connection.getOrganization("BigBotNetwork").getRepository("Hadder");
                     GHIssue issue = Hadder.createIssue(title).body("<strong>Feedback by " + event.getAuthor().getAsTag() + "</strong><br>" + description).label("feedback").create();
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                            .setTitle("Feedback successfully sent")
+                            .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.feedback.success.title"))
                             .setDescription(issue.getHtmlUrl().toString())
                             .build()).queue();
                 } catch (IOException e) {

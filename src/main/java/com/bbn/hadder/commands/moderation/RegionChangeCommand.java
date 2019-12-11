@@ -74,7 +74,7 @@ public class RegionChangeCommand implements Command {
                             break;
                         case "list":
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                    .setTitle("All regions")
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.regionchange.regions.title"))
                                     .setDescription("**LOCKED:**\n`amsterdam` `frankfurt` `eu-west` `eu-central` `london`\n\n**UNLOCKED:**\n`europe` `brazil` `hongkong` `india` `japan` `singapore` `south-africa` `sydney` `us-central` `us-east` `us-west` `us-south`")
                                     .build()).queue();
                             break;
@@ -82,7 +82,7 @@ public class RegionChangeCommand implements Command {
                 } else event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             } else event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
         } else event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                .setTitle("All regions")
+                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.regionchange.regions.title"))
                 .setDescription("**LOCKED:**\n`amsterdam` `frankfurt` `eu-west` `eu-central` `london`\n\n**UNLOCKED:**\n`europe` `brazil` `hongkong` `india` `japan` `singapore` `south-africa` `sydney` `us-central` `us-east` `us-west` `us-south`")
                 .build()).queue();
     }
@@ -90,8 +90,8 @@ public class RegionChangeCommand implements Command {
     public void setRegion (Region region, String region_name, CommandEvent event) {
         event.getGuild().getManager().setRegion(region).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                .setTitle("Successfully set region")
-                .setDescription("I successfully set the new server region to " + region_name + ".")
+                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.regionchange.success.title"))
+                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.regionchange.success.description", region_name))
                 .build()).queue();
     }
 
@@ -102,11 +102,11 @@ public class RegionChangeCommand implements Command {
 
     @Override
     public String description() {
-        return "Changes the server region to locked regions.";
+        return MessageEditor.handle("en", "commands.moderation.regionchange.help.description");
     }
 
     @Override
     public String usage() {
-        return "<region>";
+        return MessageEditor.handle("en", "region");
     }
 }

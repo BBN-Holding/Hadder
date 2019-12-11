@@ -12,7 +12,11 @@ public class PingCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        event.getJDA().getRestPing().queue(ping -> event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("Ping").setDescription(String.valueOf(ping)).build()).queue());
+        event.getJDA().getRestPing().queue(ping -> event.getTextChannel().sendMessage(new MessageEditor()
+                .setDefaultSettings(MessageEditor.MessageType.INFO)
+                .setTitle("Ping")
+                .setDescription(String.valueOf(ping))
+                .build()).queue());
     }
 
     @Override

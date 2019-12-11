@@ -15,7 +15,7 @@ public class AboutCommand implements Command {
         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                 .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.title"))
                 .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.description"))
-                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.field.one.title"), MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.field.one.description") + "(https://donatebot.io/checkout/448554629282922527?buyer=" + event.getAuthor().getId() + "). :smiley:", true)
+                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.field.one.title"), MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.field.one.description", "(https://donatebot.io/checkout/448554629282922527?buyer=" + event.getAuthor().getId() + "). :smiley:"), true)
                 .setThumbnail("https://bigbotnetwork.com/images/Hadder.png")
                 .build()).queue();
     }
