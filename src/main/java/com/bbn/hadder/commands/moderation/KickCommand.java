@@ -22,7 +22,7 @@ public class KickCommand implements Command {
                     if (!event.getJDA().getSelfUser().getId().equals(victim.getId())) {
                         if (event.getGuild().getSelfMember().canInteract(victim)) {
                             event.getGuild().kick(victim, "Kicked by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.success.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.success.description") + victim.getUser().getName() + ".").build()).queue();
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.success.title", "✅")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.success.description", victim.getUser().getName())).build()).queue();
                         } else {
                             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                         }
@@ -51,7 +51,7 @@ public class KickCommand implements Command {
                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.error.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.yourself.error.description")).build()).queue();
                     }
                 }
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.success.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.success.description") + event.getMessage().getMentionedMembers().size() + " Members!").build()).queue();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.success.title", "✅")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.masskick.success.description", String.valueOf(event.getMessage().getMentionedMembers().size()))).build()).queue();
             }
         }
     }

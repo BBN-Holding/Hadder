@@ -61,7 +61,7 @@ public class HelpCommand implements Command {
             EmbedBuilder eb = new EmbedBuilder();
             String name = cmd.labels()[0];
             eb.setDescription(cmd.description()).setTitle(name.replaceFirst(String.valueOf(name.charAt(0)), String.valueOf(name.charAt(0)).toUpperCase()));
-            eb.addField("Usage", event.getRethink().getUserPrefix(event.getAuthor().getId()) + cmd.labels()[0] + " " + cmd.usage(), false);
+            eb.addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.help.field.usage"), event.getRethink().getUserPrefix(event.getAuthor().getId()) + cmd.labels()[0] + " " + cmd.usage(), false);
             new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO);
             event.getChannel().sendMessage(eb.build()).queue();
         }

@@ -41,6 +41,7 @@ public class EvalCommand implements Command {
                 engine.put("author", event.getAuthor());
                 engine.put("member", event.getMember());
                 engine.put("self", event.getGuild().getSelfMember());
+                engine.put("System.out", System.out);
 
                 ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 

@@ -23,8 +23,8 @@ public class JoinCommand implements Command {
                     if (!event.getGuild().getSelfMember().getVoiceState().getChannel().getId().equals(vc.getId())) {
                         event.getGuild().getAudioManager().openAudioConnection(vc);
                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                .setTitle("Successfully connected")
-                                .setDescription("I successfully connected to " + vc.getName() + ".")
+                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.success.title"))
+                                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.success.description", vc.getName()))
                                 .build()).queue();
                     } else {
                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)

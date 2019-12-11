@@ -32,8 +32,8 @@ public class RoleCommand implements Command {
                                     }
                                 }
                                 event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle("✅ Successfully added role(s) ✅")
-                                        .setDescription("I successfully added " + event.getMessage().getMentionedRoles().size() + " roles to " + event.getMessage().getMentionedMembers().size() + " members.")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.role.add.success.title", "✅"))
+                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.role.add.success.description", String.valueOf(event.getMessage().getMentionedRoles().size()), String.valueOf(event.getMessage().getMentionedMembers().size())))
                                         .build()).queue();
                             }
                             break;
@@ -54,8 +54,8 @@ public class RoleCommand implements Command {
                                     }
                                 }
                                 event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle("✅ Successfully removed role(s) ✅")
-                                        .setDescription("I successfully removed " + event.getMessage().getMentionedRoles().size() + " roles from " + event.getMessage().getMentionedMembers().size() + " members.")
+                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.role.remove.success.title", "✅"))
+                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.role.remove.success.description", String.valueOf(event.getMessage().getMentionedRoles().size()), String.valueOf(event.getMessage().getMentionedMembers().size())))
                                         .build()).queue();
                             }
                             break;
@@ -78,7 +78,7 @@ public class RoleCommand implements Command {
 
     @Override
     public String description() {
-        return "Adds and removes roles from one or more user";
+        return MessageEditor.handle("en", "commands.moderation.role.help.description");
     }
 
     @Override
