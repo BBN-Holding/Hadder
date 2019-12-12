@@ -32,7 +32,7 @@ public class ClearCommand implements Command {
                         List<Message> msgToDelete = new ArrayList<>();
                         msgToDelete.addAll(history);
                         event.getTextChannel().deleteMessages(msgToDelete).queue();
-                        Message msg = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.success.description") + nbToDelete + " messages.").build()).complete();
+                        Message msg = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.success.description", String.valueOf(nbToDelete))).build()).complete();
                         try {
                             TimeUnit.SECONDS.sleep(2);
                         } catch (InterruptedException e) {

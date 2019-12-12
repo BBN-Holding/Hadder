@@ -37,7 +37,7 @@ public class GifCommand implements Command {
                 String url = array.getJSONObject(gifIndex).get("url").toString();
                 event.getTextChannel().sendMessage(url).queue();
             } catch (Exception e) {
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR).setTitle("Error").setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.fun.gif.error.description")).build()).queue();
+                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "error")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.fun.gif.error.description")).build()).queue();
             }
         } else event.getHelpCommand().sendHelp(this, event);
     }

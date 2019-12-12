@@ -28,7 +28,7 @@ public class PussyCommand implements Command {
                 String url = response.body().string().replace("{\"url\":\"", "");
 
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setAuthor("GIF not showing? Click here", url.replace("\"}", ""))
+                        .setAuthor(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.nsfw.gif.error.title"), url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Pussy")
                         .build()).queue();
@@ -38,7 +38,7 @@ public class PussyCommand implements Command {
             }
 
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_NSFW).build()).queue();
         }
     }
 
@@ -49,7 +49,7 @@ public class PussyCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows a random pussy gif.";
+        return MessageEditor.handle("en", "commands.nsfw.pussy.help.description");
     }
 
     @Override

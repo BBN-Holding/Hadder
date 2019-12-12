@@ -15,13 +15,13 @@ public class LeaveCommand implements Command {
         if (event.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
             event.getGuild().getAudioManager().closeAudioConnection();
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                    .setTitle("Successfully disconnected")
-                    .setDescription("I successfully disconnected from the Voice Channel")
+                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.leave.success.title"))
+                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.leave.success.description"))
                     .build()).queue();
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                    .setTitle("Not connected")
-                    .setDescription("I'm currently in no Voice Channel on this Guild")
+                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.leave.error.tile"))
+                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.leave.error.description"))
                     .build()).queue();
         }
     }
@@ -33,7 +33,7 @@ public class LeaveCommand implements Command {
 
     @Override
     public String description() {
-        return "Leaves a voice channel";
+        return MessageEditor.handle("en", "commands.music.leave.help.description");
     }
 
     @Override
