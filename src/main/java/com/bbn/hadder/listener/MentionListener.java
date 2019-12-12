@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class MentionListener extends ListenerAdapter {
 
@@ -27,6 +28,11 @@ public class MentionListener extends ListenerAdapter {
                     .addField("Prefix (User)", rethink.getUserPrefix(event.getAuthor().getId()), false)
                     .addField("Prefix (Guild)", rethink.getGuildPrefix(event.getGuild().getId()), false)
                     .build()).queue();
+        } else if (event.getMessage().getContentRaw().equalsIgnoreCase("@someone")) {
+            int member = new Random().nextInt(event.getGuild().getMembers().size()-1);
+            if (member>0&&member<event.getGuild().getMembers().size()) {
+                event.getChannel().sendMessage(event.getGuild().getMembers().get(member).getAsMention()+ " (Executed by: "+event.getAuthor().getAsTag()+")").queue();
+            }
         }
     }
 }

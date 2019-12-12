@@ -98,8 +98,7 @@ public class Hadder {
                 new ReadyListener(rethink, config),
                 // new LinkListener(rethink),
                 new InviteLinkListener(rethink),
-                new RulesListener(rethink),
-                new SomeoneListener());
+                new RulesListener(rethink));
 
         try {
             shardManager = builder.build();
