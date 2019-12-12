@@ -28,7 +28,7 @@ public class TransCommand implements Command {
                 String url = response.body().string().replace("{\"url\":\"", "");
 
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setAuthor("Image not showing? Click here", url.replace("\"}", ""))
+                        .setAuthor(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.nsfw.img.error.title"), url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Trans")
                         .build()).queue();
@@ -38,7 +38,7 @@ public class TransCommand implements Command {
             }
 
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_NSFW).build()).queue();
         }
     }
 
@@ -49,7 +49,7 @@ public class TransCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows a random trans picture.";
+        return MessageEditor.handle("en", "commands.nsfw.trans.help.description");
     }
 
     @Override

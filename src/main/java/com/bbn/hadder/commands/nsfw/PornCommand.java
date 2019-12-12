@@ -32,7 +32,7 @@ public class PornCommand implements Command {
                 String url = response1.toString().replace("{\"url\":\"", "");
 
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setAuthor("GIF not showing? Click here", url.replace("\"}", ""))
+                        .setAuthor(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.nsfw.gif.error.title"), url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Porn")
                         .build()).queue();
@@ -42,7 +42,7 @@ public class PornCommand implements Command {
             }
 
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
+            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_NSFW).build()).queue();
         }
     }
 
@@ -53,7 +53,7 @@ public class PornCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows a random porn gif.";
+        return MessageEditor.handle("en", "commands.nsfw.porn.help.description");
     }
 
     @Override
