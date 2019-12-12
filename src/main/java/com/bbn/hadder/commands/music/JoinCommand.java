@@ -28,27 +28,27 @@ public class JoinCommand implements Command {
                                 .build()).queue();
                     } else {
                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                .setTitle("Already connected")
-                                .setDescription("I am already connected to your voice channel.")
+                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.connecting.already.title"))
+                                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.connecting.already.description"))
                                 .build()).queue();
                     }
                 } else {
                     event.getGuild().getAudioManager().openAudioConnection(vc);
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                            .setTitle("Successfully connected")
-                            .setDescription("I successfully connected to " + vc.getName() + ".")
+                            .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.success.title"))
+                            .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.success.description", vc.getName()))
                             .build()).queue();
                 }
             } else {
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                        .setTitle("Already trying to connect")
-                        .setDescription("Hadder is already trying to connect. Please wait a moment.")
+                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.connecting.trying.title"))
+                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.connecting.trying.description"))
                         .build()).queue();
             }
         } else {
             event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                    .setTitle("No Voice Channel")
-                    .setDescription("You aren't in a Voice Channel.")
+                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.channel.title"))
+                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.channel.description"))
                     .build()).queue();
         }
     }
@@ -60,7 +60,7 @@ public class JoinCommand implements Command {
 
     @Override
     public String description() {
-        return "Joins your voice channel";
+        return MessageEditor.handle("en", "commands.music.join.help.description");
     }
 
     @Override
