@@ -88,7 +88,8 @@ public class Hadder {
                         new RegionChangeCommand(),
                         new AboutCommand(),
                         new LanguageCommand(),
-                        new LinkCommand()), config, helpCommand);
+                        new LinkCommand(),
+                        new SetStarBoardCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
@@ -99,7 +100,8 @@ public class Hadder {
                 // new LinkListener(rethink),
                 new InviteLinkListener(rethink),
                 new RulesListener(rethink),
-                new SomeoneListener());
+                new SomeoneListener(),
+                new StarboardListener(rethink));
 
         try {
             shardManager = builder.build();
