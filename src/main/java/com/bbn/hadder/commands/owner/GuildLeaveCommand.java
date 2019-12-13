@@ -18,8 +18,8 @@ public class GuildLeaveCommand implements Command {
                 Guild guild = event.getJDA().getGuildById(args[0]);
                 guild.leave().queue();
                 event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setTitle("Successfully left")
-                        .setDescription("I successfully left " + guild.getName())
+                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.owner.guildleave.success.title"))
+                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.owner.guildleave.success.description", guild.getName()))
                         .build()).queue();
             } else {
                 event.getHelpCommand().sendHelp(this, event);
@@ -36,11 +36,11 @@ public class GuildLeaveCommand implements Command {
 
     @Override
     public String description() {
-        return "Quit from a guild";
+        return MessageEditor.handle("en", "commands.owner.guildleave.help.description");
     }
 
     @Override
     public String usage() {
-        return "<Guild-ID>";
+        return MessageEditor.handle("en", "guildid");
     }
 }
