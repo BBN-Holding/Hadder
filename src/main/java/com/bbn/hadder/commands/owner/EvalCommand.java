@@ -59,16 +59,16 @@ public class EvalCommand implements Command {
                         out = engine.eval(script);
 
                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                .setTitle("Eval Command")
-                                .addField("Input", "```java\n\n" + script + "```", false)
-                                .addField("Output", "```java\n\n" + out.toString() + "```", false)
-                                .addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false)
+                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.owner.eval.success.title"))
+                                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.owner.eval.success.input"), "```java\n\n" + script + "```", false)
+                                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.owner.eval.success.output"), "```java\n\n" + out.toString() + "```", false)
+                                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.owner.eval.success.timing"), System.currentTimeMillis()-startExec + " milliseconds", false)
                                 .build()).queue();
                     } catch (Exception ex) {
                         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                .setTitle("Eval Command")
-                                .addField("Error", "```java\n\n" + ex.getMessage() + "```", false)
-                                .addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false)
+                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.owner.eval.success.title"))
+                                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "error"), "```java\n\n" + ex.getMessage() + "```", false)
+                                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.owner.eval.success.timing"), System.currentTimeMillis()-startExec + " milliseconds", false)
                                 .build()).queue();
 
                     }
@@ -92,11 +92,11 @@ public class EvalCommand implements Command {
 
     @Override
     public String description() {
-        return "Execute the given code";
+        return MessageEditor.handle("en", "commands.owner.eval.help.description");
     }
 
     @Override
     public String usage() {
-        return "<Code to execute>";
+        return MessageEditor.handle("en", "commands.owner.eval.help.usage");
     }
 }

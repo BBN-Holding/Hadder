@@ -44,8 +44,8 @@ public class LanguageCommand implements Command {
     public void setLanguage(String language_code, String language , CommandEvent event) {
         event.getRethink().setLanguage(event.getAuthor().getId(), language_code);
         event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                .setTitle("Language set")
-                .setDescription(language + " is your new language now.")
+                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.settings.language.success.title"))
+                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.settings.language.success.description", language))
                 .build()).queue();
     }
 
@@ -56,11 +56,11 @@ public class LanguageCommand implements Command {
 
     @Override
     public String description() {
-        return "Sets the new primary language for a user.";
+        return MessageEditor.handle("en", "commands.settings.language.help.description");
     }
 
     @Override
     public String usage() {
-        return "<Language code>";
+        return MessageEditor.handle("en", "commands.settings.language.help.usage");
     }
 }
