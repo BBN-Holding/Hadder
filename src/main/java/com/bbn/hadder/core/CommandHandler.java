@@ -4,6 +4,7 @@ import com.bbn.hadder.Rethink;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.commands.general.HelpCommand;
+import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
@@ -30,7 +31,10 @@ public class CommandHandler {
                     if (argString.startsWith(" ")) argString = argString.replaceFirst(" ", "");
                     String[] args = argString.split(" ");
                     if (args.length>0&&args[0].equals("")) args = new String[0];
-                    cmd.executed(args, new CommandEvent(event, config, rethink, this, helpCommand));
+                    cmd.executed(args,
+                            new CommandEvent(event.getJDA(), event.getResponseNumber(), event.getMessage(), rethink,
+                                    config, this, helpCommand, new MessageEditor(rethink, event.getAuthor()))
+                    );
                     return;
                 }
             }

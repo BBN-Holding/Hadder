@@ -14,12 +14,12 @@ public class LeaveCommand implements Command {
     public void executed(String[] args, CommandEvent event) {
         if (event.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
             event.getGuild().getAudioManager().closeAudioConnection();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                     .setTitle("Successfully disconnected")
                     .setDescription("I successfully disconnected from the Voice Channel")
                     .build()).queue();
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING)
                     .setTitle("Not connected")
                     .setDescription("I'm currently in no Voice Channel on this Guild")
                     .build()).queue();

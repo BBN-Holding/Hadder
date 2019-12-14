@@ -31,7 +31,7 @@ public class EvalCommand implements Command {
                 }
 
                 engine.put("msg", event.getMessage());
-                engine.put("shradmanager", Hadder.shardManager);
+                engine.put("shardmanager", Hadder.shardManager);
                 engine.put("rethink", event.getRethink());
                 engine.put("event", event);
                 engine.put("jda", event.getJDA());
@@ -58,14 +58,14 @@ public class EvalCommand implements Command {
                         }
                         out = engine.eval(script);
 
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                                 .setTitle("Eval Command")
                                 .addField("Input", "```java\n\n" + script + "```", false)
                                 .addField("Output", "```java\n\n" + out.toString() + "```", false)
                                 .addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false)
                                 .build()).queue();
                     } catch (Exception ex) {
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                                 .setTitle("Eval Command")
                                 .addField("Error", "```java\n\n" + ex.getMessage() + "```", false)
                                 .addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false)
@@ -81,7 +81,7 @@ public class EvalCommand implements Command {
                 event.getHelpCommand().sendHelp(this, event);
             }
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }
     }
 

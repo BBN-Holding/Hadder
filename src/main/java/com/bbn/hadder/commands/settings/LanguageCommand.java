@@ -43,7 +43,7 @@ public class LanguageCommand implements Command {
 
     public void setLanguage(String language_code, String language , CommandEvent event) {
         event.getRethink().setLanguage(event.getAuthor().getId(), language_code);
-        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Language set")
                 .setDescription(language + " is your new language now.")
                 .build()).queue();

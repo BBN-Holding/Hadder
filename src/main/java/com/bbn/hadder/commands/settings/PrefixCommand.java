@@ -14,7 +14,7 @@ public class PrefixCommand implements Command {
     public void executed(String[] args, CommandEvent event) {
         if (args.length == 1) {
             event.getRethink().setUserPrefix(args[0], event.getAuthor().getId());
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle("✅ Successfully set ✅").setDescription("I successfully set the new prefix for you to " + args[0]).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO).setTitle("✅ Successfully set ✅").setDescription("I successfully set the new prefix for you to " + args[0]).build()).queue();
         } else {
             event.getHelpCommand().sendHelp(this, event);
         }

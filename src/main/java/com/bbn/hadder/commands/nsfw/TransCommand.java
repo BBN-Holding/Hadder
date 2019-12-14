@@ -27,7 +27,7 @@ public class TransCommand implements Command {
                 Response response = caller.newCall(request).execute();
                 String url = response.body().string().replace("{\"url\":\"", "");
 
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                         .setAuthor("Image not showing? Click here", url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Trans")
@@ -38,7 +38,7 @@ public class TransCommand implements Command {
             }
 
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
         }
     }
 

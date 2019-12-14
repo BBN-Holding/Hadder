@@ -120,46 +120,14 @@ public class Rethink {
         return (String) this.get("server", "id", id, "prefix");
     }
 
-    public JSONArray getLinks(String id) {
-        return new JSONArray((String) this.get("server", "id", id, "links"));
-    }
-
-    public void addLinkedGuild(String guildid, String linkid) {
-        JSONArray links = getLinks(guildid);
-        for (int i = 0; links.length()>i; i++) {
-            if (links.getString(i).equals(linkid)) return;
-        }
-        this.update("server", guildid, "links", this.getLinks(guildid).put(linkid).toString());
-    }
-
-    public String removeLinkedGuild(String guildid, String linkid) {
-        JSONArray linkedguildslist = this.getLinks(guildid);
-        for (int i = 0; linkedguildslist.length()>i; i++) {
-            if (linkedguildslist.getString(i).equals(linkid)) {
-                linkedguildslist.remove(i);
-                break;
-            }
-        }
-        return this.update("server", guildid, "links", linkedguildslist.toString());
-    }
-
-    public void setLinkChannel(String guildid, String channelid) {
-        this.update("server", guildid, "linkchannel", channelid);
-    }
-
-    public String getLinkChannel(String guildid) {
-        return (String) this.get("server", "id", guildid, "linkchannel");
-    }
-
     public void insertGuild(String id) {
         this.insert("server", r.hashMap("id", id)
                 .with("prefix", "h.")
-                .with("links", "[]")
-                .with("linkchannel", "")
                 .with("message_id", "")
                 .with("role_id", "")
                 .with("invite_detect", false)
                 .with("starboard", "")
+                .with("neededstars", "4")
         );
     }
 
@@ -167,7 +135,14 @@ public class Rethink {
         this.insert("user", r.hashMap("id", id).with("prefix", "h.").with("language", "en"));
     }
 
-    // TODO: Write Command to set
+    public void setNeededstars(String stars, String guildid) {
+        this.update("server", guildid, "neededstars", stars);
+    }
+
+    public String getNeededstars(String guildid) {
+        return (String) this.get("server", "id", guildid, "neededstars");
+    }
+
     public void setStarboardChannel(String guildid, String channelid) {
         this.update("server", guildid, "starboard", channelid);
     }
@@ -180,7 +155,6 @@ public class Rethink {
         return !this.get("server", "id", guildid, "starboard").equals("");
     }
 
-    // TODO: Create Starboardlistener
     public void insertStarboardMessage(String messageid, String guildid, String starboardmessageid) {
         this.insert("stars", r.hashMap("msg", messageid).with("guild", guildid).with("starboardmsg", starboardmessageid));
     }

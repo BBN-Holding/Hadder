@@ -16,7 +16,7 @@ public class RebootCommand implements Command {
         if (event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
             Runtime.getRuntime().exit(69);
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }
     }
 

@@ -4,6 +4,7 @@ import com.bbn.hadder.Rethink;
 import com.bbn.hadder.commands.general.HelpCommand;
 import com.bbn.hadder.core.CommandHandler;
 import com.bbn.hadder.core.Config;
+import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -16,21 +17,15 @@ public class CommandEvent extends MessageReceivedEvent {
     private Config config;
     private CommandHandler commandHandler;
     private HelpCommand helpCommand;
+    private MessageEditor messageEditor;
 
-    public CommandEvent(@Nonnull JDA api, long responseNumber, @Nonnull Message message, Config config, Rethink rethink, CommandHandler commandHandler, HelpCommand helpCommand) {
+    public CommandEvent(@Nonnull JDA api, long responseNumber, @Nonnull Message message, Rethink rethink, Config config, CommandHandler commandHandler, HelpCommand helpCommand, MessageEditor messageEditor) {
         super(api, responseNumber, message);
-        this.config = config;
         this.rethink = rethink;
+        this.config = config;
         this.commandHandler = commandHandler;
         this.helpCommand = helpCommand;
-    }
-
-    public CommandEvent(@Nonnull MessageReceivedEvent event, Config config, Rethink rethink, CommandHandler commandHandler, HelpCommand helpCommand) {
-        super(event.getJDA(), event.getResponseNumber(), event.getMessage());
-        this.config = config;
-        this.rethink = rethink;
-        this.commandHandler = commandHandler;
-        this.helpCommand = helpCommand;
+        this.messageEditor = messageEditor;
     }
 
     public Rethink getRethink() {
@@ -47,5 +42,9 @@ public class CommandEvent extends MessageReceivedEvent {
 
     public CommandHandler getCommandHandler() {
         return commandHandler;
+    }
+
+    public MessageEditor getMessageEditor() {
+        return messageEditor;
     }
 }

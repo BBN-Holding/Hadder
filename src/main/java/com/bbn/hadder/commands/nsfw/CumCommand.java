@@ -31,7 +31,7 @@ public class CumCommand implements Command {
                 JSONObject response1 = data.getJSONObject("response");
                 String url = response1.toString().replace("{\"url\":\"", "");
 
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                         .setAuthor("GIF not showing? Click here", url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Cum")
@@ -42,7 +42,7 @@ public class CumCommand implements Command {
             }
 
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
         }
     }
 

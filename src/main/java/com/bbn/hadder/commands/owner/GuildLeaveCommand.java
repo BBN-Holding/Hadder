@@ -17,7 +17,7 @@ public class GuildLeaveCommand implements Command {
             if (args.length > 0) {
                 Guild guild = event.getJDA().getGuildById(args[0]);
                 guild.leave().queue();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                         .setTitle("Successfully left")
                         .setDescription("I successfully left " + guild.getName())
                         .build()).queue();
@@ -25,7 +25,7 @@ public class GuildLeaveCommand implements Command {
                 event.getHelpCommand().sendHelp(this, event);
             }
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }
     }
 

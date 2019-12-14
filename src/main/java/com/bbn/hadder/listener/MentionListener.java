@@ -13,6 +13,7 @@ public class MentionListener extends ListenerAdapter {
 
     private Rethink rethink;
 
+
     public MentionListener(Rethink rethink) {
         this.rethink = rethink;
     }
@@ -21,7 +22,7 @@ public class MentionListener extends ListenerAdapter {
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         if (event.isFromType(ChannelType.TEXT) && (event.getMessage().getContentRaw().equals(event.getGuild().getSelfMember().getAsMention())||
                 event.getMessage().getContentRaw().equals(event.getGuild().getSelfMember().getAsMention().replace("@", "@!")))) {
-            event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+            event.getChannel().sendMessage(new MessageEditor(rethink, event.getAuthor()).getMessage(MessageEditor.MessageType.INFO)
                     .setTitle("Hello I'm Hadder.")
                     .setAuthor(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl(), event.getJDA().getSelfUser().getAvatarUrl())
                     .addField("Users", String.valueOf(event.getJDA().getUsers().size()), false)

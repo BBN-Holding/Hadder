@@ -25,14 +25,24 @@ public class ClearCommand implements Command {
                     try {
                         int nbToDelete = Integer.parseInt(args[0]);
                         if(nbToDelete < 1 || nbToDelete > 99) {
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.number.error.description")).build()).queue();
+                            event.getTextChannel().sendMessage(
+                                    event.getMessageEditor().getMessage(
+                                            MessageEditor.MessageType.WARNING,
+                                            "",
+                                            "commands.moderation.clear.number.error.description").build()).queue();
                             return;
                         }
                         List<Message> history = event.getTextChannel().getHistory().retrievePast(nbToDelete +1).complete();
                         List<Message> msgToDelete = new ArrayList<>();
                         msgToDelete.addAll(history);
                         event.getTextChannel().deleteMessages(msgToDelete).queue();
-                        Message msg = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.success.description", String.valueOf(nbToDelete))).build()).complete();
+                        Message msg = event.getTextChannel().sendMessage(
+                                event.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.INFO,
+                                        "",
+                                        "",
+                                        "commands.moderation.clear.success.description",
+                                        String.valueOf(nbToDelete)).build()).complete();
                         try {
                             TimeUnit.SECONDS.sleep(2);
                         } catch (InterruptedException e) {
@@ -43,10 +53,10 @@ public class ClearCommand implements Command {
                         event.getHelpCommand().sendHelp(this, event);
                     }
                 } else {
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                 }
             } else {
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             }
         } else {
             event.getHelpCommand().sendHelp(this, event);
@@ -60,11 +70,11 @@ public class ClearCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.moderation.clear.help.description");
+        return "commands.moderation.clear.help.description";
     }
 
     @Override
     public String usage() {
-        return MessageEditor.handle("en", "number");
+        return "number";
     }
 }

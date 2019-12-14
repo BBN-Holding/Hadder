@@ -22,31 +22,35 @@ public class JoinCommand implements Command {
                 if (event.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
                     if (!event.getGuild().getSelfMember().getVoiceState().getChannel().getId().equals(vc.getId())) {
                         event.getGuild().getAudioManager().openAudioConnection(vc);
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.success.title"))
-                                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.success.description", vc.getName()))
+                        event.getTextChannel().sendMessage(
+                                event.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.INFO,
+                                        "commands.music.join.success.title",
+                                        "",
+                                        "commands.music.join.success.description",
+                                        vc.getName())
                                 .build()).queue();
                     } else {
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
+                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING)
                                 .setTitle("Already connected")
                                 .setDescription("I am already connected to your voice channel.")
                                 .build()).queue();
                     }
                 } else {
                     event.getGuild().getAudioManager().openAudioConnection(vc);
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                             .setTitle("Successfully connected")
                             .setDescription("I successfully connected to " + vc.getName() + ".")
                             .build()).queue();
                 }
             } else {
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING)
                         .setTitle("Already trying to connect")
                         .setDescription("Hadder is already trying to connect. Please wait a moment.")
                         .build()).queue();
             }
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING)
                     .setTitle("No Voice Channel")
                     .setDescription("You aren't in a Voice Channel.")
                     .build()).queue();
