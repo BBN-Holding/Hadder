@@ -61,7 +61,7 @@ public class RulesCommand implements Command {
             if (event.getGuild().getSelfMember().hasPermission(channel, Permission.MESSAGE_WRITE)) {
                 event1.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
                         .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.rules.title"))
-                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.rules.title", channel.getName()))
+                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.rules.rules.description", channel.getName()))
                         .build()).queue();
                 new EventWaiter().newOnMessageEventWaiter(event2 -> {
                     String message = event2.getMessage().getContentRaw();
