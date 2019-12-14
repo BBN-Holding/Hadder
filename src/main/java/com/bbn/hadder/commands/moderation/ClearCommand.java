@@ -23,7 +23,20 @@ public class ClearCommand implements Command {
             if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.MESSAGE_MANAGE)  || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
                 if (event.getGuild().getMemberById(event.getJDA().getSelfUser().getId()).hasPermission(Permission.MESSAGE_MANAGE)) {
                     if (args[0].equals("all")) {
-                        event.getMessage().delete().queue();
+                        List<Message> msg = event.getTextChannel().getIterableHistory().complete();
+                        for (Message message : msg) {
+                            message.delete().queue();
+                        }
+                        Message message = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.lear.all.success.title"))
+                                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.lear.all.success.description", String.valueOf(msg.size())))
+                                .build()).complete();
+                        try {
+                            TimeUnit.SECONDS.sleep(2);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        message.delete().queue();
                     } else {
                         try {
                             int nbToDelete = Integer.parseInt(args[0]);
