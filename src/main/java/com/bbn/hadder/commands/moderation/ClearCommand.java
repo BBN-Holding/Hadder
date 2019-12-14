@@ -22,25 +22,33 @@ public class ClearCommand implements Command {
         if (args.length > 0) {
             if (event.getGuild().getMemberById(event.getAuthor().getId()).hasPermission(Permission.MESSAGE_MANAGE)  || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
                 if (event.getGuild().getMemberById(event.getJDA().getSelfUser().getId()).hasPermission(Permission.MESSAGE_MANAGE)) {
-                    try {
-                        int nbToDelete = Integer.parseInt(args[0]);
-                        if(nbToDelete < 1 || nbToDelete > 99) {
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.number.error.description")).build()).queue();
-                            return;
-                        }
-                        List<Message> history = event.getTextChannel().getHistory().retrievePast(nbToDelete +1).complete();
-                        List<Message> msgToDelete = new ArrayList<>();
-                        msgToDelete.addAll(history);
-                        event.getTextChannel().deleteMessages(msgToDelete).queue();
-                        Message msg = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.success.description", String.valueOf(nbToDelete))).build()).complete();
+                    if (args[0].equals("all")) {
+                        event.getMessage().delete().queue();
+                    } else {
                         try {
-                            TimeUnit.SECONDS.sleep(2);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            int nbToDelete = Integer.parseInt(args[0]);
+                            if (nbToDelete < 1 || nbToDelete > 99) {
+                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.number.error.description")).build()).queue();
+                            } else {
+                                List<Message> history = event.getTextChannel().getHistory().retrievePast(nbToDelete + 1).complete();
+                                List<Message> msgToDelete = new ArrayList<>(history);
+                                event.getTextChannel().deleteMessages(msgToDelete).queue();
+                                Message msg = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.success.description", String.valueOf(nbToDelete))).build()).complete();
+                                try {
+                                    TimeUnit.SECONDS.sleep(2);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                msg.delete().queue();
+                            }
+                        } catch (NumberFormatException e) {
+                            event.getHelpCommand().sendHelp(this, event);
+                        } catch (IllegalArgumentException e) {
+                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
+                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.message.error.title"))
+                                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.message.error.description"))
+                                    .build()).queue();
                         }
-                        msg.delete().queue();
-                    } catch (NumberFormatException e) {
-                        event.getHelpCommand().sendHelp(this, event);
                     }
                 } else {
                     event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
