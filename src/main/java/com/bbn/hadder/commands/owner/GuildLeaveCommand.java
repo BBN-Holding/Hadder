@@ -16,9 +16,24 @@ public class GuildLeaveCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (args.length > 0) {
-            Guild guild = event.getJDA().getGuildById(args[0]);
-            guild.leave().queue();
+        if (event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
+            if (args.length > 0) {
+                Guild guild = event.getJDA().getGuildById(args[0]);
+                try {
+                    guild.leave().queue();
+                    event.getTextChannel()
+                            .sendMessage(event.getMessageEditor()
+                                    .getMessage(MessageEditor.MessageType.INFO, "commands.owner.guildleave.success.title",
+                                            "", "commands.owner.guildleave.success.description", guild.getName())
+                                    .build())
+                            .queue();
+                } catch (Exception e) {
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.owner.guildleave.error.title", "", "commands.owner.guildleave.help.description", guild.getName()).build()).queue();
+                }
+            } else {
+                event.getHelpCommand().sendHelp(this, event);
+            }
+        } else {
             event.getTextChannel()
                     .sendMessage(event.getMessageEditor()
                             .getMessage(MessageEditor.MessageType.INFO, "commands.owner.guildleave.success.title",
