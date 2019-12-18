@@ -9,7 +9,6 @@ import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
-import java.time.format.DateTimeFormatter;
 
 public class StarboardListener extends ListenerAdapter {
 
