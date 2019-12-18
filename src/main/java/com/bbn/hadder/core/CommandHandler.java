@@ -37,14 +37,15 @@ public class CommandHandler {
 
                     CommandEvent commandEvent = new CommandEvent(event.getJDA(), event.getResponseNumber(), event.getMessage(), rethink,
                             config, this, helpCommand, new MessageEditor(rethink, event.getAuthor()));
-
-                    if (!Arrays.asList(cmd.getClass().getAnnotations()).contains(Perms.class)) {
-                        for (Perm perm : cmd.getClass().getAnnotation(Perms.class).value()) {
-                            if (!perm.check(commandEvent)) {
-                                commandEvent.getTextChannel()
-                                        .sendMessage(commandEvent.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build())
-                                        .queue();
-                                return;
+                    if (cmd.getClass().getAnnotations().length>0) {
+                        if (Arrays.asList(cmd.getClass().getAnnotations()).contains(Perms.class)) {
+                            for (Perm perm : cmd.getClass().getAnnotation(Perms.class).value()) {
+                                if (!perm.check(commandEvent)) {
+                                    commandEvent.getTextChannel()
+                                            .sendMessage(commandEvent.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build())
+                                            .queue();
+                                    return;
+                                }
                             }
                         }
                     }

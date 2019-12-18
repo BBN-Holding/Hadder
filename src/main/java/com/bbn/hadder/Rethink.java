@@ -81,6 +81,10 @@ public class Rethink {
         return out;
     }
 
+    public void remove(String table, String where, String wherevalue) {
+        r.table(table).filter(row -> row.g(where.toLowerCase()).eq(wherevalue)).delete().run(conn);
+    }
+
     public void setup() {
         try {
             r.dbCreate("Hadder").run(conn);
@@ -156,15 +160,19 @@ public class Rethink {
     }
 
     public void insertStarboardMessage(String messageid, String guildid, String starboardmessageid) {
-        this.insert("stars", r.hashMap("msg", messageid).with("guild", guildid).with("starboardmsg", starboardmessageid));
+        this.insert("stars", r.hashMap("id", messageid).with("guild", guildid).with("starboardmsg", starboardmessageid));
     }
 
     public String getStarboardMessage(String messageid) {
-        return (String) this.get("stars", "msg", messageid, "starboardmsg");
+        return (String) this.get("stars", "id", messageid, "starboardmsg");
+    }
+
+    public void removeStarboardMessage(String messageid) {
+        this.remove("stars", "id", messageid);
     }
 
     public boolean hasStarboardMessage(String messageid) {
-        return this.get("stars", "msg", messageid, "guild") != null;
+        return this.get("stars", "id", messageid, "guild") != null;
     }
 
     public void updateRules(String guild_id, String message_id, String role_id, String accept_emote, String decline_emote) {
