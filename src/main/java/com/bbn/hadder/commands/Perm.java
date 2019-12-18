@@ -11,7 +11,7 @@ public enum Perm {
     BOT_OWNER() {
         @Override
         public boolean check(CommandEvent commandEvent) {
-            return commandEvent.getConfig().getOwners().contains(commandEvent.getAuthor().getId());
+            return commandEvent.getConfig().getOwners().contains(commandEvent.getAuthor().getIdLong());
         }
     },
     MANAGE_MESSAGES {

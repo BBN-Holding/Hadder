@@ -9,6 +9,7 @@ import com.bbn.hadder.commands.general.HelpCommand;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandHandler {
@@ -37,8 +38,15 @@ public class CommandHandler {
                     CommandEvent commandEvent = new CommandEvent(event.getJDA(), event.getResponseNumber(), event.getMessage(), rethink,
                             config, this, helpCommand, new MessageEditor(rethink, event.getAuthor()));
 
-                    for (Perm perm : ((Perms) cmd).value()) {
-                        if (!perm.check(commandEvent)) return;
+                    if (Arrays.asList(cmd.getClass().getAnnotations()).contains(Perms.class)) {
+                        for (Perm perm : cmd.getClass().getAnnotation(Perms.class).value()) {
+                            if (!perm.check(commandEvent)) {
+                                commandEvent.getTextChannel()
+                                        .sendMessage(commandEvent.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build())
+                                        .queue();
+                                return;
+                            }
+                        }
                     }
 
                     cmd.executed(args, commandEvent);
