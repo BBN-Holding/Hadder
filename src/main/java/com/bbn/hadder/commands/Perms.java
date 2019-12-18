@@ -5,5 +5,5 @@
 package com.bbn.hadder.commands;
 
 public @interface Perms {
-    Perm[] perms() default {};
+    Perm[] value() default {};
 }
