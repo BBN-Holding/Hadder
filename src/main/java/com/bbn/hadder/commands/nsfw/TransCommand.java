@@ -28,28 +28,29 @@ public class TransCommand implements Command {
                 String url = response.body().string().replace("{\"url\":\"", "");
 
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                        .setAuthor("Image not showing? Click here", url.replace("\"}", ""))
-                        .setImage(url.replace("\"}", ""))
-                        .setFooter("Trans")
-                        .build()).queue();
+                        .setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"),
+                                url.replace("\"}", ""))
+                        .setImage(url.replace("\"}", "")).setFooter("Trans").build()).queue();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
+            event.getTextChannel()
+                    .sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build())
+                    .queue();
         }
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"trans"};
+        return new String[] { "trans" };
     }
 
     @Override
     public String description() {
-        return "Shows a random trans picture.";
+        return "commands.nsfw.trans.help.description";
     }
 
     @Override

@@ -47,7 +47,8 @@ public class MessageEditor {
         WARNING,
         INFO,
         NO_PERMISSION,
-        NO_SELF_PERMISSION
+        NO_SELF_PERMISSION, 
+        NO_NSFW
     }
 
     private EmbedBuilder getDefaultSettings(MessageType type) {
@@ -87,6 +88,15 @@ public class MessageEditor {
                 builder
                         .setTitle("⛔ No Permission ⛔")
                         .setDescription("Unfortunately, I do not have the required rights to perform this action!")
+                        .setColor(Color.RED)
+                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setTimestamp(Instant.now());
+                break;
+
+            case NO_NSFW:
+                builder
+                        .setTitle("⛔ No NSFW ⛔")
+                        .setDescription("You can only execute this command in NSFW channels!")
                         .setColor(Color.RED)
                         .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
                         .setTimestamp(Instant.now());

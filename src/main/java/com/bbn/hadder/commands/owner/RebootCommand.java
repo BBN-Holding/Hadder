@@ -27,7 +27,7 @@ public class RebootCommand implements Command {
 
     @Override
     public String description() {
-        return "Restart the bot";
+        return "commands.owner.reboot.help.description";
     }
 
     @Override

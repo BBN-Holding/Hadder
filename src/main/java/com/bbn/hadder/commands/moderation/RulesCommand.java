@@ -68,7 +68,7 @@ public class RulesCommand implements Command {
                                 MessageEditor.MessageType.INFO,
                                 "commands.moderation.rules.rules.title",
                                 "",
-                                "commands.moderation.rules.rules.title",
+                                "commands.moderation.rules.rules.description",
                                 channel.getName())
                         .build()).queue();
                 new EventWaiter().newOnMessageEventWaiter(event2 -> {

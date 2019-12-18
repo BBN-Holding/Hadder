@@ -28,7 +28,7 @@ public class BlowjobCommand implements Command {
                 String url = response.body().string().replace("{\"url\":\"", "");
 
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                        .setAuthor("Image not showing? Click here", url.replace("\"}", ""))
+                        .setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Blowjob")
                         .build()).queue();
@@ -38,7 +38,7 @@ public class BlowjobCommand implements Command {
             }
 
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build()).queue();
         }
     }
 
@@ -49,7 +49,7 @@ public class BlowjobCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows a random Blowjob picture.";
+        return "commands.nsfw.blowjob.help.description";
     }
 
     @Override

@@ -41,7 +41,6 @@ public class EvalCommand implements Command {
                 engine.put("author", event.getAuthor());
                 engine.put("member", event.getMember());
                 engine.put("self", event.getGuild().getSelfMember());
-                engine.put("System.out", System.out);
 
                 ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 
@@ -54,21 +53,26 @@ public class EvalCommand implements Command {
                         String script = "";
                         for (int i = 0; i < args.length; i++) {
                             args[i] = args[i].replace("```java", "").replace("```", "");
-                            script += i == args.length-1 ? args[i]:args[i]+" ";
+                            script += i == args.length - 1 ? args[i] : args[i] + " ";
                         }
                         out = engine.eval(script);
 
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                                .setTitle("Eval Command")
-                                .addField("Input", "```java\n\n" + script + "```", false)
-                                .addField("Output", "```java\n\n" + out.toString() + "```", false)
-                                .addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false)
+                        event.getTextChannel().sendMessage(event.getMessageEditor()
+                                .getMessage(MessageEditor.MessageType.INFO, "commands.owner.eval.success.title", "")
+                                .addField(event.getMessageEditor().getTerm("commands.owner.eval.success.input"),
+                                        "```java\n\n" + script + "```", false)
+                                .addField(event.getMessageEditor().getTerm("commands.owner.eval.success.output"),
+                                        "```java\n\n" + out.toString() + "```", false)
+                                .addField(event.getMessageEditor().getTerm("commands.owner.eval.success.timing"),
+                                        System.currentTimeMillis() - startExec + " milliseconds", false)
                                 .build()).queue();
                     } catch (Exception ex) {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                                .setTitle("Eval Command")
-                                .addField("Error", "```java\n\n" + ex.getMessage() + "```", false)
-                                .addField("Timing", System.currentTimeMillis()-startExec + " milliseconds", false)
+                        event.getTextChannel().sendMessage(event.getMessageEditor()
+                                .getMessage(MessageEditor.MessageType.INFO, "commands.owner.eval.success.title", "")
+                                .addField(event.getMessageEditor().getTerm("error"),
+                                        "```java\n\n" + ex.getMessage() + "```", false)
+                                .addField(event.getMessageEditor().getTerm("commands.owner.eval.success.timing"),
+                                        System.currentTimeMillis() - startExec + " milliseconds", false)
                                 .build()).queue();
 
                     }
@@ -81,22 +85,24 @@ public class EvalCommand implements Command {
                 event.getHelpCommand().sendHelp(this, event);
             }
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+            event.getTextChannel()
+                    .sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build())
+                    .queue();
         }
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"eval"};
+        return new String[] { "eval" };
     }
 
     @Override
     public String description() {
-        return "Execute the given code";
+        return "commands.owner.eval.help.description";
     }
 
     @Override
     public String usage() {
-        return "<Code to execute>";
+        return "commands.owner.eval.help.usage";
     }
 }

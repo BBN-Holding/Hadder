@@ -31,28 +31,35 @@ public class JoinCommand implements Command {
                                         vc.getName())
                                 .build()).queue();
                     } else {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING)
-                                .setTitle("Already connected")
-                                .setDescription("I am already connected to your voice channel.")
+                        event.getTextChannel().sendMessage(
+                            event.getMessageEditor().getMessage(
+                                MessageEditor.MessageType.WARNING, 
+                                "commands.music.join.error.connecting.already.title", 
+                                "commands.music.join.error.connecting.already.description")
                                 .build()).queue();
                     }
                 } else {
                     event.getGuild().getAudioManager().openAudioConnection(vc);
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                            .setTitle("Successfully connected")
-                            .setDescription("I successfully connected to " + vc.getName() + ".")
-                            .build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                        MessageEditor.MessageType.INFO, 
+                        "commands.music.join.success.title", 
+                        "", 
+                        "commands.music.join.success.description", 
+                        vc.getName())
+                        .build()).queue();
                 }
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING)
-                        .setTitle("Already trying to connect")
-                        .setDescription("Hadder is already trying to connect. Please wait a moment.")
-                        .build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                    MessageEditor.MessageType.WARNING, 
+                    "commands.music.join.error.connecting.trying.title", 
+                    "commands.music.join.error.connecting.trying.description")
+                    .build()).queue();
             }
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING)
-                    .setTitle("No Voice Channel")
-                    .setDescription("You aren't in a Voice Channel.")
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                MessageEditor.MessageType.WARNING, 
+                "commands.music.join.error.channel.title", 
+                "commands.music.join.error.channel.description")
                     .build()).queue();
         }
     }
@@ -64,7 +71,7 @@ public class JoinCommand implements Command {
 
     @Override
     public String description() {
-        return "Joins your voice channel";
+        return "commands.music.join.help.description";
     }
 
     @Override

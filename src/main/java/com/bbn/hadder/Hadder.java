@@ -97,7 +97,6 @@ public class Hadder {
                 new ReadyListener(rethink, config),
                 new InviteLinkListener(rethink),
                 new RulesListener(rethink),
-                new SomeoneListener(),
                 new StarboardListener(rethink));
 
         try {

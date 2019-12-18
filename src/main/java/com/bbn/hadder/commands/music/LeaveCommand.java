@@ -14,14 +14,16 @@ public class LeaveCommand implements Command {
     public void executed(String[] args, CommandEvent event) {
         if (event.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
             event.getGuild().getAudioManager().closeAudioConnection();
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                    .setTitle("Successfully disconnected")
-                    .setDescription("I successfully disconnected from the Voice Channel")
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                MessageEditor.MessageType.INFO, 
+                "commands.music.leave.success.title", 
+                "commands.music.leave.success.description")
                     .build()).queue();
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING)
-                    .setTitle("Not connected")
-                    .setDescription("I'm currently in no Voice Channel on this Guild")
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                MessageEditor.MessageType.WARNING, 
+                "commands.music.leave.error.tile", 
+                "commands.music.leave.error.description")
                     .build()).queue();
         }
     }
@@ -33,7 +35,7 @@ public class LeaveCommand implements Command {
 
     @Override
     public String description() {
-        return "Leaves a voice channel";
+        return "commands.music.leave.help.description";
     }
 
     @Override

@@ -29,7 +29,7 @@ public class ShutdownCommand implements Command {
 
     @Override
     public String description() {
-        return "Shuts the Bot down";
+        return "commands.owner.shutdown.help.description";
     }
 
     @Override

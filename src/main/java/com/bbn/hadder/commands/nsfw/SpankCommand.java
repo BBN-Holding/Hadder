@@ -32,28 +32,29 @@ public class SpankCommand implements Command {
                 String url = response1.toString().replace("{\"url\":\"", "");
 
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                        .setAuthor("GIF not showing? Click here", url.replace("\"}", ""))
-                        .setImage(url.replace("\"}", ""))
-                        .setFooter("Spank")
-                        .build()).queue();
+                        .setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"),
+                                url.replace("\"}", ""))
+                        .setImage(url.replace("\"}", "")).setFooter("Spank").build()).queue();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
+            event.getTextChannel()
+                    .sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build())
+                    .queue();
         }
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"spank", "beat", "hit"};
+        return new String[] { "spank", "beat", "hit" };
     }
 
     @Override
     public String description() {
-        return "Shows a random spank gif.";
+        return "commands.nsfw.spank.help.description";
     }
 
     @Override

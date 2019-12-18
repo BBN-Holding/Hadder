@@ -32,7 +32,7 @@ public class BDSMCommand implements Command {
                 String url = response1.toString().replace("{\"url\":\"", "");
 
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                        .setAuthor("Image not showing? Click here", url.replace("\"}", ""))
+                        .setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("BDSM")
                         .build()).queue();
@@ -42,18 +42,18 @@ public class BDSMCommand implements Command {
             }
 
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING).setTitle("No NSFW").setDescription("You can only execute this command in NSFW channels!").build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build()).queue();
         }
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"bdsm"};
+        return new String[] { "bdsm" };
     }
 
     @Override
     public String description() {
-        return "Shows a random bdsm picture.";
+        return "commands.nsfw.bdsm.help.description";
     }
 
     @Override

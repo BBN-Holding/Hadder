@@ -17,30 +17,34 @@ public class GuildLeaveCommand implements Command {
             if (args.length > 0) {
                 Guild guild = event.getJDA().getGuildById(args[0]);
                 guild.leave().queue();
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                        .setTitle("Successfully left")
-                        .setDescription("I successfully left " + guild.getName())
-                        .build()).queue();
+                event.getTextChannel()
+                        .sendMessage(event.getMessageEditor()
+                                .getMessage(MessageEditor.MessageType.INFO, "commands.owner.guildleave.success.title",
+                                        "", "commands.owner.guildleave.success.description", guild.getName())
+                                .build())
+                        .queue();
             } else {
                 event.getHelpCommand().sendHelp(this, event);
             }
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+            event.getTextChannel()
+                    .sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build())
+                    .queue();
         }
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"guildleave"};
+        return new String[] { "guildleave" };
     }
 
     @Override
     public String description() {
-        return "Quit from a guild";
+        return "commands.owner.guildleave.help.description";
     }
 
     @Override
     public String usage() {
-        return "<Guild-ID>";
+        return "guildid";
     }
 }
