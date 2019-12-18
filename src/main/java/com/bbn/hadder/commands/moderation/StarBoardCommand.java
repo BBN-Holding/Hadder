@@ -3,7 +3,6 @@ package com.bbn.hadder.commands.moderation;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class StarBoardCommand implements Command {
@@ -30,8 +29,6 @@ public class StarBoardCommand implements Command {
 
         if (args.length==2) {
             event.getRethink().setNeededstars(args[1], event.getGuild().getId());
-        } else {
-            event.getRethink().setNeededstars("4", event.getGuild().getId());
         }
     }
 
