@@ -28,14 +28,14 @@ public class ClearCommand implements Command {
                             message.delete().queue();
                         }
                         Message message = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                            MessageEditor.MessageType.INFO, 
-                            "commands.moderation.lear.all.success.title", 
+                            MessageEditor.MessageType.INFO,
+                            "commands.moderation.lear.all.success.title",
                             "",
-                            "commands.moderation.lear.all.success.description", 
+                            "commands.moderation.lear.all.success.description",
                             String.valueOf(msg.size()))
                                 .build()).complete();
                         try {
-                            TimeUnit.SECONDS.sleep(2);
+                            TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
