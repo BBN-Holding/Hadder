@@ -33,17 +33,7 @@ public class GuildLeaveCommand implements Command {
             } else {
                 event.getHelpCommand().sendHelp(this, event);
             }
-        } else {
-            event.getTextChannel()
-                    .sendMessage(event.getMessageEditor()
-                            .getMessage(MessageEditor.MessageType.INFO, "commands.owner.guildleave.success.title",
-                                    "", "commands.owner.guildleave.success.description", guild.getName())
-                            .build())
-                    .queue();
-        } else {
-            event.getHelpCommand().sendHelp(this, event);
         }
-
     }
 
     @Override
