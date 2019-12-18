@@ -3,10 +3,9 @@ package com.bbn.hadder.commands.moderation;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class SetStarBoardCommand implements Command {
+public class StarBoardCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getMessage().getMentionedChannels().size()==1) {
@@ -35,7 +34,7 @@ public class SetStarBoardCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"setstarboard"};
+        return new String[]{"starboard"};
     }
 
     @Override
