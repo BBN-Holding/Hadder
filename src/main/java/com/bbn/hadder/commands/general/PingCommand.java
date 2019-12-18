@@ -12,8 +12,8 @@ public class PingCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        event.getJDA().getRestPing().queue(ping -> event.getTextChannel().sendMessage(new MessageEditor()
-                .setDefaultSettings(MessageEditor.MessageType.INFO)
+        event.getJDA().getRestPing().queue(ping -> event.getTextChannel().sendMessage(event.getMessageEditor()
+                .getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Ping")
                 .setDescription(String.valueOf(ping))
                 .build()).queue());
@@ -26,7 +26,7 @@ public class PingCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.general.ping.help.description");
+        return "commands.general.ping.help.description";
     }
 
     @Override

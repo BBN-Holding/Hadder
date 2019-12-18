@@ -55,7 +55,12 @@ public class Rethink {
     }
 
     public Object get(String table, String where, String value, String column) {
-        return this.getAsArray(table, where, value).getJSONObject(0).get(column);
+        JSONArray array = this.getAsArray(table, where, value);
+        if (array.length()>0)
+            if (array.getJSONObject(0).has(column))
+                return array.getJSONObject(0).get(column);
+            else return null;
+        else return null;
     }
 
     public String update(String table, String wherevalue, String what, String whatvalue) {
@@ -92,7 +97,11 @@ public class Rethink {
         } catch (ReqlOpFailedError e) {
             System.out.println(e.getMessage());
         }
-
+        try {
+            r.tableCreate("stars").run(conn);
+        } catch (ReqlOpFailedError e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void setUserPrefix(String prefix, String userid) {
@@ -111,43 +120,51 @@ public class Rethink {
         return (String) this.get("server", "id", id, "prefix");
     }
 
-    public JSONArray getLinks(String id) {
-        return new JSONArray((String) this.get("server", "id", id, "links"));
-    }
-
-    public void addLinkedGuild(String guildid, String linkid) {
-        JSONArray links = getLinks(guildid);
-        for (int i = 0; links.length()>i; i++) {
-            if (links.getString(i).equals(linkid)) return;
-        }
-        this.update("server", guildid, "links", this.getLinks(guildid).put(linkid).toString());
-    }
-
-    public String removeLinkedGuild(String guildid, String linkid) {
-        JSONArray linkedguildslist = this.getLinks(guildid);
-        for (int i = 0; linkedguildslist.length()>i; i++) {
-            if (linkedguildslist.getString(i).equals(linkid)) {
-                linkedguildslist.remove(i);
-                break;
-            }
-        }
-        return this.update("server", guildid, "links", linkedguildslist.toString());
-    }
-
-    public void setLinkChannel(String guildid, String channelid) {
-        this.update("server", guildid, "linkchannel", channelid);
-    }
-
-    public String getLinkChannel(String guildid) {
-        return (String) this.get("server", "id", guildid, "linkchannel");
-    }
-
     public void insertGuild(String id) {
-        this.insert("server", r.hashMap("id", id).with("prefix", "h.").with("links", "[]").with("linkchannel", "").with("message_id", "").with("role_id", "").with("invite_detect", false));
+        this.insert("server", r.hashMap("id", id)
+                .with("prefix", "h.")
+                .with("message_id", "")
+                .with("role_id", "")
+                .with("invite_detect", false)
+                .with("starboard", "")
+                .with("neededstars", "4")
+        );
     }
 
     public void insertUser(String id) {
         this.insert("user", r.hashMap("id", id).with("prefix", "h.").with("language", "en"));
+    }
+
+    public void setNeededstars(String stars, String guildid) {
+        this.update("server", guildid, "neededstars", stars);
+    }
+
+    public String getNeededstars(String guildid) {
+        return (String) this.get("server", "id", guildid, "neededstars");
+    }
+
+    public void setStarboardChannel(String guildid, String channelid) {
+        this.update("server", guildid, "starboard", channelid);
+    }
+
+    public String getStarboardChannel(String guildid) {
+        return (String) this.get("server", "id", guildid, "starboard");
+    }
+
+    public boolean hasStarboardChannel(String guildid) {
+        return !this.get("server", "id", guildid, "starboard").equals("");
+    }
+
+    public void insertStarboardMessage(String messageid, String guildid, String starboardmessageid) {
+        this.insert("stars", r.hashMap("msg", messageid).with("guild", guildid).with("starboardmsg", starboardmessageid));
+    }
+
+    public String getStarboardMessage(String messageid) {
+        return (String) this.get("stars", "msg", messageid, "starboardmsg");
+    }
+
+    public boolean hasStarboardMessage(String messageid) {
+        return this.get("stars", "msg", messageid, "guild") != null;
     }
 
     public void updateRules(String guild_id, String message_id, String role_id, String accept_emote, String decline_emote) {

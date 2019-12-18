@@ -31,8 +31,8 @@ public class BoobsCommand implements Command {
                 JSONObject response1 = data.getJSONObject("response");
                 String url = response1.toString().replace("{\"url\":\"", "");
 
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setAuthor(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.nsfw.gif.error.title"), url.replace("\"}", ""))
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                        .setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Boobs")
                         .build()).queue();
@@ -42,7 +42,7 @@ public class BoobsCommand implements Command {
             }
 
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_NSFW).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build()).queue();
         }
     }
 
@@ -53,7 +53,7 @@ public class BoobsCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.nsfw.boobs.help.description");
+        return "commands.nsfw.boobs.help.description";
     }
 
     @Override

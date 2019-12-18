@@ -28,7 +28,8 @@ public class HelpCommand implements Command {
                 }
                 EmbedBuilder eb = new EmbedBuilder();
                 for (Map.Entry<String, ArrayList<Command>> entry : hashMap.entrySet()) {
-                    if (!entry.getKey().endsWith("owner") || (entry.getKey().endsWith("owner") && (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")))) {
+                    if (!entry.getKey().endsWith("owner") || (entry.getKey().endsWith("owner") && (event.getAuthor().getId().equals("477141528981012511") ||
+                            event.getAuthor().getId().equals("261083609148948488")))) {
                         StringBuilder sb = new StringBuilder();
                         for (int i = 0; i < entry.getValue().size(); i++) {
                             Command cmd = entry.getValue().get(i);
@@ -39,7 +40,7 @@ public class HelpCommand implements Command {
                         eb.addField(ps[ps.length - 1], sb.toString(), false);
                     }
                 }
-                new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO);
+                event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO);
                 event.getChannel().sendMessage(eb.build()).queue();
             } else {
                 for (Command cmd : event.getCommandHandler().getCommandList()) {
@@ -51,19 +52,21 @@ public class HelpCommand implements Command {
                 }
             }
         } else {
-            event.getTextChannel().sendMessage(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.help.error.description")).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getTerm("commands.general.help.error.description")).queue();
         }
     }
 
     public void sendHelp(Command cmd, CommandEvent event) {
         if (!cmd.getClass().getPackageName().endsWith("owner") || (cmd.getClass().getPackageName().endsWith("owner") &&
                 (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")))) {
-            EmbedBuilder eb = new EmbedBuilder();
             String name = cmd.labels()[0];
-            eb.setDescription(cmd.description()).setTitle(name.replaceFirst(String.valueOf(name.charAt(0)), String.valueOf(name.charAt(0)).toUpperCase()));
-            eb.addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.help.field.usage"), event.getRethink().getUserPrefix(event.getAuthor().getId()) + cmd.labels()[0] + " " + cmd.usage(), false);
-            new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO);
-            event.getChannel().sendMessage(eb.build()).queue();
+            event.getChannel().sendMessage(event.getMessageEditor().getMessage(
+                    MessageEditor.MessageType.INFO, "", cmd.description())
+                    .setTitle(name.replaceFirst(String.valueOf(name.charAt(0)), String.valueOf(name.charAt(0)).toUpperCase()))
+                    .addField(MessageEditor.getTerm(event, "commands.general.help.field.usage", "", ""),
+                            event.getRethink().getUserPrefix(event.getAuthor().getId()) + cmd.labels()[0] + " " + event.getMessageEditor().getTerm(cmd.usage()), false)
+                    .build()).queue();
+
         }
     }
 
@@ -74,11 +77,11 @@ public class HelpCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.general.help.help.description");
+        return "commands.general.help.help.description";
     }
 
     @Override
     public String usage() {
-        return MessageEditor.handle("en", "commands.general.help.help.label");
+        return "commands.general.help.help.label";
     }
 }

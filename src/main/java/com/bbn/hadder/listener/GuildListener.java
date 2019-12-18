@@ -36,7 +36,7 @@ public class GuildListener extends ListenerAdapter {
         }).start();
 
         rethink.insertGuild(event.getGuild().getId());
-        event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+        event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor(null, null).getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Joined Server")
                 .setThumbnail(event.getGuild().getIconUrl())
                 .addField("Name", event.getGuild().getName(), true)
@@ -51,7 +51,7 @@ public class GuildListener extends ListenerAdapter {
     }
 
     public void onGuildLeave(GuildLeaveEvent event) {
-        event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
+        event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor(null, null).getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Left Server")
                 .setThumbnail(event.getGuild().getIconUrl())
                 .addField("Name", event.getGuild().getName(), true)

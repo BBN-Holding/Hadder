@@ -27,29 +27,30 @@ public class TransCommand implements Command {
                 Response response = caller.newCall(request).execute();
                 String url = response.body().string().replace("{\"url\":\"", "");
 
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setAuthor(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.nsfw.img.error.title"), url.replace("\"}", ""))
-                        .setImage(url.replace("\"}", ""))
-                        .setFooter("Trans")
-                        .build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                        .setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"),
+                                url.replace("\"}", ""))
+                        .setImage(url.replace("\"}", "")).setFooter("Trans").build()).queue();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_NSFW).build()).queue();
+            event.getTextChannel()
+                    .sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build())
+                    .queue();
         }
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"trans"};
+        return new String[] { "trans" };
     }
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.nsfw.trans.help.description");
+        return "commands.nsfw.trans.help.description";
     }
 
     @Override

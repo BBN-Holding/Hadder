@@ -24,16 +24,22 @@ public class RoleCommand implements Command {
                                             if (event.getGuild().getSelfMember().canInteract(role)) {
                                                 event.getGuild().addRoleToMember(member, role).reason("Role added by " + event.getAuthor().getAsTag()).queue();
                                             } else {
-                                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                                                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                             }
                                         } else {
-                                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                         }
                                     }
                                 }
-                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.role.add.success.title", "✅"))
-                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.role.add.success.description", String.valueOf(event.getMessage().getMentionedRoles().size()), String.valueOf(event.getMessage().getMentionedMembers().size())))
+                                event.getChannel().sendMessage(
+                                        event.getMessageEditor().getMessage(
+                                                MessageEditor.MessageType.INFO,
+                                                "commands.moderation.role.add.success.title",
+                                                "✅",
+                                                "",
+                                                "commands.moderation.role.add.success.description",
+                                                String.valueOf(event.getMessage().getMentionedRoles().size()),
+                                                String.valueOf(event.getMessage().getMentionedMembers().size()))
                                         .build()).queue();
                             }
                             break;
@@ -46,25 +52,31 @@ public class RoleCommand implements Command {
                                             if (event.getGuild().getSelfMember().canInteract(role)) {
                                                 event.getGuild().removeRoleFromMember(member, role).reason("Role removed by " + event.getAuthor().getAsTag()).queue();
                                             } else {
-                                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                                                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                             }
                                         } else {
-                                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                         }
                                     }
                                 }
-                                event.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.role.remove.success.title", "✅"))
-                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.role.remove.success.description", String.valueOf(event.getMessage().getMentionedRoles().size()), String.valueOf(event.getMessage().getMentionedMembers().size())))
+                                event.getChannel().sendMessage(
+                                        event.getMessageEditor().getMessage(
+                                                MessageEditor.MessageType.INFO,
+                                                "commands.moderation.role.remove.success.title",
+                                                "✅",
+                                                "",
+                                                "commands.moderation.role.remove.success.description",
+                                                String.valueOf(event.getMessage().getMentionedRoles().size()),
+                                                String.valueOf(event.getMessage().getMentionedMembers().size()))
                                         .build()).queue();
                             }
                             break;
                     }
                 } else {
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                 }
             } else {
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             }
         } else {
             event.getHelpCommand().sendHelp(this, event);
@@ -78,7 +90,7 @@ public class RoleCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.moderation.role.help.description");
+        return "commands.moderation.role.help.description";
     }
 
     @Override

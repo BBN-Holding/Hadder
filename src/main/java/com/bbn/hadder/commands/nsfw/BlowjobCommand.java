@@ -27,8 +27,8 @@ public class BlowjobCommand implements Command {
                 Response response = caller.newCall(request).execute();
                 String url = response.body().string().replace("{\"url\":\"", "");
 
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setAuthor(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.nsfw.img.error.title"), url.replace("\"}", ""))
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                        .setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Blowjob")
                         .build()).queue();
@@ -38,7 +38,7 @@ public class BlowjobCommand implements Command {
             }
 
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_NSFW).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build()).queue();
         }
     }
 
@@ -49,7 +49,7 @@ public class BlowjobCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.nsfw.blowjob.help.description");
+        return "commands.nsfw.blowjob.help.description";
     }
 
     @Override

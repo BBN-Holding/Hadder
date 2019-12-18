@@ -14,53 +14,56 @@ public class LanguageCommand implements Command {
     public void executed(String[] args, CommandEvent event) {
         if (args.length == 1) {
             switch (args[0].toLowerCase()) {
-                case "de":
-                    setLanguage("de", "German", event);
-                    break;
-                case "en":
-                    setLanguage("en", "English", event);
-                    break;
-                case "es":
-                    setLanguage("es", "Spanish", event);
-                    break;
-                case "fr":
-                    setLanguage("fr", "French", event);
-                    break;
-                case "ru":
-                    setLanguage("ru", "Russian", event);
-                    break;
-                case "tr":
-                    setLanguage("tr", "Turkish", event);
-                    break;
-                case "zh":
-                    setLanguage("zh", "Chinese", event);
-                    break;
+            case "de":
+                setLanguage("de", "German", event);
+                break;
+            case "en":
+                setLanguage("en", "English", event);
+                break;
+            case "es":
+                setLanguage("es", "Spanish", event);
+                break;
+            case "fr":
+                setLanguage("fr", "French", event);
+                break;
+            case "ru":
+                setLanguage("ru", "Russian", event);
+                break;
+            case "tr":
+                setLanguage("tr", "Turkish", event);
+                break;
+            case "zh":
+                setLanguage("zh", "Chinese", event);
+                break;
             }
         } else {
             event.getHelpCommand().sendHelp(this, event);
         }
     }
 
-    public void setLanguage(String language_code, String language , CommandEvent event) {
+    public void setLanguage(String language_code, String language, CommandEvent event) {
         event.getRethink().setLanguage(event.getAuthor().getId(), language_code);
-        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.settings.language.success.title"))
-                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.settings.language.success.description", language))
-                .build()).queue();
+        event.getTextChannel()
+                .sendMessage(
+                        event.getMessageEditor()
+                                .getMessage(MessageEditor.MessageType.INFO, "commands.settings.language.success.title",
+                                        "", "commands.settings.language.success.description", language)
+                                .build())
+                .queue();
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"language"};
+        return new String[] { "language" };
     }
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.settings.language.help.description");
+        return "commands.settings.language.help.description";
     }
 
     @Override
     public String usage() {
-        return MessageEditor.handle("en", "commands.settings.language.help.usage");
+        return "commands.settings.language.help.usage";
     }
 }
