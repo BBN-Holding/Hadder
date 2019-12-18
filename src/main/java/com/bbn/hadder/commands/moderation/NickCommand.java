@@ -22,24 +22,49 @@ public class NickCommand implements Command {
                             if (args.length > 1) {
                                 if (event.getMessage().getContentRaw().startsWith(event.getRethink().getUserPrefix(event.getMember().getId()))) {
                                     event.getGuild().modifyNickname(event.getMessage().getMentionedMembers().get(0), event.getMessage().getContentRaw().replaceFirst(event.getRethink().getUserPrefix(event.getMember().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
-                                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.nick.success.title", "✅")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.nick.success.description", event.getMessage().getMentionedMembers().get(0).getUser().getAsTag())).build()).queue();
+                                    event.getTextChannel().sendMessage(
+                                            event.getMessageEditor().getMessage(
+                                                    MessageEditor.MessageType.INFO,
+                                                    "commands.moderation.nick.success.title",
+                                                    "✅",
+                                                    "commands.moderation.nick.success.description",
+                                                    event.getMessage().getMentionedMembers().get(0).getUser().getAsTag()
+                                            ).build()).queue();
                                 } else if (event.getMessage().getContentRaw().startsWith(event.getRethink().getGuildPrefix(event.getGuild().getId()))) {
                                     event.getGuild().modifyNickname(event.getMessage().getMentionedMembers().get(0), event.getMessage().getContentRaw().replaceFirst(event.getRethink().getGuildPrefix(event.getGuild().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
-                                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.nick.success.title", "✅")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.nick.success.description", event.getMessage().getMentionedMembers().get(0).getUser().getAsTag())).build()).queue();
+                                    event.getTextChannel().sendMessage(
+                                            event.getMessageEditor().getMessage(
+                                                    MessageEditor.MessageType.INFO,
+                                                    "commands.moderation.nick.success.title",
+                                                    "✅",
+                                                    "commands.moderation.nick.success.description", event.getMessage().getMentionedMembers().get(0).getUser().getAsTag()
+                                            ).build()).queue();
                                 }
                             } else {
                                 event.getHelpCommand().sendHelp(this, event);
                             }
                         } else {
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                         }
                     } else {
                         if (event.getMessage().getContentRaw().startsWith(event.getRethink().getUserPrefix(event.getMember().getId()))) {
                             event.getGuild().getSelfMember().modifyNickname(event.getMessage().getContentRaw().replaceFirst(event.getRethink().getUserPrefix(event.getMember().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.nick.success.title", "✅")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.nick.myself.success.description")).build()).queue();
+                            event.getTextChannel().sendMessage(
+                                    event.getMessageEditor().getMessage(
+                                            MessageEditor.MessageType.INFO,
+                                            "commands.moderation.nick.success.title",
+                                            "✅",
+                                            "commands.moderation.nick.myself.success.description",
+                                            "").build()).queue();
                         } else if (event.getMessage().getContentRaw().startsWith(event.getRethink().getGuildPrefix(event.getGuild().getId()))) {
                             event.getGuild().getSelfMember().modifyNickname(event.getMessage().getContentRaw().replaceFirst(event.getRethink().getGuildPrefix(event.getGuild().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.nick.success.title", "✅")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.nick.myself.success.description")).build()).queue();
+                            event.getTextChannel().sendMessage(
+                                    event.getMessageEditor().getMessage(
+                                            MessageEditor.MessageType.INFO,
+                                            "commands.moderation.nick.success.title",
+                                            "✅",
+                                            "commands.moderation.nick.myself.success.description", ""
+                                    ).build()).queue();
                         }
                     }
                 } else if (event.getMessage().getMentionedMembers().size() == 0) {
@@ -53,13 +78,19 @@ public class NickCommand implements Command {
                                 event.getGuild().getSelfMember().modifyNickname(args[args.length - 1]).reason("Mass Nicked by " + event.getAuthor().getAsTag()).queue();
                             }
                     }
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.nick.success.title", "✅")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.nick.myself.success.description", String.valueOf(event.getMessage().getMentionedMembers().size()))).build()).queue();
+                    event.getTextChannel().sendMessage(
+                            event.getMessageEditor().getMessage(
+                                    MessageEditor.MessageType.INFO,
+                                    "commands.moderation.nick.success.title",
+                                    "✅",
+                                    "commands.moderation.nick.myself.success.description", String.valueOf(event.getMessage().getMentionedMembers().size())
+                            ).build()).queue();
                 }
             } else {
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
             }
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }
     }
 
@@ -70,11 +101,11 @@ public class NickCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.moderation.nick.help.description");
+        return "commands.moderation.nick.help.description";
     }
 
     @Override
     public String usage() {
-        return MessageEditor.handle("en", "user+nickname");
+        return "user+nickname";
     }
 }

@@ -20,14 +20,17 @@ public class InviteDetectCommand implements Command {
                         case "on":
                             if (!event.getRethink().getInviteDetection(event.getGuild().getId())) {
                                 event.getRethink().setInviteDetection(event.getGuild().getId(), true);
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.activate.success.title"))
-                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.activate.success.description"))
+                                event.getTextChannel().sendMessage(
+                                        event.getMessageEditor().getMessage(
+                                                MessageEditor.MessageType.INFO,
+                                                "commands.moderation.invitedetect.activate.success.title",
+                                                "commands.moderation.invitedetect.activate.success.description")
                                         .build()).queue();
                             } else {
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.activate.error.title"))
-                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.activate.error.description"))
+                                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.WARNING,
+                                        "commands.moderation.invitedetect.activate.error.title",
+                                        "commands.moderation.invitedetect.activate.error.description")
                                         .build()).queue();
                             }
                             break;
@@ -35,20 +38,22 @@ public class InviteDetectCommand implements Command {
                         case "off":
                             if (event.getRethink().getInviteDetection(event.getGuild().getId())) {
                                 event.getRethink().setInviteDetection(event.getGuild().getId(), false);
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.deactivate.success.title"))
-                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.deactivate.success.description"))
+                                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.INFO,
+                                        "commands.moderation.invitedetect.deactivate.success.title",
+                                        "commands.moderation.invitedetect.deactivate.success.description")
                                         .build()).queue();
                             } else {
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.deactivate.error.title"))
-                                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.invitedetect.deactivate.error.description"))
+                                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.WARNING,
+                                        "commands.moderation.invitedetect.deactivate.error.title",
+                                        "commands.moderation.invitedetect.deactivate.error.description")
                                         .build()).queue();
                             }
                             break;
                     }
             } else {
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             }
         } else {
             event.getHelpCommand().sendHelp(this, event);
@@ -62,7 +67,7 @@ public class InviteDetectCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.moderation.invitedetect.help.description");
+        return "commands.moderation.invitedetect.help.description";
     }
 
     @Override

@@ -14,24 +14,25 @@ public class EqualsCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         event.getChannel().sendMessage(
-                new MessageEditor()
-                        .setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.equals.string.first.request"))
+                event.getMessageEditor().getMessage(
+                        MessageEditor.MessageType.INFO,
+                        "commands.general.equals.string.first.request", "")
                         .build()).queue();
         new EventWaiter().newOnMessageEventWaiter(msgevent -> {
             String firstString = msgevent.getMessage().getContentRaw();
             event.getChannel().sendMessage(
-                    new MessageEditor()
-                            .setDefaultSettings(
-                                    MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.equals.string.second.request")).build()).queue();
+                    event.getMessageEditor().getMessage(
+                            MessageEditor.MessageType.INFO,
+                            "commands.general.equals.string.second.request",
+                            "").build()).queue();
             new EventWaiter().newOnMessageEventWaiter(msgevent2 -> {
                 String secondString = msgevent2.getMessage().getContentRaw();
                 event.getChannel().sendMessage(
-                        new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                .setTitle((firstString.equals(secondString)) ? MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.equals.string.equals.true") : MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.equals.string.equals.false"))
-                                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.equals.string.first"), firstString, false)
-                                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.equals.string.second"), secondString, false)
-                                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.equals.string.result"), String.valueOf(firstString.equals(secondString)), false)
+                        event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                                .setTitle((firstString.equals(secondString)) ? event.getMessageEditor().getTerm( "commands.general.equals.string.equals.true") : event.getMessageEditor().getTerm( "commands.general.equals.string.equals.false"))
+                                .addField(event.getMessageEditor().getTerm( "commands.general.equals.string.first"), firstString, false)
+                                .addField(event.getMessageEditor().getTerm( "commands.general.equals.string.second"), secondString, false)
+                                .addField(event.getMessageEditor().getTerm( "commands.general.equals.string.result"), String.valueOf(firstString.equals(secondString)), false)
                                 .build()).queue();
             }, event.getJDA(), event.getAuthor());
         }, event.getJDA(), event.getAuthor());
@@ -44,7 +45,7 @@ public class EqualsCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.general.equals.help.description");
+        return "commands.general.equals.help.description";
     }
 
     @Override

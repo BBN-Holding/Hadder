@@ -31,29 +31,30 @@ public class SpankCommand implements Command {
                 JSONObject response1 = data.getJSONObject("response");
                 String url = response1.toString().replace("{\"url\":\"", "");
 
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setAuthor(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.nsfw.gif.error.title"), url.replace("\"}", ""))
-                        .setImage(url.replace("\"}", ""))
-                        .setFooter("Spank")
-                        .build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                        .setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"),
+                                url.replace("\"}", ""))
+                        .setImage(url.replace("\"}", "")).setFooter("Spank").build()).queue();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_NSFW).build()).queue();
+            event.getTextChannel()
+                    .sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build())
+                    .queue();
         }
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"spank", "beat", "hit"};
+        return new String[] { "spank", "beat", "hit" };
     }
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.nsfw.spank.help.description");
+        return "commands.nsfw.spank.help.description";
     }
 
     @Override

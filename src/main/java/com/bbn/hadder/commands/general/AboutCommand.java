@@ -12,10 +12,12 @@ public class AboutCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.title"))
-                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.description"))
-                .addField(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.field.one.title"), MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.general.about.success.field.one.description", "(https://donatebot.io/checkout/448554629282922527?buyer=" + event.getAuthor().getId() + "). :smiley:"), true)
+        event.getTextChannel().sendMessage(
+                event.getMessageEditor().getMessage(
+                        MessageEditor.MessageType.INFO,
+                        "commands.general.about.success.title",
+                        "commands.general.about.success.description")
+                        .addField(event.getMessageEditor().getTerm("commands.general.about.success.field.one.title"), event.getMessageEditor().getTerm("commands.general.about.success.field.one.description", "(https://donatebot.io/checkout/448554629282922527?buyer=" + event.getAuthor().getId() + "). :smiley:", ""), true)
                 .setThumbnail("https://bigbotnetwork.com/images/Hadder.png")
                 .build()).queue();
     }
@@ -27,7 +29,7 @@ public class AboutCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.general.about.help.description");
+        return "commands.general.about.help.description";
     }
 
     @Override

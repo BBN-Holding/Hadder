@@ -18,15 +18,18 @@ public class FeedbackCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.feedback.title.request.title"))
-                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.feedback.title.request.description"))
+        event.getTextChannel().sendMessage(
+                event.getMessageEditor().getMessage(
+                        MessageEditor.MessageType.INFO,
+                "commands.misc.feedback.title.request.title",
+                "commands.misc.feedback.title.request.description")
                 .build()).queue();
         new EventWaiter().newOnMessageEventWaiter(event1 -> {
                 String title = event1.getMessage().getContentDisplay();
-                event1.getChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.feedback.description.request.title"))
-                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.feedback.description.request.description"))
+                event1.getChannel().sendMessage(event.getMessageEditor().getMessage(
+                        MessageEditor.MessageType.INFO,
+                        "commands.misc.feedback.description.request.title",
+                        "commands.misc.feedback.description.request.description")
                         .build()).queue();
             new EventWaiter().newOnMessageEventWaiter(event2 -> {
                 String description = event2.getMessage().getContentDisplay();
@@ -34,9 +37,12 @@ public class FeedbackCommand implements Command {
                     GitHub connection = GitHub.connectUsingOAuth(event.getConfig().getGitHubToken());
                     GHRepository Hadder = connection.getOrganization("BigBotNetwork").getRepository("Hadder");
                     GHIssue issue = Hadder.createIssue(title).body("<strong>Feedback by " + event.getAuthor().getAsTag() + "</strong><br>" + description).label("feedback").create();
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                            .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.misc.feedback.success.title"))
-                            .setDescription(issue.getHtmlUrl().toString())
+                    event.getTextChannel().sendMessage(
+                            event.getMessageEditor().getMessage(
+                                    MessageEditor.MessageType.INFO,
+                                    "commands.misc.feedback.success.title",
+                                    "")
+                                    .setDescription(issue.getHtmlUrl().toString())
                             .build()).queue();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -53,7 +59,7 @@ public class FeedbackCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.misc.feedback.help.description");
+        return "commands.misc.feedback.help.description";
     }
 
     @Override
