@@ -1,6 +1,9 @@
 package com.bbn.hadder.utils;
 
+import com.bbn.hadder.Rethink;
+import com.bbn.hadder.commands.CommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
 import java.time.Instant;
@@ -9,7 +12,46 @@ import java.util.ResourceBundle;
 
 public class MessageEditor {
 
-    public EmbedBuilder setDefaultSettings(MessageType type) {
+    private Rethink rethink;
+    private User user;
+
+    public MessageEditor(Rethink rethink, User user) {
+        this.rethink = rethink;
+        this.user = user;
+    }
+
+    public EmbedBuilder getMessage(MessageType type) {
+        return this.getMessage(type, "", "", "", "", "", "");
+    }
+
+    public EmbedBuilder getMessage(MessageType type, String title_language_string, String description_language_string) {
+        return this.getMessage(type, title_language_string, "", "", description_language_string, "", "");
+    }
+
+    public EmbedBuilder getMessage(MessageType type, String title_language_string, String title_extra,
+                                   String description_language_string, String description_extra) {
+        return this.getMessage(type, title_language_string, title_extra, "", description_language_string, description_extra, "");
+    }
+
+    public EmbedBuilder getMessage(MessageType type, String title_language_string, String title_extra, String title_extra_two,
+                            String description_language_string, String description_extra, String description_extra_two) {
+        String language = rethink.getLanguage(this.user.getId());
+        EmbedBuilder eb = this.getDefaultSettings(type);
+        if (!title_language_string.equals("")) eb.setTitle(this.handle(language, title_language_string, title_extra, title_extra_two));
+        if (!description_language_string.equals("")) eb.setDescription(this.handle(language, description_language_string, description_extra, description_extra_two));
+        return eb;
+    }
+
+    public enum MessageType {
+        ERROR,
+        WARNING,
+        INFO,
+        NO_PERMISSION,
+        NO_SELF_PERMISSION, 
+        NO_NSFW
+    }
+
+    private EmbedBuilder getDefaultSettings(MessageType type) {
         EmbedBuilder builder = new EmbedBuilder();
         switch (type) {
             case INFO:
@@ -63,27 +105,24 @@ public class MessageEditor {
         return builder;
     }
 
-    public enum MessageType {
-        ERROR,
-        WARNING,
-        INFO,
-        NO_PERMISSION,
-        NO_SELF_PERMISSION,
-        NO_NSFW
+    public String getTerm(String string) {
+        return this.handle(rethink.getLanguage(user.getId()), string, "", "");
     }
 
-    public static String handle(String language_code, String string) {
-        Locale locale = new Locale(language_code);
-        return ResourceBundle.getBundle("Translations/Translations", locale).getString(string).replaceAll("%prefix%", "h.");
+    public String getTerm(String string, String extra, String extra_two) {
+        return this.handle(rethink.getLanguage(user.getId()), string, extra, extra_two);
     }
 
-    public static String handle(String language_code, String string, String extra) {
-        Locale locale = new Locale(language_code);
-        return ResourceBundle.getBundle("Translations/Translations", locale).getString(string).replaceAll("%prefix%", "h.").replaceAll("%extra%", extra);
+    public static String getTerm(CommandEvent event, String string, String extra, String extra_two) {
+        return new MessageEditor(null, null)
+                .handle(event.getRethink().getLanguage(event.getAuthor().getId()), string, extra, extra_two);
     }
 
-    public static String handle(String language_code, String string, String extra, String extra_two) {
+    private String handle(String language_code, String string, String extra, String extra_two) {
         Locale locale = new Locale(language_code);
-        return ResourceBundle.getBundle("Translations/Translations", locale).getString(string).replaceAll("%prefix%", "h.").replaceAll("%extra%", extra).replaceAll("%extra_two%", extra_two);
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("Translations/Translations", locale);
+        if (resourceBundle.containsKey(string))
+            return resourceBundle.getString(string).replaceAll("%prefix%", "h.").replaceAll("%extra%", extra).replaceAll("%extra_two%", extra_two);
+        else return "This key doesn't exist. Please report this to the Bot Developers. Key: "+string+" Language_code: "+language_code;
     }
 }

@@ -14,15 +14,25 @@ public class GuildPrefixCommand implements Command {
                 if (!args[0].contains("\"")) {
 
                     event.getRethink().setGuildPrefix(args[0], event.getGuild().getId());
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.prefix.success.title"), "✅").setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.prefix.success.description", args[0])).build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                            MessageEditor.MessageType.INFO,
+                            "commands.moderation.prefix.success.title",
+                            "✅",
+                            "commands.moderation.prefix.success.description",
+                            args[0]).build()
+                    ).queue();
                 } else {
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.prefix.error.description")).build()).queue();
+                    event.getTextChannel().sendMessage(
+                            event.getMessageEditor().getMessage(
+                                    MessageEditor.MessageType.WARNING,
+                                    "",
+                                    "commands.moderation.prefix.error.description").build()).queue();
                 }
             } else {
                 event.getHelpCommand().sendHelp(this, event);
             }
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
         }
     }
 
@@ -33,11 +43,11 @@ public class GuildPrefixCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.moderation.prefix.help.description");
+        return "commands.moderation.prefix.help.description";
     }
 
     @Override
     public String usage() {
-        return MessageEditor.handle("en", "guildprefix");
+        return "guildprefix";
     }
 }

@@ -31,8 +31,8 @@ public class BDSMCommand implements Command {
                 JSONObject response1 = data.getJSONObject("response");
                 String url = response1.toString().replace("{\"url\":\"", "");
 
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setAuthor(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.nsfw.img.error.title"), url.replace("\"}", ""))
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                        .setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("BDSM")
                         .build()).queue();
@@ -42,18 +42,18 @@ public class BDSMCommand implements Command {
             }
 
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_NSFW).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build()).queue();
         }
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"bdsm"};
+        return new String[] { "bdsm" };
     }
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.nsfw.bdsm.help.description");
+        return "commands.nsfw.bdsm.help.description";
     }
 
     @Override

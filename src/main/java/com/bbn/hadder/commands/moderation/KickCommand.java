@@ -22,15 +22,25 @@ public class KickCommand implements Command {
                     if (!event.getJDA().getSelfUser().getId().equals(victim.getId())) {
                         if (event.getGuild().getSelfMember().canInteract(victim)) {
                             event.getGuild().kick(victim, "Kicked by " + event.getAuthor().getAsTag()).queue();
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.success.title", "✅")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.success.description", victim.getUser().getName())).build()).queue();
+                            event.getTextChannel().sendMessage(
+                                    event.getMessageEditor().getMessage(
+                                            MessageEditor.MessageType.INFO,
+                                            "commands.moderation.kick.success.title",
+                                            "✅",
+                                            "commands.moderation.kick.success.description",
+                                            victim.getUser().getName()).build()).queue();
                         } else {
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                         }
                     } else {
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.error.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.myself.error.description")).build()).queue();
+                        event.getTextChannel().sendMessage(
+                                event.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.WARNING,
+                                        "commands.moderation.kick.error.title",
+                                        "commands.moderation.kick.myself.error.description").build()).queue();
                     }
                 } else {
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.error.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.yourself.error.description")).build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.moderation.kick.error.title", "commands.moderation.kick.yourself.error.description").build()).queue();
                 }
             } else if (event.getMessage().getMentionedMembers().size() == 0) {
                 event.getHelpCommand().sendHelp(this, event);
@@ -42,16 +52,16 @@ public class KickCommand implements Command {
                             if (event.getGuild().getSelfMember().canInteract(member)) {
                                 event.getGuild().kick(member).reason("Mass Kicked by " + event.getAuthor().getAsTag()).queue();
                             } else {
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                             }
                         } else {
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.error.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.myself.error.description")).build()).queue();
+                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.moderation.kick.error.title","commands.moderation.kick.myself.error.description").build()).queue();
                         }
                     } else {
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.error.title")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.yourself.error.description")).build()).queue();
+                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.moderation.kick.error.title", "commands.moderation.kick.yourself.error.description").build()).queue();
                     }
                 }
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.success.title", "✅")).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.kick.masskick.success.description", String.valueOf(event.getMessage().getMentionedMembers().size()))).build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,"commands.moderation.kick.success.title", "✅","commands.moderation.kick.masskick.success.description", String.valueOf(event.getMessage().getMentionedMembers().size())).build()).queue();
             }
         }
     }
@@ -63,7 +73,7 @@ public class KickCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.moderation.kick.help.description");
+        return "commands.moderation.kick.help.description";
     }
 
     @Override

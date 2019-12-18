@@ -27,12 +27,15 @@ public class ClearCommand implements Command {
                         for (Message message : msg) {
                             message.delete().queue();
                         }
-                        Message message = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.lear.all.success.title"))
-                                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.lear.all.success.description", String.valueOf(msg.size())))
+                        Message message = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                            MessageEditor.MessageType.INFO,
+                            "commands.moderation.lear.all.success.title",
+                            "",
+                            "commands.moderation.lear.all.success.description",
+                            String.valueOf(msg.size()))
                                 .build()).complete();
                         try {
-                            TimeUnit.SECONDS.sleep(2);
+                            TimeUnit.SECONDS.sleep(3);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -41,12 +44,12 @@ public class ClearCommand implements Command {
                         try {
                             int nbToDelete = Integer.parseInt(args[0]);
                             if (nbToDelete < 1 || nbToDelete > 99) {
-                                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.number.error.description")).build()).queue();
+                                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "", "commands.moderation.clear.number.error.description").build()).queue();
                             } else {
                                 List<Message> history = event.getTextChannel().getHistory().retrievePast(nbToDelete + 1).complete();
                                 List<Message> msgToDelete = new ArrayList<>(history);
                                 event.getTextChannel().deleteMessages(msgToDelete).queue();
-                                Message msg = event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO).setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.success.description", String.valueOf(nbToDelete))).build()).complete();
+                                Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "", "", "commands.moderation.clear.success.description", String.valueOf(nbToDelete)).build()).complete();
                                 try {
                                     TimeUnit.SECONDS.sleep(2);
                                 } catch (InterruptedException e) {
@@ -57,17 +60,15 @@ public class ClearCommand implements Command {
                         } catch (NumberFormatException e) {
                             event.getHelpCommand().sendHelp(this, event);
                         } catch (IllegalArgumentException e) {
-                            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.message.error.title"))
-                                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.moderation.clear.message.error.description"))
+                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.moderation.clear.message.error.title", "commands.moderation.clear.message.error.description")
                                     .build()).queue();
                         }
                     }
                 } else {
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                 }
             } else {
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
             }
         } else {
             event.getHelpCommand().sendHelp(this, event);
@@ -81,11 +82,11 @@ public class ClearCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.moderation.clear.help.description");
+        return "commands.moderation.clear.help.description";
     }
 
     @Override
     public String usage() {
-        return MessageEditor.handle("en", "number");
+        return "number";
     }
 }

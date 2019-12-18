@@ -54,7 +54,6 @@ public class Hadder {
                         new GifCommand(),
                         new ClearCommand(),
                         new GitHubCommand(),
-                        new ScreenShareCommand(),
                         new RebootCommand(),
                         new EqualsCommand(),
                         new InviteCommand(),
@@ -88,17 +87,17 @@ public class Hadder {
                         new RegionChangeCommand(),
                         new AboutCommand(),
                         new LanguageCommand(),
-                        new LinkCommand()), config, helpCommand);
+                        new SetStarBoardCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
-                new PrivateMessageListener(),
+                new PrivateMessageListener(rethink),
                 new CommandListener(rethink, commandHandler),
                 new GuildListener(rethink, config),
                 new ReadyListener(rethink, config),
-                // new LinkListener(rethink),
                 new InviteLinkListener(rethink),
-                new RulesListener(rethink));
+                new RulesListener(rethink),
+                new StarboardListener(rethink));
 
         try {
             shardManager = builder.build();

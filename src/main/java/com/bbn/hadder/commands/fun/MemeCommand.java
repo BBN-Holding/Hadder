@@ -27,15 +27,18 @@ public class MemeCommand implements Command {
             Response response = client.newCall(request).execute();
             JSONObject json = new JSONObject(response.body().string());
             String url = json.get("image").toString();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.fun.meme.success.title"))
+            event.getTextChannel().sendMessage(
+                    event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    "commands.fun.meme.success.title", "")
                     .setImage(url)
                     .build()).queue();
         } catch (IOException e) {
             e.printStackTrace();
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.ERROR)
-                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "error"))
-                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.fun.meme.api.error"))
+            event.getTextChannel().sendMessage(
+                    event.getMessageEditor().getMessage(
+                            MessageEditor.MessageType.ERROR,
+                            "error",
+                            "commands.fun.meme.api.error")
                     .setColor(Color.RED)
                     .build()).queue();
         }
@@ -48,7 +51,7 @@ public class MemeCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.fun.meme.help.description");
+        return "commands.fun.meme.help.description";
     }
 
     @Override

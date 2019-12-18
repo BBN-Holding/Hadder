@@ -22,33 +22,44 @@ public class JoinCommand implements Command {
                 if (event.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
                     if (!event.getGuild().getSelfMember().getVoiceState().getChannel().getId().equals(vc.getId())) {
                         event.getGuild().getAudioManager().openAudioConnection(vc);
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.success.title"))
-                                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.success.description", vc.getName()))
+                        event.getTextChannel().sendMessage(
+                                event.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.INFO,
+                                        "commands.music.join.success.title",
+                                        "",
+                                        "commands.music.join.success.description",
+                                        vc.getName())
                                 .build()).queue();
                     } else {
-                        event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                                .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.connecting.already.title"))
-                                .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.connecting.already.description"))
+                        event.getTextChannel().sendMessage(
+                            event.getMessageEditor().getMessage(
+                                MessageEditor.MessageType.WARNING, 
+                                "commands.music.join.error.connecting.already.title", 
+                                "commands.music.join.error.connecting.already.description")
                                 .build()).queue();
                     }
                 } else {
                     event.getGuild().getAudioManager().openAudioConnection(vc);
-                    event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                            .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.success.title"))
-                            .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.success.description", vc.getName()))
-                            .build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                        MessageEditor.MessageType.INFO, 
+                        "commands.music.join.success.title", 
+                        "", 
+                        "commands.music.join.success.description", 
+                        vc.getName())
+                        .build()).queue();
                 }
             } else {
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.connecting.trying.title"))
-                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.connecting.trying.description"))
-                        .build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                    MessageEditor.MessageType.WARNING, 
+                    "commands.music.join.error.connecting.trying.title", 
+                    "commands.music.join.error.connecting.trying.description")
+                    .build()).queue();
             }
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.WARNING)
-                    .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.channel.title"))
-                    .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.music.join.error.channel.description"))
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                MessageEditor.MessageType.WARNING, 
+                "commands.music.join.error.channel.title", 
+                "commands.music.join.error.channel.description")
                     .build()).queue();
         }
     }
@@ -60,7 +71,7 @@ public class JoinCommand implements Command {
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.music.join.help.description");
+        return "commands.music.join.help.description";
     }
 
     @Override

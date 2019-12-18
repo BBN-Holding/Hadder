@@ -17,30 +17,34 @@ public class GuildLeaveCommand implements Command {
             if (args.length > 0) {
                 Guild guild = event.getJDA().getGuildById(args[0]);
                 guild.leave().queue();
-                event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.INFO)
-                        .setTitle(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.owner.guildleave.success.title"))
-                        .setDescription(MessageEditor.handle(event.getRethink().getLanguage(event.getAuthor().getId()), "commands.owner.guildleave.success.description", guild.getName()))
-                        .build()).queue();
+                event.getTextChannel()
+                        .sendMessage(event.getMessageEditor()
+                                .getMessage(MessageEditor.MessageType.INFO, "commands.owner.guildleave.success.title",
+                                        "", "commands.owner.guildleave.success.description", guild.getName())
+                                .build())
+                        .queue();
             } else {
                 event.getHelpCommand().sendHelp(this, event);
             }
         } else {
-            event.getTextChannel().sendMessage(new MessageEditor().setDefaultSettings(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+            event.getTextChannel()
+                    .sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build())
+                    .queue();
         }
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"guildleave"};
+        return new String[] { "guildleave" };
     }
 
     @Override
     public String description() {
-        return MessageEditor.handle("en", "commands.owner.guildleave.help.description");
+        return "commands.owner.guildleave.help.description";
     }
 
     @Override
     public String usage() {
-        return MessageEditor.handle("en", "guildid");
+        return "guildid";
     }
 }
