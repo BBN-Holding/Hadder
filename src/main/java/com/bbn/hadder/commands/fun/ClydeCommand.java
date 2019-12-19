@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-@Perms(Perm.MANAGE_SERVER)
+@Perms(Perm.MANAGE_WEBHOOKS)
 public class ClydeCommand implements Command {
 
     @Override

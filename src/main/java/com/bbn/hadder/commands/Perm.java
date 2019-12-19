@@ -61,6 +61,11 @@ public enum Perm {
         public boolean check(CommandEvent event) {
             return event.getMember().hasPermission(Permission.ADMINISTRATOR);
         }
+        },
+    MANAGE_WEBHOOKS {
+        @Override
+        public boolean check(CommandEvent event) {
+            return event.getMember().hasPermission(Permission.MANAGE_WEBHOOKS); }
     };
 
     public abstract boolean check(CommandEvent event);
