@@ -56,7 +56,7 @@ public enum Perm {
             return event.getMember().hasPermission(Permission.NICKNAME_CHANGE);
         }
     },
-    ADMIN_PERMISSIONS {
+    ADMINISTRATOR {
         @Override
         public boolean check(CommandEvent event) {
             return event.getMember().hasPermission(Permission.ADMINISTRATOR);
