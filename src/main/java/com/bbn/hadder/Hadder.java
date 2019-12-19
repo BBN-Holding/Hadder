@@ -87,6 +87,7 @@ public class Hadder {
                         new RegionChangeCommand(),
                         new AboutCommand(),
                         new LanguageCommand(),
+                        new ClydeCommand(),
                         new StarBoardCommand()), config, helpCommand);
 
         builder.addEventListeners(
