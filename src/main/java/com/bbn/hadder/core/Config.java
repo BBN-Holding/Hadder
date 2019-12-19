@@ -63,6 +63,7 @@ public class Config {
                 .value("DiscordExtremeList").value(null)
                 .value("DiscordBotReviews").value(null)
                 .value("DiscordBots").value(null)
+                .value("BotListSpace").value(null)
                 .endObject().endObject().toString();
     }
 
@@ -140,5 +141,9 @@ public class Config {
 
     public String getBotListSpaceToken() {
         return config.getJSONObject("Tokens").getString("BotListSpace");
+    }
+
+    public String getClydeName() {
+        return config.getString("Clyde");
     }
 }
