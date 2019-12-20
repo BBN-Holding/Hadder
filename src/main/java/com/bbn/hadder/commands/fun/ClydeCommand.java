@@ -67,11 +67,11 @@ public class ClydeCommand implements Command {
 
     @Override
     public String description() {
-        return "Send a message as a Clyde webhook.";
+        return "commands.fun.clyde.help.description";
     }
 
     @Override
     public String usage() {
-        return "<Message-Content>";
+        return "content";
     }
 }
