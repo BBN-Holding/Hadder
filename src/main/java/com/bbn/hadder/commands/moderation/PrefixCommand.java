@@ -5,7 +5,7 @@ import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.Permission;
 
-public class GuildPrefixCommand implements Command {
+public class PrefixCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
@@ -38,7 +38,7 @@ public class GuildPrefixCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"guildprefix"};
+        return new String[]{"prefix"};
     }
 
     @Override
@@ -48,6 +48,6 @@ public class GuildPrefixCommand implements Command {
 
     @Override
     public String usage() {
-        return "guildprefix";
+        return "prefix";
     }
 }

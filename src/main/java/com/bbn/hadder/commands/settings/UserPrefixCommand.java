@@ -8,7 +8,7 @@ import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 
-public class PrefixCommand implements Command {
+public class UserPrefixCommand implements Command {
 
     public void executed(String[] args, CommandEvent event) {
         if (args.length == 1) {
@@ -26,7 +26,7 @@ public class PrefixCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[] { "prefix" };
+        return new String[] { "userprefix" };
     }
 
     @Override
@@ -36,6 +36,6 @@ public class PrefixCommand implements Command {
 
     @Override
     public String usage() {
-        return "prefix";
+        return "userprefix";
     }
 }
