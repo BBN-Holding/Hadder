@@ -19,7 +19,9 @@ public class AvatarCommand implements Command {
                     event.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                             "commands.fun.avatar.success.title",
-                            member.getUser().getAsTag())
+                            member.getUser().getAsTag(),
+                            "",
+                            "")
                     .setImage(member.getUser().getAvatarUrl())
                     .setFooter(member.getUser().getAsTag())
                     .build()).queue();

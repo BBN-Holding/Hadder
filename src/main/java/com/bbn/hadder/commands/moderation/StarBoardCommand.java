@@ -6,6 +6,7 @@ import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class StarBoardCommand implements Command {
+
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getMessage().getMentionedChannels().size()==1) {

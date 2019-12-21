@@ -2,18 +2,14 @@ package com.bbn.hadder.commands.owner;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
-import com.bbn.hadder.commands.Perm;
-import com.bbn.hadder.commands.Perms;
-import com.bbn.hadder.utils.MessageEditor;
+import com.bbn.hadder.core.Perm;
+import com.bbn.hadder.core.Perms;
 import com.bbn.hadder.utils.MessageEditor.MessageType;
-
-import static com.bbn.hadder.commands.Perm.BOT_OWNER;
 
 /*
  * @author Skidder / GregTCLTK
  */
 
-@Perms(Perm.BOT_OWNER)
 public class TestCommand implements Command {
 
     @Override

@@ -35,7 +35,7 @@ public class MessageEditor {
 
     public EmbedBuilder getMessage(MessageType type, String title_language_string, String title_extra, String title_extra_two,
                             String description_language_string, String description_extra, String description_extra_two) {
-        String language = rethink.getLanguage(this.user.getId());
+        String language = (this.user!=null) ? rethink.getLanguage(this.user.getId()) : null;
         EmbedBuilder eb = this.getDefaultSettings(type);
         if (!title_language_string.equals("")) eb.setTitle(this.handle(language, title_language_string, title_extra, title_extra_two));
         if (!description_language_string.equals("")) eb.setDescription(this.handle(language, description_language_string, description_extra, description_extra_two));
@@ -47,7 +47,7 @@ public class MessageEditor {
         WARNING,
         INFO,
         NO_PERMISSION,
-        NO_SELF_PERMISSION, 
+        NO_SELF_PERMISSION,
         NO_NSFW
     }
 
