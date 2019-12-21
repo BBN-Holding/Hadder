@@ -6,6 +6,8 @@ package com.bbn.hadder.commands.moderation;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.core.Perm;
+import com.bbn.hadder.core.Perms;
 import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.Permission;
@@ -15,48 +17,45 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
+@Perms(Perm.MANAGE_SERVER)
 public class RulesCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getMember().hasPermission(Permission.MANAGE_SERVER) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
-            if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
-                event.getTextChannel().sendMessage(
-                        event.getMessageEditor().getMessage(
-                                MessageEditor.MessageType.INFO,
-                                "commands.moderation.rules.setup.title",
-                                "commands.moderation.rules.setup.description")
-                        .build()).queue();
-                new EventWaiter().newOnMessageEventWaiter(event1 -> {
-                    if (event1.getMessage().getMentionedChannels().size() == 1) {
-                        try {
-                            TextChannel channel = event1.getMessage().getMentionedChannels().get(0);
-                            createRules(event, event1, channel);
-                        } catch (Exception e) {
-                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
-                                    "commands.moderation.rules.channel.error.title",
-                                    "commands.moderation.rules.channel.error.description")
-                                    .build()).queue();
-                        }
-                    } else {
-                        try {
-                            TextChannel channel = event1.getGuild().getTextChannelsByName(event1.getMessage().getContentRaw(), true).get(0);
-                            createRules(event, event1, channel);
-                        } catch (Exception e) {
-                            event.getTextChannel().sendMessage(
-                                    event.getMessageEditor().getMessage(
-                                            MessageEditor.MessageType.ERROR,
-                                            "commands.moderation.rules.channel.error.title",
-                                            "commands.moderation.rules.channel.error.description")
-                                    .build()).queue();
-                        }
+        if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
+            event.getTextChannel().sendMessage(
+                    event.getMessageEditor().getMessage(
+                            MessageEditor.MessageType.INFO,
+                            "commands.moderation.rules.setup.title",
+                            "commands.moderation.rules.setup.description")
+                            .build()).queue();
+            new EventWaiter().newOnMessageEventWaiter(event1 -> {
+                if (event1.getMessage().getMentionedChannels().size() == 1) {
+                    try {
+                        TextChannel channel = event1.getMessage().getMentionedChannels().get(0);
+                        createRules(event, event1, channel);
+                    } catch (Exception e) {
+                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                                "commands.moderation.rules.channel.error.title",
+                                "commands.moderation.rules.channel.error.description")
+                                .build()).queue();
                     }
-                    }, event.getJDA(), event.getAuthor());
-            } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
-            }
+                } else {
+                    try {
+                        TextChannel channel = event1.getGuild().getTextChannelsByName(event1.getMessage().getContentRaw(), true).get(0);
+                        createRules(event, event1, channel);
+                    } catch (Exception e) {
+                        event.getTextChannel().sendMessage(
+                                event.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.ERROR,
+                                        "commands.moderation.rules.channel.error.title",
+                                        "commands.moderation.rules.channel.error.description")
+                                        .build()).queue();
+                    }
+                }
+            }, event.getJDA(), event.getAuthor());
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
         }
     }
 

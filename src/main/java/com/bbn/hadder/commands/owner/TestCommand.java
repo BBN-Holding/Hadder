@@ -10,7 +10,6 @@ import com.bbn.hadder.utils.MessageEditor.MessageType;
  * @author Skidder / GregTCLTK
  */
 
-@Perms(Perm.BOT_OWNER)
 public class TestCommand implements Command {
 
     @Override
