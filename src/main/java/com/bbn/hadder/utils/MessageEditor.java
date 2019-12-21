@@ -47,7 +47,7 @@ public class MessageEditor {
         WARNING,
         INFO,
         NO_PERMISSION,
-        NO_SELF_PERMISSION, 
+        NO_SELF_PERMISSION,
         NO_NSFW
     }
 

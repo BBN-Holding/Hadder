@@ -3,8 +3,6 @@ package com.bbn.hadder.core;
 import com.bbn.hadder.Rethink;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
-import com.bbn.hadder.commands.Perm;
-import com.bbn.hadder.commands.Perms;
 import com.bbn.hadder.commands.general.HelpCommand;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
