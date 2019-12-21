@@ -13,49 +13,49 @@ public enum Perm {
         public boolean check(CommandEvent event) {
             return event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
         }
-    },
+        },
     MANAGE_MESSAGES {
         @Override
         public boolean check(CommandEvent event) {
             return event.getMember().hasPermission(Permission.MESSAGE_MANAGE);
         }
-    },
+        },
     EMBED_MESSAGES {
         @Override
         public boolean check(CommandEvent event) {
             return event.getMember().hasPermission(Permission.MESSAGE_EMBED_LINKS);
         }
-    },
+        },
     BAN_MEMBERS {
         @Override
         public boolean check(CommandEvent event) {
             return event.getMember().hasPermission(Permission.BAN_MEMBERS);
         }
-    },
+        },
     KICK_MEMBERS {
         @Override
         public boolean check(CommandEvent event) {
             return event.getMember().hasPermission(Permission.KICK_MEMBERS);
         }
-    },
+        },
     MANAGE_SERVER {
         @Override
         public boolean check(CommandEvent event) {
             return event.getMember().hasPermission(Permission.MANAGE_SERVER);
         }
-    },
+        },
     MANAGE_ROLES {
         @Override
         public boolean check(CommandEvent event) {
             return event.getMember().hasPermission(Permission.MANAGE_ROLES);
         }
-    },
+        },
     CHANGE_NICKNAME {
         @Override
         public boolean check(CommandEvent event) {
             return event.getMember().hasPermission(Permission.NICKNAME_CHANGE);
         }
-    },
+        },
     ADMINISTRATOR {
         @Override
         public boolean check(CommandEvent event) {
@@ -65,7 +65,8 @@ public enum Perm {
     MANAGE_WEBHOOKS {
         @Override
         public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.MANAGE_WEBHOOKS); }
+            return event.getMember().hasPermission(Permission.MANAGE_WEBHOOKS);
+        }
     };
 
     public abstract boolean check(CommandEvent event);
