@@ -5,7 +5,6 @@ import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.Permission;
 
 @Perms(Perm.MANAGE_SERVER)
 public class PrefixCommand implements Command {
