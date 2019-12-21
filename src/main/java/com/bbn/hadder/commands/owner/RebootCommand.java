@@ -6,18 +6,15 @@ package com.bbn.hadder.commands.owner;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
-import com.bbn.hadder.utils.MessageEditor;
+import com.bbn.hadder.core.Perm;
+import com.bbn.hadder.core.Perms;
 
-
+@Perms(Perm.BOT_OWNER)
 public class RebootCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
-            Runtime.getRuntime().exit(69);
-        } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build()).queue();
-        }
+        Runtime.getRuntime().exit(69);
     }
 
     @Override

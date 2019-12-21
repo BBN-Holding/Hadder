@@ -47,7 +47,7 @@ public class Hadder {
                         helpCommand,
                         new TestCommand(),
                         new BanCommand(),
-                        new PrefixCommand(),
+                        new UserPrefixCommand(),
                         new ShutdownCommand(),
                         new KickCommand(),
                         new PingCommand(),
@@ -58,7 +58,7 @@ public class Hadder {
                         new EqualsCommand(),
                         new InviteCommand(),
                         new NickCommand(),
-                        new GuildPrefixCommand(),
+                        new PrefixCommand(),
                         new BlowjobCommand(),
                         new PornCommand(),
                         new AnalCommand(),
@@ -87,7 +87,8 @@ public class Hadder {
                         new RegionChangeCommand(),
                         new AboutCommand(),
                         new LanguageCommand(),
-                        new SetStarBoardCommand()), config, helpCommand);
+                        new ClydeCommand(),
+                        new StarBoardCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
