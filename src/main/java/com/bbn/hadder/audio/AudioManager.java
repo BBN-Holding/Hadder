@@ -6,6 +6,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
@@ -23,19 +24,24 @@ import java.util.concurrent.TimeUnit;
 
 public class AudioManager {
 
-    public static final Map<String, Map.Entry<AudioPlayer, TrackManager>> players = new HashMap<>();
-    public static final AudioPlayerManager myManager = new DefaultAudioPlayerManager();
 
-    public static void loadTrack(String identifier, CommandEvent event, Message msg) {
+    public AudioManager() {
+        AudioSourceManagers.registerRemoteSources(myManager);
+    }
+
+    public final Map<String, Map.Entry<AudioPlayer, TrackManager>> players = new HashMap<>();
+    public final AudioPlayerManager myManager = new DefaultAudioPlayerManager();
+
+    public void loadTrack(String identifier, CommandEvent event, Message msg) {
 
         Guild guild = event.getGuild();
-        AudioManager.getPlayer(guild);
+        getPlayer(guild);
 
         myManager.loadItemOrdered(guild, identifier, new AudioLoadResultHandler() {
 
             @Override
             public void trackLoaded(AudioTrack track) {
-                AudioManager.getTrackManager(guild).queue(track, event.getMember());
+                getTrackManager(guild).queue(track, event.getMember());
                 msg.editMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                         "commands.music.play.success.loading.title", "⏯",
                         "", "")
@@ -56,7 +62,7 @@ public class AudioManager {
                     trackLoaded(playlist.getTracks().get(0));
                 } else {
                     for (int i = 0; i < Math.min(playlist.getTracks().size(), 200); i++) {
-                        AudioManager.getTrackManager(guild).queue(playlist.getTracks().get(i), event.getMember());
+                        getTrackManager(guild).queue(playlist.getTracks().get(i), event.getMember());
                     }
                 }
             }
@@ -79,11 +85,11 @@ public class AudioManager {
         });
     }
 
-    public static boolean hasPlayer(Guild guild) {
+    public boolean hasPlayer(Guild guild) {
         return players.containsKey(guild.getId());
     }
 
-    public static AudioPlayer getPlayer(Guild guild) {
+    public AudioPlayer getPlayer(Guild guild) {
         AudioPlayer p;
         if (hasPlayer(guild)) {
             p = players.get(guild.getId()).getKey();
@@ -93,11 +99,11 @@ public class AudioManager {
         return p;
     }
 
-    public static TrackManager getTrackManager(Guild guild) {
+    public TrackManager getTrackManager(Guild guild) {
         return players.get(guild.getId()).getValue();
     }
 
-    public static AudioPlayer createPlayer(Guild guild) {
+    public AudioPlayer createPlayer(Guild guild) {
         AudioPlayer nPlayer = myManager.createPlayer();
         TrackManager manager = new TrackManager(nPlayer);
         nPlayer.addListener(manager);

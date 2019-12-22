@@ -13,9 +13,9 @@ public class StopCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        AudioManager.players.remove(event.getGuild().getId());
-        AudioManager.getPlayer(event.getGuild()).destroy();
-        AudioManager.getTrackManager(event.getGuild()).purgeQueue();
+        new AudioManager().players.remove(event.getGuild().getId());
+        new AudioManager().getPlayer(event.getGuild()).destroy();
+        new AudioManager().getTrackManager(event.getGuild()).purgeQueue();
         event.getGuild().getAudioManager().closeAudioConnection();
         event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                 "commands.music.stop.success.title",

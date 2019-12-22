@@ -1,13 +1,17 @@
 package com.bbn.hadder.commands.music;
 
 import com.bbn.hadder.audio.AudioManager;
+import com.bbn.hadder.audio.TrackManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.net.URL;
-
+import java.util.*;
 
 /**
  * @author Skidder / GregTCLTK
@@ -15,9 +19,13 @@ import java.net.URL;
 
 public class PlayCommand implements Command {
 
+    private final AudioPlayerManager myManager = new DefaultAudioPlayerManager();
+    public final Map<String, Map.Entry<AudioPlayer, TrackManager>> players = new HashMap<>();
+
     /*
     private static final String CD = "\uD83D\uDCBF";
     private static final String MIC = "\uD83C\uDFA4 **|>** "; */
+
 
     @Override
     public void executed(String[] args, CommandEvent event) {
@@ -29,12 +37,12 @@ public class PlayCommand implements Command {
                     Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                             "commands.music.play.load.title", "⭕",
                             "commands.music.play.load.description", "").build()).complete();
-                    AudioManager.loadTrack(input, event, msg);
+                    new AudioManager().loadTrack(input, event, msg);
                 } catch (Exception ignore) {
                     Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                             "commands.music.play.load.title", "⏯",
                             "commands.music.play.load.description", "").build()).complete();
-                    AudioManager.loadTrack("ytsearch: " + input, event, msg);
+                    new AudioManager().loadTrack("ytsearch: " + input, event, msg);
                 }
             } else {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
@@ -44,6 +52,7 @@ public class PlayCommand implements Command {
                         .build()).queue();
             }
         } else event.getHelpCommand().sendHelp(this, event);
+
 
         /* OUTSOURCE THIS
         Guild guild = event.getGuild();
