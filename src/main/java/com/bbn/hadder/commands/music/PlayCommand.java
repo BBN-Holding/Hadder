@@ -18,7 +18,6 @@ public class PlayCommand implements Command {
     private static final String CD = "\uD83D\uDCBF";
     private static final String MIC = "\uD83C\uDFA4 **|>** "; */
 
-
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length > 0) {
@@ -48,9 +47,6 @@ public class PlayCommand implements Command {
 
         /* OUTSOURCE THIS
         Guild guild = event.getGuild();
-        if (args.length == 1) {
-            switch (args[0].toLowerCase()) {
-                case "info":
                     if (!hasPlayer(guild) || getPlayer(guild).getPlayingTrack() == null) { // No song is playing
                         event.getTextChannel().sendMessage("No song is being played at the moment! *It's your time to shine..*").queue();
                     } else {
@@ -59,21 +55,7 @@ public class PlayCommand implements Command {
                                 "\n\u23F1 **|>** `[ " + getTimestamp(track.getPosition()) + " / " + getTimestamp(track.getInfo().length) + " ]`",
                                 "\n" + MIC, getOrNull(track.getInfo().author),
                                 "\n\uD83C\uDFA7 **|>**  " + "")).queue();
-                    }
-                    break;
-
-                case "queue":
-                    if (!hasPlayer(guild) || getTrackManager(guild).getQueuedTracks().isEmpty()) {
-                        event.getTextChannel().sendMessage("The queue is empty! Load a song with **"
-                                + "dd" + "music play**!").queue();
-                    } else {
-                        StringBuilder sb = new StringBuilder();
-                        Set<AudioInfo> queue = getTrackManager(guild).getQueuedTracks();
-                        queue.forEach(audioInfo -> sb.append(buildQueueMessage(audioInfo)));
-                    }
-                    break;
-            }
-        } */
+        }*/
 
     }
 

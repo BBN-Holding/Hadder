@@ -91,6 +91,7 @@ public class Hadder {
                         new ClydeCommand(),
                         new PlayCommand(),
                         new StarBoardCommand(),
+                        new QueueCommand(),
                         new StopCommand()), config, helpCommand);
 
         builder.addEventListeners(
