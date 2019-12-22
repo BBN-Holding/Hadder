@@ -88,6 +88,7 @@ public class Hadder {
                         new AboutCommand(),
                         new LanguageCommand(),
                         new ClydeCommand(),
+                        new PlayCommand(),
                         new StarBoardCommand()), config, helpCommand);
 
         builder.addEventListeners(
