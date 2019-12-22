@@ -1,7 +1,9 @@
 package com.bbn.hadder.commands.music;
 
+import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.utils.MessageEditor;
 
 /**
  * @author Skidder / GregTCLTK
@@ -11,7 +13,13 @@ public class StopCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-
+        AudioManager.players.remove(event.getGuild().getId());
+        AudioManager.getPlayer(event.getGuild()).destroy();
+        AudioManager.getTrackManager(event.getGuild()).purgeQueue();
+        event.getGuild().getAudioManager().closeAudioConnection();
+        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                "commands.music.stop.success.title",
+                "commands.music.stop.success.description").build()).queue();
     }
 
     @Override
@@ -21,7 +29,7 @@ public class StopCommand implements Command {
 
     @Override
     public String description() {
-        return "Stops the song";
+        return "commands.music.stop.help.description";
     }
 
     @Override
