@@ -1,29 +1,13 @@
 package com.bbn.hadder.commands.music;
 
-import com.bbn.hadder.audio.AudioInfo;
 import com.bbn.hadder.audio.AudioManager;
-import com.bbn.hadder.audio.AudioPlayerSendHandler;
-import com.bbn.hadder.audio.TrackManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.net.URL;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
 
-import static com.bbn.hadder.audio.AudioManager.myManager;
 
 /**
  * @author Skidder / GregTCLTK
