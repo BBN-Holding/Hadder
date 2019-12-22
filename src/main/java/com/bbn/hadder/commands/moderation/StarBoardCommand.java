@@ -14,7 +14,7 @@ public class StarBoardCommand implements Command {
             event.getChannel().sendMessage(
                     event.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
-                                            "commands.moderation.starboard.successchannel","")
+                                            "commands.moderation.starboard.success.title","")
                             .build())
                     .queue();
         } else {
