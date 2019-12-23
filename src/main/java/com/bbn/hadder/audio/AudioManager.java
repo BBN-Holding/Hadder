@@ -24,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 
 public class AudioManager {
 
-
     public AudioManager() {
         AudioSourceManagers.registerRemoteSources(myManager);
     }
