@@ -14,10 +14,6 @@ import java.net.URL;
 
 public class PlayCommand implements Command {
 
-    /*
-    private static final String CD = "\uD83D\uDCBF";
-    private static final String MIC = "\uD83C\uDFA4 **|>** "; */
-
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length > 0) {
@@ -43,20 +39,6 @@ public class PlayCommand implements Command {
                         .build()).queue();
             }
         } else event.getHelpCommand().sendHelp(this, event);
-
-
-        /* OUTSOURCE THIS
-        Guild guild = event.getGuild();
-                    if (!hasPlayer(guild) || getPlayer(guild).getPlayingTrack() == null) { // No song is playing
-                        event.getTextChannel().sendMessage("No song is being played at the moment! *It's your time to shine..*").queue();
-                    } else {
-                        AudioTrack track = getPlayer(guild).getPlayingTrack();
-                        event.getTextChannel().sendMessage("Track Info" + String.format(QUEUE_DESCRIPTION, CD, getOrNull(track.getInfo().title),
-                                "\n\u23F1 **|>** `[ " + getTimestamp(track.getPosition()) + " / " + getTimestamp(track.getInfo().length) + " ]`",
-                                "\n" + MIC, getOrNull(track.getInfo().author),
-                                "\n\uD83C\uDFA7 **|>**  " + "")).queue();
-        }*/
-
     }
 
     @Override

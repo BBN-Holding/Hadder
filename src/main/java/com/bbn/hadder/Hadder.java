@@ -92,6 +92,7 @@ public class Hadder {
                         new PlayCommand(),
                         new StarBoardCommand(),
                         new QueueCommand(),
+                        new InfoCommand(),
                         new StopCommand()), config, helpCommand);
 
         builder.addEventListeners(

@@ -111,4 +111,8 @@ public class AudioManager {
         return nPlayer;
     }
 
+    public String getOrNull(String s) {
+        return s.isEmpty() ? "N/A" : s;
+    }
+
 }
