@@ -57,6 +57,7 @@ public class Hadder {
                         new RebootCommand(),
                         new EqualsCommand(),
                         new InviteCommand(),
+                        new ScreenShareCommand(),
                         new NickCommand(),
                         new PrefixCommand(),
                         new BlowjobCommand(),
@@ -88,7 +89,11 @@ public class Hadder {
                         new AboutCommand(),
                         new LanguageCommand(),
                         new ClydeCommand(),
-                        new StarBoardCommand()), config, helpCommand);
+                        new PlayCommand(),
+                        new StarBoardCommand(),
+                        new QueueCommand(),
+                        new InfoCommand(),
+                        new StopCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),

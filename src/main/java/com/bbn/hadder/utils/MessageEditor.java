@@ -56,7 +56,7 @@ public class MessageEditor {
         switch (type) {
             case INFO:
                 builder
-                        .setColor(new Color(47, 94, 105))
+                        .setColor(new Color(78, 156, 174))
                         .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
                         .setTimestamp(Instant.now());
                 break;
