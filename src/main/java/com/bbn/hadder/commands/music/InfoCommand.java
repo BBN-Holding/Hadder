@@ -13,15 +13,18 @@ public class InfoCommand implements Command {
 
     private static final String CD = "\uD83D\uDCBF";
     private static final String MIC = "\uD83C\uDFA4";
-
-    private static final String QUEUE_TITLE = "__%s has added %d new track%s to the Queue:__";
     private static final String QUEUE_DESCRIPTION = "%s **|>**  %s\n%s\n%s %s\n%s";
-    private static final String QUEUE_INFO = "Info about the Queue: (Size - %d)";
-    private static final String ERROR = "Error while loading \"%s\"";
+
     @Override
     public void executed(String[] args, CommandEvent event) {
+        if (new AudioManager().hasPlayer(event.getGuild())) {
+            event.getTextChannel().sendMessage("Ja Player is auch wieder da");
+        }
+        if (new AudioManager().getPlayer(event.getGuild()).getPlayingTrack() == null) {
+            event.getTextChannel().sendMessage("Joo playing track net anwesend^^").queue();
+        }
         if (!new AudioManager().hasPlayer(event.getGuild()) || new AudioManager().getPlayer(event.getGuild()).getPlayingTrack() == null) {
-            event.getTextChannel().sendMessage("No song is being played at the moment! *It's your time to shine..*").queue();
+            event.getTextChannel().sendMessage("Shut up eyyyy du kek").queue();
         } else {
             AudioTrack track = new AudioManager().getPlayer(event.getGuild()).getPlayingTrack();
             event.getTextChannel().sendMessage("Track Info" + String.format(QUEUE_DESCRIPTION, CD, new AudioManager().getOrNull(track.getInfo().title),
