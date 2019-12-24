@@ -96,7 +96,9 @@ public class RulesCommand implements Command {
                     }, event.getJDA(), event.getAuthor());
                 }, event.getJDA(), event.getAuthor());
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION)
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        "commands.moderation.rules.error.message.title",
+                        "commands.moderation.rules.error.message.description")
                         .build()).queue();
             }
         } else {
