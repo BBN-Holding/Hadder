@@ -4,6 +4,7 @@ import com.bbn.hadder.Rethink;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.commands.general.HelpCommand;
+import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -34,7 +35,7 @@ public class CommandHandler {
                     if (args.length > 0 && args[0].equals("")) args = new String[0];
 
                     CommandEvent commandEvent = new CommandEvent(event.getJDA(), event.getResponseNumber(), event.getMessage(), rethink,
-                            config, this, helpCommand, new MessageEditor(rethink, event.getAuthor()));
+                            config, this, helpCommand, new MessageEditor(rethink, event.getAuthor()), new EventWaiter());
                     if (cmd.getClass().getAnnotations().length > 0 && !Arrays.asList(cmd.getClass().getAnnotations()).contains(Perms.class)) {
                         for (Perm perm : cmd.getClass().getAnnotation(Perms.class).value()) {
                             if (!perm.check(commandEvent)) {
