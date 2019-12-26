@@ -94,6 +94,7 @@ public class Hadder {
                         new QueueCommand(),
                         new InfoCommand(),
                         new SkipCommand(),
+                        new EditRulesCommand(),
                         new StopCommand()), config, helpCommand);
 
         builder.addEventListeners(
