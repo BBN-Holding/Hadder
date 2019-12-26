@@ -34,8 +34,8 @@ public class EqualsCommand implements Command {
                                 .addField(event.getMessageEditor().getTerm( "commands.general.equals.string.second"), secondString, false)
                                 .addField(event.getMessageEditor().getTerm( "commands.general.equals.string.result"), String.valueOf(firstString.equals(secondString)), false)
                                 .build()).queue();
-            }, event.getJDA(), event.getAuthor());
-        }, event.getJDA(), event.getAuthor());
+            }, event);
+        }, event);
     }
 
     @Override

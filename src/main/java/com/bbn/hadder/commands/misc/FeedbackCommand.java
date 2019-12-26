@@ -48,8 +48,8 @@ public class FeedbackCommand implements Command {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                }, event.getJDA(), event.getAuthor());
-            }, event.getJDA(), event.getAuthor());
+                }, event);
+            }, event);
 
     }
 

@@ -21,7 +21,7 @@ public class ScreenShareCommand implements Command {
                     try {
                         if (vc.getIdLong() == Long.parseLong(args[0])) {
                             event.getChannel().sendMessage(event.getMessageEditor().getMessage(
-                                MessageEditor.MessageType.INFO, 
+                                MessageEditor.MessageType.INFO,
                                 "commands.misc.screenshare.success.title", "")
                                     .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + vc.getId() + "/").build()).queue();
                             return;
@@ -56,7 +56,7 @@ public class ScreenShareCommand implements Command {
                             event.getChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.id.error.title", "commands.misc.screenshare.number.error.description").build()).queue();
                             event.getHelpCommand().sendHelp(this, event);
                         }
-                    }, event.getJDA(), event.getAuthor());
+                    }, event);
                 } else if (vcs.size()==0) {
                     event.getChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.channel.existing.error", "commands.misc.screenshare.channel.existing.description").build()).queue();
                     event.getHelpCommand().sendHelp(this, event);
