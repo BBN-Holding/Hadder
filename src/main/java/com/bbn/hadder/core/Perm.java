@@ -52,10 +52,10 @@ public enum Perm {
             return event.getMember().hasPermission(Permission.MANAGE_ROLES) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
         }
         },
-    CHANGE_NICKNAME {
+    MANAGE_NICKNAMES {
         @Override
         public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.NICKNAME_CHANGE) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+            return event.getMember().hasPermission(Permission.NICKNAME_MANAGE) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
         }
         },
     ADMINISTRATOR {
