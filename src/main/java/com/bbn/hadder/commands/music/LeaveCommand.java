@@ -15,14 +15,14 @@ public class LeaveCommand implements Command {
         if (event.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
             event.getGuild().getAudioManager().closeAudioConnection();
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                MessageEditor.MessageType.INFO,
-                "commands.music.leave.success.title",
+                MessageEditor.MessageType.INFO, 
+                "commands.music.leave.success.title", 
                 "commands.music.leave.success.description")
                     .build()).queue();
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                MessageEditor.MessageType.WARNING,
-                "commands.music.leave.error.tile",
+                MessageEditor.MessageType.WARNING, 
+                "commands.music.leave.error.tile", 
                 "commands.music.leave.error.description")
                     .build()).queue();
         }
@@ -30,7 +30,7 @@ public class LeaveCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"leave", "quit"};
+        return new String[]{"leave"};
     }
 
     @Override

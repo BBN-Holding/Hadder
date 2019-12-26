@@ -53,7 +53,7 @@ public class RulesCommand implements Command {
                                         .build()).queue();
                     }
                 }
-            }, event);
+            }, event.getJDA(), event.getAuthor());
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
         }
@@ -93,8 +93,8 @@ public class RulesCommand implements Command {
                                             "commands.moderation.rules.role.error.description")
                                     .build()).queue();
                         }
-                    }, event);
-                }, event);
+                    }, event.getJDA(), event.getAuthor());
+                }, event.getJDA(), event.getAuthor());
             } else {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.moderation.rules.error.message.title",
@@ -165,7 +165,7 @@ public class RulesCommand implements Command {
                                             "commands.moderation.rules.emote.error.equal.description")
                                     .build()).queue();
                         }
-                    }, event);
+                    }, event.getJDA(), event.getAuthor());
                 } else {
                     String aemote = event4.getMessage().getContentRaw();
                     event4.getChannel().sendMessage(
@@ -210,10 +210,9 @@ public class RulesCommand implements Command {
                                             "commands.moderation.rules.emote.error.equal.description")
                                     .build()).queue();
                         }
-                    }, event
-                    );
+                    }, event.getJDA(), event.getAuthor());
                 }
-            }, event);
+            }, event.getJDA(), event.getAuthor());
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
         }

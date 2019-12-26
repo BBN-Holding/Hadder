@@ -4,7 +4,6 @@ import com.bbn.hadder.Rethink;
 import com.bbn.hadder.commands.general.HelpCommand;
 import com.bbn.hadder.core.CommandHandler;
 import com.bbn.hadder.core.Config;
-import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
@@ -19,16 +18,14 @@ public class CommandEvent extends MessageReceivedEvent {
     private CommandHandler commandHandler;
     private HelpCommand helpCommand;
     private MessageEditor messageEditor;
-    private EventWaiter eventWaiter;
 
-    public CommandEvent(@Nonnull JDA api, long responseNumber, @Nonnull Message message, Rethink rethink, Config config, CommandHandler commandHandler, HelpCommand helpCommand, MessageEditor messageEditor, EventWaiter eventWaiter) {
+    public CommandEvent(@Nonnull JDA api, long responseNumber, @Nonnull Message message, Rethink rethink, Config config, CommandHandler commandHandler, HelpCommand helpCommand, MessageEditor messageEditor) {
         super(api, responseNumber, message);
         this.rethink = rethink;
         this.config = config;
         this.commandHandler = commandHandler;
         this.helpCommand = helpCommand;
         this.messageEditor = messageEditor;
-        this.eventWaiter = eventWaiter;
     }
 
     public Rethink getRethink() {
@@ -49,9 +46,5 @@ public class CommandEvent extends MessageReceivedEvent {
 
     public MessageEditor getMessageEditor() {
         return messageEditor;
-    }
-
-    public EventWaiter getEventWaiter() {
-        return eventWaiter;
     }
 }
