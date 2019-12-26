@@ -208,7 +208,7 @@ public class Rethink {
     }
 
     public void setLanguage(String user_id, String language) {
-        this.update("users", user_id, "language", language);
+        this.update("user", user_id, "language", language);
     }
 
     public String getLanguage(String user_id) {
