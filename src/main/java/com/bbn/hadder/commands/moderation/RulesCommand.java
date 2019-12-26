@@ -29,7 +29,7 @@ public class RulesCommand implements Command {
                             "commands.moderation.rules.setup.title",
                             "commands.moderation.rules.setup.description")
                             .build()).queue();
-            new EventWaiter().newOnMessageEventWaiter(event1 -> {
+            event.getEventWaiter().newOnMessageEventWaiter(event1 -> {
                 if (event1.getMessage().getMentionedChannels().size() == 1) {
                     try {
                         TextChannel channel = event1.getMessage().getMentionedChannels().get(0);
@@ -70,7 +70,7 @@ public class RulesCommand implements Command {
                                 "commands.moderation.rules.rules.description",
                                 channel.getName())
                         .build()).queue();
-                new EventWaiter().newOnMessageEventWaiter(event2 -> {
+                event.getEventWaiter().newOnMessageEventWaiter(event2 -> {
                     String message = event2.getMessage().getContentRaw();
                     event2.getChannel().sendMessage(
                             event.getMessageEditor().getMessage(
@@ -120,7 +120,7 @@ public class RulesCommand implements Command {
                             "",
                             "commands.moderation.rules.emote.accept.description", role.getName())
                     .build()).queue();
-            new EventWaiter().newOnMessageEventWaiter(event4 -> {
+            event.getEventWaiter().newOnMessageEventWaiter(event4 -> {
                 if (event4.getMessage().getEmotes().size() == 1) {
                     Emote aemote = event4.getMessage().getEmotes().get(0);
                     event4.getChannel().sendMessage(
@@ -129,7 +129,7 @@ public class RulesCommand implements Command {
                                     "commands.moderation.rules.emote.decline.title", "",
                                     "commands.moderation.rules.emote.decline.title", String.valueOf(aemote))
                             .build()).queue();
-                    new EventWaiter().newOnMessageEventWaiter(event5 -> {
+                    event.getEventWaiter().newOnMessageEventWaiter(event5 -> {
                         Emote demote = event5.getMessage().getEmotes().get(0);
                         if (!aemote.equals(demote)) {
                             Message rules = channel.sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
@@ -174,7 +174,7 @@ public class RulesCommand implements Command {
                                     "commands.moderation.rules.emote.decline.title",
                                     "commands.moderation.rules.emoji.decline.description")
                             .build()).queue();
-                    new EventWaiter().newOnMessageEventWaiter(event5 -> {
+                    event.getEventWaiter().newOnMessageEventWaiter(event5 -> {
                         String demote = event5.getMessage().getContentRaw();
                         if (!aemote.equals(demote)) {
                             Message rules = channel.sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
