@@ -51,8 +51,8 @@ public class EditRulesCommand implements Command {
                                             .build()).queue();
                         }
                     }
-                }, event);
-            }, event);
+                }, event.getJDA(), event.getAuthor());
+            }, event.getJDA(), event.getAuthor());
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.moderation.editrules.error.title", "",
