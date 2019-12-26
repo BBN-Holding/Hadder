@@ -37,6 +37,7 @@ public class FeedbackCommand implements Command {
                     GitHub connection = GitHub.connectUsingOAuth(event.getConfig().getGitHubToken());
                     GHRepository Hadder = connection.getOrganization("BigBotNetwork").getRepository("Hadder");
                     GHIssue issue = Hadder.createIssue(title).body("<strong>Feedback by " + event.getAuthor().getAsTag() + "</strong><br>" + description).label("feedback").create();
+                    issue.addLabels("feedback");
                     event.getTextChannel().sendMessage(
                             event.getMessageEditor().getMessage(
                                     MessageEditor.MessageType.INFO,
