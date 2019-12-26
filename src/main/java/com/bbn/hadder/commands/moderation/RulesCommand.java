@@ -127,7 +127,7 @@ public class RulesCommand implements Command {
                             event.getMessageEditor().getMessage(
                                     MessageEditor.MessageType.INFO,
                                     "commands.moderation.rules.emote.decline.title", "",
-                                    "commands.moderation.rules.emote.decline.title", String.valueOf(aemote))
+                                    "commands.moderation.rules.emote.decline.description", String.valueOf(aemote))
                             .build()).queue();
                     event.getEventWaiter().newOnMessageEventWaiter(event5 -> {
                         Emote demote = event5.getMessage().getEmotes().get(0);
