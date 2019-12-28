@@ -5,6 +5,7 @@ package com.bbn.hadder.commands.owner;
  */
 
 import com.bbn.hadder.Hadder;
+import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
@@ -43,6 +44,7 @@ public class EvalCommand implements Command {
             engine.put("author", event.getAuthor());
             engine.put("member", event.getMember());
             engine.put("self", event.getGuild().getSelfMember());
+            engine.put("audio", new AudioManager());
 
             ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 

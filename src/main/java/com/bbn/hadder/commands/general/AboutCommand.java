@@ -24,7 +24,7 @@ public class AboutCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"about", "info"};
+        return new String[]{"about"};
     }
 
     @Override

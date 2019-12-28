@@ -57,6 +57,7 @@ public class Hadder {
                         new RebootCommand(),
                         new EqualsCommand(),
                         new InviteCommand(),
+                        new ScreenShareCommand(),
                         new NickCommand(),
                         new PrefixCommand(),
                         new BlowjobCommand(),
@@ -88,7 +89,13 @@ public class Hadder {
                         new AboutCommand(),
                         new LanguageCommand(),
                         new ClydeCommand(),
-                        new StarBoardCommand()), config, helpCommand);
+                        new PlayCommand(),
+                        new StarBoardCommand(),
+                        new QueueCommand(),
+                        new InfoCommand(),
+                        new SkipCommand(),
+                        new EditRulesCommand(),
+                        new StopCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
@@ -98,7 +105,8 @@ public class Hadder {
                 new ReadyListener(rethink, config),
                 new InviteLinkListener(rethink),
                 new RulesListener(rethink),
-                new StarboardListener(rethink));
+                new StarboardListener(rethink),
+                new VoiceLeaveListener());
 
         try {
             shardManager = builder.build();
