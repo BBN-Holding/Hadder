@@ -26,7 +26,7 @@ public class BanCommand implements Command {
                                 event.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
                                         "commands.moderation.ban.success.title",
-                                        "✅",
+                                        "",
                                         "commands.moderation.ban.success.description",
                                         victim.getUser().getName() + ".").build()).queue();
                     } else {
@@ -74,7 +74,7 @@ public class BanCommand implements Command {
             }
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.moderation.ban.success.title",
-                    "✅",
+                    "",
                     "commands.moderation.ban.massban.success.description",
                     String.valueOf(event.getMessage().getMentionedMembers().size())).build()).queue();
         }

@@ -30,17 +30,21 @@ public class AudioManager {
         AudioSourceManagers.registerRemoteSources(myManager);
     }
 
-    public static Map<String, Map.Entry<AudioPlayer, TrackManager>> players = new HashMap<>();
+    public Map<String, Map.Entry<AudioPlayer, TrackManager>> players = new HashMap<>();
     private final AudioPlayerManager myManager = new DefaultAudioPlayerManager();
 
     public boolean hasPlayer(Guild guild) {
         return players.containsKey(guild.getId());
     }
 
-    public static void removePlayer(Guild g) {
+    public void removePlayer(Guild g) {
         System.out.println(players.toString());
         players.remove(g.getId());
         System.out.println(players.toString());
+    }
+
+    public Map<String, Map.Entry<AudioPlayer, TrackManager>> getPlayers () {
+        return players;
     }
 
     public AudioPlayer getPlayer(Guild guild) {

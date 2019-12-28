@@ -14,7 +14,7 @@ public class StopCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (new AudioManager().hasPlayer(event.getGuild())) {
-            AudioManager.removePlayer(event.getGuild());
+            new AudioManager().players.remove(event.getGuild().getId());
             new AudioManager().getPlayer(event.getGuild()).destroy();
             new AudioManager().getTrackManager(event.getGuild()).purgeQueue();
             event.getGuild().getAudioManager().closeAudioConnection();
