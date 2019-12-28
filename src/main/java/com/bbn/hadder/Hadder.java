@@ -1,5 +1,6 @@
 package com.bbn.hadder;
 
+import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.general.*;
 import com.bbn.hadder.commands.misc.*;
 import com.bbn.hadder.commands.moderation.*;
@@ -41,6 +42,7 @@ public class Hadder {
         builder.setToken(config.getBotToken());
 
         HelpCommand helpCommand = new HelpCommand();
+        AudioManager audioManager = new AudioManager();
 
         CommandHandler commandHandler = new CommandHandler(
                 List.of(
@@ -100,12 +102,13 @@ public class Hadder {
         builder.addEventListeners(
                 new MentionListener(rethink),
                 new PrivateMessageListener(rethink),
-                new CommandListener(rethink, commandHandler),
+                new CommandListener(rethink, commandHandler, audioManager),
                 new GuildListener(rethink, config),
                 new ReadyListener(rethink, config),
                 new InviteLinkListener(rethink),
                 new RulesListener(rethink),
-                new StarboardListener(rethink));
+                new StarboardListener(rethink),
+                new VoiceLeaveListener(audioManager));
 
         try {
             shardManager = builder.build();

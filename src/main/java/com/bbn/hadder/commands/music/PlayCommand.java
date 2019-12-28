@@ -1,6 +1,5 @@
 package com.bbn.hadder.commands.music;
 
-import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
@@ -24,12 +23,12 @@ public class PlayCommand implements Command {
                     Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                             "commands.music.play.load.title", "⭕",
                             "commands.music.play.load.description", "").build()).complete();
-                    new AudioManager().loadTrack(input, event, msg);
+                    event.getAudioManager().loadTrack(input, event, msg);
                 } catch (Exception ignore) {
                     Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                             "commands.music.play.load.title", "⭕",
                             "commands.music.play.load.description", "").build()).complete();
-                    new AudioManager().loadTrack("ytsearch: " + input, event, msg);
+                    event.getAudioManager().loadTrack("ytsearch: " + input, event, msg);
                 }
             } else {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
