@@ -13,10 +13,10 @@ public class StopCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (new AudioManager().hasPlayer(event.getGuild())) {
-            new AudioManager().players.remove(event.getGuild().getId());
-            new AudioManager().getPlayer(event.getGuild()).destroy();
-            new AudioManager().getTrackManager(event.getGuild()).purgeQueue();
+        if (event.getAudioManager().hasPlayer(event.getGuild())) {
+            event.getAudioManager().players.remove(event.getGuild().getId());
+            event.getAudioManager().getPlayer(event.getGuild()).destroy();
+            event.getAudioManager().getTrackManager(event.getGuild()).purgeQueue();
             event.getGuild().getAudioManager().closeAudioConnection();
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.music.stop.success.title",

@@ -18,11 +18,11 @@ public class InfoCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (new AudioManager().hasPlayer(event.getGuild()) && new AudioManager().getPlayer(event.getGuild()).getPlayingTrack() == null) {
-            AudioTrack track = new AudioManager().getPlayer(event.getGuild()).getPlayingTrack();
-            event.getTextChannel().sendMessage("Track Info" + String.format(QUEUE_DESCRIPTION, CD, new AudioManager().getOrNull(track.getInfo().title),
-                    "\n\u23F1 **|>** `[ " + new AudioManager().getTimestamp(track.getPosition()) + " / " + new AudioManager().getTimestamp(track.getInfo().length) + " ]`",
-                    "\n" + MIC, new AudioManager().getOrNull(track.getInfo().author),
+        if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() == null) {
+            AudioTrack track = event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack();
+            event.getTextChannel().sendMessage("Track Info" + String.format(QUEUE_DESCRIPTION, CD, event.getAudioManager().getOrNull(track.getInfo().title),
+                    "\n\u23F1 **|>** `[ " + event.getAudioManager().getTimestamp(track.getPosition()) + " / " + event.getAudioManager().getTimestamp(track.getInfo().length) + " ]`",
+                    "\n" + MIC, event.getAudioManager().getOrNull(track.getInfo().author),
                     "\n\uD83C\uDFA7 **|>**  " + "")).queue();
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,

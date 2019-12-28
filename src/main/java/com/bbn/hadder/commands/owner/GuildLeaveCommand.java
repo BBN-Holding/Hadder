@@ -29,11 +29,8 @@ public class GuildLeaveCommand implements Command {
             } catch (Exception e) {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.owner.guildleave.error.title", "", "commands.owner.guildleave.help.description", guild.getName()).build()).queue();
             }
-<<<<<<< Updated upstream
         } else {
             event.getHelpCommand().sendHelp(this, event);
-=======
->>>>>>> Stashed changes
         }
     }
 
