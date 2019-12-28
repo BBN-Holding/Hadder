@@ -12,7 +12,7 @@ public class StopCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getAudioManager().hasPlayer(event.getGuild())) {
+        if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() == null) {
             event.getAudioManager().players.remove(event.getGuild().getId());
             event.getAudioManager().getPlayer(event.getGuild()).destroy();
             event.getAudioManager().getTrackManager(event.getGuild()).purgeQueue();
@@ -21,7 +21,9 @@ public class StopCommand implements Command {
                     "commands.music.stop.success.title",
                     "commands.music.stop.success.description").build()).queue();
         } else {
-            event.getTextChannel().sendMessage("I love you <3").queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                    "commands.music.info.error.title",
+                    "commands.music.info.error.description").build()).queue();
         }
     }
 

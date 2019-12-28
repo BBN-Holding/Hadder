@@ -136,14 +136,6 @@ public class AudioManager {
         return getTrackManager(member.getGuild()).getTrackInfo(getPlayer(member.getGuild()).getPlayingTrack()).getAuthor().equals(member);
     }
 
-    public boolean isIdle(CommandEvent event) {
-        if (!hasPlayer(event.getGuild()) || getPlayer(event.getGuild()).getPlayingTrack() == null) {
-            event.getTextChannel().sendMessage(" Idle no song lul :D").queue();
-            return true;
-        }
-        return false;
-    }
-
     public void forceSkipTrack(CommandEvent event) {
         getPlayer(event.getGuild()).stopTrack();
         event.getTextChannel().sendMessage("Skipped boyy :D").queue();
