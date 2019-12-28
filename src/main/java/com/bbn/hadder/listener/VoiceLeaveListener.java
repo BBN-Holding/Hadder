@@ -1,7 +1,6 @@
 package com.bbn.hadder.listener;
 
 import com.bbn.hadder.audio.AudioManager;
-import com.bbn.hadder.audio.TrackManager;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -11,14 +10,19 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class VoiceLeaveListener extends ListenerAdapter {
 
+    private AudioManager audioManager;
+
+    public VoiceLeaveListener(AudioManager audioManager) {
+        this.audioManager = audioManager;
+    }
+
     @Override
     public void onGuildVoiceLeave(GuildVoiceLeaveEvent event) {
-        if (new AudioManager().hasPlayer(event.getGuild())) {
-            TrackManager manager = new AudioManager().getTrackManager(event.getGuild());
-            manager.getQueuedTracks().stream()
-                    .filter(info -> !info.getTrack().equals(new AudioManager().getPlayer(event.getGuild()).getPlayingTrack())
-                            && info.getAuthor().getUser().equals(event.getMember().getUser()))
-                    .forEach(manager::remove);
+        if (new AudioManager().hasPlayer(event.getGuild()) && event.getChannelLeft().getMembers().equals(event.getGuild().getSelfMember())) {
+            audioManager.players.remove(event.getGuild().getId());
+            audioManager.getPlayer(event.getGuild()).destroy();
+            audioManager.getTrackManager(event.getGuild()).purgeQueue();
+            event.getGuild().getAudioManager().closeAudioConnection();
         }
     }
 }
