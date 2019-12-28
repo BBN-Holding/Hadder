@@ -98,7 +98,15 @@ public class AudioManager {
                 } else if (playlist.isSearchResult()) {
                     trackLoaded(playlist.getTracks().get(0));
                 } else {
-                    event.getTextChannel().sendMessage("PL loaded :D").queue();
+                    for (int i = 0; i < Math.min(playlist.getTracks().size(), 69); i++) {
+                        getTrackManager(guild).queue(playlist.getTracks().get(i), event.getMember());
+                    }
+                    msg.editMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                            "commands.music.play.success.loading.title", "⏯",
+                            "", "")
+                            .addField(event.getMessageEditor().getTerm("commands.music.play.success.title"), playlist.getName(), true)
+                            .addField(event.getMessageEditor().getTerm("commands.music.play.success.tracks"), String.valueOf(playlist.getTracks().size()), true)
+                            .build()).queue();
                 }
             }
 
@@ -139,13 +147,6 @@ public class AudioManager {
     public void forceSkipTrack(CommandEvent event) {
         getPlayer(event.getGuild()).stopTrack();
         event.getTextChannel().sendMessage("Skipped boyy :D").queue();
-    }
-
-    public String buildQueueMessage(AudioInfo info) {
-        AudioTrackInfo trackInfo = info.getTrack().getInfo();
-        String title = trackInfo.title;
-        long length = trackInfo.length;
-        return "`[ " + getTimestamp(length) + " ]` " + title + "\n";
     }
 
     public String getTimestamp(long milis) {
