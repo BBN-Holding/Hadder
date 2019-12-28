@@ -31,10 +31,16 @@ public class AudioManager {
     }
 
     public static Map<String, Map.Entry<AudioPlayer, TrackManager>> players = new HashMap<>();
-    public final AudioPlayerManager myManager = new DefaultAudioPlayerManager();
+    private final AudioPlayerManager myManager = new DefaultAudioPlayerManager();
 
     public boolean hasPlayer(Guild guild) {
         return players.containsKey(guild.getId());
+    }
+
+    public static void removePlayer(Guild g) {
+        System.out.println(players.toString());
+        players.remove(g.getId());
+        System.out.println(players.toString());
     }
 
     public AudioPlayer getPlayer(Guild guild) {

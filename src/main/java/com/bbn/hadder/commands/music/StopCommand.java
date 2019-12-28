@@ -13,13 +13,17 @@ public class StopCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        AudioManager.players.remove(event.getGuild().getId());
-        new AudioManager().getPlayer(event.getGuild()).destroy();
-        new AudioManager().getTrackManager(event.getGuild()).purgeQueue();
-        event.getGuild().getAudioManager().closeAudioConnection();
-        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                "commands.music.stop.success.title",
-                "commands.music.stop.success.description").build()).queue();
+        if (new AudioManager().hasPlayer(event.getGuild())) {
+            AudioManager.removePlayer(event.getGuild());
+            new AudioManager().getPlayer(event.getGuild()).destroy();
+            new AudioManager().getTrackManager(event.getGuild()).purgeQueue();
+            event.getGuild().getAudioManager().closeAudioConnection();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    "commands.music.stop.success.title",
+                    "commands.music.stop.success.description").build()).queue();
+        } else {
+            event.getTextChannel().sendMessage("I love you <3").queue();
+        }
     }
 
     @Override
