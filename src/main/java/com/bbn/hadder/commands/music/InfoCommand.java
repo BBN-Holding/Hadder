@@ -1,6 +1,5 @@
 package com.bbn.hadder.commands.music;
 
-import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
@@ -20,6 +19,7 @@ public class InfoCommand implements Command {
     public void executed(String[] args, CommandEvent event) {
         if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() == null) {
             AudioTrack track = event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "", "", "", "").build()).queue();
             event.getTextChannel().sendMessage("Track Info" + String.format(QUEUE_DESCRIPTION, CD, event.getAudioManager().getOrNull(track.getInfo().title),
                     "\n\u23F1 **|>** `[ " + event.getAudioManager().getTimestamp(track.getPosition()) + " / " + event.getAudioManager().getTimestamp(track.getInfo().length) + " ]`",
                     "\n" + MIC, event.getAudioManager().getOrNull(track.getInfo().author),

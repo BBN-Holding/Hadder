@@ -42,7 +42,6 @@ public class Hadder {
         builder.setToken(config.getBotToken());
 
         HelpCommand helpCommand = new HelpCommand();
-
         AudioManager audioManager = new AudioManager();
 
         CommandHandler commandHandler = new CommandHandler(
