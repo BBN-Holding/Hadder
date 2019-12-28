@@ -4,7 +4,6 @@ import com.bbn.hadder.audio.AudioInfo;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.Set;
 
@@ -23,14 +22,11 @@ public class QueueCommand implements Command {
             ).build()).queue();
         } else {
             Set<AudioInfo> queue = event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks();
-            EmbedBuilder b = event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                    "commands.music.queue.success.title",
-                    "commands.music.queue.success.description")
-                    .addField("Queued songs", String.valueOf(queue.size()), true);
+            StringBuilder builder = new StringBuilder();
             for (AudioInfo g : queue) {
-                b.addField(g.getTrack().getInfo().author, g.getTrack().getInfo().title, true);
+                builder.append("**").append(g.getTrack().getInfo().author).append("**: `").append(g.getTrack().getInfo().title).append("` \n");
             }
-            event.getTextChannel().sendMessage(b.build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.music.queue.success.title", "", "commands.music.queue.success.description", builder.toString()).build()).queue();
         }
     }
 
@@ -41,7 +37,7 @@ public class QueueCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows the music queue.";
+        return "commands.music.queue.help.description";
     }
 
     @Override
