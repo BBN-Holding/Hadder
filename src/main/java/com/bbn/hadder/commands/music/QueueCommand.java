@@ -17,13 +17,13 @@ public class QueueCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (!new AudioManager().hasPlayer(event.getGuild()) || new AudioManager().getTrackManager(event.getGuild()).getQueuedTracks().isEmpty()) {
+        if (!event.getAudioManager().hasPlayer(event.getGuild()) || event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks().isEmpty()) {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING,
                     "commands.music.queue.error.title",
                     "commands.music.queue.error.description"
             ).build()).queue();
         } else {
-            Set<AudioInfo> queue = new AudioManager().getTrackManager(event.getGuild()).getQueuedTracks();
+            Set<AudioInfo> queue = event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks();
             EmbedBuilder b = event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.music.queue.success.title",
                     "commands.music.queue.success.description")

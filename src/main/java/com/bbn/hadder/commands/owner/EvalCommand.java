@@ -45,6 +45,7 @@ public class EvalCommand implements Command {
             engine.put("member", event.getMember());
             engine.put("self", event.getGuild().getSelfMember());
             engine.put("audio", new AudioManager());
+            engine.put("out", System.out);
 
             ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 

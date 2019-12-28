@@ -13,7 +13,7 @@ public class SkipCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-
+        event.getAudioManager().forceSkipTrack(event);
     }
 
     @Override
