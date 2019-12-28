@@ -37,16 +37,6 @@ public class AudioManager {
         return players.containsKey(guild.getId());
     }
 
-    public void removePlayer(Guild g) {
-        System.out.println(players.toString());
-        players.remove(g.getId());
-        System.out.println(players.toString());
-    }
-
-    public Map<String, Map.Entry<AudioPlayer, TrackManager>> getPlayers () {
-        return players;
-    }
-
     public AudioPlayer getPlayer(Guild guild) {
         AudioPlayer p;
         if (hasPlayer(guild)) {
