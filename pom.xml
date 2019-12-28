@@ -5,7 +5,7 @@
 
   <groupId>Hadder</groupId>
   <artifactId>Hadder</artifactId>
-  <version>0.10-ALPHA</version>
+  <version>0.1-BETA</version>
 
   <name>Hadder</name>
 
@@ -19,7 +19,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>4.0.0_79</version>
+      <version>4.1.0_87</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>

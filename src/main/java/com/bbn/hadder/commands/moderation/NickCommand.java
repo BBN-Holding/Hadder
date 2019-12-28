@@ -12,7 +12,7 @@ import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 
-@Perms(Perm.CHANGE_NICKNAME)
+@Perms(Perm.MANAGE_NICKNAMES)
 public class NickCommand implements Command {
 
     @Override
