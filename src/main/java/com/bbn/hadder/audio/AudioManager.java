@@ -138,7 +138,6 @@ public class AudioManager {
 
     public void forceSkipTrack(CommandEvent event) {
         getPlayer(event.getGuild()).stopTrack();
-        event.getTextChannel().sendMessage("Skipped boyy :D").queue();
     }
 
     public String getTimestamp(long milis) {

@@ -26,7 +26,9 @@ public class QueueCommand implements Command {
             for (AudioInfo g : queue) {
                 builder.append("**").append(g.getTrack().getInfo().author).append("**: `").append(g.getTrack().getInfo().title).append("` \n");
             }
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.music.queue.success.title", "", "commands.music.queue.success.description", builder.toString()).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    "commands.music.queue.success.title", "",
+                    "commands.music.queue.success.description", builder.toString()).build()).queue();
         }
     }
 

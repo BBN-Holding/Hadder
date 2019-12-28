@@ -12,7 +12,7 @@ public class SkipCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (!event.getAudioManager().hasPlayer(event.getGuild()) || event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() == null) {
+        if (event.getAudioManager().hasPlayer(event.getGuild()) && !event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks().isEmpty()) {
             event.getAudioManager().forceSkipTrack(event);
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.music.skip.success.title",

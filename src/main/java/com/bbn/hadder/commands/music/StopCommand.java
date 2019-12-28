@@ -12,7 +12,7 @@ public class StopCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() == null) {
+        if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() != null) {
             event.getAudioManager().players.remove(event.getGuild().getId());
             event.getAudioManager().getPlayer(event.getGuild()).destroy();
             event.getAudioManager().getTrackManager(event.getGuild()).purgeQueue();
