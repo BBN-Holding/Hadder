@@ -5,6 +5,7 @@ package com.bbn.hadder.commands.owner;
  */
 
 import com.bbn.hadder.Hadder;
+import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
@@ -43,6 +44,8 @@ public class EvalCommand implements Command {
             engine.put("author", event.getAuthor());
             engine.put("member", event.getMember());
             engine.put("self", event.getGuild().getSelfMember());
+            engine.put("audio", event.getAudioManager());
+            engine.put("out", System.out);
 
             ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 
@@ -52,12 +55,12 @@ public class EvalCommand implements Command {
                 Object out;
 
                 try {
-                    String script = "";
+                    StringBuilder script = new StringBuilder();
                     for (int i = 0; i < args.length; i++) {
                         args[i] = args[i].replace("```java", "").replace("```", "");
-                        script += i == args.length - 1 ? args[i] : args[i] + " ";
+                        script.append(i == args.length - 1 ? args[i] : args[i] + " ");
                     }
-                    out = engine.eval(script);
+                    out = engine.eval(script.toString());
 
                     event.getTextChannel().sendMessage(event.getMessageEditor()
                             .getMessage(MessageEditor.MessageType.INFO, "commands.owner.eval.success.title", "")

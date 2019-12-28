@@ -1,6 +1,7 @@
 package com.bbn.hadder.core;
 
 import com.bbn.hadder.Rethink;
+import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.commands.general.HelpCommand;
@@ -23,7 +24,7 @@ public class CommandHandler {
         this.helpCommand = helpCommand;
     }
 
-    public void handle(MessageReceivedEvent event, Rethink rethink, String prefix) {
+    public void handle(MessageReceivedEvent event, Rethink rethink, String prefix, AudioManager audioManager) {
         String invoke = event.getMessage().getContentRaw().replaceFirst(prefix, "").split(" ")[0];
         for (Command cmd : commandList) {
             for (String label : cmd.labels()) {
@@ -35,7 +36,7 @@ public class CommandHandler {
                     if (args.length > 0 && args[0].equals("")) args = new String[0];
 
                     CommandEvent commandEvent = new CommandEvent(event.getJDA(), event.getResponseNumber(), event.getMessage(), rethink,
-                            config, this, helpCommand, new MessageEditor(rethink, event.getAuthor()), new EventWaiter());
+                            config, this, helpCommand, new MessageEditor(rethink, event.getAuthor()), new EventWaiter(), audioManager);
                     if (cmd.getClass().getAnnotations().length > 0 && !Arrays.asList(cmd.getClass().getAnnotations()).contains(Perms.class)) {
                         for (Perm perm : cmd.getClass().getAnnotation(Perms.class).value()) {
                             if (!perm.check(commandEvent)) {

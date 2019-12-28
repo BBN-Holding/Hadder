@@ -66,6 +66,6 @@ public class AvatarCommand implements Command {
 
     @Override
     public String usage() {
-        return "[@User]/[ID]";
+        return "user/id";
     }
 }

@@ -1,8 +1,8 @@
 package com.bbn.hadder.commands.music;
 
-import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.utils.MessageEditor;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 /**
@@ -11,46 +11,31 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 public class InfoCommand implements Command {
 
-    private static final String CD = "\uD83D\uDCBF";
-    private static final String MIC = "\uD83C\uDFA4";
-    private static final String QUEUE_DESCRIPTION = "%s **|>**  %s\n%s\n%s %s\n%s";
-
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (new AudioManager().hasPlayer(event.getGuild())) {
-            event.getTextChannel().sendMessage("Ja Player is auch wieder da");
-        }
-        if (new AudioManager().getPlayer(event.getGuild()).getPlayingTrack() == null) {
-            event.getTextChannel().sendMessage("Joo playing track net anwesend^^").queue();
-        }
-        if (!new AudioManager().hasPlayer(event.getGuild()) || new AudioManager().getPlayer(event.getGuild()).getPlayingTrack() == null) {
-            event.getTextChannel().sendMessage("Shut up eyyyy du kek").queue();
+        if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() != null) {
+            AudioTrack track = event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    "commands.music.info.success.title", "")
+                    .setAuthor(track.getInfo().author)
+                    .addField("Title", track.getInfo().title, true)
+                    .addField("Progress", "`[ " + event.getAudioManager().getTimestamp(track.getPosition()) + " / " + event.getAudioManager().getTimestamp(track.getInfo().length) + " ]`", false)
+                    .build()).queue();
         } else {
-            AudioTrack track = new AudioManager().getPlayer(event.getGuild()).getPlayingTrack();
-            event.getTextChannel().sendMessage("Track Info" + String.format(QUEUE_DESCRIPTION, CD, new AudioManager().getOrNull(track.getInfo().title),
-                    "\n\u23F1 **|>** `[ " + getTimestamp(track.getPosition()) + " / " + getTimestamp(track.getInfo().length) + " ]`",
-                    "\n" + MIC, new AudioManager().getOrNull(track.getInfo().author),
-                    "\n\uD83C\uDFA7 **|>**  " + "")).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                    "commands.music.info.error.title",
+                    "commands.music.info.error.description").build()).queue();
         }
-    }
-
-    private String getTimestamp(long milis) {
-        long seconds = milis / 1000;
-        long hours = Math.floorDiv(seconds, 3600);
-        seconds = seconds - (hours * 3600);
-        long mins = Math.floorDiv(seconds, 60);
-        seconds = seconds - (mins * 60);
-        return (hours == 0 ? "" : hours + ":") + String.format("%02d", mins) + ":" + String.format("%02d", seconds);
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"info"};
+        return new String[]{"info", "songinfo"};
     }
 
     @Override
     public String description() {
-        return "Shows information about the playing song";
+        return "commands.music.info.help.description";
     }
 
     @Override

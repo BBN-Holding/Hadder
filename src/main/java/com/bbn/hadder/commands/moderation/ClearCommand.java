@@ -50,13 +50,25 @@ public class ClearCommand implements Command {
                             List<Message> history = event.getTextChannel().getHistory().retrievePast(nbToDelete + 1).complete();
                             List<Message> msgToDelete = new ArrayList<>(history);
                             event.getTextChannel().deleteMessages(msgToDelete).queue();
-                            Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "", "", "commands.moderation.clear.success.description", String.valueOf(nbToDelete)).build()).complete();
-                            try {
-                                TimeUnit.SECONDS.sleep(2);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                            if (nbToDelete == 1) {
+                                Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.moderation.clear.success.title",
+                                        "commands.moderation.clear.success.description.singular").build()).complete();
+                                try {
+                                    TimeUnit.SECONDS.sleep(2);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                msg.delete().queue();
+                            } else {
+                                Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.moderation.clear.success.title", "",
+                                        "commands.moderation.clear.success.description.plural", String.valueOf(nbToDelete)).build()).complete();
+                                try {
+                                    TimeUnit.SECONDS.sleep(2);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                msg.delete().queue();
                             }
-                            msg.delete().queue();
                         }
                     } catch (NumberFormatException e) {
                         event.getHelpCommand().sendHelp(this, event);
