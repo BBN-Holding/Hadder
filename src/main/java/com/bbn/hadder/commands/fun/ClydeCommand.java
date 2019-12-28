@@ -53,6 +53,7 @@ public class ClydeCommand implements Command {
                     e.printStackTrace();
                 }
                 webhook.delete().queue();
+                event.getMessage().delete().queue();
             } else {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
             }
