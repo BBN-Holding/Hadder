@@ -17,12 +17,6 @@ public class TestCommand implements Command {
     }
 
     @Override
-    public HelpCommand.HelpInfo HELP_INFO() {
-        String[] d = {"d", "d"};
-        return new HelpCommand.HelpInfo(d, "", "", "");
-    }
-
-    @Override
     public String[] labels() {
         return new String[]{"test"};
     }
