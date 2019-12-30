@@ -92,6 +92,11 @@ public class BanCommand implements Command {
 
     @Override
     public String usage() {
-        return "user";
+        return "[User(s)]";
+    }
+
+    @Override
+    public String example() {
+        return "@Skidder";
     }
 }

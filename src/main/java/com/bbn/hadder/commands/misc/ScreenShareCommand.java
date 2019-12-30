@@ -21,7 +21,7 @@ public class ScreenShareCommand implements Command {
                     try {
                         if (vc.getIdLong() == Long.parseLong(args[0])) {
                             event.getChannel().sendMessage(event.getMessageEditor().getMessage(
-                                MessageEditor.MessageType.INFO, 
+                                MessageEditor.MessageType.INFO,
                                 "commands.misc.screenshare.success.title", "")
                                     .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + vc.getId() + "/").build()).queue();
                             return;
@@ -82,6 +82,11 @@ public class ScreenShareCommand implements Command {
 
     @Override
     public String usage() {
-        return "vc-name/id";
+        return "[Channel]";
+    }
+
+    @Override
+    public String example() {
+        return "Gaming-Lounge";
     }
 }

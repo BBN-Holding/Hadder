@@ -70,6 +70,11 @@ public class InviteDetectCommand implements Command {
 
     @Override
     public String usage() {
-        return "<on/off>";
+        return "[on/off]";
+    }
+
+    @Override
+    public String example() {
+        return "on";
     }
 }

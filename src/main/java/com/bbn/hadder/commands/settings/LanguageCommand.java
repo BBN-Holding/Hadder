@@ -64,6 +64,11 @@ public class LanguageCommand implements Command {
 
     @Override
     public String usage() {
-        return "commands.settings.language.help.usage";
+        return "[Language code]";
+    }
+
+    @Override
+    public String example() {
+        return "de";
     }
 }

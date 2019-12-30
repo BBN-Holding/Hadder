@@ -74,6 +74,11 @@ public class JoinCommand implements Command {
 
     @Override
     public String usage() {
-        return "";
+        return null;
+    }
+
+    @Override
+    public String example() {
+        return null;
     }
 }

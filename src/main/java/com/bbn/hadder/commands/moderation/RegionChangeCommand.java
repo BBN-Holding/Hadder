@@ -117,6 +117,11 @@ public class RegionChangeCommand implements Command {
 
     @Override
     public String usage() {
-        return "region";
+        return "[New region]";
+    }
+
+    @Override
+    public String example() {
+        return "frankfurt";
     }
 }

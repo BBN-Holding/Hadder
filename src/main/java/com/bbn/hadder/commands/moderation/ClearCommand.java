@@ -97,6 +97,11 @@ public class ClearCommand implements Command {
 
     @Override
     public String usage() {
-        return "number";
+        return "[Amount]";
+    }
+
+    @Override
+    public String example() {
+        return "69";
     }
 }

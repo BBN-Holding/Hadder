@@ -99,6 +99,11 @@ public class GitHubCommand implements Command {
 
     @Override
     public String usage() {
-        return "username";
+        return "[GH-name]";
+    }
+
+    @Override
+    public String example() {
+        return "GregTCLTK";
     }
 }
