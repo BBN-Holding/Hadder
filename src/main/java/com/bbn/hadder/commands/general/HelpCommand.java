@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,15 +57,31 @@ public class HelpCommand implements Command {
         }
     }
 
+    public static class HelpInfo {
+        private String[] labels;
+        private String description;
+        private String usage;
+        private String example;
+
+        public HelpInfo(String[] labels, String description, String usage, String example) {
+            this.labels = labels;
+            this.description = description;
+            this.usage = usage;
+            this.example = example;
+        }
+    }
+
     public void sendHelp(Command cmd, CommandEvent event) {
         if (!cmd.getClass().getPackageName().endsWith("owner") || (cmd.getClass().getPackageName().endsWith("owner") &&
                 (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")))) {
-            String name = cmd.labels()[0];
+            String name = labels()[0];
             event.getChannel().sendMessage(event.getMessageEditor().getMessage(
-                    MessageEditor.MessageType.INFO, "", cmd.description())
+                    MessageEditor.MessageType.INFO)
                     .setTitle(name.replaceFirst(String.valueOf(name.charAt(0)), String.valueOf(name.charAt(0)).toUpperCase()))
-                    .addField(MessageEditor.getTerm(event, "commands.general.help.field.usage", "", ""),
-                            event.getRethink().getUserPrefix(event.getAuthor().getId()) + cmd.labels()[0] + " " + event.getMessageEditor().getTerm(cmd.usage()), false)
+                    .setDescription(
+                            event.getMessageEditor().getTerm("commands.general.help.description") + cmd.description() + "\n" +
+                            event.getMessageEditor().getTerm("commands.general.help.usage") + event.getRethink().getGuildPrefix(event.getGuild().getId()) + name + " " + cmd.usage() + "\n" +
+                            event.getMessageEditor().getTerm("commands.general.help.example") + event.getRethink().getGuildPrefix(event.getGuild().getId()) + name + "")
                     .build()).queue();
 
         }

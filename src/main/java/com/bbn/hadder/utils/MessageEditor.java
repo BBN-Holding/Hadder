@@ -113,10 +113,7 @@ public class MessageEditor {
         return this.handle(rethink.getLanguage(user.getId()), string, extra, extra_two);
     }
 
-    public static String getTerm(CommandEvent event, String string, String extra, String extra_two) {
-        return new MessageEditor(null, null)
-                .handle(event.getRethink().getLanguage(event.getAuthor().getId()), string, extra, extra_two);
-    }
+
 
     private String handle(String language_code, String string, String extra, String extra_two) {
         Locale locale = new Locale(language_code);
