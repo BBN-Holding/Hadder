@@ -95,6 +95,11 @@ public class RoleCommand implements Command {
 
     @Override
     public String usage() {
-        return "add/remove <@role> <@user>";
+        return "[add/remove] [Role>] [User]";
+    }
+
+    @Override
+    public String example() {
+        return "add @Skidder @Epic-Gamer";
     }
 }

@@ -52,6 +52,11 @@ public class PlayCommand implements Command {
 
     @Override
     public String usage() {
-        return "song";
+        return "[Song URL/Name]";
+    }
+
+    @Override
+    public String example() {
+        return "Last Christmas";
     }
 }

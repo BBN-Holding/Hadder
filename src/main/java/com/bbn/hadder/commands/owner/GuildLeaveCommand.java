@@ -46,6 +46,11 @@ public class GuildLeaveCommand implements Command {
 
     @Override
     public String usage() {
-        return "guildid";
+        return "[Guild-ID]";
+    }
+
+    @Override
+    public String example() {
+        return "366971954244354048";
     }
 }

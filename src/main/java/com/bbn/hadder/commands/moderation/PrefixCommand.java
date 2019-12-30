@@ -46,6 +46,11 @@ public class PrefixCommand implements Command {
 
     @Override
     public String usage() {
-        return "prefix";
+        return "[New Prefix]";
+    }
+
+    @Override
+    public String example() {
+        return "!";
     }
 }

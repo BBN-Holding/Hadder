@@ -58,6 +58,11 @@ public class GifCommand implements Command {
 
     @Override
     public String usage() {
-        return "searchterm";
+        return "[Term]";
+    }
+
+    @Override
+    public String example() {
+        return "Cute cat";
     }
 }

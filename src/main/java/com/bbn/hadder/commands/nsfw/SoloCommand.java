@@ -31,8 +31,8 @@ public class SoloCommand implements Command {
                 JSONObject response1 = data.getJSONObject("response");
                 String url = response1.toString().replace("{\"url\":\"", "");
 
-event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-.setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url.replace("\"}", ""))
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                        .setAuthor(event.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url.replace("\"}", ""))
                         .setImage(url.replace("\"}", ""))
                         .setFooter("Solo")
                         .build()).queue();
@@ -58,6 +58,11 @@ event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEd
 
     @Override
     public String usage() {
-        return "";
+        return null;
+    }
+
+    @Override
+    public String example() {
+        return null;
     }
 }

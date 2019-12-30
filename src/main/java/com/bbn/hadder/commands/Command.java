@@ -13,5 +13,5 @@ public interface Command {
 
     String usage();
 
-    String ex
+    String example();
 }

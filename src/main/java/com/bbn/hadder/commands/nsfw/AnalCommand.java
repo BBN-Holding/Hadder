@@ -24,7 +24,6 @@ public class AnalCommand implements Command {
             Request request = new Request.Builder().url("https://api.nekos.dev/api/v3/images/nsfw/gif/anal/").build();
 
             try {
-
                 Response response = caller.newCall(request).execute();
                 JSONObject json = new JSONObject(response.body().string());
                 JSONObject data = json.getJSONObject("data");
@@ -58,6 +57,11 @@ public class AnalCommand implements Command {
 
     @Override
     public String usage() {
-        return "";
+        return null;
+    }
+
+    @Override
+    public String example() {
+        return null;
     }
 }

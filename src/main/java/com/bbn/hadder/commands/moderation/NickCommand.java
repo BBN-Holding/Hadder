@@ -105,6 +105,11 @@ public class NickCommand implements Command {
 
     @Override
     public String usage() {
-        return "user+nickname";
+        return "[User(s)] [New nickname]";
+    }
+
+    @Override
+    public String example() {
+        return "@Skidder Cutie";
     }
 }

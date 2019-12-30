@@ -45,6 +45,11 @@ public class StarBoardCommand implements Command {
 
     @Override
     public String usage() {
-        return "<Channel id or channel mention> [Needed stars]";
+        return "[Channel] [Needed stars]";
+    }
+
+    @Override
+    public String example() {
+        return "#starboard 4";
     }
 }

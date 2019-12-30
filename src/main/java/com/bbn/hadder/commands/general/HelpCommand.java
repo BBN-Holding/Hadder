@@ -7,7 +7,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,13 +60,17 @@ public class HelpCommand implements Command {
         if (!cmd.getClass().getPackageName().endsWith("owner") || (cmd.getClass().getPackageName().endsWith("owner") &&
                 (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")))) {
             String name = labels()[0];
+            StringBuilder b = new StringBuilder();
+            b.append(event.getMessageEditor().getTerm("commands.general.help.description")).append(cmd.description()).append("\n");
+            if (!cmd.usage().equals(null)) {
+                b.append(event.getMessageEditor().getTerm("commands.general.help.usage")).append(event.getRethink().getGuildPrefix(event.getGuild().getId())).append(name).append(" ").append(cmd.usage()).append("\n");
+            }
             event.getChannel().sendMessage(event.getMessageEditor().getMessage(
                     MessageEditor.MessageType.INFO)
                     .setTitle(name.replaceFirst(String.valueOf(name.charAt(0)), String.valueOf(name.charAt(0)).toUpperCase()))
                     .setDescription(
-                            event.getMessageEditor().getTerm("commands.general.help.description") + cmd.description() + "\n" +
-                            event.getMessageEditor().getTerm("commands.general.help.usage") + event.getRethink().getGuildPrefix(event.getGuild().getId()) + name + " " + cmd.usage() + "\n" +
-                            event.getMessageEditor().getTerm("commands.general.help.example") + event.getRethink().getGuildPrefix(event.getGuild().getId()) + name + "")
+                            b.toString() +
+                            event.getMessageEditor().getTerm("commands.general.help.example") + event.getRethink().getGuildPrefix(event.getGuild().getId()) + name + cmd.example())
                     .build()).queue();
 
         }
@@ -85,6 +88,11 @@ public class HelpCommand implements Command {
 
     @Override
     public String usage() {
-        return "commands.general.help.help.label";
+        return "[Command name]";
+    }
+
+    @Override
+    public String example() {
+        return "ban";
     }
 }

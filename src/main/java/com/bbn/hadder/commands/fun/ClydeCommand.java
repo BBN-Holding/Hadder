@@ -73,6 +73,11 @@ public class ClydeCommand implements Command {
 
     @Override
     public String usage() {
-        return "content";
+        return "[Content]";
+    }
+
+    @Override
+    public String example() {
+        return "Hey I am Clyde";
     }
 }

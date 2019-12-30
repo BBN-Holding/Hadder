@@ -102,6 +102,11 @@ public class EvalCommand implements Command {
 
     @Override
     public String usage() {
-        return "commands.owner.eval.help.usage";
+        return "[Code]";
+    }
+
+    @Override
+    public String example() {
+        return "System.out.println(\"Hey\")";
     }
 }
