@@ -62,12 +62,12 @@ public class HelpCommand implements Command {
                 (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")))) {
             String name = labels()[0];
             StringBuilder b = new StringBuilder();
-            b.append(event.getMessageEditor().getTerm("commands.general.help.description")).append(event.getMessageEditor().getTerm(cmd.description())).append("\n");
+            b.append(event.getMessageEditor().getTerm("commands.general.help.description")).append(" ").append(event.getMessageEditor().getTerm(cmd.description())).append("\n");
             if (cmd.usage() != null) {
-                b.append(event.getMessageEditor().getTerm("commands.general.help.usage")).append(event.getRethink().getGuildPrefix(event.getGuild().getId())).append(name).append(" ").append(cmd.usage()).append("\n");
+                b.append(event.getMessageEditor().getTerm("commands.general.help.usage")).append(" ").append(event.getRethink().getGuildPrefix(event.getGuild().getId())).append(name).append(" ").append(cmd.usage()).append("\n");
             }
             if (cmd.example() != null) {
-                b.append(event.getMessageEditor().getTerm("commands.general.help.example")).append(event.getRethink().getGuildPrefix(event.getGuild().getId())).append(name).append(cmd.example());
+                b.append(event.getMessageEditor().getTerm("commands.general.help.example")).append(" ").append(event.getRethink().getGuildPrefix(event.getGuild().getId())).append(name).append(" ").append(cmd.example());
             }
             event.getChannel().sendMessage(event.getMessageEditor().getMessage(
                     MessageEditor.MessageType.INFO)
