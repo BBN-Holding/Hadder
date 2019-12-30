@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.Permission;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class HelpCommand implements Command {
 
@@ -61,18 +62,18 @@ public class HelpCommand implements Command {
                 (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")))) {
             String name = labels()[0];
             StringBuilder b = new StringBuilder();
-            b.append(event.getMessageEditor().getTerm("commands.general.help.description")).append(cmd.description()).append("\n");
-            if (!cmd.usage().equals(null)) {
+            b.append(event.getMessageEditor().getTerm("commands.general.help.description")).append(event.getMessageEditor().getTerm(cmd.description())).append("\n");
+            if (cmd.usage() != null) {
                 b.append(event.getMessageEditor().getTerm("commands.general.help.usage")).append(event.getRethink().getGuildPrefix(event.getGuild().getId())).append(name).append(" ").append(cmd.usage()).append("\n");
+            }
+            if (cmd.example() != null) {
+                b.append(event.getMessageEditor().getTerm("commands.general.help.example")).append(event.getRethink().getGuildPrefix(event.getGuild().getId())).append(name).append(cmd.example());
             }
             event.getChannel().sendMessage(event.getMessageEditor().getMessage(
                     MessageEditor.MessageType.INFO)
-                    .setTitle(name.replaceFirst(String.valueOf(name.charAt(0)), String.valueOf(name.charAt(0)).toUpperCase()))
-                    .setDescription(
-                            b.toString() +
-                            event.getMessageEditor().getTerm("commands.general.help.example") + event.getRethink().getGuildPrefix(event.getGuild().getId()) + name + cmd.example())
+                    .setTitle(cmd.labels()[0])
+                    .setDescription(b.toString())
                     .build()).queue();
-
         }
     }
 
