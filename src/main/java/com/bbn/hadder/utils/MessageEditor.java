@@ -113,8 +113,6 @@ public class MessageEditor {
         return this.handle(rethink.getLanguage(user.getId()), string, extra, extra_two);
     }
 
-
-
     private String handle(String language_code, String string, String extra, String extra_two) {
         Locale locale = new Locale(language_code);
         ResourceBundle resourceBundle = ResourceBundle.getBundle("Translations/Translations", locale);
