@@ -21,7 +21,7 @@ public class LeaveCommand implements Command {
                     .build()).queue();
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                MessageEditor.MessageType.WARNING,
+                MessageEditor.MessageType.ERROR,
                 "commands.music.leave.error.tile",
                 "commands.music.leave.error.description")
                     .build()).queue();

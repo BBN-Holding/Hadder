@@ -16,7 +16,7 @@ public class QueueCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (!event.getAudioManager().hasPlayer(event.getGuild()) || event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks().isEmpty()) {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING,
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.music.queue.error.title",
                     "commands.music.queue.error.description"
             ).build()).queue();

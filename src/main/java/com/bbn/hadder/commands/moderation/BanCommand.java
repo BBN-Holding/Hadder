@@ -35,14 +35,14 @@ public class BanCommand implements Command {
                 } else {
                     event.getTextChannel().sendMessage(
                             event.getMessageEditor().getMessage(
-                                    MessageEditor.MessageType.WARNING,
+                                    MessageEditor.MessageType.ERROR,
                                     "commands.moderation.ban.error.title",
                                     "commands.moderation.ban.myself.error.description").build()).queue();
                 }
             } else {
                 event.getTextChannel().sendMessage
                         (event.getMessageEditor().getMessage(
-                                MessageEditor.MessageType.WARNING,
+                                MessageEditor.MessageType.ERROR,
                                 "commands.moderation.ban.error.title",
                                 "commands.moderation.ban.yourself.error.description").build()).queue();
             }
@@ -61,13 +61,13 @@ public class BanCommand implements Command {
                     } else {
                         event.getTextChannel().sendMessage(
                                 event.getMessageEditor().getMessage(
-                                        MessageEditor.MessageType.WARNING,
+                                        MessageEditor.MessageType.ERROR,
                                         "commands.moderation.ban.error.title",
                                         "commands.moderation.ban.myself.error.description").build()).queue();
                     }
                 } else {
                     event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                            MessageEditor.MessageType.WARNING,
+                            MessageEditor.MessageType.ERROR,
                             "commands.moderation.ban.error.title",
                             "commands.moderation.ban.yourself.error.description").build()).queue();
                 }
