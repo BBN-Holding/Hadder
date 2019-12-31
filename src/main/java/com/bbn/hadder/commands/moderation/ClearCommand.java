@@ -45,7 +45,7 @@ public class ClearCommand implements Command {
                     try {
                         int nbToDelete = Integer.parseInt(args[0]);
                         if (nbToDelete < 1 || nbToDelete > 99) {
-                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "", "commands.moderation.clear.number.error.description").build()).queue();
+                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.moderation.clear.number.error.title", "commands.moderation.clear.number.error.description").build()).queue();
                         } else {
                             List<Message> history = event.getTextChannel().getHistory().retrievePast(nbToDelete + 1).complete();
                             List<Message> msgToDelete = new ArrayList<>(history);
@@ -73,7 +73,7 @@ public class ClearCommand implements Command {
                     } catch (NumberFormatException e) {
                         event.getHelpCommand().sendHelp(this, event);
                     } catch (IllegalArgumentException e) {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.moderation.clear.message.error.title", "commands.moderation.clear.message.error.description")
+                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.moderation.clear.message.error.title", "commands.moderation.clear.message.error.description")
                                 .build()).queue();
                     }
                 }
@@ -97,6 +97,11 @@ public class ClearCommand implements Command {
 
     @Override
     public String usage() {
-        return "number";
+        return "[Amount]";
+    }
+
+    @Override
+    public String example() {
+        return "69";
     }
 }

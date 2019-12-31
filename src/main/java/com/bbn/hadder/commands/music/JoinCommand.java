@@ -33,32 +33,30 @@ public class JoinCommand implements Command {
                     } else {
                         event.getTextChannel().sendMessage(
                             event.getMessageEditor().getMessage(
-                                MessageEditor.MessageType.WARNING, 
-                                "commands.music.join.error.connecting.already.title", 
+                                MessageEditor.MessageType.WARNING,
+                                "commands.music.join.error.connecting.already.title",
                                 "commands.music.join.error.connecting.already.description")
                                 .build()).queue();
                     }
                 } else {
                     event.getGuild().getAudioManager().openAudioConnection(vc);
                     event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                        MessageEditor.MessageType.INFO, 
-                        "commands.music.join.success.title", 
-                        "", 
-                        "commands.music.join.success.description", 
-                        vc.getName())
+                        MessageEditor.MessageType.INFO,
+                        "commands.music.join.success.title", "",
+                        "commands.music.join.success.description", vc.getName())
                         .build()).queue();
                 }
             } else {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                    MessageEditor.MessageType.WARNING, 
-                    "commands.music.join.error.connecting.trying.title", 
+                    MessageEditor.MessageType.WARNING,
+                    "commands.music.join.error.connecting.trying.title",
                     "commands.music.join.error.connecting.trying.description")
                     .build()).queue();
             }
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                MessageEditor.MessageType.WARNING, 
-                "commands.music.join.error.channel.title", 
+                MessageEditor.MessageType.ERROR,
+                "commands.music.join.error.channel.title",
                 "commands.music.join.error.channel.description")
                     .build()).queue();
         }
@@ -76,6 +74,11 @@ public class JoinCommand implements Command {
 
     @Override
     public String usage() {
-        return "";
+        return null;
+    }
+
+    @Override
+    public String example() {
+        return null;
     }
 }

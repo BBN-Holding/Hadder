@@ -42,7 +42,6 @@ public class Hadder {
         builder.setToken(config.getBotToken());
 
         HelpCommand helpCommand = new HelpCommand();
-
         AudioManager audioManager = new AudioManager();
 
         CommandHandler commandHandler = new CommandHandler(
@@ -98,6 +97,7 @@ public class Hadder {
                         new InfoCommand(),
                         new SkipCommand(),
                         new EditRulesCommand(),
+                        new VolumeCommand(),
                         new StopCommand()), config, helpCommand);
 
         builder.addEventListeners(
@@ -109,7 +109,7 @@ public class Hadder {
                 new InviteLinkListener(rethink),
                 new RulesListener(rethink),
                 new StarboardListener(rethink),
-                new VoiceLeaveListener());
+                new VoiceLeaveListener(audioManager));
 
         try {
             shardManager = builder.build();

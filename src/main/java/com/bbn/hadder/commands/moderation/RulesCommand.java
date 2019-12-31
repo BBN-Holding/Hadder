@@ -88,7 +88,7 @@ public class RulesCommand implements Command {
                         } else {
                             event3.getChannel().sendMessage(
                                     event.getMessageEditor().getMessage(
-                                            MessageEditor.MessageType.WARNING,
+                                            MessageEditor.MessageType.ERROR,
                                             "commands.moderation.rules.role.error.title",
                                             "commands.moderation.rules.role.error.description")
                                     .build()).queue();
@@ -104,7 +104,7 @@ public class RulesCommand implements Command {
         } else {
             event.getTextChannel().sendMessage(
                     event.getMessageEditor().getMessage(
-                            MessageEditor.MessageType.WARNING,
+                            MessageEditor.MessageType.ERROR,
                             "commands.moderation.rules.guild.error.title",
                             "commands.moderation.rules.guild.error.description")
                     .build()).queue();
@@ -160,7 +160,7 @@ public class RulesCommand implements Command {
                         } else {
                             event.getTextChannel().sendMessage(
                                     event.getMessageEditor().getMessage(
-                                            MessageEditor.MessageType.WARNING,
+                                            MessageEditor.MessageType.ERROR,
                                             "commands.moderation.rules.emote.error.equal.title",
                                             "commands.moderation.rules.emote.error.equal.description")
                                     .build()).queue();
@@ -205,7 +205,7 @@ public class RulesCommand implements Command {
                         } else {
                             event.getTextChannel().sendMessage(
                                     event.getMessageEditor().getMessage(
-                                            MessageEditor.MessageType.WARNING,
+                                            MessageEditor.MessageType.ERROR,
                                             "commands.moderation.rules.emote.error.equal.title",
                                             "commands.moderation.rules.emote.error.equal.description")
                                     .build()).queue();
@@ -230,6 +230,11 @@ public class RulesCommand implements Command {
 
     @Override
     public String usage() {
-        return "";
+        return null;
+    }
+
+    @Override
+    public String example() {
+        return null;
     }
 }

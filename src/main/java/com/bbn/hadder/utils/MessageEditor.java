@@ -1,7 +1,6 @@
 package com.bbn.hadder.utils;
 
 import com.bbn.hadder.Rethink;
-import com.bbn.hadder.commands.CommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 
@@ -24,21 +23,21 @@ public class MessageEditor {
         return this.getMessage(type, "", "", "", "", "", "");
     }
 
-    public EmbedBuilder getMessage(MessageType type, String title_language_string, String description_language_string) {
-        return this.getMessage(type, title_language_string, "", "", description_language_string, "", "");
+    public EmbedBuilder getMessage(MessageType type, String title, String description) {
+        return this.getMessage(type, title, "", "", description, "", "");
     }
 
-    public EmbedBuilder getMessage(MessageType type, String title_language_string, String title_extra,
-                                   String description_language_string, String description_extra) {
-        return this.getMessage(type, title_language_string, title_extra, "", description_language_string, description_extra, "");
+    public EmbedBuilder getMessage(MessageType type, String title, String title_extra,
+                                   String description, String description_extra) {
+        return this.getMessage(type, title, title_extra, "", description, description_extra, "");
     }
 
-    public EmbedBuilder getMessage(MessageType type, String title_language_string, String title_extra, String title_extra_two,
-                            String description_language_string, String description_extra, String description_extra_two) {
+    public EmbedBuilder getMessage(MessageType type, String title, String title_extra, String title_extra_two,
+                            String description, String description_extra, String description_extra_two) {
         String language = (this.user!=null) ? rethink.getLanguage(this.user.getId()) : null;
         EmbedBuilder eb = this.getDefaultSettings(type);
-        if (!title_language_string.equals("")) eb.setTitle(this.handle(language, title_language_string, title_extra, title_extra_two));
-        if (!description_language_string.equals("")) eb.setDescription(this.handle(language, description_language_string, description_extra, description_extra_two));
+        if (!title.equals("")) eb.setTitle(this.handle(language, title, title_extra, title_extra_two));
+        if (!description.equals("")) eb.setDescription(this.handle(language, description, description_extra, description_extra_two));
         return eb;
     }
 
@@ -113,16 +112,11 @@ public class MessageEditor {
         return this.handle(rethink.getLanguage(user.getId()), string, extra, extra_two);
     }
 
-    public static String getTerm(CommandEvent event, String string, String extra, String extra_two) {
-        return new MessageEditor(null, null)
-                .handle(event.getRethink().getLanguage(event.getAuthor().getId()), string, extra, extra_two);
-    }
-
     private String handle(String language_code, String string, String extra, String extra_two) {
         Locale locale = new Locale(language_code);
         ResourceBundle resourceBundle = ResourceBundle.getBundle("Translations/Translations", locale);
         if (resourceBundle.containsKey(string))
-            return resourceBundle.getString(string).replaceAll("%prefix%", "h.").replaceAll("%extra%", extra).replaceAll("%extra_two%", extra_two);
-        else return "This key doesn't exist. Please report this to the Bot Developers. Key: "+string+" Language_code: "+language_code;
+            return resourceBundle.getString(string).replaceAll("%extra%", extra).replaceAll("%extra_two%", extra_two);
+        else return "This key doesn't exist. Please report this to the Bot Developers. Key: " + string + " Language_code: " + language_code;
     }
 }

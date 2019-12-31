@@ -10,7 +10,6 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -26,25 +25,15 @@ import java.util.concurrent.TimeUnit;
 
 public class AudioManager {
 
+    public Map<String, Map.Entry<AudioPlayer, TrackManager>> players = new HashMap<>();
+    private final AudioPlayerManager myManager = new DefaultAudioPlayerManager();
+
     public AudioManager() {
         AudioSourceManagers.registerRemoteSources(myManager);
     }
 
-    public Map<String, Map.Entry<AudioPlayer, TrackManager>> players = new HashMap<>();
-    private final AudioPlayerManager myManager = new DefaultAudioPlayerManager();
-
     public boolean hasPlayer(Guild guild) {
         return players.containsKey(guild.getId());
-    }
-
-    public void removePlayer(Guild g) {
-        System.out.println(players.toString());
-        players.remove(g.getId());
-        System.out.println(players.toString());
-    }
-
-    public Map<String, Map.Entry<AudioPlayer, TrackManager>> getPlayers () {
-        return players;
     }
 
     public AudioPlayer getPlayer(Guild guild) {
@@ -98,7 +87,15 @@ public class AudioManager {
                 } else if (playlist.isSearchResult()) {
                     trackLoaded(playlist.getTracks().get(0));
                 } else {
-                    event.getTextChannel().sendMessage("PL loaded :D").queue();
+                    for (int i = 0; i < Math.min(playlist.getTracks().size(), 69); i++) {
+                        getTrackManager(guild).queue(playlist.getTracks().get(i), event.getMember());
+                    }
+                    msg.editMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                            "commands.music.play.success.loading.title", "⏯",
+                            "", "")
+                            .addField(event.getMessageEditor().getTerm("commands.music.play.success.title"), playlist.getName(), true)
+                            .addField(event.getMessageEditor().getTerm("commands.music.play.success.tracks"), String.valueOf(playlist.getTracks().size()), true)
+                            .build()).queue();
                 }
             }
 
@@ -128,24 +125,8 @@ public class AudioManager {
         return getTrackManager(member.getGuild()).getTrackInfo(getPlayer(member.getGuild()).getPlayingTrack()).getAuthor().equals(member);
     }
 
-    public boolean isIdle(CommandEvent event) {
-        if (!hasPlayer(event.getGuild()) || getPlayer(event.getGuild()).getPlayingTrack() == null) {
-            event.getTextChannel().sendMessage(" Idle no song lul :D").queue();
-            return true;
-        }
-        return false;
-    }
-
     public void forceSkipTrack(CommandEvent event) {
         getPlayer(event.getGuild()).stopTrack();
-        event.getTextChannel().sendMessage("Skipped boyy :D").queue();
-    }
-
-    public String buildQueueMessage(AudioInfo info) {
-        AudioTrackInfo trackInfo = info.getTrack().getInfo();
-        String title = trackInfo.title;
-        long length = trackInfo.length;
-        return "`[ " + getTimestamp(length) + " ]` " + title + "\n";
     }
 
     public String getTimestamp(long milis) {

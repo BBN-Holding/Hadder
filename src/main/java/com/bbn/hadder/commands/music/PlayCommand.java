@@ -1,6 +1,5 @@
 package com.bbn.hadder.commands.music;
 
-import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
@@ -33,7 +32,7 @@ public class PlayCommand implements Command {
                 }
             } else {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                        MessageEditor.MessageType.WARNING,
+                        MessageEditor.MessageType.ERROR,
                         "commands.music.join.error.channel.title",
                         "commands.music.join.error.channel.description")
                         .build()).queue();
@@ -53,6 +52,11 @@ public class PlayCommand implements Command {
 
     @Override
     public String usage() {
-        return "song";
+        return "[Song URL/Name]";
+    }
+
+    @Override
+    public String example() {
+        return "Last Christmas";
     }
 }

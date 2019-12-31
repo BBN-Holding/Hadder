@@ -5,7 +5,6 @@ package com.bbn.hadder.commands.owner;
  */
 
 import com.bbn.hadder.Hadder;
-import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
@@ -33,19 +32,19 @@ public class EvalCommand implements Command {
                 ex.printStackTrace();
             }
 
-            engine.put("msg", event.getMessage());
-            engine.put("shardmanager", Hadder.shardManager);
-            engine.put("rethink", event.getRethink());
-            engine.put("event", event);
-            engine.put("jda", event.getJDA());
-            engine.put("message", event.getMessage());
-            engine.put("guild", event.getGuild());
-            engine.put("channel", event.getChannel());
-            engine.put("author", event.getAuthor());
-            engine.put("member", event.getMember());
-            engine.put("self", event.getGuild().getSelfMember());
-            engine.put("audio", new AudioManager());
-            engine.put("out", System.out);
+            engine.put("msg".toLowerCase(), event.getMessage());
+            engine.put("shardmanager".toLowerCase(), Hadder.shardManager);
+            engine.put("rethink".toLowerCase(), event.getRethink());
+            engine.put("event".toLowerCase(), event);
+            engine.put("jda".toLowerCase(), event.getJDA());
+            engine.put("message".toLowerCase(), event.getMessage());
+            engine.put("guild".toLowerCase(), event.getGuild());
+            engine.put("channel".toLowerCase(), event.getChannel());
+            engine.put("author".toLowerCase(), event.getAuthor());
+            engine.put("member".toLowerCase(), event.getMember());
+            engine.put("self".toLowerCase(), event.getGuild().getSelfMember());
+            engine.put("audio".toLowerCase(), event.getAudioManager());
+            engine.put("out".toLowerCase(), System.out);
 
             ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 
@@ -55,12 +54,12 @@ public class EvalCommand implements Command {
                 Object out;
 
                 try {
-                    String script = "";
+                    StringBuilder script = new StringBuilder();
                     for (int i = 0; i < args.length; i++) {
                         args[i] = args[i].replace("```java", "").replace("```", "");
-                        script += i == args.length - 1 ? args[i] : args[i] + " ";
+                        script.append(i == args.length - 1 ? args[i] : args[i] + " ");
                     }
-                    out = engine.eval(script);
+                    out = engine.eval(script.toString());
 
                     event.getTextChannel().sendMessage(event.getMessageEditor()
                             .getMessage(MessageEditor.MessageType.INFO, "commands.owner.eval.success.title", "")
@@ -103,6 +102,11 @@ public class EvalCommand implements Command {
 
     @Override
     public String usage() {
-        return "commands.owner.eval.help.usage";
+        return "[Code]";
+    }
+
+    @Override
+    public String example() {
+        return "System.out.println(\"Hey\")";
     }
 }
