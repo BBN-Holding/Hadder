@@ -28,7 +28,8 @@ public class QueueCommand implements Command {
             }
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.music.queue.success.title", "",
-                    "commands.music.queue.success.description", builder.toString()).build()).queue();
+                    "commands.music.queue.success.description", builder.toString())
+                    .build()).queue();
         }
     }
 
