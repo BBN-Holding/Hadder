@@ -55,7 +55,7 @@ public class JoinCommand implements Command {
             }
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                MessageEditor.MessageType.WARNING,
+                MessageEditor.MessageType.ERROR,
                 "commands.music.join.error.channel.title",
                 "commands.music.join.error.channel.description")
                     .build()).queue();

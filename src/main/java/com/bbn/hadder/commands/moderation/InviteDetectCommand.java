@@ -29,7 +29,7 @@ public class InviteDetectCommand implements Command {
                                         .build()).queue();
                     } else {
                         event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                                MessageEditor.MessageType.WARNING,
+                                MessageEditor.MessageType.ERROR,
                                 "commands.moderation.invitedetect.activate.error.title",
                                 "commands.moderation.invitedetect.activate.error.description")
                                 .build()).queue();
@@ -46,7 +46,7 @@ public class InviteDetectCommand implements Command {
                                 .build()).queue();
                     } else {
                         event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                                MessageEditor.MessageType.WARNING,
+                                MessageEditor.MessageType.ERROR,
                                 "commands.moderation.invitedetect.deactivate.error.title",
                                 "commands.moderation.invitedetect.deactivate.error.description")
                                 .build()).queue();

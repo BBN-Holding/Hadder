@@ -29,12 +29,12 @@ public class ScreenShareCommand implements Command {
             } else {
                 List<VoiceChannel> vcs = event.getGuild().getVoiceChannelsByName(String.join(" ", args), true);
                 if (vcs.size() > 1) {
-                    EmbedBuilder eb = event.getMessageEditor().getMessage(MessageType.ERROR, "commands.misc.screenshare.channel.error.title", "commands.misc.screenshare.channel.error.description");
+                    EmbedBuilder eb = event.getMessageEditor().getMessage(MessageType.WARNING, "commands.misc.screenshare.channel.error.title", "commands.misc.screenshare.channel.error.description");
                     for (int i = 0; i < vcs.size(); i++) {
                         VoiceChannel voiceChannel = vcs.get(i);
                         eb.addField(i + ": " + voiceChannel.getName(), voiceChannel.getId(), false);
                     }
-                    event.getChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING).build()).queue();
+                    event.getChannel().sendMessage(eb.build()).queue();
                     new EventWaiter().newOnMessageEventWaiter(msgevent -> {
                         try {
                             int i = Integer.parseInt(msgevent.getMessage().getContentRaw());

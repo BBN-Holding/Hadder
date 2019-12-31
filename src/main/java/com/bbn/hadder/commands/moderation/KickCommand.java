@@ -35,12 +35,12 @@ public class KickCommand implements Command {
                 } else {
                     event.getTextChannel().sendMessage(
                             event.getMessageEditor().getMessage(
-                                    MessageEditor.MessageType.WARNING,
+                                    MessageEditor.MessageType.ERROR,
                                     "commands.moderation.kick.error.title",
                                     "commands.moderation.kick.myself.error.description").build()).queue();
                 }
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.moderation.kick.error.title", "commands.moderation.kick.yourself.error.description").build()).queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.moderation.kick.error.title", "commands.moderation.kick.yourself.error.description").build()).queue();
             }
         } else if (event.getMessage().getMentionedMembers().size() == 0) {
             event.getHelpCommand().sendHelp(this, event);
@@ -55,10 +55,10 @@ public class KickCommand implements Command {
                             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                         }
                     } else {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.moderation.kick.error.title", "commands.moderation.kick.myself.error.description").build()).queue();
+                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.moderation.kick.error.title", "commands.moderation.kick.myself.error.description").build()).queue();
                     }
                 } else {
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.moderation.kick.error.title", "commands.moderation.kick.yourself.error.description").build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.moderation.kick.error.title", "commands.moderation.kick.yourself.error.description").build()).queue();
                 }
             }
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.moderation.kick.success.title", "✅", "commands.moderation.kick.masskick.success.description", String.valueOf(event.getMessage().getMentionedMembers().size())).build()).queue();
