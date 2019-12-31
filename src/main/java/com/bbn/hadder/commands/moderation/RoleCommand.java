@@ -15,10 +15,8 @@ public class RoleCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length > 0) {
-            if (event.getMember().hasPermission(Permission.MANAGE_ROLES)) {
-
-                String action = args[0].toLowerCase();
-                switch (action) {
+            if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
+                switch (args[0].toLowerCase()) {
                     case "add":
                         if (event.getMessage().getMentionedMembers().size() > 0 && event.getMessage().getMentionedRoles().size() > 0) {
                             for (Member member : event.getMessage().getMentionedMembers()) {
@@ -66,13 +64,16 @@ public class RoleCommand implements Command {
                                     event.getMessageEditor().getMessage(
                                             MessageEditor.MessageType.INFO,
                                             "commands.moderation.role.remove.success.title",
-                                            "✅",
+                                            "",
                                             "",
                                             "commands.moderation.role.remove.success.description",
                                             String.valueOf(event.getMessage().getMentionedRoles().size()),
                                             String.valueOf(event.getMessage().getMentionedMembers().size()))
                                             .build()).queue();
                         }
+                        break;
+                    default:
+                        event.getHelpCommand().sendHelp(this, event);
                         break;
                 }
             } else {
@@ -95,6 +96,11 @@ public class RoleCommand implements Command {
 
     @Override
     public String usage() {
-        return "add/remove <@role> <@user>";
+        return "[add/remove] [Role>] [User]";
+    }
+
+    @Override
+    public String example() {
+        return "add @Skidder @Epic-Gamer";
     }
 }

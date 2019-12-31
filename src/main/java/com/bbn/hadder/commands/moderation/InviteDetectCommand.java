@@ -29,7 +29,7 @@ public class InviteDetectCommand implements Command {
                                         .build()).queue();
                     } else {
                         event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                                MessageEditor.MessageType.WARNING,
+                                MessageEditor.MessageType.ERROR,
                                 "commands.moderation.invitedetect.activate.error.title",
                                 "commands.moderation.invitedetect.activate.error.description")
                                 .build()).queue();
@@ -46,12 +46,14 @@ public class InviteDetectCommand implements Command {
                                 .build()).queue();
                     } else {
                         event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                                MessageEditor.MessageType.WARNING,
+                                MessageEditor.MessageType.ERROR,
                                 "commands.moderation.invitedetect.deactivate.error.title",
                                 "commands.moderation.invitedetect.deactivate.error.description")
                                 .build()).queue();
                     }
                     break;
+                default:
+                    event.getHelpCommand().sendHelp(this, event);
             }
         } else {
             event.getHelpCommand().sendHelp(this, event);
@@ -70,6 +72,11 @@ public class InviteDetectCommand implements Command {
 
     @Override
     public String usage() {
-        return "<on/off>";
+        return "[on/off]";
+    }
+
+    @Override
+    public String example() {
+        return "on";
     }
 }

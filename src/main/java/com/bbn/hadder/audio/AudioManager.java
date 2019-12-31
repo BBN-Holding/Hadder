@@ -10,7 +10,6 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -26,25 +25,15 @@ import java.util.concurrent.TimeUnit;
 
 public class AudioManager {
 
+    public Map<String, Map.Entry<AudioPlayer, TrackManager>> players = new HashMap<>();
+    private final AudioPlayerManager myManager = new DefaultAudioPlayerManager();
+
     public AudioManager() {
         AudioSourceManagers.registerRemoteSources(myManager);
     }
 
-    public Map<String, Map.Entry<AudioPlayer, TrackManager>> players = new HashMap<>();
-    private final AudioPlayerManager myManager = new DefaultAudioPlayerManager();
-
     public boolean hasPlayer(Guild guild) {
         return players.containsKey(guild.getId());
-    }
-
-    public void removePlayer(Guild g) {
-        System.out.println(players.toString());
-        players.remove(g.getId());
-        System.out.println(players.toString());
-    }
-
-    public Map<String, Map.Entry<AudioPlayer, TrackManager>> getPlayers () {
-        return players;
     }
 
     public AudioPlayer getPlayer(Guild guild) {

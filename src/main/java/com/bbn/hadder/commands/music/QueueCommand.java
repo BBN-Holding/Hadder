@@ -16,7 +16,7 @@ public class QueueCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (!event.getAudioManager().hasPlayer(event.getGuild()) || event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks().isEmpty()) {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING,
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.music.queue.error.title",
                     "commands.music.queue.error.description"
             ).build()).queue();
@@ -28,7 +28,8 @@ public class QueueCommand implements Command {
             }
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.music.queue.success.title", "",
-                    "commands.music.queue.success.description", builder.toString()).build()).queue();
+                    "commands.music.queue.success.description", builder.toString())
+                    .build()).queue();
         }
     }
 
@@ -44,6 +45,11 @@ public class QueueCommand implements Command {
 
     @Override
     public String usage() {
-        return "";
+        return null;
+    }
+
+    @Override
+    public String example() {
+        return null;
     }
 }

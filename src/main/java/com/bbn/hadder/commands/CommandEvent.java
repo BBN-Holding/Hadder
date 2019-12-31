@@ -9,7 +9,6 @@ import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nonnull;

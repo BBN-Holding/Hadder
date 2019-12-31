@@ -13,7 +13,6 @@ public class PrefixCommand implements Command {
     public void executed(String[] args, CommandEvent event) {
         if (args.length == 1) {
             if (!args[0].contains("\"")) {
-
                 event.getRethink().setGuildPrefix(args[0], event.getGuild().getId());
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
@@ -46,6 +45,11 @@ public class PrefixCommand implements Command {
 
     @Override
     public String usage() {
-        return "prefix";
+        return "[New Prefix]";
+    }
+
+    @Override
+    public String example() {
+        return "!";
     }
 }
