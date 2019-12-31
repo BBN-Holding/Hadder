@@ -67,12 +67,15 @@ public class GitHubCommand implements Command {
                     event.getTextChannel().sendMessage(
                             event.getMessageEditor().getMessage(
                                     MessageEditor.MessageType.ERROR,
-                                    "",
+                                    "commands.misc.github.api.error.title",
                                     "commands.misc.github.api.error.description")
                                     .build()
                     ).queue();
                 } catch (JSONException e) {
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "","commands.misc.github.user.error.description").build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                            MessageEditor.MessageType.ERROR,
+                            "commands.misc.github.user.error.title",
+                            "commands.misc.github.user.error.description").build()).queue();
                 }
             }
         } else {
@@ -99,7 +102,7 @@ public class GitHubCommand implements Command {
 
     @Override
     public String usage() {
-        return "[GH-name]";
+        return "[GH name]";
     }
 
     @Override

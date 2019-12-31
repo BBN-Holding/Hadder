@@ -18,7 +18,7 @@ public class RegionChangeCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length == 1) {
-            if (event.getMember().hasPermission(Permission.MANAGE_SERVER) || event.getConfig().getOwners().toString().contains(event.getAuthor().getId())) {
+            if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_SERVER)) {
                 switch (args[0].toLowerCase()) {
                     case "amsterdam":
                         setRegion(Region.AMSTERDAM, "Amsterdam", event);
@@ -74,7 +74,7 @@ public class RegionChangeCommand implements Command {
                     case "us-south":
                         setRegion(Region.US_SOUTH, "US South", event);
                         break;
-                    case "list":
+                    default:
                         event.getTextChannel().sendMessage(
                                 event.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,

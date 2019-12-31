@@ -52,6 +52,8 @@ public class InviteDetectCommand implements Command {
                                 .build()).queue();
                     }
                     break;
+                default:
+                    event.getHelpCommand().sendHelp(this, event);
             }
         } else {
             event.getHelpCommand().sendHelp(this, event);
