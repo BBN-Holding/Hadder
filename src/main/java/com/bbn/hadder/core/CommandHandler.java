@@ -50,7 +50,7 @@ public class CommandHandler {
 
                     boolean run = true;
                     String blacklisted = rethink.getBlackListed(event.getAuthor().getId());
-                    if (!blacklisted.equals("none")) {
+                    if (!"none".equals(blacklisted)) {
                         for (String blacklistedlabel : blacklisted.split(",")) {
                             if (Arrays.asList(cmd.labels()).contains(blacklistedlabel)) {
                                 run = false;

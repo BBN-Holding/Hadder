@@ -144,11 +144,11 @@ public class Rethink {
         return (String) this.get("user", "id", id, "blacklisted");
     }
 
-    public void setNeededstars(String stars, String guild_id) {
+    public void setNeededStars(String stars, String guild_id) {
         this.update("server", guild_id, "neededstars", stars);
     }
 
-    public String getNeededstars(String guild_id) {
+    public String getNeededStars(String guild_id) {
         return (String) this.get("server", "id", guild_id, "neededstars");
     }
 
