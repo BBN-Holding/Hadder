@@ -164,8 +164,8 @@ public class Rethink {
         return !this.get("server", "id", guild_id, "starboard").equals("");
     }
 
-    public void insertStarboardMessage(String message_id, String guild_id, String starboardmessageid) {
-        this.insert("stars", r.hashMap("id", message_id).with("guild", guild_id).with("starboardmsg", starboardmessageid));
+    public void insertStarboardMessage(String message_id, String guild_id, String starboard_message_id) {
+        this.insert("stars", r.hashMap("id", message_id).with("guild", guild_id).with("starboardmsg", starboard_message_id));
     }
 
     public String getStarboardMessage(String message_id) {

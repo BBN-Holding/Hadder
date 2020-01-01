@@ -1,15 +1,14 @@
+package com.bbn.hadder.commands.owner;
+
 /*
  * @author Hax / Hax6775 / Schlauer_Hax
  */
-
-package com.bbn.hadder.commands.owner;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 
@@ -19,7 +18,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 @Perms(Perm.BOT_OWNER)
-public class BlackListCommand implements Command {
+public class BlacklistCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
@@ -71,7 +70,7 @@ public class BlackListCommand implements Command {
                         if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
                             String blacklisted = event.getRethink().getBlackListed(user.getId());
                             if (!blacklisted.equals("none")) {
-                                stringBuilder.append(user.getAsTag() + " (" + user.getId() + ") - " + blacklisted + "\n");
+                                stringBuilder.append(user.getAsTag()).append(" (").append(user.getId()).append(") - ").append(blacklisted).append("\n");
                             }
                         }
                     }
@@ -92,16 +91,16 @@ public class BlackListCommand implements Command {
 
     @Override
     public String description() {
-        return null;
+        return "commands.owner.blacklist.help.description";
     }
 
     @Override
     public String usage() {
-        return "add|remove|list Commands @Skidder#6775";
+        return "add|remove|list command @User";
     }
 
     @Override
     public String example() {
-        return null;
+        return "add porn @Skidder";
     }
 }
