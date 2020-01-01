@@ -92,7 +92,7 @@ public class Hadder {
                         new LanguageCommand(),
                         new ClydeCommand(),
                         new PlayCommand(),
-                        new StarBoardCommand(),
+                        new StarboardCommand(),
                         new QueueCommand(),
                         new InfoCommand(),
                         new SkipCommand(),
