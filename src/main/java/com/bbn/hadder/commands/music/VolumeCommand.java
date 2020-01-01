@@ -16,7 +16,7 @@ public class VolumeCommand implements Command {
             if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() != null) {
                 try {
                     int volume = Integer.parseInt(args[0]);
-                    if (volume < 200 && volume > 0 || event.getConfig().getOwners().contains(event.getAuthor().getId())) {
+                    if (volume < 201 && volume > 0 || event.getConfig().getOwners().contains(event.getAuthor().getIdLong())) {
                         event.getAudioManager().getPlayer(event.getGuild()).setVolume(volume);
                         event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                                 "commands.music.volume.success.title", "",
