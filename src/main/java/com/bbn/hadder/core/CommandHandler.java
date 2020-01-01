@@ -48,7 +48,17 @@ public class CommandHandler {
                         }
                     }
 
-                    cmd.executed(args, commandEvent);
+                    boolean run = true;
+                    String blacklisted = rethink.getBlackListed(event.getAuthor().getId());
+                    if (!blacklisted.equals("none")) {
+                        for (String blacklistedlabel : blacklisted.split(",")) {
+                            if (Arrays.asList(cmd.labels()).contains(blacklistedlabel)) {
+                                run = false;
+                            }
+                        }
+                    }
+                    if (run)
+                        cmd.executed(args, commandEvent);
                     return;
                 }
             }

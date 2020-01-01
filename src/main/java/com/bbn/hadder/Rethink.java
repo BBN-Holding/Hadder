@@ -133,7 +133,15 @@ public class Rethink {
     }
 
     public void insertUser(String id) {
-        this.insert("user", r.hashMap("id", id).with("prefix", "h.").with("language", "en"));
+        this.insert("user", r.hashMap("id", id).with("prefix", "h.").with("language", "en").with("blacklisted", "none"));
+    }
+
+    public void setBlackListed(String id, String commands) {
+        this.update("user", id, "blacklisted", commands);
+    }
+
+    public String getBlackListed(String id) {
+        return (String) this.get("user", "id", id, "blacklisted");
     }
 
     public void setNeededstars(String stars, String guild_id) {
