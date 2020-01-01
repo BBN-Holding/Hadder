@@ -9,7 +9,6 @@ import net.dv8tion.jda.api.Permission;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class HelpCommand implements Command {
 
