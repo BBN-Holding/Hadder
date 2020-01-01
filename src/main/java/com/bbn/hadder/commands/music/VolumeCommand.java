@@ -46,7 +46,7 @@ public class VolumeCommand implements Command {
 
     @Override
     public String description() {
-        return "Change the volume of the music.";
+        return "commands.music.volume.help.description";
     }
 
     @Override
