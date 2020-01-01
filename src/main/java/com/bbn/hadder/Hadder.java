@@ -92,13 +92,14 @@ public class Hadder {
                         new LanguageCommand(),
                         new ClydeCommand(),
                         new PlayCommand(),
-                        new StarBoardCommand(),
+                        new StarboardCommand(),
                         new QueueCommand(),
                         new InfoCommand(),
                         new SkipCommand(),
                         new EditRulesCommand(),
                         new VolumeCommand(),
-                        new StopCommand()), config, helpCommand);
+                        new StopCommand(),
+                        new BlacklistCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),

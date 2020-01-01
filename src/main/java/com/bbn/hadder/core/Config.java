@@ -143,6 +143,10 @@ public class Config {
         return config.getJSONObject("Tokens").getString("BotListSpace");
     }
 
+    public String getDiscordBots2Token() {
+        return config.getJSONObject("Tokens").getString("DiscordBots2");
+    }
+
     public String getClydeName() {
         return config.getString("Clyde");
     }
