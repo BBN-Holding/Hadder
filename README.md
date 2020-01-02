@@ -9,6 +9,7 @@ Hadder Discord is a multi-purpose Discord bot with 100% uptime.
 [![Crowdin](https://badges.crowdin.net/e/bc0babde730eb3eada34778502a31b03/localized.svg)](https://bbn.crowdin.com/hadder)
 [![GitHub issues](https://img.shields.io/github/issues/BigBotNetwork/Hadder)](https://github.com/BigBotNetwork/Hadder/issues)
 [![GitHub license](https://img.shields.io/github/license/BigBotNetwork/Hadder)](https://github.com/BigBotNetwork/Hadder/blob/master/LICENSE)
+[![time tracker](https://wakatime.com/badge/github/BigBotNetwork/Hadder.svg)](https://wakatime.com/badge/github/BigBotNetwork/Hadder)
 
 [![Discord Extreme List](https://api.discordextremelist.xyz/v1/bot/637002314162372639/widget)](https://discordextremelist.xyz/bots/Hadder)
 [![Discord Bots](https://top.gg/api/widget/637002314162372639.svg)](https://top.gg/bot/637002314162372639)
