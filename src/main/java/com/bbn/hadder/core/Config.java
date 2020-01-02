@@ -115,10 +115,6 @@ public class Config {
         return config.getJSONObject("Tokens").getString("DiscordBotList");
     }
 
-    public String getDiscordBestBotsToken() {
-        return config.getJSONObject("Tokens").getString("DiscordBestBots");
-    }
-
     public String getDiscordBoatsToken() {
         return config.getJSONObject("Tokens").getString("DiscordBoats");
     }
@@ -145,6 +141,10 @@ public class Config {
 
     public String getDiscordBots2Token() {
         return config.getJSONObject("Tokens").getString("DiscordBots2");
+    }
+
+    public String getCloudListToken() {
+        return config.getJSONObject("Tokens").getString("CloudList");
     }
 
     public String getClydeName() {
