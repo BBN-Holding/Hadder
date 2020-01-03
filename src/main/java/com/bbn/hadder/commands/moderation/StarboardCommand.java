@@ -5,7 +5,7 @@ import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class StarBoardCommand implements Command {
+public class StarboardCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
@@ -29,7 +29,7 @@ public class StarBoardCommand implements Command {
         }
 
         if (args.length==2) {
-            event.getRethink().setNeededstars(args[1], event.getGuild().getId());
+            event.getRethink().setNeededStars(args[1], event.getGuild().getId());
         }
     }
 
@@ -40,7 +40,7 @@ public class StarBoardCommand implements Command {
 
     @Override
     public String description() {
-        return "Sets the starboard channel";
+        return "commands.moderation.starboard.help.description";
     }
 
     @Override

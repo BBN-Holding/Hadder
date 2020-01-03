@@ -36,8 +36,8 @@ public class MessageEditor {
                             String description, String description_extra, String description_extra_two) {
         String language = (this.user!=null) ? rethink.getLanguage(this.user.getId()) : null;
         EmbedBuilder eb = this.getDefaultSettings(type);
-        if (!title.equals("")) eb.setTitle(this.handle(language, title, title_extra, title_extra_two));
-        if (!description.equals("")) eb.setDescription(this.handle(language, description, description_extra, description_extra_two));
+        if (!"".equals(title)) eb.setTitle(this.handle(language, title, title_extra, title_extra_two));
+        if (!"".equals(description)) eb.setDescription(this.handle(language, description, description_extra, description_extra_two));
         return eb;
     }
 
