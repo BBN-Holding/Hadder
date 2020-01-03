@@ -41,8 +41,9 @@ public class CommandHandler {
                         for (Perm perm : cmd.getClass().getAnnotation(Perms.class).value()) {
                             if (!perm.check(commandEvent)) {
                                 commandEvent.getTextChannel()
-                                        .sendMessage(commandEvent.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION).build())
-                                        .queue();
+                                        .sendMessage(commandEvent.getMessageEditor().getMessage(MessageEditor.MessageType.NO_PERMISSION)
+                                                .setDescription("To execute this command, you need the `" + cmd.getClass().getAnnotation(Perms.class).value()[0] + "` permission.")
+                                                .build()).queue();
                                 return;
                             }
                         }
@@ -51,8 +52,8 @@ public class CommandHandler {
                     boolean run = true;
                     String blacklisted = rethink.getBlackListed(event.getAuthor().getId());
                     if (!"none".equals(blacklisted)) {
-                        for (String blacklistedlabel : blacklisted.split(",")) {
-                            if (Arrays.asList(cmd.labels()).contains(blacklistedlabel)) {
+                        for (String BLLabel : blacklisted.split(",")) {
+                            if (Arrays.asList(cmd.labels()).contains(BLLabel)) {
                                 run = false;
                             }
                         }
