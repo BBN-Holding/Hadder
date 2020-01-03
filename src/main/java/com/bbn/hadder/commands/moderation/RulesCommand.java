@@ -82,8 +82,8 @@ public class RulesCommand implements Command {
                         if (event3.getMessage().getMentionedRoles().size() == 1) {
                             Role role = event3.getMessage().getMentionedRoles().get(0);
                             setRole(event, channel, message, event3, role);
-                        } else if (event3.getGuild().getRolesByName(event3.getMessage().getContentStripped(), true).size() > 0) {
-                                Role role = event3.getGuild().getRolesByName(event3.getMessage().getContentStripped(), true).get(0);
+                        } else if (event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), true).size() > 0) {
+                                Role role = event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), true).get(0);
                                 setRole(event, channel, message, event3, role);
                         } else {
                             event3.getChannel().sendMessage(
@@ -113,106 +113,113 @@ public class RulesCommand implements Command {
 
     public void setRole(CommandEvent event, TextChannel channel, String message, GuildMessageReceivedEvent event3, Role role) {
         if (event3.getGuild().getSelfMember().canInteract(role)) {
-            event3.getChannel().sendMessage(
-                    event.getMessageEditor().getMessage(
-                            MessageEditor.MessageType.INFO,
-                            "commands.moderation.rules.emote.accept.title",
-                            "",
-                            "commands.moderation.rules.emote.accept.description", role.getName())
-                    .build()).queue();
-            event.getEventWaiter().newOnMessageEventWaiter(event4 -> {
-                if (event4.getMessage().getEmotes().size() == 1) {
-                    Emote aemote = event4.getMessage().getEmotes().get(0);
-                    event4.getChannel().sendMessage(
-                            event.getMessageEditor().getMessage(
-                                    MessageEditor.MessageType.INFO,
-                                    "commands.moderation.rules.emote.decline.title", "",
-                                    "commands.moderation.rules.emote.decline.description", String.valueOf(aemote))
-                            .build()).queue();
-                    event.getEventWaiter().newOnMessageEventWaiter(event5 -> {
-                        Emote demote = event5.getMessage().getEmotes().get(0);
-                        if (!aemote.equals(demote)) {
-                            Message rules = channel.sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                                    .setTitle("Rules")
-                                    .setDescription(message)
-                                    .build()).complete();
-                            try {
-                                rules.addReaction(aemote).queue();
-                                rules.addReaction(demote).queue();
-                                event5.getChannel().sendMessage(
-                                        event.getMessageEditor().getMessage(
-                                                MessageEditor.MessageType.INFO,
-                                                "commands.moderation.rules.success.title",
-                                                "",
-                                                "commands.moderation.rules.success.description",
-                                                channel.getAsMention())
+            if (event3.getMember().canInteract(role)) {
+                event3.getChannel().sendMessage(
+                        event.getMessageEditor().getMessage(
+                                MessageEditor.MessageType.INFO,
+                                "commands.moderation.rules.emote.accept.title",
+                                "",
+                                "commands.moderation.rules.emote.accept.description", role.getName())
+                                .build()).queue();
+                event.getEventWaiter().newOnMessageEventWaiter(event4 -> {
+                    if (event4.getMessage().getEmotes().size() == 1) {
+                        Emote aemote = event4.getMessage().getEmotes().get(0);
+                        event4.getChannel().sendMessage(
+                                event.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.INFO,
+                                        "commands.moderation.rules.emote.decline.title", "",
+                                        "commands.moderation.rules.emote.decline.description", String.valueOf(aemote))
                                         .build()).queue();
-                            } catch (Exception e) {
-                                event5.getChannel().sendMessage(
-                                        event.getMessageEditor().getMessage(
-                                                MessageEditor.MessageType.ERROR,
-                                                "error",
-                                                "commands.moderation.rules.emote.error.access.description")
-                                        .build()).queue();
-                                e.printStackTrace();
-                            }
-                            event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote.toString(), demote.toString());
-                        } else {
-                            event.getTextChannel().sendMessage(
-                                    event.getMessageEditor().getMessage(
-                                            MessageEditor.MessageType.ERROR,
-                                            "commands.moderation.rules.emote.error.equal.title",
-                                            "commands.moderation.rules.emote.error.equal.description")
-                                    .build()).queue();
-                        }
-                    }, event.getJDA(), event.getAuthor());
-                } else {
-                    String aemote = event4.getMessage().getContentRaw();
-                    event4.getChannel().sendMessage(
-                            event.getMessageEditor().getMessage(
-                                    MessageEditor.MessageType.INFO,
-                                    "commands.moderation.rules.emote.decline.title",
-                                    "commands.moderation.rules.emoji.decline.description")
-                            .build()).queue();
-                    event.getEventWaiter().newOnMessageEventWaiter(event5 -> {
-                        String demote = event5.getMessage().getContentRaw();
-                        if (!aemote.equals(demote)) {
-                            Message rules = channel.sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                                    .setTitle("Rules")
-                                    .setDescription(message)
-                                    .build()).complete();
-                            try {
-                                rules.addReaction(aemote).queue();
-                                rules.addReaction(demote).queue();
-                                event5.getChannel().sendMessage(
-                                        event.getMessageEditor().getMessage(
-                                                MessageEditor.MessageType.INFO,
-                                                "commands.moderation.rules.success.title",
-                                                "",
-                                                "commands.moderation.rules.success.description",
-                                                channel.getAsMention())
-                                        .build()).queue();
-                            } catch (Exception e) {
-                                event5.getChannel().sendMessage(
+                        event.getEventWaiter().newOnMessageEventWaiter(event5 -> {
+                            Emote demote = event5.getMessage().getEmotes().get(0);
+                            if (!aemote.equals(demote)) {
+                                Message rules = channel.sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                                        .setTitle("Rules")
+                                        .setDescription(message)
+                                        .build()).complete();
+                                try {
+                                    rules.addReaction(aemote).queue();
+                                    rules.addReaction(demote).queue();
+                                    event5.getChannel().sendMessage(
+                                            event.getMessageEditor().getMessage(
+                                                    MessageEditor.MessageType.INFO,
+                                                    "commands.moderation.rules.success.title",
+                                                    "",
+                                                    "commands.moderation.rules.success.description",
+                                                    channel.getAsMention())
+                                                    .build()).queue();
+                                } catch (Exception e) {
+                                    event5.getChannel().sendMessage(
+                                            event.getMessageEditor().getMessage(
+                                                    MessageEditor.MessageType.ERROR,
+                                                    "error",
+                                                    "commands.moderation.rules.emote.error.access.description")
+                                                    .build()).queue();
+                                    e.printStackTrace();
+                                }
+                                event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote.toString(), demote.toString());
+                            } else {
+                                event.getTextChannel().sendMessage(
                                         event.getMessageEditor().getMessage(
                                                 MessageEditor.MessageType.ERROR,
-                                                "error",
-                                                "commands.moderation.rules.emoji.error.description")
-                                        .build()).queue();
-                                e.printStackTrace();
+                                                "commands.moderation.rules.emote.error.equal.title",
+                                                "commands.moderation.rules.emote.error.equal.description")
+                                                .build()).queue();
                             }
-                            event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote, demote);
-                        } else {
-                            event.getTextChannel().sendMessage(
-                                    event.getMessageEditor().getMessage(
-                                            MessageEditor.MessageType.ERROR,
-                                            "commands.moderation.rules.emote.error.equal.title",
-                                            "commands.moderation.rules.emote.error.equal.description")
-                                    .build()).queue();
-                        }
-                    }, event.getJDA(), event.getAuthor());
-                }
-            }, event.getJDA(), event.getAuthor());
+                        }, event.getJDA(), event.getAuthor());
+                    } else {
+                        String aemote = event4.getMessage().getContentRaw();
+                        event4.getChannel().sendMessage(
+                                event.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.INFO,
+                                        "commands.moderation.rules.emote.decline.title",
+                                        "commands.moderation.rules.emoji.decline.description")
+                                        .build()).queue();
+                        event.getEventWaiter().newOnMessageEventWaiter(event5 -> {
+                            String demote = event5.getMessage().getContentRaw();
+                            if (!aemote.equals(demote)) {
+                                Message rules = channel.sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                                        .setTitle("Rules")
+                                        .setDescription(message)
+                                        .build()).complete();
+                                try {
+                                    rules.addReaction(aemote).queue();
+                                    rules.addReaction(demote).queue();
+                                    event5.getChannel().sendMessage(
+                                            event.getMessageEditor().getMessage(
+                                                    MessageEditor.MessageType.INFO,
+                                                    "commands.moderation.rules.success.title",
+                                                    "",
+                                                    "commands.moderation.rules.success.description",
+                                                    channel.getAsMention())
+                                                    .build()).queue();
+                                } catch (Exception e) {
+                                    event5.getChannel().sendMessage(
+                                            event.getMessageEditor().getMessage(
+                                                    MessageEditor.MessageType.ERROR,
+                                                    "error",
+                                                    "commands.moderation.rules.emoji.error.description")
+                                                    .build()).queue();
+                                    e.printStackTrace();
+                                }
+                                event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote, demote);
+                            } else {
+                                event.getTextChannel().sendMessage(
+                                        event.getMessageEditor().getMessage(
+                                                MessageEditor.MessageType.ERROR,
+                                                "commands.moderation.rules.emote.error.equal.title",
+                                                "commands.moderation.rules.emote.error.equal.description")
+                                                .build()).queue();
+                            }
+                        }, event.getJDA(), event.getAuthor());
+                    }
+                }, event.getJDA(), event.getAuthor());
+            } else {
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        "commands.moderation.rules.role.permission.error.title",
+                        "commands.moderation.rules.role.permission.error.description")
+                        .build()).queue();
+            }
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
         }
