@@ -40,7 +40,7 @@ public class StarboardCommand implements Command {
 
     @Override
     public String description() {
-        return "Sets the starboard channel";
+        return "commands.moderation.starboard.help.description";
     }
 
     @Override

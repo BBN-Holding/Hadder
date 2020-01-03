@@ -71,7 +71,7 @@ public class BlacklistCommand implements Command {
                     for (User user : event.getJDA().getUsers()) {
                         if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
                             String blacklisted = event.getRethink().getBlackListed(user.getId());
-                            if (!blacklisted.equals("none")) {
+                            if (!"none".equals(blacklisted)) {
                                 stringBuilder.append(user.getAsTag()).append(" (").append(user.getId()).append(") - ").append(blacklisted).append("\n");
                             }
                         }

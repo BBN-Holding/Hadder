@@ -30,9 +30,9 @@ public class ClearCommand implements Command {
                     }
                     Message message = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
-                            "commands.moderation.lear.all.success.title",
+                            "commands.moderation.clear.all.success.title",
                             "",
-                            "commands.moderation.lear.all.success.description",
+                            "commands.moderation.clear.all.success.description",
                             String.valueOf(msg.size()))
                             .build()).complete();
                     try {
