@@ -22,7 +22,7 @@ public class RulesListener extends ListenerAdapter {
         if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId())) && !event.getMember().getUser().isBot()) {
             if (event.getReactionEmote().isEmote()) {
                 if (rethink.getRulesAEmote(event.getGuild().getId()).equals(event.getReactionEmote().getId())) {
-                    event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
+                    addRole(event);
                 } else if (rethink.getRulesDEmote(event.getGuild().getId()).equals(event.getReactionEmote().getId())) {
                     event.getReaction().removeReaction(event.getUser()).queue();
                     if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
@@ -31,7 +31,7 @@ public class RulesListener extends ListenerAdapter {
                 }
             } else if (event.getReactionEmote().isEmoji()) {
                 if (rethink.getRulesAEmote(event.getGuild().getId()).equals(event.getReactionEmote().getEmoji())) {
-                    event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
+                    addRole(event);
                 } else if (rethink.getRulesDEmote(event.getGuild().getId()).equals(event.getReactionEmote().getEmoji())) {
                     event.getReaction().removeReaction(event.getUser()).queue();
                     if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
@@ -40,6 +40,12 @@ public class RulesListener extends ListenerAdapter {
                 }
             }
         }
+    }
+
+    private void addRole(MessageReactionAddEvent event) {
+        if (event.getMember().getRoles().contains(event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId())))) {
+            event.getGuild().removeRoleFromMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
+        } else event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
     }
 
     @Override
