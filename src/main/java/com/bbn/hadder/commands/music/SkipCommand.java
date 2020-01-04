@@ -13,10 +13,16 @@ public class SkipCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getAudioManager().hasPlayer(event.getGuild()) && !event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks().isEmpty()) {
-            event.getAudioManager().forceSkipTrack(event);
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                    "commands.music.skip.success.title",
-                    "commands.music.skip.success.description").build()).queue();
+            if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
+                event.getAudioManager().forceSkipTrack(event);
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                        "commands.music.skip.success.title",
+                        "commands.music.skip.success.description").build()).queue();
+            } else {
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        "commands.music.skip.error.connected.title",
+                        "commands.music.skip.error.connected.description ").build()).queue();
+            }
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.music.info.error.title",

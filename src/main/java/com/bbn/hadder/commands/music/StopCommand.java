@@ -13,13 +13,20 @@ public class StopCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() != null) {
-            event.getAudioManager().players.remove(event.getGuild().getId());
-            event.getAudioManager().getPlayer(event.getGuild()).destroy();
-            event.getAudioManager().getTrackManager(event.getGuild()).purgeQueue();
-            event.getGuild().getAudioManager().closeAudioConnection();
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                    "commands.music.stop.success.title",
-                    "commands.music.stop.success.description").build()).queue();
+            if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
+                event.getAudioManager().players.remove(event.getGuild().getId());
+                event.getAudioManager().getPlayer(event.getGuild()).destroy();
+                event.getAudioManager().getTrackManager(event.getGuild()).purgeQueue();
+                event.getGuild().getAudioManager().closeAudioConnection();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                        "commands.music.stop.success.title",
+                        "commands.music.stop.success.description").build()).queue();
+            } else {
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        "commands.music.stop.error.connected.title",
+                        "commands.music.stop.error.connected.description")
+                        .build()).queue();
+            }
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.music.info.error.title",
