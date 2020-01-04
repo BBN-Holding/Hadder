@@ -4,6 +4,7 @@ import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 import java.net.URL;
 
@@ -24,6 +25,11 @@ public class PlayCommand implements Command {
                             "commands.music.play.load.title", "⭕",
                             "commands.music.play.load.description", "").build()).complete();
                     event.getAudioManager().loadTrack(input, event, msg);
+                } catch (InsufficientPermissionException e) {
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                            "commands.music.join.error.permission.title",
+                            "commands.music.join.error.permission.description")
+                            .build()).queue();
                 } catch (Exception ignore) {
                     Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                             "commands.music.play.load.title", "⭕",
