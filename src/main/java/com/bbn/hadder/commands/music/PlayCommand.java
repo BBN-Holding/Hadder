@@ -43,6 +43,19 @@ public class PlayCommand implements Command {
                         "commands.music.join.error.channel.description")
                         .build()).queue();
             }
+        } else if (event.getAudioManager().getPlayer(event.getGuild()).isPaused()) {
+            if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
+                event.getAudioManager().getPlayer(event.getGuild()).setPaused(false);
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                        "commands.music.play.success.unpause.title",
+                        "commands.music.play.success.unpause.description")
+                        .build()).queue();
+            } else {
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        "commands.music.play.error.connected.title",
+                        "commands.music.play.error.connected.description")
+                        .build()).queue();
+            }
         } else event.getHelpCommand().sendHelp(this, event);
     }
 
