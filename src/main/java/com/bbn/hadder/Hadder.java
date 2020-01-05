@@ -101,7 +101,8 @@ public class Hadder {
                         new EditRulesCommand(),
                         new VolumeCommand(),
                         new StopCommand(),
-                        new BlacklistCommand()), config, helpCommand);
+                        new BlacklistCommand(),
+                        new PauseCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
