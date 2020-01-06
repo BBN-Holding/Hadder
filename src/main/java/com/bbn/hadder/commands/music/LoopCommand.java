@@ -14,7 +14,13 @@ public class LoopCommand implements Command {
     public void executed(String[] args, CommandEvent event) {
         if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() != null) {
             if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
-                
+                if (event.getAudioManager().getTrackManager(event.getGuild()).isLoop()) {
+                    event.getAudioManager().getTrackManager(event.getGuild()).setLoop(false);
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.music.loop.success.loop.title", "commands.music.loop.success.loop.description").build()).queue();
+                } else {
+                    event.getAudioManager().getTrackManager(event.getGuild()).setLoop(true);
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.music.loop.success.unloop.title", "commands.music.loop.success.unloop.description").build()).queue();
+                }
             } else {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.music.loop.error.connected.title",
