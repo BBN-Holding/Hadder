@@ -102,7 +102,8 @@ public class Hadder {
                         new VolumeCommand(),
                         new StopCommand(),
                         new BlacklistCommand(),
-                        new PauseCommand()), config, helpCommand);
+                        new PauseCommand(),
+                        new LoopCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
