@@ -16,10 +16,10 @@ public class LoopCommand implements Command {
             if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
                 if (event.getAudioManager().getTrackManager(event.getGuild()).isLoop()) {
                     event.getAudioManager().getTrackManager(event.getGuild()).setLoop(false);
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.music.loop.success.loop.title", "commands.music.loop.success.loop.description").build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.music.loop.success.unloop.title", "commands.music.loop.success.unloop.description").build()).queue();
                 } else {
                     event.getAudioManager().getTrackManager(event.getGuild()).setLoop(true);
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.music.loop.success.unloop.title", "commands.music.loop.success.unloop.description").build()).queue();
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.music.loop.success.loop.title", "commands.music.loop.success.loop.description").build()).queue();
                 }
             } else {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
