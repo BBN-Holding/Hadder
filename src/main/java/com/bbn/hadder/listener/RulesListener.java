@@ -21,18 +21,31 @@ public class RulesListener extends ListenerAdapter {
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId())) && !event.getMember().getUser().isBot()) {
             if (event.getReactionEmote().isEmote()) {
-                if (rethink.getRulesAEmote(event.getGuild().getId()).contains(event.getReactionEmote().getId())) {
-                    event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
-                } else if (rethink.getRulesDEmote(event.getGuild().getId()).contains(event.getReactionEmote().getId())) {
+                if (rethink.getRulesAEmote(event.getGuild().getId()).equals(event.getReactionEmote().getId())) {
+                    addRole(event);
+                } else if (rethink.getRulesDEmote(event.getGuild().getId()).equals(event.getReactionEmote().getId())) {
                     event.getReaction().removeReaction(event.getUser()).queue();
                     if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
                         event.getMember().kick().reason("Declined the rules");
                     }
                 }
             } else if (event.getReactionEmote().isEmoji()) {
-                event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
+                if (rethink.getRulesAEmote(event.getGuild().getId()).equals(event.getReactionEmote().getEmoji())) {
+                    addRole(event);
+                } else if (rethink.getRulesDEmote(event.getGuild().getId()).equals(event.getReactionEmote().getEmoji())) {
+                    event.getReaction().removeReaction(event.getUser()).queue();
+                    if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
+                        event.getMember().kick().reason("Declined the rules");
+                    }
+                }
             }
         }
+    }
+
+    private void addRole(MessageReactionAddEvent event) {
+        if (event.getMember().getRoles().contains(event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId())))) {
+            event.getGuild().removeRoleFromMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
+        } else event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
     }
 
     @Override
