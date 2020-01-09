@@ -52,6 +52,7 @@ public class TrackManager extends AudioEventAdapter {
         this.lastTrack = track;
         Guild g = queue.poll().getAuthor().getGuild();
         if (loop) {
+
             player.playTrack(this.lastTrack.makeClone());
         } else if (queue.isEmpty()) {
             g.getAudioManager().closeAudioConnection();

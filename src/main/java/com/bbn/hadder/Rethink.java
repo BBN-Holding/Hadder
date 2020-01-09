@@ -133,7 +133,10 @@ public class Rethink {
     }
 
     public void insertUser(String id) {
-        this.insert("user", r.hashMap("id", id).with("prefix", "h.").with("language", "en").with("blacklisted", "none"));
+        this.insert("user", r.hashMap("id", id)
+                .with("prefix", "h.")
+                .with("language", "en")
+                .with("blacklisted", "none"));
     }
 
     public void setBlackListed(String id, String commands) {
