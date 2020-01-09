@@ -70,6 +70,22 @@ public class Rethink {
         }
     }
 
+    public void update(String table, String value, String what, int whatvalue) {
+        try {
+            r.table(table).get(value).update(r.hashMap(what, whatvalue)).run(conn);
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(String table, String value, String what, boolean whatvalue) {
+        try {
+            r.table(table).get(value).update(r.hashMap(what, whatvalue)).run(conn);
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void insert(String table, Object object) {
         try {
             r.table(table).insert(object).run(conn);
@@ -122,7 +138,8 @@ public class Rethink {
     }
 
     public void insertGuild(String id) {
-        this.insert("server", r.hashMap("id", id)
+        this.insert("server", r
+                .hashMap("id", id)
                 .with("prefix", "h.")
                 .with("message_id", "")
                 .with("role_id", "")
@@ -133,7 +150,8 @@ public class Rethink {
     }
 
     public void insertUser(String id) {
-        this.insert("user", r.hashMap("id", id)
+        this.insert("user", r
+                .hashMap("id", id)
                 .with("prefix", "h.")
                 .with("language", "en")
                 .with("blacklisted", "none"));
@@ -207,11 +225,7 @@ public class Rethink {
     }
 
     public void setInviteDetection(String guild_id, boolean b) {
-        try {
-            r.table("server").get(guild_id).update(r.hashMap("invite_detect", b)).run(conn);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
+        this.update("server", guild_id, "invite_detect", b);
     }
 
     public Boolean getInviteDetection(String guild_id) {
