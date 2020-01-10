@@ -1,2 +1,2 @@
-FROM debian:latest
+FROM debian:buster
 WORKDIR /home/Hadder
