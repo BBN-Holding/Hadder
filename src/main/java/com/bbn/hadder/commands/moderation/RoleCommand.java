@@ -36,7 +36,7 @@ public class RoleCommand implements Command {
                                     event.getMessageEditor().getMessage(
                                             MessageEditor.MessageType.INFO,
                                             "commands.moderation.role.add.success.title",
-                                            "✅",
+                                            "",
                                             "",
                                             "commands.moderation.role.add.success.description",
                                             String.valueOf(event.getMessage().getMentionedRoles().size()),
