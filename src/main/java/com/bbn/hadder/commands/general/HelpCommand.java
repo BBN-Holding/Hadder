@@ -59,7 +59,7 @@ public class HelpCommand implements Command {
     public void sendHelp(Command cmd, CommandEvent event) {
         if (!cmd.getClass().getPackageName().endsWith("owner") || (cmd.getClass().getPackageName().endsWith("owner") &&
                 (event.getAuthor().getId().equals("477141528981012511") || event.getAuthor().getId().equals("261083609148948488")))) {
-            String name = labels()[0];
+            String name = cmd.labels()[0];
             StringBuilder b = new StringBuilder();
             b.append(event.getMessageEditor().getTerm("commands.general.help.description")).append(" ").append(event.getMessageEditor().getTerm(cmd.description())).append("\n");
             if (cmd.usage() != null) {
