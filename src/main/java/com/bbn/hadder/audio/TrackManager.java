@@ -48,7 +48,7 @@ public class TrackManager extends AudioEventAdapter {
 
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        Guild g = queue.element().getAuthor().getGuild();
+        Guild g = queue.poll().getAuthor().getGuild();
         if (loop) {
             player.playTrack(track.makeClone());
         } else if (queue.isEmpty()) {
