@@ -26,7 +26,7 @@ Hax#6775
 | h.help         | Shows each command and explains its usage.                    |
 | h.about        | Shows information about Hadder.                               |
 | h.equals       | Checks if two strings are the same.                           |
-| h.invite       | Shows the invitation link to invite Hadder to your server.    |
+| h.invite       | Shows the invite link to invite Hadder to your server.    |
 | h.ping         | Shows the ping to the Discord API.                            |
 | h.avatar       | Sends the avatar of the specified member.                     |
 | h.gif          | Looks for a GIF on Giphy.                                     |
