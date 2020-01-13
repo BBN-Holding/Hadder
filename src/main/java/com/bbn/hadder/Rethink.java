@@ -62,25 +62,25 @@ public class Rethink {
         else return null;
     }
 
-    public void update(String table, String value, String what, String whatvalue) {
+    public void update(String table, String where, String what, String value) {
         try {
-            r.table(table).get(value).update(r.hashMap(what, whatvalue)).run(conn);
+            r.table(table).get(where).update(r.hashMap(what, value)).run(conn);
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
     }
 
-    public void update(String table, String value, String what, int whatvalue) {
+    public void update(String table, String where, String what, int value) {
         try {
-            r.table(table).get(value).update(r.hashMap(what, whatvalue)).run(conn);
+            r.table(table).get(where).update(r.hashMap(what, value)).run(conn);
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
     }
 
-    public void update(String table, String value, String what, boolean whatvalue) {
+    public void update(String table, String where, String what, boolean value) {
         try {
-            r.table(table).get(value).update(r.hashMap(what, whatvalue)).run(conn);
+            r.table(table).get(where).update(r.hashMap(what, value)).run(conn);
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
