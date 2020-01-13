@@ -23,11 +23,13 @@ public class QueueCommand implements Command {
         } else {
             Set<AudioInfo> queue = event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks();
             StringBuilder builder = new StringBuilder();
+            long queuelength = 0;
             for (AudioInfo g : queue) {
-                builder.append("**").append(g.getTrack().getInfo().author).append("**: `").append(g.getTrack().getInfo().title).append("` \n");
+                queuelength = queuelength + g.getTrack().getInfo().length;
+                builder.append("("+event.getAudioManager().getTimestamp(g.getTrack().getInfo().length)+") **").append(g.getTrack().getInfo().author).append("**: `").append(g.getTrack().getInfo().title).append("` \n");
             }
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                    "commands.music.queue.success.title", "",
+                    "commands.music.queue.success.title", "("+String.valueOf(event.getAudioManager().getTimestamp(queuelength))+")",
                     "commands.music.queue.success.description", builder.toString())
                     .build()).queue();
         }
