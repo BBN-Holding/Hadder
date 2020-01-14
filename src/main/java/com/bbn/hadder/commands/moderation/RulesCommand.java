@@ -55,7 +55,10 @@ public class RulesCommand implements Command {
                 }
             }, event.getJDA(), event.getAuthor());
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                    "commands.moderation.rules.error.permission.title",
+                    "commands.moderation.rules.error.permission.description")
+                    .build()).queue();
         }
     }
 
@@ -221,7 +224,10 @@ public class RulesCommand implements Command {
                         .build()).queue();
             }
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                    "commands.moderation.rules.error.interact.title",
+                    "commands.moderation.rules.error.interact.description")
+                    .build()).queue();
         }
     }
 
