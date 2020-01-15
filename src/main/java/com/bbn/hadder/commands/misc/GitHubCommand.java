@@ -79,6 +79,9 @@ public class GitHubCommand implements Command {
                 }
             }
         } else {
+            event.getHelpCommand().sendHelp(this, event);
+            /*
+            TODO: THIS
             event.getTextChannel().sendMessage(
                     event.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
@@ -86,7 +89,7 @@ public class GitHubCommand implements Command {
                             "",
                             "commands.misc.github.connect.description",
                             "(https://github.com/login/oauth/authorize?client_id=25321f690bb1b6952942)")
-                    .build()).queue();
+                    .build()).queue(); */
         }
     }
 
