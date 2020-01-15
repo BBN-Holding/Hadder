@@ -103,6 +103,10 @@ public class Config {
         return config.getJSONObject("Tokens").getString("GitHub");
     }
 
+    public String getWakaTimeToken() {
+        return config.getJSONObject("Tokens").getString("WakaTime");
+    }
+
     public String getMythicalBotListToken() {
         return config.getJSONObject("Tokens").getString("MythicalBotList");
     }

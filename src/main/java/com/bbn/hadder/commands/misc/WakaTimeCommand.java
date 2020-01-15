@@ -20,7 +20,7 @@ public class WakaTimeCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (args.length == 1) {
-            Request request = new Request.Builder().url("https://wakatime.com/api/v1/users/" + args[0]).build();
+            Request request = new Request.Builder().url("https://wakatime.com/api/v1/users/" + args[0]).addHeader("Authorization", "Basic " + event.getConfig().getWakaTimeToken()).build();
 
             try {
                 Response response = new OkHttpClient().newCall(request).execute();
