@@ -25,7 +25,9 @@ public class WakaTimeCommand implements Command {
             try {
                 Response response = new OkHttpClient().newCall(request).execute();
                 JSONObject json = new JSONObject(response.body().string());
-                event.getTextChannel().sendMessage("jisdfids").queue();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                        "",
+                        "").build()).queue();
             } catch (JSONException e) {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
                         MessageEditor.MessageType.ERROR,
