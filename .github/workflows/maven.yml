@@ -30,7 +30,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: ./target/Hadder-Build.jar
-          remote: /home/Bots/Hadder-Build.jar
+          remote: /home/Hadder-Build.jar
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: /home/Bots/deploy.sh
+          script: /home/deploy.sh
       - name: Send Webhook Notification
         if: always()
         env:

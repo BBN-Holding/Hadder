@@ -20,16 +20,13 @@ Hadder Discord is a multi-purpose Discord bot with 100% uptime.
 Skidder#6775 <br>
 Hax#6775
 
-### Designer
-TopComp#1288
-
 ## A few commands
 | **Command**    | **Description**                                               |
 |----------------|---------------------------------------------------------------|
 | h.help         | Shows each command and explains its usage.                    |
 | h.about        | Shows information about Hadder.                               |
 | h.equals       | Checks if two strings are the same.                           |
-| h.invite       | Shows the invitation link to invite Hadder to your server.    |
+| h.invite       | Shows the invite link to invite Hadder to your server.    |
 | h.ping         | Shows the ping to the Discord API.                            |
 | h.avatar       | Sends the avatar of the specified member.                     |
 | h.gif          | Looks for a GIF on Giphy.                                     |

@@ -19,6 +19,7 @@ public class TrackManager extends AudioEventAdapter {
 
     private final AudioPlayer player;
     private final Queue<AudioInfo> queue;
+    private boolean loop = false;
 
     public TrackManager(AudioPlayer player) {
         this.player = player;
@@ -47,11 +48,13 @@ public class TrackManager extends AudioEventAdapter {
 
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        Guild g = queue.poll().getAuthor().getGuild();
-        if (queue.isEmpty()) {
+        Guild g = queue.element().getAuthor().getGuild();
+        if (loop) {
+            player.playTrack(track.makeClone());
+        } else if (queue.isEmpty()) {
             g.getAudioManager().closeAudioConnection();
         } else {
-            player.playTrack(queue.element().getTrack());
+            player.playTrack(queue.element().getTrack().makeClone());
         }
     }
 
@@ -65,6 +68,16 @@ public class TrackManager extends AudioEventAdapter {
 
     public void remove(AudioInfo entry) {
         queue.remove(entry);
+    }
+
+    public boolean isLoop()
+    {
+        return loop;
+    }
+
+    public void setLoop(boolean repeating)
+    {
+        this.loop = repeating;
     }
 
     public AudioInfo getTrackInfo(AudioTrack track) {

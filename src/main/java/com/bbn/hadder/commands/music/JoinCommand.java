@@ -4,6 +4,7 @@ import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 /*
@@ -20,15 +21,22 @@ public class JoinCommand implements Command {
                 VoiceChannel vc = event.getMember().getVoiceState().getChannel();
                 if (event.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
                     if (!event.getGuild().getSelfMember().getVoiceState().getChannel().getId().equals(vc.getId())) {
-                        event.getGuild().getAudioManager().openAudioConnection(vc);
-                        event.getTextChannel().sendMessage(
-                                event.getMessageEditor().getMessage(
-                                        MessageEditor.MessageType.INFO,
-                                        "commands.music.join.success.title",
-                                        "",
-                                        "commands.music.join.success.description",
-                                        vc.getName())
-                                .build()).queue();
+                        try {
+                            event.getGuild().getAudioManager().openAudioConnection(vc);
+                            event.getTextChannel().sendMessage(
+                                    event.getMessageEditor().getMessage(
+                                            MessageEditor.MessageType.INFO,
+                                            "commands.music.join.success.title",
+                                            "",
+                                            "commands.music.join.success.description",
+                                            vc.getName())
+                                            .build()).queue();
+                        } catch (InsufficientPermissionException e) {
+                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                                    "commands.music.join.error.permission.title",
+                                    "commands.music.join.error.permission.description")
+                                    .build()).queue();
+                        }
                     } else {
                         event.getTextChannel().sendMessage(
                             event.getMessageEditor().getMessage(
@@ -38,12 +46,19 @@ public class JoinCommand implements Command {
                                 .build()).queue();
                     }
                 } else {
-                    event.getGuild().getAudioManager().openAudioConnection(vc);
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                        MessageEditor.MessageType.INFO,
-                        "commands.music.join.success.title", "",
-                        "commands.music.join.success.description", vc.getName())
-                        .build()).queue();
+                    try {
+                        event.getGuild().getAudioManager().openAudioConnection(vc);
+                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                                MessageEditor.MessageType.INFO,
+                                "commands.music.join.success.title", "",
+                                "commands.music.join.success.description", vc.getName())
+                                .build()).queue();
+                    } catch (InsufficientPermissionException e) {
+                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                                "commands.music.join.error.permission.title",
+                                "commands.music.join.error.permission.description")
+                                .build()).queue();
+                    }
                 }
             } else {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(

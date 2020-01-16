@@ -11,6 +11,7 @@ import com.bbn.hadder.commands.settings.*;
 import com.bbn.hadder.commands.music.*;
 import com.bbn.hadder.core.*;
 import com.bbn.hadder.listener.*;
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
@@ -39,6 +40,7 @@ public class Hadder {
         builder.setAutoReconnect(true);
         builder.setShardsTotal(1);
         builder.setActivity(Activity.streaming("on the BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
+        builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
         builder.setToken(config.getBotToken());
 
         HelpCommand helpCommand = new HelpCommand();
@@ -99,7 +101,9 @@ public class Hadder {
                         new EditRulesCommand(),
                         new VolumeCommand(),
                         new StopCommand(),
-                        new BlacklistCommand()), config, helpCommand);
+                        new BlacklistCommand(),
+                        new PauseCommand(),
+                        new LoopCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),

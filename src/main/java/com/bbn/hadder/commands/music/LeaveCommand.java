@@ -13,17 +13,24 @@ public class LeaveCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-            event.getGuild().getAudioManager().closeAudioConnection();
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
-                MessageEditor.MessageType.INFO,
-                "commands.music.leave.success.title",
-                "commands.music.leave.success.description")
-                    .build()).queue();
+            if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
+                event.getGuild().getAudioManager().closeAudioConnection();
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                        MessageEditor.MessageType.INFO,
+                        "commands.music.leave.success.title",
+                        "commands.music.leave.success.description")
+                        .build()).queue();
+            } else {
+                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        "commands.music.leave.error.channel.title",
+                        "commands.music.leave.error.channel.description")
+                        .build()).queue();
+            }
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
                 MessageEditor.MessageType.ERROR,
-                "commands.music.leave.error.tile",
-                "commands.music.leave.error.description")
+                "commands.music.leave.error.connected.tile",
+                "commands.music.leave.error.connected.description")
                     .build()).queue();
         }
     }

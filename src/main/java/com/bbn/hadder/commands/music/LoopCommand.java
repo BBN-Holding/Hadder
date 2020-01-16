@@ -8,23 +8,23 @@ import com.bbn.hadder.utils.MessageEditor;
  * @author Skidder / GregTCLTK
  */
 
-public class StopCommand implements Command {
+public class LoopCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
         if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() != null) {
             if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
-                event.getAudioManager().players.remove(event.getGuild().getId());
-                event.getAudioManager().getPlayer(event.getGuild()).destroy();
-                event.getAudioManager().getTrackManager(event.getGuild()).purgeQueue();
-                event.getGuild().getAudioManager().closeAudioConnection();
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                        "commands.music.stop.success.title",
-                        "commands.music.stop.success.description").build()).queue();
+                if (event.getAudioManager().getTrackManager(event.getGuild()).isLoop()) {
+                    event.getAudioManager().getTrackManager(event.getGuild()).setLoop(false);
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.music.loop.success.unloop.title", "commands.music.loop.success.unloop.description").build()).queue();
+                } else {
+                    event.getAudioManager().getTrackManager(event.getGuild()).setLoop(true);
+                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.music.loop.success.loop.title", "commands.music.loop.success.loop.description").build()).queue();
+                }
             } else {
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
-                        "commands.music.stop.error.connected.title",
-                        "commands.music.stop.error.connected.description")
+                        "commands.music.loop.error.connected.title",
+                        "commands.music.loop.error.connected.description")
                         .build()).queue();
             }
         } else {
@@ -36,12 +36,12 @@ public class StopCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"stop"};
+        return new String[]{"loop", "repeat"};
     }
 
     @Override
     public String description() {
-        return "commands.music.stop.help.description";
+        return "commands.music.loop.help.description";
     }
 
     @Override

@@ -62,9 +62,25 @@ public class Rethink {
         else return null;
     }
 
-    public void update(String table, String value, String what, String whatvalue) {
+    public void update(String table, String where, String what, String value) {
         try {
-            r.table(table).get(value).update(r.hashMap(what, whatvalue)).run(conn);
+            r.table(table).get(where).update(r.hashMap(what, value)).run(conn);
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(String table, String where, String what, int value) {
+        try {
+            r.table(table).get(where).update(r.hashMap(what, value)).run(conn);
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(String table, String where, String what, boolean value) {
+        try {
+            r.table(table).get(where).update(r.hashMap(what, value)).run(conn);
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
@@ -122,7 +138,8 @@ public class Rethink {
     }
 
     public void insertGuild(String id) {
-        this.insert("server", r.hashMap("id", id)
+        this.insert("server", r
+                .hashMap("id", id)
                 .with("prefix", "h.")
                 .with("message_id", "")
                 .with("role_id", "")
@@ -133,7 +150,11 @@ public class Rethink {
     }
 
     public void insertUser(String id) {
-        this.insert("user", r.hashMap("id", id).with("prefix", "h.").with("language", "en").with("blacklisted", "none"));
+        this.insert("user", r
+                .hashMap("id", id)
+                .with("prefix", "h.")
+                .with("language", "en")
+                .with("blacklisted", "none"));
     }
 
     public void setBlackListed(String id, String commands) {
@@ -204,11 +225,7 @@ public class Rethink {
     }
 
     public void setInviteDetection(String guild_id, boolean b) {
-        try {
-            r.table("server").get(guild_id).update(r.hashMap("invite_detect", b)).run(conn);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
+        this.update("server", guild_id, "invite_detect", b);
     }
 
     public Boolean getInviteDetection(String guild_id) {
