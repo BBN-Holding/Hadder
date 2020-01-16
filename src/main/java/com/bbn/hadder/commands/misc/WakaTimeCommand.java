@@ -54,7 +54,7 @@ public class WakaTimeCommand implements Command {
 
     @Override
     public String description() {
-        return "Show WakaTime stats.";
+        return "commands.misc.wakatime.help.description";
     }
 
     @Override
