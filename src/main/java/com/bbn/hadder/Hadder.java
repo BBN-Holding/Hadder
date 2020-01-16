@@ -103,8 +103,7 @@ public class Hadder {
                         new StopCommand(),
                         new BlacklistCommand(),
                         new PauseCommand(),
-                        new LoopCommand(),
-                        new WakaTimeCommand()), config, helpCommand);
+                        new LoopCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
