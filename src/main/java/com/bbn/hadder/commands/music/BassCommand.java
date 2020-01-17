@@ -1,5 +1,5 @@
 /*
- * @author Hax / Hax6775 / Schlauer_Hax
+  @author Hax / Hax6775 / Schlauer_Hax
  */
 
 package com.bbn.hadder.commands.music;
@@ -14,7 +14,7 @@ public class BassCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (args.length==1) {
+        if (args.length == 1) {
             float value = Float.parseFloat(args[0]);
             EqualizerFactory equalizer = new EqualizerFactory();
             for (int i = 0; i < BASS_BOOST.length; i++) {
@@ -33,16 +33,16 @@ public class BassCommand implements Command {
 
     @Override
     public String description() {
-        return null;
+        return "commands.music.bass.help.description";
     }
 
     @Override
     public String usage() {
-        return null;
+        return "[Bass-Level]";
     }
 
     @Override
     public String example() {
-        return null;
+        return "1000";
     }
 }
