@@ -35,7 +35,7 @@ public class VolumeCommand implements Command {
                 } else {
                     event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                             "commands.music.volume.error.connected.title",
-                            "commands.volume.stop.error.connected.description")
+                            "commands.music.volume.error.connected.description")
                             .build()).queue();
                 }
             } else {

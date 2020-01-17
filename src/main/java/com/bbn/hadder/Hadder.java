@@ -103,7 +103,8 @@ public class Hadder {
                         new StopCommand(),
                         new BlacklistCommand(),
                         new PauseCommand(),
-                        new LoopCommand()), config, helpCommand);
+                        new LoopCommand(),
+                        new BassCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
@@ -118,7 +119,7 @@ public class Hadder {
 
         try {
             shardManager = builder.build();
-        } catch (LoginException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

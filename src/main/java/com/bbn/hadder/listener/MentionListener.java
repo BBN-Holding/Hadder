@@ -13,7 +13,6 @@ public class MentionListener extends ListenerAdapter {
 
     private Rethink rethink;
 
-
     public MentionListener(Rethink rethink) {
         this.rethink = rethink;
     }
