@@ -30,6 +30,7 @@ public class AudioManager {
 
     public AudioManager() {
         AudioSourceManagers.registerRemoteSources(myManager);
+        myManager.getConfiguration().setFilterHotSwapEnabled(true);
     }
 
     public boolean hasPlayer(Guild guild) {
