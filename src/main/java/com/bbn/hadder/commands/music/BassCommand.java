@@ -14,7 +14,7 @@ public class BassCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (args.length == 1) {
+        if (args.length > 0) {
             float value = Float.parseFloat(args[0]);
             EqualizerFactory equalizer = new EqualizerFactory();
             for (int i = 0; i < BASS_BOOST.length; i++) {

@@ -12,7 +12,7 @@ public class VolumeCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (args.length == 1) {
+        if (args.length > 0) {
             if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() != null) {
                 if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
                     try {
