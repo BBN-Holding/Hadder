@@ -119,7 +119,7 @@ public class Hadder {
 
         try {
             shardManager = builder.build();
-        } catch (LoginException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
