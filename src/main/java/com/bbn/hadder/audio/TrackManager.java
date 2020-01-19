@@ -18,10 +18,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class TrackManager extends AudioEventAdapter {
 
     private final AudioPlayer player;
+    private final AudioManager manager;
     private final Queue<AudioInfo> queue;
     private boolean loop = false;
 
-    public TrackManager(AudioPlayer player) {
+    public TrackManager(AudioPlayer player, AudioManager manager) {
+        this.manager = manager;
         this.player = player;
         this.queue = new LinkedBlockingQueue<>();
     }
@@ -52,6 +54,9 @@ public class TrackManager extends AudioEventAdapter {
         if (loop) {
             player.playTrack(track.makeClone());
         } else if (queue.isEmpty()) {
+            manager.players.remove(g.getId());
+            manager.getPlayer(g).destroy();
+            manager.getTrackManager(g).purgeQueue();
             g.getAudioManager().closeAudioConnection();
         } else {
             player.playTrack(queue.element().getTrack());

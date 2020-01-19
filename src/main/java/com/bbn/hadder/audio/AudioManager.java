@@ -53,7 +53,7 @@ public class AudioManager {
 
     public AudioPlayer createPlayer(Guild guild) {
         AudioPlayer nPlayer = myManager.createPlayer();
-        TrackManager manager = new TrackManager(nPlayer);
+        TrackManager manager = new TrackManager(nPlayer, this);
         nPlayer.addListener(manager);
         guild.getAudioManager().setSendingHandler(new AudioPlayerSendHandler(nPlayer));
         players.put(guild.getId(), new AbstractMap.SimpleEntry<>(nPlayer, manager));
