@@ -6,6 +6,8 @@ package com.bbn.hadder.commands.owner;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.core.Perm;
+import com.bbn.hadder.core.Perms;
 import net.dv8tion.jda.api.audio.*;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
@@ -17,6 +19,7 @@ import java.nio.ByteBuffer;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+@Perms(Perm.BOT_OWNER)
 public class EchoCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent event) {
