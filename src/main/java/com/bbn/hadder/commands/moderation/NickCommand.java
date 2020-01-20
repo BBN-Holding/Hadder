@@ -22,8 +22,8 @@ public class NickCommand implements Command {
                 if (!event.getMessage().getMentionedMembers().get(0).getId().equals(event.getGuild().getSelfMember().getId())) {
                     if (event.getGuild().getSelfMember().canInteract(event.getMessage().getMentionedMembers().get(0))) {
                         if (args.length > 1) {
-                            if (event.getMessage().getContentRaw().startsWith(event.getRethink().getUserPrefix(event.getMember().getId()))) {
-                                event.getGuild().modifyNickname(event.getMessage().getMentionedMembers().get(0), event.getMessage().getContentRaw().replaceFirst(event.getRethink().getUserPrefix(event.getMember().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
+                            if (event.getMessage().getContentRaw().startsWith(event.getRethinkUser().getPrefix())) {
+                                event.getGuild().modifyNickname(event.getMessage().getMentionedMembers().get(0), event.getMessage().getContentRaw().replaceFirst(event.getRethinkUser().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
                                 event.getTextChannel().sendMessage(
                                         event.getMessageEditor().getMessage(
                                                 MessageEditor.MessageType.INFO,
@@ -32,8 +32,8 @@ public class NickCommand implements Command {
                                                 "commands.moderation.nick.success.description",
                                                 event.getMessage().getMentionedMembers().get(0).getUser().getAsTag()
                                         ).build()).queue();
-                            } else if (event.getMessage().getContentRaw().startsWith(event.getRethink().getGuildPrefix(event.getGuild().getId()))) {
-                                event.getGuild().modifyNickname(event.getMessage().getMentionedMembers().get(0), event.getMessage().getContentRaw().replaceFirst(event.getRethink().getGuildPrefix(event.getGuild().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
+                            } else if (event.getMessage().getContentRaw().startsWith(event.getRethinkServer().getPrefix())) {
+                                event.getGuild().modifyNickname(event.getMessage().getMentionedMembers().get(0), event.getMessage().getContentRaw().replaceFirst(event.getRethinkServer().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
                                 event.getTextChannel().sendMessage(
                                         event.getMessageEditor().getMessage(
                                                 MessageEditor.MessageType.INFO,
@@ -49,8 +49,8 @@ public class NickCommand implements Command {
                         event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                     }
                 } else {
-                    if (event.getMessage().getContentRaw().startsWith(event.getRethink().getUserPrefix(event.getMember().getId()))) {
-                        event.getGuild().getSelfMember().modifyNickname(event.getMessage().getContentRaw().replaceFirst(event.getRethink().getUserPrefix(event.getMember().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
+                    if (event.getMessage().getContentRaw().startsWith(event.getRethinkUser().getPrefix())) {
+                        event.getGuild().getSelfMember().modifyNickname(event.getMessage().getContentRaw().replaceFirst(event.getRethinkUser().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
                         event.getTextChannel().sendMessage(
                                 event.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
@@ -58,8 +58,8 @@ public class NickCommand implements Command {
                                         "✅",
                                         "commands.moderation.nick.myself.success.description",
                                         "").build()).queue();
-                    } else if (event.getMessage().getContentRaw().startsWith(event.getRethink().getGuildPrefix(event.getGuild().getId()))) {
-                        event.getGuild().getSelfMember().modifyNickname(event.getMessage().getContentRaw().replaceFirst(event.getRethink().getGuildPrefix(event.getGuild().getId()) + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
+                    } else if (event.getMessage().getContentRaw().startsWith(event.getRethinkServer().getPrefix())) {
+                        event.getGuild().getSelfMember().modifyNickname(event.getMessage().getContentRaw().replaceFirst(event.getRethinkServer().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + event.getAuthor().getAsTag()).queue();
                         event.getTextChannel().sendMessage(
                                 event.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,

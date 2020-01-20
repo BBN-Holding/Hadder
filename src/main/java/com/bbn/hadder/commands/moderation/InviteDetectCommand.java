@@ -19,14 +19,15 @@ public class InviteDetectCommand implements Command {
             String opinion = args[0].toLowerCase();
             switch (opinion) {
                 case "on":
-                    if (!event.getRethink().getInviteDetection(event.getGuild().getId())) {
-                        event.getRethink().setInviteDetection(event.getGuild().getId(), true);
+                    if (!event.getRethinkServer().isInvite_detect()) {
+                        event.getRethinkServer().setInvite_detect(true);
                         event.getTextChannel().sendMessage(
                                 event.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
                                         "commands.moderation.invitedetect.activate.success.title",
                                         "commands.moderation.invitedetect.activate.success.description")
                                         .build()).queue();
+                        event.getRethinkServer().push();
                     } else {
                         event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.ERROR,
@@ -37,13 +38,14 @@ public class InviteDetectCommand implements Command {
                     break;
 
                 case "off":
-                    if (event.getRethink().getInviteDetection(event.getGuild().getId())) {
-                        event.getRethink().setInviteDetection(event.getGuild().getId(), false);
+                    if (event.getRethinkServer().isInvite_detect()) {
+                        event.getRethinkServer().setInvite_detect(false);
                         event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
                                 "commands.moderation.invitedetect.deactivate.success.title",
                                 "commands.moderation.invitedetect.deactivate.success.description")
                                 .build()).queue();
+                        event.getRethinkServer().push();
                     } else {
                         event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.ERROR,

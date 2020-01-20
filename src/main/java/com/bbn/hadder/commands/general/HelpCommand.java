@@ -63,10 +63,10 @@ public class HelpCommand implements Command {
             StringBuilder b = new StringBuilder();
             b.append(event.getMessageEditor().getTerm("commands.general.help.description")).append(" ").append(event.getMessageEditor().getTerm(cmd.description())).append("\n");
             if (cmd.usage() != null) {
-                b.append(event.getMessageEditor().getTerm("commands.general.help.usage")).append(" ").append(event.getRethink().getGuildPrefix(event.getGuild().getId())).append(name).append(" ").append(cmd.usage()).append("\n");
+                b.append(event.getMessageEditor().getTerm("commands.general.help.usage")).append(" ").append(event.getRethinkServer().getPrefix()).append(name).append(" ").append(cmd.usage()).append("\n");
             }
             if (cmd.example() != null) {
-                b.append(event.getMessageEditor().getTerm("commands.general.help.example")).append(" ").append(event.getRethink().getGuildPrefix(event.getGuild().getId())).append(name).append(" ").append(cmd.example());
+                b.append(event.getMessageEditor().getTerm("commands.general.help.example")).append(" ").append(event.getRethinkServer().getPrefix()).append(name).append(" ").append(cmd.example());
             }
             event.getChannel().sendMessage(event.getMessageEditor().getMessage(
                     MessageEditor.MessageType.INFO)

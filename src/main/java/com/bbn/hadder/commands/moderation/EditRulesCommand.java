@@ -16,7 +16,7 @@ public class EditRulesCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent event) {
-        if (event.getRethink().getRulesMID(event.getGuild().getId()).length() == 18) {
+        if (event.getRethinkServer().getMessage_id().length() == 18) {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.moderation.editrules.message.title",
                     "commands.moderation.editrules.message.description").build()).queue();
@@ -56,13 +56,13 @@ public class EditRulesCommand implements Command {
         } else {
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.moderation.editrules.error.title", "",
-                    "commands.moderation.editrules.error.description", event.getRethink().getGuildPrefix(event.getGuild().getId())).build()).queue();
+                    "commands.moderation.editrules.error.description", event.getRethinkServer().getPrefix()).build()).queue();
         }
     }
 
     public void checkChannel(CommandEvent event, String rules, TextChannel channel) {
         try {
-            channel.retrieveMessageById(event.getRethink().getRulesMID(event.getGuild().getId())).queue();
+            channel.retrieveMessageById(event.getRethinkServer().getMessage_id()).queue();
             setRules(event, rules, channel);
             event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.moderation.editrules.success.title",
@@ -75,7 +75,7 @@ public class EditRulesCommand implements Command {
     }
 
     public void setRules(CommandEvent event, String rules, TextChannel channel) {
-        channel.retrieveMessageById(event.getRethink().getRulesMID(event.getGuild().getId())).complete().editMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+        channel.retrieveMessageById(event.getRethinkServer().getMessage_id()).complete().editMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Rules")
                 .setDescription(rules)
                 .build()).queue();

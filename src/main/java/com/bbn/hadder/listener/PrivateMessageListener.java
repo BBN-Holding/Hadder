@@ -5,6 +5,7 @@ package com.bbn.hadder.listener;
  */
 
 import com.bbn.hadder.Rethink;
+import com.bbn.hadder.RethinkUser;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.PrivateChannel;
@@ -25,14 +26,15 @@ public class PrivateMessageListener extends ListenerAdapter {
         if (event.isFromType(ChannelType.PRIVATE) && !event.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())) {
             PrivateChannel Skidder = event.getJDA().getUserById("477141528981012511").openPrivateChannel().complete();
             PrivateChannel Hax = event.getJDA().getUserById("261083609148948488").openPrivateChannel().complete();
+            RethinkUser rethinkUser = new RethinkUser(rethink.getObjectByID("user", "261083609148948488"), rethink);
 
-            Skidder.sendMessage(new MessageEditor(rethink, event.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
+            Skidder.sendMessage(new MessageEditor(rethinkUser, event.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
                     .setTitle("New DM by " + event.getAuthor().getAsTag())
                     .setAuthor(event.getAuthor().getName(), event.getAuthor().getAvatarUrl(), event.getAuthor().getAvatarUrl())
                     .setDescription(event.getMessage().getContentRaw())
                     .setTimestamp(Instant.now())
                     .build()).queue();
-            Hax.sendMessage(new MessageEditor(rethink, event.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
+            Hax.sendMessage(new MessageEditor(rethinkUser, event.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
                     .setTitle("New DM by " + event.getAuthor().getAsTag())
                     .setAuthor(event.getAuthor().getName(), event.getAuthor().getAvatarUrl(), event.getAuthor().getAvatarUrl())
                     .setDescription(event.getMessage().getContentRaw())

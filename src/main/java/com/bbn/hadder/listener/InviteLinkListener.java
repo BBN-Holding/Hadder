@@ -5,6 +5,7 @@ package com.bbn.hadder.listener;
  */
 
 import com.bbn.hadder.Rethink;
+import com.bbn.hadder.RethinkServer;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
@@ -28,10 +29,11 @@ public class InviteLinkListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
+        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", event.getGuild().getId()), rethink);
         if (event.isFromType(ChannelType.TEXT)) {
-            if (event.getMessage().getContentRaw().contains("discord.gg/") && (!event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId()))) {
+            if (event.getMessage().getContentRaw().contains("discord.gg/") && (!event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.isInvite_detect())) {
                 checkInvite(event.getMessage(), "discord.gg/");
-            } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && (!event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId()))) {
+            } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && (!event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.isInvite_detect())) {
                 checkInvite(event.getMessage(), "discordapp.com/invite/");
             }
         }
@@ -55,10 +57,11 @@ public class InviteLinkListener extends ListenerAdapter {
 
     @Override
     public void onMessageUpdate(@Nonnull MessageUpdateEvent event) {
+        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", event.getGuild().getId()), rethink);
         if (event.isFromType(ChannelType.TEXT)) {
-            if (event.getMessage().getContentRaw().contains("discord.gg/") && !event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId())) {
+            if (event.getMessage().getContentRaw().contains("discord.gg/") && !event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.isInvite_detect()) {
                 checkInvite(event.getMessage(), "discord.gg/");
-            } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && !event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId())) {
+            } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && !event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.isInvite_detect()) {
                 checkInvite(event.getMessage(), "discordapp.com/invite/");
             }
         }

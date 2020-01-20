@@ -29,7 +29,7 @@ public class BlacklistCommand implements Command {
                 case "add":
                     if (args.length == 3) {
                         Member member = event.getMessage().getMentionedMembers().get(0);
-                        String blacklisted = event.getRethink().getBlackListed(member.getId());
+                        String blacklisted = event.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
                         commands.addAll(Arrays.asList(args[1].split(",")));
@@ -37,19 +37,20 @@ public class BlacklistCommand implements Command {
 
                         ArrayList<String> commandsWithoutDuplicates = new ArrayList<>(hashSet);
                         String newblacklisted = ((commandsWithoutDuplicates.size()!=0) ? String.join(",", commandsWithoutDuplicates) : "none");
-                        event.getRethink().setBlackListed(member.getId(), newblacklisted);
+                        event.getRethinkUser().setBlacklisted(newblacklisted);
                         event.getTextChannel().sendMessage(
                                 event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                                         .setTitle("Removed Blacklisted Commands from User")
                                         .setDescription("Blacklisted commands: "+newblacklisted)
                                         .build()).queue();
+                        event.getRethinkUser().push();
                     }
                     break;
 
                 case "remove":
                     if (args.length == 3) {
                         Member member = event.getMessage().getMentionedMembers().get(0);
-                        String blacklisted = event.getRethink().getBlackListed(member.getId());
+                        String blacklisted = event.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
                         commands.removeAll(Arrays.asList(args[1].split(",")));
@@ -57,12 +58,13 @@ public class BlacklistCommand implements Command {
 
                         ArrayList<String> commandsWithoutDuplicates = new ArrayList<>(hashSet);
                         String newblacklisted = ((commandsWithoutDuplicates.size()!=0) ? String.join(",", commandsWithoutDuplicates) : "none");
-                        event.getRethink().setBlackListed(member.getId(), newblacklisted);
+                        event.getRethinkUser().setBlacklisted(newblacklisted);
                         event.getTextChannel().sendMessage(
                                 event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                                         .setTitle("Removed Blacklisted Commands from User")
                                         .setDescription("Blacklisted commands: "+newblacklisted)
                                         .build()).queue();
+                        event.getRethinkUser().push();
                     }
                     break;
 
@@ -70,7 +72,7 @@ public class BlacklistCommand implements Command {
                     StringBuilder stringBuilder = new StringBuilder();
                     for (User user : event.getJDA().getUsers()) {
                         if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
-                            String blacklisted = event.getRethink().getBlackListed(user.getId());
+                            String blacklisted = event.getRethinkUser().getBlacklisted();
                             if (!"none".equals(blacklisted)) {
                                 stringBuilder.append(user.getAsTag()).append(" (").append(user.getId()).append(") - ").append(blacklisted).append("\n");
                             }

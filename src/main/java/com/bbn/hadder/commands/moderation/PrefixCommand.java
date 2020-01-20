@@ -13,7 +13,8 @@ public class PrefixCommand implements Command {
     public void executed(String[] args, CommandEvent event) {
         if (args.length == 1) {
             if (!args[0].contains("\"")) {
-                event.getRethink().setGuildPrefix(args[0], event.getGuild().getId());
+                event.getRethinkServer().setPrefix(args[0]);
+                event.getRethinkServer().push();
                 event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.moderation.prefix.success.title",

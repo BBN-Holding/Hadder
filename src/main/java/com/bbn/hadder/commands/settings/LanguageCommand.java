@@ -42,7 +42,7 @@ public class LanguageCommand implements Command {
     }
 
     public void setLanguage(String language_code, String language, CommandEvent event) {
-        event.getRethink().setLanguage(event.getAuthor().getId(), language_code);
+        event.getRethinkUser().setLanguage(language_code);
         event.getTextChannel()
                 .sendMessage(
                         event.getMessageEditor()
@@ -50,6 +50,7 @@ public class LanguageCommand implements Command {
                                         "", "commands.settings.language.success.description", language)
                                 .build())
                 .queue();
+        event.getRethinkUser().push();
     }
 
     @Override
