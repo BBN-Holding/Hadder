@@ -16,10 +16,10 @@ public class PornCommand implements Command {
         if (e.getTextChannel().isNSFW()) {
 
             String url = Request.get("https://api.nekos.dev/api/v3/images/nsfw/gif/classic/");
-            
+
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                    .setAuthor(e.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url.replace("\"}", ""))
-                    .setImage(url.replace("\"}", ""))
+                    .setAuthor(e.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url)
+                    .setImage(url)
                     .setFooter("Porn")
                     .build()).queue();
 
