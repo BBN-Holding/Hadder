@@ -62,6 +62,10 @@ public class Rethink {
         else return null;
     }
 
+    public Object getByID(String table, String wherevalue, String column) {
+        return r.table(table).get(wherevalue).getField(column).run(conn);
+    }
+
     public void update(String table, String where, String what, String value) {
         try {
             r.table(table).get(where).update(r.hashMap(what, value)).run(conn);
@@ -126,7 +130,7 @@ public class Rethink {
     }
 
     public String getUserPrefix(String id) {
-        return (String) this.get("user", "id", id, "prefix");
+        return (String) this.getByID("user", id, "prefix");
     }
 
     public void setGuildPrefix(String prefix, String guild_id) {
@@ -134,7 +138,7 @@ public class Rethink {
     }
 
     public String getGuildPrefix(String id) {
-        return (String) this.get("server", "id", id, "prefix");
+        return (String) this.getByID("server", id, "prefix");
     }
 
     public void insertGuild(String id) {
@@ -162,7 +166,7 @@ public class Rethink {
     }
 
     public String getBlackListed(String id) {
-        return (String) this.get("user", "id", id, "blacklisted");
+        return (String) this.getByID("user", id, "blacklisted");
     }
 
     public void setNeededStars(String stars, String guild_id) {
@@ -170,7 +174,7 @@ public class Rethink {
     }
 
     public String getNeededStars(String guild_id) {
-        return (String) this.get("server", "id", guild_id, "neededstars");
+        return (String) this.getByID("server", guild_id, "neededstars");
     }
 
     public void setStarboardChannel(String guild_id, String channel_id) {
@@ -178,11 +182,11 @@ public class Rethink {
     }
 
     public String getStarboardChannel(String guild_id) {
-        return (String) this.get("server", "id", guild_id, "starboard");
+        return (String) this.getByID("server", guild_id, "starboard");
     }
 
     public boolean hasStarboardChannel(String guild_id) {
-        return !this.get("server", "id", guild_id, "starboard").equals("");
+        return !this.getByID("server", guild_id, "starboard").equals("");
     }
 
     public void insertStarboardMessage(String message_id, String guild_id, String starboard_message_id) {
@@ -190,7 +194,7 @@ public class Rethink {
     }
 
     public String getStarboardMessage(String message_id) {
-        return (String) this.get("stars", "id", message_id, "starboardmsg");
+        return (String) this.getByID("stars", message_id, "starboardmsg");
     }
 
     public void removeStarboardMessage(String message_id) {
@@ -198,7 +202,7 @@ public class Rethink {
     }
 
     public boolean hasStarboardMessage(String message_id) {
-        return this.get("stars", "id", message_id, "guild") != null;
+        return this.getByID("stars", message_id, "guild") != null;
     }
 
     public void updateRules(String guild_id, String message_id, String role_id, String accept_emote, String decline_emote) {
@@ -209,19 +213,19 @@ public class Rethink {
     }
 
     public String getRulesMID(String guild_id) {
-        return (String) this.get("server", "id", guild_id, "message_id");
+        return (String) this.getByID("server", guild_id, "message_id");
     }
 
     public String getRulesRID(String guild_id) {
-        return (String) this.get("server", "id", guild_id, "role_id");
+        return (String) this.getByID("server", guild_id, "role_id");
     }
 
     public String getRulesAEmote(String guild_id) {
-        return (String) this.get("server", "id", guild_id, "accept_emote");
+        return (String) this.getByID("server", guild_id, "accept_emote");
     }
 
     public String getRulesDEmote(String guild_id) {
-        return (String) this.get("server", "id", guild_id, "decline_emote");
+        return (String) this.getByID("server", guild_id, "decline_emote");
     }
 
     public void setInviteDetection(String guild_id, boolean b) {
@@ -229,7 +233,7 @@ public class Rethink {
     }
 
     public Boolean getInviteDetection(String guild_id) {
-        return (Boolean) this.get("server", "id", guild_id, "invite_detect");
+        return (Boolean) this.getByID("server", guild_id, "invite_detect");
     }
 
     public void setLanguage(String user_id, String language) {
@@ -237,7 +241,7 @@ public class Rethink {
     }
 
     public String getLanguage(String user_id) {
-        return (String) this.get("user", "id", user_id, "language");
+        return (String) this.getByID("user", user_id, "language");
     }
 
 }
