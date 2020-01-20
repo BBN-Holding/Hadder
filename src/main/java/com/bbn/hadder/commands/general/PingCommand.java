@@ -11,8 +11,8 @@ import com.bbn.hadder.utils.MessageEditor;
 public class PingCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        event.getJDA().getRestPing().queue(ping -> event.getTextChannel().sendMessage(event.getMessageEditor()
+    public void executed(String[] args, CommandEvent e) {
+        e.getJDA().getRestPing().queue(ping -> e.getTextChannel().sendMessage(e.getMessageEditor()
                 .getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Ping")
                 .setDescription(String.valueOf(ping))

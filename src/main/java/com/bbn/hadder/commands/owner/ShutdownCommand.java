@@ -14,9 +14,9 @@ import com.bbn.hadder.utils.MessageEditor;
 public class ShutdownCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO).setTitle("Shutdown").build()).queue();
-        event.getJDA().getShardManager().shutdown();
+    public void executed(String[] args, CommandEvent e) {
+        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO).setTitle("Shutdown").build()).queue();
+        e.getJDA().getShardManager().shutdown();
         System.out.println("Bot shut down via Command...");
         Runtime.getRuntime().exit(69);
     }

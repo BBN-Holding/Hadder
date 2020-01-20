@@ -24,17 +24,17 @@ public class CommandListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.isFromType(ChannelType.TEXT) && !event.getAuthor().isBot()) {
+    public void onMessageReceived(MessageReceivedEvent e) {
+        if (e.isFromType(ChannelType.TEXT) && !e.getAuthor().isBot()) {
             String[] prefixes = {
-                    rethink.getUserPrefix(event.getAuthor().getId()), rethink.getGuildPrefix(event.getGuild().getId()),
-                    event.getGuild().getSelfMember().getAsMention() + " ", event.getGuild().getSelfMember().getAsMention(),
-                    event.getGuild().getSelfMember().getAsMention().replace("@", "@!") + " ",
-                    event.getGuild().getSelfMember().getAsMention().replace("@", "@!")
+                    rethink.getUserPrefix(e.getAuthor().getId()), rethink.getGuildPrefix(e.getGuild().getId()),
+                    e.getGuild().getSelfMember().getAsMention() + " ", e.getGuild().getSelfMember().getAsMention(),
+                    e.getGuild().getSelfMember().getAsMention().replace("@", "@!") + " ",
+                    e.getGuild().getSelfMember().getAsMention().replace("@", "@!")
             };
             for (String prefix : prefixes) {
-                if (event.getMessage().getContentRaw().startsWith(prefix)) {
-                    handler.handle(event, rethink, prefix, audioManager);
+                if (e.getMessage().getContentRaw().startsWith(prefix)) {
+                    handler.handle(e, rethink, prefix, audioManager);
                     return;
                 }
             }

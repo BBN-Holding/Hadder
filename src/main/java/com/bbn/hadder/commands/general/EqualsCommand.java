@@ -12,30 +12,30 @@ import com.bbn.hadder.utils.MessageEditor;
 public class EqualsCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        event.getChannel().sendMessage(
-                event.getMessageEditor().getMessage(
+    public void executed(String[] args, CommandEvent e) {
+        e.getChannel().sendMessage(
+                e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.general.equals.string.first.request", "")
                         .build()).queue();
-        new EventWaiter().newOnMessageEventWaiter(msgevent -> {
-            String firstString = msgevent.getMessage().getContentRaw();
-            event.getChannel().sendMessage(
-                    event.getMessageEditor().getMessage(
+        new EventWaiter().newOnMessageEventWaiter(msge -> {
+            String firstString = msge.getMessage().getContentRaw();
+            e.getChannel().sendMessage(
+                    e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                             "commands.general.equals.string.second.request",
                             "").build()).queue();
-            new EventWaiter().newOnMessageEventWaiter(msgevent2 -> {
-                String secondString = msgevent2.getMessage().getContentRaw();
-                event.getChannel().sendMessage(
-                        event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                                .setTitle((firstString.equals(secondString)) ? event.getMessageEditor().getTerm( "commands.general.equals.string.equals.true") : event.getMessageEditor().getTerm( "commands.general.equals.string.equals.false"))
-                                .addField(event.getMessageEditor().getTerm( "commands.general.equals.string.first"), firstString, false)
-                                .addField(event.getMessageEditor().getTerm( "commands.general.equals.string.second"), secondString, false)
-                                .addField(event.getMessageEditor().getTerm( "commands.general.equals.string.result"), String.valueOf(firstString.equals(secondString)), false)
+            new EventWaiter().newOnMessageEventWaiter(msge2 -> {
+                String secondString = msge2.getMessage().getContentRaw();
+                e.getChannel().sendMessage(
+                        e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                                .setTitle((firstString.equals(secondString)) ? e.getMessageEditor().getTerm( "commands.general.equals.string.equals.true") : e.getMessageEditor().getTerm( "commands.general.equals.string.equals.false"))
+                                .addField(e.getMessageEditor().getTerm( "commands.general.equals.string.first"), firstString, false)
+                                .addField(e.getMessageEditor().getTerm( "commands.general.equals.string.second"), secondString, false)
+                                .addField(e.getMessageEditor().getTerm( "commands.general.equals.string.result"), String.valueOf(firstString.equals(secondString)), false)
                                 .build()).queue();
-            }, event.getJDA(), event.getAuthor());
-        }, event.getJDA(), event.getAuthor());
+            }, e.getJDA(), e.getAuthor());
+        }, e.getJDA(), e.getAuthor());
     }
 
     @Override

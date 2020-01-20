@@ -13,7 +13,7 @@ import com.bbn.hadder.core.Perms;
 public class RebootCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         Runtime.getRuntime().exit(69);
     }
 

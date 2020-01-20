@@ -21,21 +21,21 @@ public class PrivateMessageListener extends ListenerAdapter {
         this.rethink = rethink;
     }
 
-    public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.isFromType(ChannelType.PRIVATE) && !event.getAuthor().getId().equals(event.getJDA().getSelfUser().getId())) {
-            PrivateChannel Skidder = event.getJDA().getUserById("477141528981012511").openPrivateChannel().complete();
-            PrivateChannel Hax = event.getJDA().getUserById("261083609148948488").openPrivateChannel().complete();
+    public void onMessageReceived(MessageReceivedEvent e) {
+        if (e.isFromType(ChannelType.PRIVATE) && !e.getAuthor().getId().equals(e.getJDA().getSelfUser().getId())) {
+            PrivateChannel Skidder = e.getJDA().getUserById("477141528981012511").openPrivateChannel().complete();
+            PrivateChannel Hax = e.getJDA().getUserById("261083609148948488").openPrivateChannel().complete();
 
-            Skidder.sendMessage(new MessageEditor(rethink, event.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
-                    .setTitle("New DM by " + event.getAuthor().getAsTag())
-                    .setAuthor(event.getAuthor().getName(), event.getAuthor().getAvatarUrl(), event.getAuthor().getAvatarUrl())
-                    .setDescription(event.getMessage().getContentRaw())
+            Skidder.sendMessage(new MessageEditor(rethink, e.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
+                    .setTitle("New DM by " + e.getAuthor().getAsTag())
+                    .setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl())
+                    .setDescription(e.getMessage().getContentRaw())
                     .setTimestamp(Instant.now())
                     .build()).queue();
-            Hax.sendMessage(new MessageEditor(rethink, event.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
-                    .setTitle("New DM by " + event.getAuthor().getAsTag())
-                    .setAuthor(event.getAuthor().getName(), event.getAuthor().getAvatarUrl(), event.getAuthor().getAvatarUrl())
-                    .setDescription(event.getMessage().getContentRaw())
+            Hax.sendMessage(new MessageEditor(rethink, e.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
+                    .setTitle("New DM by " + e.getAuthor().getAsTag())
+                    .setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl())
+                    .setDescription(e.getMessage().getContentRaw())
                     .setTimestamp(Instant.now())
                     .build()).queue();
         }

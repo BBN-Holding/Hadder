@@ -15,48 +15,48 @@ import java.net.URL;
 public class PlayCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            if (event.getMember().getVoiceState().inVoiceChannel()) {
-                String input = event.getMessage().getContentRaw().replaceFirst(event.getRethink().getGuildPrefix(event.getGuild().getId()) + "play ", "").replaceFirst(event.getRethink().getUserPrefix(event.getAuthor().getId()) + "play ", "");
+            if (e.getMember().getVoiceState().inVoiceChannel()) {
+                String input = e.getMessage().getContentRaw().replaceFirst(e.getRethink().getGuildPrefix(e.getGuild().getId()) + "play ", "").replaceFirst(e.getRethink().getUserPrefix(e.getAuthor().getId()) + "play ", "");
                 try {
                     new URL(input).toURI();
-                    Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    Message msg = e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                             "commands.music.play.load.title", "⭕",
                             "commands.music.play.load.description", "").build()).complete();
-                    event.getAudioManager().loadTrack(input, event, msg);
-                } catch (InsufficientPermissionException e) {
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                    e.getAudioManager().loadTrack(input, e, msg);
+                } catch (InsufficientPermissionException ex) {
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                             "commands.music.join.error.permission.title",
                             "commands.music.join.error.permission.description")
                             .build()).queue();
                 } catch (Exception ignore) {
-                    Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    Message msg = e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                             "commands.music.play.load.title", "⭕",
                             "commands.music.play.load.description", "").build()).complete();
-                    event.getAudioManager().loadTrack("ytsearch: " + input, event, msg);
+                    e.getAudioManager().loadTrack("ytsearch: " + input, e, msg);
                 }
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.ERROR,
                         "commands.music.join.error.channel.title",
                         "commands.music.join.error.channel.description")
                         .build()).queue();
             }
-        } else if (event.getAudioManager().getPlayer(event.getGuild()).isPaused()) {
-            if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
-                event.getAudioManager().getPlayer(event.getGuild()).setPaused(false);
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+        } else if (e.getAudioManager().getPlayer(e.getGuild()).isPaused()) {
+            if (e.getMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().getChannel().equals(e.getMember().getVoiceState().getChannel())) {
+                e.getAudioManager().getPlayer(e.getGuild()).setPaused(false);
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                         "commands.music.play.success.unpause.title",
                         "commands.music.play.success.unpause.description")
                         .build()).queue();
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.music.play.error.connected.title",
                         "commands.music.play.error.connected.description")
                         .build()).queue();
             }
-        } else event.getHelpCommand().sendHelp(this, event);
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

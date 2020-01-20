@@ -18,21 +18,21 @@ public class MentionListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        if (event.isFromType(ChannelType.TEXT) && (event.getMessage().getContentRaw().equals(event.getGuild().getSelfMember().getAsMention())||
-                event.getMessage().getContentRaw().equals(event.getGuild().getSelfMember().getAsMention().replace("@", "@!")))) {
-            event.getChannel().sendMessage(new MessageEditor(rethink, event.getAuthor()).getMessage(MessageEditor.MessageType.INFO)
+    public void onMessageReceived(@Nonnull MessageReceivedEvent e) {
+        if (e.isFromType(ChannelType.TEXT) && (e.getMessage().getContentRaw().equals(e.getGuild().getSelfMember().getAsMention())||
+                e.getMessage().getContentRaw().equals(e.getGuild().getSelfMember().getAsMention().replace("@", "@!")))) {
+            e.getChannel().sendMessage(new MessageEditor(rethink, e.getAuthor()).getMessage(MessageEditor.MessageType.INFO)
                     .setTitle("Hello I'm Hadder.")
-                    .setAuthor(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl(), event.getJDA().getSelfUser().getAvatarUrl())
-                    .addField("Users", String.valueOf(event.getJDA().getUsers().size()), false)
-                    .addField("Guilds", String.valueOf(event.getJDA().getGuilds().size()), false)
-                    .addField("Prefix (User)", rethink.getUserPrefix(event.getAuthor().getId()), false)
-                    .addField("Prefix (Guild)", rethink.getGuildPrefix(event.getGuild().getId()), false)
+                    .setAuthor(e.getJDA().getSelfUser().getName(), e.getJDA().getSelfUser().getAvatarUrl(), e.getJDA().getSelfUser().getAvatarUrl())
+                    .addField("Users", String.valueOf(e.getJDA().getUsers().size()), false)
+                    .addField("Guilds", String.valueOf(e.getJDA().getGuilds().size()), false)
+                    .addField("Prefix (User)", rethink.getUserPrefix(e.getAuthor().getId()), false)
+                    .addField("Prefix (Guild)", rethink.getGuildPrefix(e.getGuild().getId()), false)
                     .build()).queue();
-        } else if (event.getMessage().getContentRaw().equalsIgnoreCase("@someone")) {
-            int member = new Random().nextInt(event.getGuild().getMembers().size()-1);
-            if (member>0&&member<event.getGuild().getMembers().size()) {
-                event.getChannel().sendMessage(event.getGuild().getMembers().get(member).getAsMention()+ " (Executed by: "+event.getAuthor().getAsTag()+")").queue();
+        } else if (e.getMessage().getContentRaw().equalsIgnoreCase("@someone")) {
+            int member = new Random().nextInt(e.getGuild().getMembers().size()-1);
+            if (member>0&&member<e.getGuild().getMembers().size()) {
+                e.getChannel().sendMessage(e.getGuild().getMembers().get(member).getAsMention()+ " (Executed by: "+e.getAuthor().getAsTag()+")").queue();
             }
         }
     }

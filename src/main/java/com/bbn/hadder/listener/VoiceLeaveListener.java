@@ -17,12 +17,12 @@ public class VoiceLeaveListener extends ListenerAdapter {
     }
 
     @Override
-    public void onGuildVoiceLeave(GuildVoiceLeaveEvent event) {
-        if (audioManager.hasPlayer(event.getGuild()) && event.getChannelLeft().getMembers().equals(event.getGuild().getSelfMember())) {
-            audioManager.players.remove(event.getGuild().getId());
-            audioManager.getPlayer(event.getGuild()).destroy();
-            audioManager.getTrackManager(event.getGuild()).purgeQueue();
-            event.getGuild().getAudioManager().closeAudioConnection();
+    public void onGuildVoiceLeave(GuildVoiceLeaveEvent e) {
+        if (audioManager.hasPlayer(e.getGuild()) && e.getChannelLeft().getMembers().equals(e.getGuild().getSelfMember())) {
+            audioManager.players.remove(e.getGuild().getId());
+            audioManager.getPlayer(e.getGuild()).destroy();
+            audioManager.getTrackManager(e.getGuild()).purgeQueue();
+            e.getGuild().getAudioManager().closeAudioConnection();
         }
     }
 }

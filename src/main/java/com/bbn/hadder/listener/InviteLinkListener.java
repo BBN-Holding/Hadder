@@ -27,12 +27,12 @@ public class InviteLinkListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        if (event.isFromType(ChannelType.TEXT)) {
-            if (event.getMessage().getContentRaw().contains("discord.gg/") && (!event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId()))) {
-                checkInvite(event.getMessage(), "discord.gg/");
-            } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && (!event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId()))) {
-                checkInvite(event.getMessage(), "discordapp.com/invite/");
+    public void onMessageReceived(@Nonnull MessageReceivedEvent e) {
+        if (e.isFromType(ChannelType.TEXT)) {
+            if (e.getMessage().getContentRaw().contains("discord.gg/") && (!e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(e.getGuild().getId()))) {
+                checkInvite(e.getMessage(), "discord.gg/");
+            } else if (e.getMessage().getContentRaw().contains("discordapp.com/invite") && (!e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(e.getGuild().getId()))) {
+                checkInvite(e.getMessage(), "discordapp.com/invite/");
             }
         }
     }
@@ -54,12 +54,12 @@ public class InviteLinkListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageUpdate(@Nonnull MessageUpdateEvent event) {
-        if (event.isFromType(ChannelType.TEXT)) {
-            if (event.getMessage().getContentRaw().contains("discord.gg/") && !event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId())) {
-                checkInvite(event.getMessage(), "discord.gg/");
-            } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && !event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId())) {
-                checkInvite(event.getMessage(), "discordapp.com/invite/");
+    public void onMessageUpdate(@Nonnull MessageUpdateEvent e) {
+        if (e.isFromType(ChannelType.TEXT)) {
+            if (e.getMessage().getContentRaw().contains("discord.gg/") && !e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(e.getGuild().getId())) {
+                checkInvite(e.getMessage(), "discord.gg/");
+            } else if (e.getMessage().getContentRaw().contains("discordapp.com/invite") && !e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(e.getGuild().getId())) {
+                checkInvite(e.getMessage(), "discordapp.com/invite/");
             }
         }
     }

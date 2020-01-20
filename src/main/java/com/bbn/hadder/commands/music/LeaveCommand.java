@@ -11,23 +11,23 @@ import com.bbn.hadder.utils.MessageEditor;
 public class LeaveCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        if (event.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-            if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
-                event.getGuild().getAudioManager().closeAudioConnection();
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+    public void executed(String[] args, CommandEvent e) {
+        if (e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
+            if (e.getMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().getChannel().equals(e.getMember().getVoiceState().getChannel())) {
+                e.getGuild().getAudioManager().closeAudioConnection();
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.music.leave.success.title",
                         "commands.music.leave.success.description")
                         .build()).queue();
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.music.leave.error.channel.title",
                         "commands.music.leave.error.channel.description")
                         .build()).queue();
             }
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                 MessageEditor.MessageType.ERROR,
                 "commands.music.leave.error.connected.tile",
                 "commands.music.leave.error.connected.description")

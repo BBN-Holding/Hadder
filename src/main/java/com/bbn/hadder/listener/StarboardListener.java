@@ -20,21 +20,21 @@ public class StarboardListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {
-        update(event);
+    public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent e) {
+        update(e);
     }
 
     @Override
-    public void onMessageReactionRemove(@Nonnull MessageReactionRemoveEvent event) {
-        update(event);
+    public void onMessageReactionRemove(@Nonnull MessageReactionRemoveEvent e) {
+        update(e);
     }
 
-    public void update(GenericMessageReactionEvent event) {
-        if (event.getReaction().getReactionEmote().getName().equals("⭐")) {
-            if (!rethink.hasStarboardMessage(event.getMessageId())) {
-                if (rethink.hasStarboardChannel(event.getGuild().getId())) {
+    public void update(GenericMessageReactionEvent e) {
+        if (e.getReaction().getReactionEmote().getName().equals("⭐")) {
+            if (!rethink.hasStarboardMessage(e.getMessageId())) {
+                if (rethink.hasStarboardChannel(e.getGuild().getId())) {
 
-                    event.getTextChannel().retrieveMessageById(event.getMessageId()).queue(
+                    e.getTextChannel().retrieveMessageById(e.getMessageId()).queue(
                             msg -> {
                                 Integer stars = 0;
                                 for (MessageReaction reaction : msg.getReactions()) {
@@ -43,17 +43,17 @@ public class StarboardListener extends ListenerAdapter {
                                     }
                                 }
 
-                                if (Integer.parseInt(rethink.getNeededStars(event.getGuild().getId())) <= stars) {
-                                    event.getGuild().getTextChannelById(rethink.getStarboardChannel(event.getGuild().getId()))
+                                if (Integer.parseInt(rethink.getNeededStars(e.getGuild().getId())) <= stars) {
+                                    e.getGuild().getTextChannelById(rethink.getStarboardChannel(e.getGuild().getId()))
                                             .sendMessage(new MessageBuilder()
-                                                    .setContent("⭐ 1" + " " + event.getTextChannel().getAsMention())
+                                                    .setContent("⭐ 1" + " " + e.getTextChannel().getAsMention())
                                                     .setEmbed(
                                                             new EmbedBuilder()
                                                                     .setAuthor(msg.getAuthor().getAsTag())
                                                                     .setDescription(msg.getContentRaw())
                                                                     .setTimestamp(msg.getTimeCreated()).build()).build()).queue(
                                             starboardmsg -> {
-                                                rethink.insertStarboardMessage(msg.getId(), event.getGuild().getId(), starboardmsg.getId());
+                                                rethink.insertStarboardMessage(msg.getId(), e.getGuild().getId(), starboardmsg.getId());
                                             }
                                     );
                                 }
@@ -63,7 +63,7 @@ public class StarboardListener extends ListenerAdapter {
                 }
             } else {
 
-                event.getTextChannel().retrieveMessageById(event.getMessageId()).queue(
+                e.getTextChannel().retrieveMessageById(e.getMessageId()).queue(
                         msg -> {
                             Integer stars = 0;
                             for (MessageReaction reaction : msg.getReactions()) {
@@ -73,13 +73,13 @@ public class StarboardListener extends ListenerAdapter {
                             }
 
                             Integer finalStars = stars;
-                            event.getGuild().getTextChannelById(rethink.getStarboardChannel(event.getGuild().getId()))
-                                    .retrieveMessageById(rethink.getStarboardMessage(event.getMessageId())).queue(
+                            e.getGuild().getTextChannelById(rethink.getStarboardChannel(e.getGuild().getId()))
+                                    .retrieveMessageById(rethink.getStarboardMessage(e.getMessageId())).queue(
                                     msg2 -> {
 
-                                        if (Integer.parseInt(rethink.getNeededStars(event.getGuild().getId())) <= finalStars) {
+                                        if (Integer.parseInt(rethink.getNeededStars(e.getGuild().getId())) <= finalStars) {
                                             msg2.editMessage(new MessageBuilder()
-                                                    .setContent("⭐ " + finalStars + " " + event.getTextChannel().getAsMention())
+                                                    .setContent("⭐ " + finalStars + " " + e.getTextChannel().getAsMention())
                                                     .setEmbed(
                                                             new EmbedBuilder()
                                                                     .setAuthor(msg.getAuthor().getAsTag())

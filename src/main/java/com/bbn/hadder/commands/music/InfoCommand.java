@@ -12,17 +12,17 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 public class InfoCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() != null) {
-            AudioTrack track = event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack();
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+    public void executed(String[] args, CommandEvent e) {
+        if (e.getAudioManager().hasPlayer(e.getGuild()) && e.getAudioManager().getPlayer(e.getGuild()).getPlayingTrack() != null) {
+            AudioTrack track = e.getAudioManager().getPlayer(e.getGuild()).getPlayingTrack();
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.music.info.success.title", "")
                     .setAuthor(track.getInfo().author)
                     .addField("Title", track.getInfo().title, true)
-                    .addField("Progress", "`[ " + event.getAudioManager().getTimestamp(track.getPosition()) + " / " + event.getAudioManager().getTimestamp(track.getInfo().length) + " ]`", false)
+                    .addField("Progress", "`[ " + e.getAudioManager().getTimestamp(track.getPosition()) + " / " + e.getAudioManager().getTimestamp(track.getInfo().length) + " ]`", false)
                     .build()).queue();
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.music.info.error.title",
                     "commands.music.info.error.description").build()).queue();
         }

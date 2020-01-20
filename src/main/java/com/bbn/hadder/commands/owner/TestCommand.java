@@ -11,8 +11,8 @@ import com.bbn.hadder.utils.MessageEditor.MessageType;
 public class TestCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageType.INFO, "commands.owner.test.success", "").build()).queue();
+    public void executed(String[] args, CommandEvent e) {
+        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageType.INFO, "commands.owner.test.success", "").build()).queue();
     }
 
     @Override

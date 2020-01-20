@@ -11,20 +11,20 @@ import com.bbn.hadder.utils.MessageEditor;
 public class SkipCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        if (event.getAudioManager().hasPlayer(event.getGuild()) && !event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks().isEmpty()) {
-            if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
-                event.getAudioManager().forceSkipTrack(event);
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+    public void executed(String[] args, CommandEvent e) {
+        if (e.getAudioManager().hasPlayer(e.getGuild()) && !e.getAudioManager().getTrackManager(e.getGuild()).getQueuedTracks().isEmpty()) {
+            if (e.getMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().getChannel().equals(e.getMember().getVoiceState().getChannel())) {
+                e.getAudioManager().forceSkipTrack(e);
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                         "commands.music.skip.success.title",
                         "commands.music.skip.success.description").build()).queue();
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.music.skip.error.connected.title",
                         "commands.music.skip.error.connected.description ").build()).queue();
             }
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.music.info.error.title",
                     "commands.music.info.error.description").build()).queue();
         }

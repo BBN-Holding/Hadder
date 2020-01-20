@@ -26,48 +26,48 @@ public class GuildListener extends ListenerAdapter {
         this.config = config;
     }
 
-    public void onGuildJoin(GuildJoinEvent event) {
+    public void onGuildJoin(GuildJoinEvent e) {
         new Thread(() -> {
-            for (Member member : event.getGuild().getMembers()) {
-                if (!member.getUser().getId().equals(event.getJDA().getSelfUser().getId())) {
+            for (Member member : e.getGuild().getMembers()) {
+                if (!member.getUser().getId().equals(e.getJDA().getSelfUser().getId())) {
                     rethink.insertUser(member.getUser().getId());
                 }
             }
         }).start();
 
-        rethink.insertGuild(event.getGuild().getId());
-        event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor(null, null).getMessage(MessageEditor.MessageType.INFO)
+        rethink.insertGuild(e.getGuild().getId());
+        e.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor(null, null).getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Joined Server")
-                .setThumbnail(event.getGuild().getIconUrl())
-                .addField("Name", event.getGuild().getName(), true)
-                .addField("Guild ID", event.getGuild().getId(), true)
-                .addField("Guild Owner", event.getGuild().getOwner().getUser().getAsTag(), true)
-                .addField("Users", String.valueOf(event.getGuild().getMembers().size()), true)
-                .setFooter(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl())
+                .setThumbnail(e.getGuild().getIconUrl())
+                .addField("Name", e.getGuild().getName(), true)
+                .addField("Guild ID", e.getGuild().getId(), true)
+                .addField("Guild Owner", e.getGuild().getOwner().getUser().getAsTag(), true)
+                .addField("Users", String.valueOf(e.getGuild().getMembers().size()), true)
+                .setFooter(e.getJDA().getSelfUser().getName(), e.getJDA().getSelfUser().getAvatarUrl())
                 .setTimestamp(Instant.now())
                 .build()).queue();
 
         new BotList(config).post();
     }
 
-    public void onGuildLeave(GuildLeaveEvent event) {
-        event.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor(null, null).getMessage(MessageEditor.MessageType.INFO)
+    public void onGuildLeave(GuildLeaveEvent e) {
+        e.getJDA().getTextChannelById("475722540140986369").sendMessage(new MessageEditor(null, null).getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Left Server")
-                .setThumbnail(event.getGuild().getIconUrl())
-                .addField("Name", event.getGuild().getName(), true)
-                .addField("Guild ID", event.getGuild().getId(), true)
-                .addField("Guild Owner", event.getGuild().getOwner().getUser().getAsTag(), true)
-                .addField("Users", String.valueOf(event.getGuild().getMembers().size()), true)
-                .setFooter(event.getJDA().getSelfUser().getName(), event.getJDA().getSelfUser().getAvatarUrl())
+                .setThumbnail(e.getGuild().getIconUrl())
+                .addField("Name", e.getGuild().getName(), true)
+                .addField("Guild ID", e.getGuild().getId(), true)
+                .addField("Guild Owner", e.getGuild().getOwner().getUser().getAsTag(), true)
+                .addField("Users", String.valueOf(e.getGuild().getMembers().size()), true)
+                .setFooter(e.getJDA().getSelfUser().getName(), e.getJDA().getSelfUser().getAvatarUrl())
                 .setTimestamp(Instant.now())
                 .build()).queue();
 
         new BotList(config).post();
     }
 
-    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-        if (!event.getUser().getId().equals(event.getJDA().getSelfUser().getId())) {
-            rethink.insertUser(event.getUser().getId());
+    public void onGuildMemberJoin(GuildMemberJoinEvent e) {
+        if (!e.getUser().getId().equals(e.getJDA().getSelfUser().getId())) {
+            rethink.insertUser(e.getUser().getId());
         }
     }
 }

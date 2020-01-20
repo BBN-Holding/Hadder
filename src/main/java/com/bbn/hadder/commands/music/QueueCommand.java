@@ -14,22 +14,22 @@ import java.util.Set;
 public class QueueCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        if (!event.getAudioManager().hasPlayer(event.getGuild()) || event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks().isEmpty()) {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+    public void executed(String[] args, CommandEvent e) {
+        if (!e.getAudioManager().hasPlayer(e.getGuild()) || e.getAudioManager().getTrackManager(e.getGuild()).getQueuedTracks().isEmpty()) {
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.music.queue.error.title",
                     "commands.music.queue.error.description"
             ).build()).queue();
         } else {
-            Set<AudioInfo> queue = event.getAudioManager().getTrackManager(event.getGuild()).getQueuedTracks();
+            Set<AudioInfo> queue = e.getAudioManager().getTrackManager(e.getGuild()).getQueuedTracks();
             StringBuilder builder = new StringBuilder();
             long queuelength = 0;
             for (AudioInfo g : queue) {
                 queuelength = queuelength + g.getTrack().getInfo().length;
-                builder.append("("+event.getAudioManager().getTimestamp(g.getTrack().getInfo().length)+") **").append(g.getTrack().getInfo().author).append("**: `").append(g.getTrack().getInfo().title).append("` \n");
+                builder.append("("+e.getAudioManager().getTimestamp(g.getTrack().getInfo().length)+") **").append(g.getTrack().getInfo().author).append("**: `").append(g.getTrack().getInfo().title).append("` \n");
             }
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                    "commands.music.queue.success.title", "("+String.valueOf(event.getAudioManager().getTimestamp(queuelength))+")",
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    "commands.music.queue.success.title", "("+String.valueOf(e.getAudioManager().getTimestamp(queuelength))+")",
                     "commands.music.queue.success.description", builder.toString())
                     .build()).queue();
         }

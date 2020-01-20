@@ -5,7 +5,7 @@ package com.bbn.hadder.commands;
  */
 
 public interface Command {
-    void executed(String[] args, CommandEvent event);
+    void executed(String[] args, CommandEvent e);
 
     String[] labels();
 

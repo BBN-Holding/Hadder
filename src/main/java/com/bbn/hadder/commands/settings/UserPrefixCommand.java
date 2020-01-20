@@ -10,17 +10,17 @@ import com.bbn.hadder.utils.MessageEditor;
 
 public class UserPrefixCommand implements Command {
 
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length == 1) {
-            event.getRethink().setUserPrefix(args[0], event.getAuthor().getId());
-            event.getTextChannel()
-                    .sendMessage(event.getMessageEditor()
+            e.getRethink().setUserPrefix(args[0], e.getAuthor().getId());
+            e.getTextChannel()
+                    .sendMessage(e.getMessageEditor()
                             .getMessage(MessageEditor.MessageType.INFO, "commands.settings.prefix.success.title", "",
                                     "commands.settings.prefix.success.description", args[0])
                             .build())
                     .queue();
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         }
     }
 

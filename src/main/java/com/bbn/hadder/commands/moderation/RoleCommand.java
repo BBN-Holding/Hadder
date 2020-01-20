@@ -13,74 +13,74 @@ import net.dv8tion.jda.api.entities.Role;
 public class RoleCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
+            if (e.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
                 switch (args[0].toLowerCase()) {
                     case "add":
-                        if (event.getMessage().getMentionedMembers().size() > 0 && event.getMessage().getMentionedRoles().size() > 0) {
-                            for (Member member : event.getMessage().getMentionedMembers()) {
-                                for (Role role : event.getMessage().getMentionedRoles()) {
-                                    if (event.getGuild().getSelfMember().canInteract(member)) {
-                                        if (event.getGuild().getSelfMember().canInteract(role)) {
-                                            event.getGuild().addRoleToMember(member, role).reason("Role added by " + event.getAuthor().getAsTag()).queue();
+                        if (e.getMessage().getMentionedMembers().size() > 0 && e.getMessage().getMentionedRoles().size() > 0) {
+                            for (Member member : e.getMessage().getMentionedMembers()) {
+                                for (Role role : e.getMessage().getMentionedRoles()) {
+                                    if (e.getGuild().getSelfMember().canInteract(member)) {
+                                        if (e.getGuild().getSelfMember().canInteract(role)) {
+                                            e.getGuild().addRoleToMember(member, role).reason("Role added by " + e.getAuthor().getAsTag()).queue();
                                         } else {
-                                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                                            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                         }
                                     } else {
-                                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                     }
                                 }
                             }
-                            event.getChannel().sendMessage(
-                                    event.getMessageEditor().getMessage(
+                            e.getChannel().sendMessage(
+                                    e.getMessageEditor().getMessage(
                                             MessageEditor.MessageType.INFO,
                                             "commands.moderation.role.add.success.title",
                                             "",
                                             "",
                                             "commands.moderation.role.add.success.description",
-                                            String.valueOf(event.getMessage().getMentionedRoles().size()),
-                                            String.valueOf(event.getMessage().getMentionedMembers().size()))
+                                            String.valueOf(e.getMessage().getMentionedRoles().size()),
+                                            String.valueOf(e.getMessage().getMentionedMembers().size()))
                                             .build()).queue();
                         }
                         break;
 
                     case "remove":
-                        if (event.getMessage().getMentionedMembers().size() > 0 && event.getMessage().getMentionedRoles().size() > 0) {
-                            for (Member member : event.getMessage().getMentionedMembers()) {
-                                for (Role role : event.getMessage().getMentionedRoles()) {
-                                    if (event.getGuild().getSelfMember().canInteract(member)) {
-                                        if (event.getGuild().getSelfMember().canInteract(role)) {
-                                            event.getGuild().removeRoleFromMember(member, role).reason("Role removed by " + event.getAuthor().getAsTag()).queue();
+                        if (e.getMessage().getMentionedMembers().size() > 0 && e.getMessage().getMentionedRoles().size() > 0) {
+                            for (Member member : e.getMessage().getMentionedMembers()) {
+                                for (Role role : e.getMessage().getMentionedRoles()) {
+                                    if (e.getGuild().getSelfMember().canInteract(member)) {
+                                        if (e.getGuild().getSelfMember().canInteract(role)) {
+                                            e.getGuild().removeRoleFromMember(member, role).reason("Role removed by " + e.getAuthor().getAsTag()).queue();
                                         } else {
-                                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                                            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                         }
                                     } else {
-                                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                                     }
                                 }
                             }
-                            event.getChannel().sendMessage(
-                                    event.getMessageEditor().getMessage(
+                            e.getChannel().sendMessage(
+                                    e.getMessageEditor().getMessage(
                                             MessageEditor.MessageType.INFO,
                                             "commands.moderation.role.remove.success.title",
                                             "",
                                             "",
                                             "commands.moderation.role.remove.success.description",
-                                            String.valueOf(event.getMessage().getMentionedRoles().size()),
-                                            String.valueOf(event.getMessage().getMentionedMembers().size()))
+                                            String.valueOf(e.getMessage().getMentionedRoles().size()),
+                                            String.valueOf(e.getMessage().getMentionedMembers().size()))
                                             .build()).queue();
                         }
                         break;
                     default:
-                        event.getHelpCommand().sendHelp(this, event);
+                        e.getHelpCommand().sendHelp(this, e);
                         break;
                 }
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         }
     }
 

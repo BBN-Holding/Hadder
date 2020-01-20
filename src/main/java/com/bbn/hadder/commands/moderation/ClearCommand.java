@@ -20,15 +20,15 @@ import java.util.concurrent.TimeUnit;
 public class ClearCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+            if (e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
                 if (args[0].equals("all")) {
-                    List<Message> msg = event.getTextChannel().getIterableHistory().complete();
+                    List<Message> msg = e.getTextChannel().getIterableHistory().complete();
                     for (Message message : msg) {
                         message.delete().queue();
                     }
-                    Message message = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                    Message message = e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                             "commands.moderation.clear.all.success.title",
                             "",
@@ -37,51 +37,51 @@ public class ClearCommand implements Command {
                             .build()).complete();
                     try {
                         TimeUnit.SECONDS.sleep(3);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
                     }
                     message.delete().queue();
                 } else {
                     try {
                         int nbToDelete = Integer.parseInt(args[0]);
                         if (nbToDelete < 1 || nbToDelete > 99) {
-                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.moderation.clear.number.error.title", "commands.moderation.clear.number.error.description").build()).queue();
+                            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.moderation.clear.number.error.title", "commands.moderation.clear.number.error.description").build()).queue();
                         } else {
-                            List<Message> history = event.getTextChannel().getHistory().retrievePast(nbToDelete + 1).complete();
+                            List<Message> history = e.getTextChannel().getHistory().retrievePast(nbToDelete + 1).complete();
                             List<Message> msgToDelete = new ArrayList<>(history);
-                            event.getTextChannel().deleteMessages(msgToDelete).queue();
+                            e.getTextChannel().deleteMessages(msgToDelete).queue();
                             if (nbToDelete == 1) {
-                                Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.moderation.clear.success.title",
+                                Message msg = e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.moderation.clear.success.title",
                                         "commands.moderation.clear.success.description.singular").build()).complete();
                                 try {
                                     TimeUnit.SECONDS.sleep(2);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                                } catch (InterruptedException ex) {
+                                    ex.printStackTrace();
                                 }
                                 msg.delete().queue();
                             } else {
-                                Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.moderation.clear.success.title", "",
+                                Message msg = e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.moderation.clear.success.title", "",
                                         "commands.moderation.clear.success.description.plural", String.valueOf(nbToDelete)).build()).complete();
                                 try {
                                     TimeUnit.SECONDS.sleep(2);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                                } catch (InterruptedException ex) {
+                                    ex.printStackTrace();
                                 }
                                 msg.delete().queue();
                             }
                         }
-                    } catch (NumberFormatException e) {
-                        event.getHelpCommand().sendHelp(this, event);
-                    } catch (IllegalArgumentException e) {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.moderation.clear.message.error.title", "commands.moderation.clear.message.error.description")
+                    } catch (NumberFormatException ex) {
+                        e.getHelpCommand().sendHelp(this, e);
+                    } catch (IllegalArgumentException ex) {
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.moderation.clear.message.error.title", "commands.moderation.clear.message.error.description")
                                 .build()).queue();
                     }
                 }
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         }
     }
 

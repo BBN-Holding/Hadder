@@ -14,29 +14,29 @@ public class BassCommand implements Command {
             -0.1f, -0.1f, -0.1f, -0.1f };
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            if (event.getAudioManager().hasPlayer(event.getGuild()) && event.getAudioManager().getPlayer(event.getGuild()).getPlayingTrack() != null) {
-                if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
+            if (e.getAudioManager().hasPlayer(e.getGuild()) && e.getAudioManager().getPlayer(e.getGuild()).getPlayingTrack() != null) {
+                if (e.getMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().getChannel().equals(e.getMember().getVoiceState().getChannel())) {
                     float value = Float.parseFloat(args[0]);
                     EqualizerFactory equalizer = new EqualizerFactory();
                     for (int i = 0; i < BASS_BOOST.length; i++) {
                         equalizer.setGain(i, BASS_BOOST[i] + value);
                     }
-                    event.getAudioManager().getPlayer(event.getGuild()).setFrameBufferDuration(500);
-                    event.getAudioManager().getPlayer(event.getGuild()).setFilterFactory(equalizer);
+                    e.getAudioManager().getPlayer(e.getGuild()).setFrameBufferDuration(500);
+                    e.getAudioManager().getPlayer(e.getGuild()).setFilterFactory(equalizer);
                 } else {
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                             "commands.music.bass.error.connected.title",
                             "commands.music.bass.error.connected.description")
                             .build()).queue();
                 }
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.music.info.error.title",
                         "commands.music.info.error.description").build()).queue();
             }
-        } else event.getHelpCommand().sendHelp(this, event);
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

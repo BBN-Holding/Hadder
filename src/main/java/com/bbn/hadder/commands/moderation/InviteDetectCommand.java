@@ -14,21 +14,21 @@ import com.bbn.hadder.utils.MessageEditor;
 public class InviteDetectCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length == 1) {
             String opinion = args[0].toLowerCase();
             switch (opinion) {
                 case "on":
-                    if (!event.getRethink().getInviteDetection(event.getGuild().getId())) {
-                        event.getRethink().setInviteDetection(event.getGuild().getId(), true);
-                        event.getTextChannel().sendMessage(
-                                event.getMessageEditor().getMessage(
+                    if (!e.getRethink().getInviteDetection(e.getGuild().getId())) {
+                        e.getRethink().setInviteDetection(e.getGuild().getId(), true);
+                        e.getTextChannel().sendMessage(
+                                e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
                                         "commands.moderation.invitedetect.activate.success.title",
                                         "commands.moderation.invitedetect.activate.success.description")
                                         .build()).queue();
                     } else {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.ERROR,
                                 "commands.moderation.invitedetect.activate.error.title",
                                 "commands.moderation.invitedetect.activate.error.description")
@@ -37,15 +37,15 @@ public class InviteDetectCommand implements Command {
                     break;
 
                 case "off":
-                    if (event.getRethink().getInviteDetection(event.getGuild().getId())) {
-                        event.getRethink().setInviteDetection(event.getGuild().getId(), false);
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                    if (e.getRethink().getInviteDetection(e.getGuild().getId())) {
+                        e.getRethink().setInviteDetection(e.getGuild().getId(), false);
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
                                 "commands.moderation.invitedetect.deactivate.success.title",
                                 "commands.moderation.invitedetect.deactivate.success.description")
                                 .build()).queue();
                     } else {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.ERROR,
                                 "commands.moderation.invitedetect.deactivate.error.title",
                                 "commands.moderation.invitedetect.deactivate.error.description")
@@ -53,10 +53,10 @@ public class InviteDetectCommand implements Command {
                     }
                     break;
                 default:
-                    event.getHelpCommand().sendHelp(this, event);
+                    e.getHelpCommand().sendHelp(this, e);
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         }
     }
 

@@ -11,41 +11,41 @@ import com.bbn.hadder.utils.MessageEditor;
 public class LanguageCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length == 1) {
             switch (args[0].toLowerCase()) {
             case "de":
-                setLanguage("de", "German", event);
+                setLanguage("de", "German", e);
                 break;
             case "en":
-                setLanguage("en", "English", event);
+                setLanguage("en", "English", e);
                 break;
             case "es":
-                setLanguage("es", "Spanish", event);
+                setLanguage("es", "Spanish", e);
                 break;
             case "fr":
-                setLanguage("fr", "French", event);
+                setLanguage("fr", "French", e);
                 break;
             case "ru":
-                setLanguage("ru", "Russian", event);
+                setLanguage("ru", "Russian", e);
                 break;
             case "tr":
-                setLanguage("tr", "Turkish", event);
+                setLanguage("tr", "Turkish", e);
                 break;
             case "zh":
-                setLanguage("zh", "Chinese", event);
+                setLanguage("zh", "Chinese", e);
                 break;
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         }
     }
 
-    public void setLanguage(String language_code, String language, CommandEvent event) {
-        event.getRethink().setLanguage(event.getAuthor().getId(), language_code);
-        event.getTextChannel()
+    public void setLanguage(String language_code, String language, CommandEvent e) {
+        e.getRethink().setLanguage(e.getAuthor().getId(), language_code);
+        e.getTextChannel()
                 .sendMessage(
-                        event.getMessageEditor()
+                        e.getMessageEditor()
                                 .getMessage(MessageEditor.MessageType.INFO, "commands.settings.language.success.title",
                                         "", "commands.settings.language.success.description", language)
                                 .build())

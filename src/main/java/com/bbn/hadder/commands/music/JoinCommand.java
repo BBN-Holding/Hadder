@@ -14,32 +14,32 @@ import net.dv8tion.jda.api.managers.AudioManager;
 public class JoinCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        if (event.getMember().getVoiceState().inVoiceChannel()) {
-            AudioManager audioManager = event.getGuild().getAudioManager();
+    public void executed(String[] args, CommandEvent e) {
+        if (e.getMember().getVoiceState().inVoiceChannel()) {
+            AudioManager audioManager = e.getGuild().getAudioManager();
             if(!audioManager.isAttemptingToConnect()) {
-                VoiceChannel vc = event.getMember().getVoiceState().getChannel();
-                if (event.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
-                    if (!event.getGuild().getSelfMember().getVoiceState().getChannel().getId().equals(vc.getId())) {
+                VoiceChannel vc = e.getMember().getVoiceState().getChannel();
+                if (e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
+                    if (!e.getGuild().getSelfMember().getVoiceState().getChannel().getId().equals(vc.getId())) {
                         try {
-                            event.getGuild().getAudioManager().openAudioConnection(vc);
-                            event.getTextChannel().sendMessage(
-                                    event.getMessageEditor().getMessage(
+                            e.getGuild().getAudioManager().openAudioConnection(vc);
+                            e.getTextChannel().sendMessage(
+                                    e.getMessageEditor().getMessage(
                                             MessageEditor.MessageType.INFO,
                                             "commands.music.join.success.title",
                                             "",
                                             "commands.music.join.success.description",
                                             vc.getName())
                                             .build()).queue();
-                        } catch (InsufficientPermissionException e) {
-                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        } catch (InsufficientPermissionException ex) {
+                            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                                     "commands.music.join.error.permission.title",
                                     "commands.music.join.error.permission.description")
                                     .build()).queue();
                         }
                     } else {
-                        event.getTextChannel().sendMessage(
-                            event.getMessageEditor().getMessage(
+                        e.getTextChannel().sendMessage(
+                            e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.WARNING,
                                 "commands.music.join.error.connecting.already.title",
                                 "commands.music.join.error.connecting.already.description")
@@ -47,28 +47,28 @@ public class JoinCommand implements Command {
                     }
                 } else {
                     try {
-                        event.getGuild().getAudioManager().openAudioConnection(vc);
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                        e.getGuild().getAudioManager().openAudioConnection(vc);
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
                                 "commands.music.join.success.title", "",
                                 "commands.music.join.success.description", vc.getName())
                                 .build()).queue();
-                    } catch (InsufficientPermissionException e) {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                    } catch (InsufficientPermissionException ex) {
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                                 "commands.music.join.error.permission.title",
                                 "commands.music.join.error.permission.description")
                                 .build()).queue();
                     }
                 }
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                     MessageEditor.MessageType.WARNING,
                     "commands.music.join.error.connecting.trying.title",
                     "commands.music.join.error.connecting.trying.description")
                     .build()).queue();
             }
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                 MessageEditor.MessageType.ERROR,
                 "commands.music.join.error.channel.title",
                 "commands.music.join.error.channel.description")

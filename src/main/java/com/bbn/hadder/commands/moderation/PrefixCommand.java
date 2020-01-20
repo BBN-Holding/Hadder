@@ -10,11 +10,11 @@ import com.bbn.hadder.utils.MessageEditor;
 public class PrefixCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length == 1) {
             if (!args[0].contains("\"")) {
-                event.getRethink().setGuildPrefix(args[0], event.getGuild().getId());
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                e.getRethink().setGuildPrefix(args[0], e.getGuild().getId());
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.moderation.prefix.success.title",
                         "✅",
@@ -22,14 +22,14 @@ public class PrefixCommand implements Command {
                         args[0]).build()
                 ).queue();
             } else {
-                event.getTextChannel().sendMessage(
-                        event.getMessageEditor().getMessage(
+                e.getTextChannel().sendMessage(
+                        e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.WARNING,
                                 "",
                                 "commands.moderation.prefix.error.description").build()).queue();
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         }
     }
 

@@ -18,11 +18,11 @@ import java.io.IOException;
 public class GitHubCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
             if (args[0].equals("link")) {
-                event.getTextChannel().sendMessage(
-                        event.getMessageEditor().getMessage(
+                e.getTextChannel().sendMessage(
+                        e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
                                 "commands.misc.github.link.title",
                                 "")
@@ -51,39 +51,39 @@ public class GitHubCommand implements Command {
 
                     if (!json.getString("blog").equals("")) website = json.getString("blog");
 
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                            .setAuthor(event.getMessageEditor().getTerm("commands.misc.github.success.title", nickname + " (" + args[0] + ")", ""), "https://github.com/" + args[0] + "", "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                            .setAuthor(e.getMessageEditor().getTerm("commands.misc.github.success.title", nickname + " (" + args[0] + ")", ""), "https://github.com/" + args[0] + "", "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png")
                             .setThumbnail(json.getString("avatar_url"))
-                            .addField(event.getMessageEditor().getTerm("commands.misc.github.success.bio"), bio, false)
-                            .addField(event.getMessageEditor().getTerm("commands.misc.github.success.location"), location, true)
-                            .addField(event.getMessageEditor().getTerm("commands.misc.github.success.website"), website, true)
-                            .addField(event.getMessageEditor().getTerm("commands.misc.github.success.repositories"), String.valueOf(json.getInt("public_repos")), true)
-                            .addField(event.getMessageEditor().getTerm("commands.misc.github.success.gists"), String.valueOf(json.getInt("public_gists")), true)
-                            .addField(event.getMessageEditor().getTerm("commands.misc.github.success.followers"), String.valueOf(json.getInt("followers")), true)
-                            .addField(event.getMessageEditor().getTerm("commands.misc.github.success.following"), String.valueOf(json.getInt("following")), true)
+                            .addField(e.getMessageEditor().getTerm("commands.misc.github.success.bio"), bio, false)
+                            .addField(e.getMessageEditor().getTerm("commands.misc.github.success.location"), location, true)
+                            .addField(e.getMessageEditor().getTerm("commands.misc.github.success.website"), website, true)
+                            .addField(e.getMessageEditor().getTerm("commands.misc.github.success.repositories"), String.valueOf(json.getInt("public_repos")), true)
+                            .addField(e.getMessageEditor().getTerm("commands.misc.github.success.gists"), String.valueOf(json.getInt("public_gists")), true)
+                            .addField(e.getMessageEditor().getTerm("commands.misc.github.success.followers"), String.valueOf(json.getInt("followers")), true)
+                            .addField(e.getMessageEditor().getTerm("commands.misc.github.success.following"), String.valueOf(json.getInt("following")), true)
                             .build()).queue();
 
-                } catch (IOException | NullPointerException e) {
-                    event.getTextChannel().sendMessage(
-                            event.getMessageEditor().getMessage(
+                } catch (IOException | NullPointerException ex) {
+                    e.getTextChannel().sendMessage(
+                            e.getMessageEditor().getMessage(
                                     MessageEditor.MessageType.ERROR,
                                     "commands.misc.github.api.error.title",
                                     "commands.misc.github.api.error.description")
                                     .build()
                     ).queue();
-                } catch (JSONException e) {
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                } catch (JSONException ex) {
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.ERROR,
                             "commands.misc.github.user.error.title",
                             "commands.misc.github.user.error.description").build()).queue();
                 }
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
             /*
             TODO: THIS
-            event.getTextChannel().sendMessage(
-                    event.getMessageEditor().getMessage(
+            e.getTextChannel().sendMessage(
+                    e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                             "commands.misc.github.connect.title",
                             "",

@@ -12,9 +12,9 @@ import com.bbn.hadder.utils.MessageEditor;
 public class InviteCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        event.getTextChannel().sendMessage(
-                event.getMessageEditor().getMessage(
+    public void executed(String[] args, CommandEvent e) {
+        e.getTextChannel().sendMessage(
+                e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.general.invite.success.title",
                         "",

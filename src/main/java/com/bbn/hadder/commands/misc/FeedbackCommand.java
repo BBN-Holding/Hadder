@@ -17,39 +17,39 @@ import java.io.IOException;
 public class FeedbackCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        event.getTextChannel().sendMessage(
-                event.getMessageEditor().getMessage(
+    public void executed(String[] args, CommandEvent e) {
+        e.getTextChannel().sendMessage(
+                e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                 "commands.misc.feedback.title.request.title",
                 "commands.misc.feedback.title.request.description")
                 .build()).queue();
-        new EventWaiter().newOnMessageEventWaiter(event1 -> {
-                String title = event1.getMessage().getContentDisplay();
-                event1.getChannel().sendMessage(event.getMessageEditor().getMessage(
+        new EventWaiter().newOnMessageEventWaiter(e1 -> {
+                String title = e1.getMessage().getContentDisplay();
+                e1.getChannel().sendMessage(e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.misc.feedback.description.request.title",
                         "commands.misc.feedback.description.request.description")
                         .build()).queue();
-            new EventWaiter().newOnMessageEventWaiter(event2 -> {
-                String description = event2.getMessage().getContentDisplay();
+            new EventWaiter().newOnMessageEventWaiter(e2 -> {
+                String description = e2.getMessage().getContentDisplay();
                 try {
-                    GitHub connection = GitHub.connectUsingOAuth(event.getConfig().getGitHubToken());
+                    GitHub connection = GitHub.connectUsingOAuth(e.getConfig().getGitHubToken());
                     GHRepository Hadder = connection.getOrganization("BigBotNetwork").getRepository("Hadder");
-                    GHIssue issue = Hadder.createIssue(title).body("<strong>Feedback by " + event.getAuthor().getAsTag() + "</strong><br>" + description).label("feedback").create();
+                    GHIssue issue = Hadder.createIssue(title).body("<strong>Feedback by " + e.getAuthor().getAsTag() + "</strong><br>" + description).label("feedback").create();
                     issue.addLabels("feedback");
-                    event.getTextChannel().sendMessage(
-                            event.getMessageEditor().getMessage(
+                    e.getTextChannel().sendMessage(
+                            e.getMessageEditor().getMessage(
                                     MessageEditor.MessageType.INFO,
                                     "commands.misc.feedback.success.title",
                                     "")
                                     .setDescription(issue.getHtmlUrl().toString())
                             .build()).queue();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
-                }, event.getJDA(), event.getAuthor());
-            }, event.getJDA(), event.getAuthor());
+                }, e.getJDA(), e.getAuthor());
+            }, e.getJDA(), e.getAuthor());
 
     }
 

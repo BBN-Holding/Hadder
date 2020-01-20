@@ -21,15 +21,15 @@ public class ReadyListener extends ListenerAdapter {
     }
 
     @Override
-    public void onReady(@Nonnull ReadyEvent event) {
+    public void onReady(@Nonnull ReadyEvent e) {
         rethink.setup();
         new Thread(() -> {
-            for (User user : event.getJDA().getUsers()) {
-                if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
+            for (User user : e.getJDA().getUsers()) {
+                if (!user.getId().equals(e.getJDA().getSelfUser().getId())) {
                     rethink.insertUser(user.getId());
                 }
             }
-            for (Guild g : event.getJDA().getGuilds()) {
+            for (Guild g : e.getJDA().getGuilds()) {
                 rethink.insertGuild(g.getId());
             }
         }).start();

@@ -15,22 +15,22 @@ import net.dv8tion.jda.api.entities.Guild;
 public class GuildLeaveCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            Guild guild = event.getJDA().getGuildById(args[0]);
+            Guild guild = e.getJDA().getGuildById(args[0]);
             try {
                 guild.leave().queue();
-                event.getTextChannel()
-                        .sendMessage(event.getMessageEditor()
+                e.getTextChannel()
+                        .sendMessage(e.getMessageEditor()
                                 .getMessage(MessageEditor.MessageType.INFO, "commands.owner.guildleave.success.title",
                                         "", "commands.owner.guildleave.success.description", guild.getName())
                                 .build())
                         .queue();
-            } catch (Exception e) {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.owner.guildleave.error.title", "", "commands.owner.guildleave.help.description", guild.getName()).build()).queue();
+            } catch (Exception ex) {
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.owner.guildleave.error.title", "", "commands.owner.guildleave.help.description", guild.getName()).build()).queue();
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         }
     }
 

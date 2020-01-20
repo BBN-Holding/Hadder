@@ -24,13 +24,13 @@ import java.util.concurrent.TimeUnit;
 public class ClydeCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_WEBHOOKS)) {
-                TextChannel channel = event.getMessage().getTextChannel();
-                String content = event.getMessage().getContentRaw().replace(event.getRethink().getGuildPrefix(event.getGuild().getId()), "").replace(event.getRethink().getUserPrefix(event.getAuthor().getId()), "").replace("clyde", "");
+            if (e.getGuild().getSelfMember().hasPermission(Permission.MANAGE_WEBHOOKS)) {
+                TextChannel channel = e.getMessage().getTextChannel();
+                String content = e.getMessage().getContentRaw().replace(e.getRethink().getGuildPrefix(e.getGuild().getId()), "").replace(e.getRethink().getUserPrefix(e.getAuthor().getId()), "").replace("clyde", "");
 
-                Webhook webhook = channel.createWebhook(event.getConfig().getClydeName()).complete();
+                Webhook webhook = channel.createWebhook(e.getConfig().getClydeName()).complete();
                 try {
                     InputStream s = new URL("https://discordapp.com/assets/f78426a064bc9dd24847519259bc42af.png").openStream();
                     webhook.getManager().setAvatar(Icon.from(s)).queue();
@@ -40,24 +40,24 @@ public class ClydeCommand implements Command {
                     WebhookClient client = builder.build();
                     try {
                         TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
                     }
                     client.send(content);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
                 try {
                     TimeUnit.SECONDS.sleep(2);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
                 }
                 webhook.delete().queue();
-                event.getMessage().delete().queue();
+                e.getMessage().delete().queue();
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
             }
-        } else event.getHelpCommand().sendHelp(this, event);
+        } else e.getHelpCommand().sendHelp(this, e);
 
     }
 

@@ -18,7 +18,7 @@ import java.io.IOException;
 public class MemeCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url("https://meme-api.herokuapp.com/gimme").build();
@@ -27,16 +27,15 @@ public class MemeCommand implements Command {
             Response response = client.newCall(request).execute();
             JSONObject json = new JSONObject(response.body().string());
             String url = json.getString("url");
-            event.getTextChannel().sendMessage(
-                    event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+            e.getTextChannel().sendMessage(
+                    e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.fun.meme.success.title", "")
                     .setImage(url)
                             .setAuthor("Subreddit: " + json.getString("subreddit"))
                     .build()).queue();
-        } catch (IOException e) {
-            e.printStackTrace();
-            event.getTextChannel().sendMessage(
-                    event.getMessageEditor().getMessage(
+        } catch (IOException ignore) {
+            e.getTextChannel().sendMessage(
+                    e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.ERROR,
                             "error",
                             "commands.fun.meme.api.error")

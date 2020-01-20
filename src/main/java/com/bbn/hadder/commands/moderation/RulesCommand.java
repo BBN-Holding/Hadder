@@ -21,92 +21,92 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 public class RulesCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
-            event.getTextChannel().sendMessage(
-                    event.getMessageEditor().getMessage(
+    public void executed(String[] args, CommandEvent e) {
+        if (e.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
+            e.getTextChannel().sendMessage(
+                    e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                             "commands.moderation.rules.setup.title",
                             "commands.moderation.rules.setup.description")
                             .build()).queue();
-            event.getEventWaiter().newOnMessageEventWaiter(event1 -> {
-                if (event1.getMessage().getMentionedChannels().size() == 1) {
+            e.getEventWaiter().newOnMessageEventWaiter(e1 -> {
+                if (e1.getMessage().getMentionedChannels().size() == 1) {
                     try {
-                        TextChannel channel = event1.getMessage().getMentionedChannels().get(0);
-                        createRules(event, event1, channel);
-                    } catch (Exception e) {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        TextChannel channel = e1.getMessage().getMentionedChannels().get(0);
+                        createRules(e, e1, channel);
+                    } catch (Exception ex) {
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                                 "commands.moderation.rules.channel.error.title",
                                 "commands.moderation.rules.channel.error.description")
                                 .build()).queue();
                     }
                 } else {
                     try {
-                        TextChannel channel = event1.getGuild().getTextChannelsByName(event1.getMessage().getContentRaw(), true).get(0);
-                        createRules(event, event1, channel);
-                    } catch (Exception e) {
-                        event.getTextChannel().sendMessage(
-                                event.getMessageEditor().getMessage(
+                        TextChannel channel = e1.getGuild().getTextChannelsByName(e1.getMessage().getContentRaw(), true).get(0);
+                        createRules(e, e1, channel);
+                    } catch (Exception ex) {
+                        e.getTextChannel().sendMessage(
+                                e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.ERROR,
                                         "commands.moderation.rules.channel.error.title",
                                         "commands.moderation.rules.channel.error.description")
                                         .build()).queue();
                     }
                 }
-            }, event.getJDA(), event.getAuthor());
+            }, e.getJDA(), e.getAuthor());
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.moderation.rules.error.permission.title",
                     "commands.moderation.rules.error.permission.description")
                     .build()).queue();
         }
     }
 
-    public void createRules(CommandEvent event, GuildMessageReceivedEvent event1, TextChannel channel) {
-        if (channel.getGuild().getId().equals(event1.getGuild().getId())) {
-            if (event.getGuild().getSelfMember().hasPermission(channel, Permission.MESSAGE_WRITE)) {
-                event1.getChannel().sendMessage(
-                        event.getMessageEditor().getMessage(
+    public void createRules(CommandEvent e, GuildMessageReceivedEvent e1, TextChannel channel) {
+        if (channel.getGuild().getId().equals(e1.getGuild().getId())) {
+            if (e.getGuild().getSelfMember().hasPermission(channel, Permission.MESSAGE_WRITE)) {
+                e1.getChannel().sendMessage(
+                        e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
                                 "commands.moderation.rules.rules.title",
                                 "",
                                 "commands.moderation.rules.rules.description",
                                 channel.getName())
                         .build()).queue();
-                event.getEventWaiter().newOnMessageEventWaiter(event2 -> {
-                    String message = event2.getMessage().getContentRaw();
-                    event2.getChannel().sendMessage(
-                            event.getMessageEditor().getMessage(
+                e.getEventWaiter().newOnMessageEventWaiter(e2 -> {
+                    String message = e2.getMessage().getContentRaw();
+                    e2.getChannel().sendMessage(
+                            e.getMessageEditor().getMessage(
                                     MessageEditor.MessageType.INFO,
                                     "commands.moderation.rules.role.title",
                                     "commands.moderation.rules.role.description")
                             .build()).queue();
-                    new EventWaiter().newOnMessageEventWaiter(event3 -> {
-                        if (event3.getMessage().getMentionedRoles().size() == 1) {
-                            Role role = event3.getMessage().getMentionedRoles().get(0);
-                            setRole(event, channel, message, event3, role);
-                        } else if (event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), true).size() > 0) {
-                                Role role = event3.getGuild().getRolesByName(event3.getMessage().getContentRaw(), true).get(0);
-                                setRole(event, channel, message, event3, role);
+                    new EventWaiter().newOnMessageEventWaiter(e3 -> {
+                        if (e3.getMessage().getMentionedRoles().size() == 1) {
+                            Role role = e3.getMessage().getMentionedRoles().get(0);
+                            setRole(e, channel, message, e3, role);
+                        } else if (e3.getGuild().getRolesByName(e3.getMessage().getContentRaw(), true).size() > 0) {
+                                Role role = e3.getGuild().getRolesByName(e3.getMessage().getContentRaw(), true).get(0);
+                                setRole(e, channel, message, e3, role);
                         } else {
-                            event3.getChannel().sendMessage(
-                                    event.getMessageEditor().getMessage(
+                            e3.getChannel().sendMessage(
+                                    e.getMessageEditor().getMessage(
                                             MessageEditor.MessageType.ERROR,
                                             "commands.moderation.rules.role.error.title",
                                             "commands.moderation.rules.role.error.description")
                                     .build()).queue();
                         }
-                    }, event.getJDA(), event.getAuthor());
-                }, event.getJDA(), event.getAuthor());
+                    }, e.getJDA(), e.getAuthor());
+                }, e.getJDA(), e.getAuthor());
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.moderation.rules.error.message.title",
                         "commands.moderation.rules.error.message.description")
                         .build()).queue();
             }
         } else {
-            event.getTextChannel().sendMessage(
-                    event.getMessageEditor().getMessage(
+            e.getTextChannel().sendMessage(
+                    e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.ERROR,
                             "commands.moderation.rules.guild.error.title",
                             "commands.moderation.rules.guild.error.description")
@@ -114,117 +114,117 @@ public class RulesCommand implements Command {
         }
     }
 
-    public void setRole(CommandEvent event, TextChannel channel, String message, GuildMessageReceivedEvent event3, Role role) {
-        if (event3.getGuild().getSelfMember().canInteract(role)) {
-            if (event3.getMember().canInteract(role)) {
-                event3.getChannel().sendMessage(
-                        event.getMessageEditor().getMessage(
+    public void setRole(CommandEvent e, TextChannel channel, String message, GuildMessageReceivedEvent e3, Role role) {
+        if (e3.getGuild().getSelfMember().canInteract(role)) {
+            if (e3.getMember().canInteract(role)) {
+                e3.getChannel().sendMessage(
+                        e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
                                 "commands.moderation.rules.emote.accept.title",
                                 "",
                                 "commands.moderation.rules.emote.accept.description", role.getName())
                                 .build()).queue();
-                event.getEventWaiter().newOnMessageEventWaiter(event4 -> {
-                    if (event4.getMessage().getEmotes().size() == 1) {
-                        Emote aemote = event4.getMessage().getEmotes().get(0);
-                        event4.getChannel().sendMessage(
-                                event.getMessageEditor().getMessage(
+                e.getEventWaiter().newOnMessageEventWaiter(e4 -> {
+                    if (e4.getMessage().getEmotes().size() == 1) {
+                        Emote aemote = e4.getMessage().getEmotes().get(0);
+                        e4.getChannel().sendMessage(
+                                e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
                                         "commands.moderation.rules.emote.decline.title", "",
                                         "commands.moderation.rules.emote.decline.description", String.valueOf(aemote))
                                         .build()).queue();
-                        event.getEventWaiter().newOnMessageEventWaiter(event5 -> {
-                            Emote demote = event5.getMessage().getEmotes().get(0);
+                        e.getEventWaiter().newOnMessageEventWaiter(e5 -> {
+                            Emote demote = e5.getMessage().getEmotes().get(0);
                             if (!aemote.equals(demote)) {
-                                Message rules = channel.sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                                Message rules = channel.sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                                         .setTitle("Rules")
                                         .setDescription(message)
                                         .build()).complete();
                                 try {
                                     rules.addReaction(aemote).queue();
                                     rules.addReaction(demote).queue();
-                                    event5.getChannel().sendMessage(
-                                            event.getMessageEditor().getMessage(
+                                    e5.getChannel().sendMessage(
+                                            e.getMessageEditor().getMessage(
                                                     MessageEditor.MessageType.INFO,
                                                     "commands.moderation.rules.success.title",
                                                     "",
                                                     "commands.moderation.rules.success.description",
                                                     channel.getAsMention())
                                                     .build()).queue();
-                                } catch (Exception e) {
-                                    event5.getChannel().sendMessage(
-                                            event.getMessageEditor().getMessage(
+                                } catch (Exception ex) {
+                                    e5.getChannel().sendMessage(
+                                            e.getMessageEditor().getMessage(
                                                     MessageEditor.MessageType.ERROR,
                                                     "error",
                                                     "commands.moderation.rules.emote.error.access.description")
                                                     .build()).queue();
-                                    e.printStackTrace();
+                                    ex.printStackTrace();
                                 }
-                                event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote.toString(), demote.toString());
+                                e.getRethink().updateRules(e.getGuild().getId(), rules.getId(), role.getId(), aemote.toString(), demote.toString());
                             } else {
-                                event.getTextChannel().sendMessage(
-                                        event.getMessageEditor().getMessage(
+                                e.getTextChannel().sendMessage(
+                                        e.getMessageEditor().getMessage(
                                                 MessageEditor.MessageType.ERROR,
                                                 "commands.moderation.rules.emote.error.equal.title",
                                                 "commands.moderation.rules.emote.error.equal.description")
                                                 .build()).queue();
                             }
-                        }, event.getJDA(), event.getAuthor());
+                        }, e.getJDA(), e.getAuthor());
                     } else {
-                        String aemote = event4.getMessage().getContentRaw();
-                        event4.getChannel().sendMessage(
-                                event.getMessageEditor().getMessage(
+                        String aemote = e4.getMessage().getContentRaw();
+                        e4.getChannel().sendMessage(
+                                e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
                                         "commands.moderation.rules.emote.decline.title",
                                         "commands.moderation.rules.emoji.decline.description")
                                         .build()).queue();
-                        event.getEventWaiter().newOnMessageEventWaiter(event5 -> {
-                            String demote = event5.getMessage().getContentRaw();
+                        e.getEventWaiter().newOnMessageEventWaiter(e5 -> {
+                            String demote = e5.getMessage().getContentRaw();
                             if (!aemote.equals(demote)) {
-                                Message rules = channel.sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                                Message rules = channel.sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                                         .setTitle("Rules")
                                         .setDescription(message)
                                         .build()).complete();
                                 try {
                                     rules.addReaction(aemote).queue();
                                     rules.addReaction(demote).queue();
-                                    event5.getChannel().sendMessage(
-                                            event.getMessageEditor().getMessage(
+                                    e5.getChannel().sendMessage(
+                                            e.getMessageEditor().getMessage(
                                                     MessageEditor.MessageType.INFO,
                                                     "commands.moderation.rules.success.title",
                                                     "",
                                                     "commands.moderation.rules.success.description",
                                                     channel.getAsMention())
                                                     .build()).queue();
-                                } catch (Exception e) {
-                                    event5.getChannel().sendMessage(
-                                            event.getMessageEditor().getMessage(
+                                } catch (Exception ex) {
+                                    e5.getChannel().sendMessage(
+                                            e.getMessageEditor().getMessage(
                                                     MessageEditor.MessageType.ERROR,
                                                     "error",
                                                     "commands.moderation.rules.emoji.error.description")
                                                     .build()).queue();
-                                    e.printStackTrace();
+                                    ex.printStackTrace();
                                 }
-                                event.getRethink().updateRules(event.getGuild().getId(), rules.getId(), role.getId(), aemote, demote);
+                                e.getRethink().updateRules(e.getGuild().getId(), rules.getId(), role.getId(), aemote, demote);
                             } else {
-                                event.getTextChannel().sendMessage(
-                                        event.getMessageEditor().getMessage(
+                                e.getTextChannel().sendMessage(
+                                        e.getMessageEditor().getMessage(
                                                 MessageEditor.MessageType.ERROR,
                                                 "commands.moderation.rules.emote.error.equal.title",
                                                 "commands.moderation.rules.emote.error.equal.description")
                                                 .build()).queue();
                             }
-                        }, event.getJDA(), event.getAuthor());
+                        }, e.getJDA(), e.getAuthor());
                     }
-                }, event.getJDA(), event.getAuthor());
+                }, e.getJDA(), e.getAuthor());
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.moderation.rules.role.permission.error.title",
                         "commands.moderation.rules.role.permission.error.description")
                         .build()).queue();
             }
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.moderation.rules.error.interact.title",
                     "commands.moderation.rules.error.interact.description")
                     .build()).queue();

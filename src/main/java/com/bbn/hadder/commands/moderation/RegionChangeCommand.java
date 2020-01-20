@@ -16,67 +16,67 @@ import net.dv8tion.jda.api.Region;
 public class RegionChangeCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length == 1) {
-            if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_SERVER)) {
+            if (e.getGuild().getSelfMember().hasPermission(Permission.MANAGE_SERVER)) {
                 switch (args[0].toLowerCase()) {
                     case "amsterdam":
-                        setRegion(Region.AMSTERDAM, "Amsterdam", event);
+                        setRegion(Region.AMSTERDAM, "Amsterdam", e);
                         break;
                     case "frankfurt":
-                        setRegion(Region.FRANKFURT, "Frankfurt", event);
+                        setRegion(Region.FRANKFURT, "Frankfurt", e);
                         break;
                     case "eu-west":
-                        setRegion(Region.EU_WEST, "EU West", event);
+                        setRegion(Region.EU_WEST, "EU West", e);
                         break;
                     case "eu-central":
-                        setRegion(Region.EU_CENTRAL, "EU Central", event);
+                        setRegion(Region.EU_CENTRAL, "EU Central", e);
                         break;
                     case "europe":
-                        setRegion(Region.EUROPE, "EUROPE", event);
+                        setRegion(Region.EUROPE, "EUROPE", e);
                         break;
                     case "brazil":
-                        setRegion(Region.BRAZIL, "Brazil", event);
+                        setRegion(Region.BRAZIL, "Brazil", e);
                         break;
                     case "hongkong":
-                        setRegion(Region.HONG_KONG, "Hong Kong", event);
+                        setRegion(Region.HONG_KONG, "Hong Kong", e);
                         break;
                     case "india":
-                        setRegion(Region.INDIA, "India", event);
+                        setRegion(Region.INDIA, "India", e);
                         break;
                     case "japan":
-                        setRegion(Region.JAPAN, "Japan", event);
+                        setRegion(Region.JAPAN, "Japan", e);
                         break;
                     case "london":
-                        setRegion(Region.LONDON, "London", event);
+                        setRegion(Region.LONDON, "London", e);
                         break;
                     case "russia":
-                        setRegion(Region.RUSSIA, "Russia", event);
+                        setRegion(Region.RUSSIA, "Russia", e);
                         break;
                     case "singapore":
-                        setRegion(Region.SINGAPORE, "Singapore", event);
+                        setRegion(Region.SINGAPORE, "Singapore", e);
                         break;
                     case "south-africa":
-                        setRegion(Region.SOUTH_AFRICA, "South Africa", event);
+                        setRegion(Region.SOUTH_AFRICA, "South Africa", e);
                         break;
                     case "sydney":
-                        setRegion(Region.SYDNEY, "Sydney", event);
+                        setRegion(Region.SYDNEY, "Sydney", e);
                         break;
                     case "us-central":
-                        setRegion(Region.US_CENTRAL, "US Central", event);
+                        setRegion(Region.US_CENTRAL, "US Central", e);
                         break;
                     case "us-east":
-                        setRegion(Region.US_EAST, "US East", event);
+                        setRegion(Region.US_EAST, "US East", e);
                         break;
                     case "us-west":
-                        setRegion(Region.US_WEST, "US West", event);
+                        setRegion(Region.US_WEST, "US West", e);
                         break;
                     case "us-south":
-                        setRegion(Region.US_SOUTH, "US South", event);
+                        setRegion(Region.US_SOUTH, "US South", e);
                         break;
                     default:
-                        event.getTextChannel().sendMessage(
-                                event.getMessageEditor().getMessage(
+                        e.getTextChannel().sendMessage(
+                                e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
                                         "commands.moderation.regionchange.regions.title",
                                         "")
@@ -84,10 +84,12 @@ public class RegionChangeCommand implements Command {
                                         .build()).queue();
                         break;
                 }
+
+                //TODO: Maybe South Korea. Check the geo restricted discussion
             } else
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
-        } else event.getTextChannel().sendMessage(
-                event.getMessageEditor().getMessage(
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+        } else e.getTextChannel().sendMessage(
+                e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.moderation.regionchange.regions.title",
                         "")
@@ -95,10 +97,10 @@ public class RegionChangeCommand implements Command {
                         .build()).queue();
     }
 
-    public void setRegion (Region region, String region_name, CommandEvent event) {
-        event.getGuild().getManager().setRegion(region).reason("Region changed by " + event.getAuthor().getAsTag()).queue();
-        event.getTextChannel().sendMessage(
-                event.getMessageEditor().getMessage(
+    public void setRegion (Region region, String region_name, CommandEvent e) {
+        e.getGuild().getManager().setRegion(region).reason("Region changed by " + e.getAuthor().getAsTag()).queue();
+        e.getTextChannel().sendMessage(
+                e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.moderation.regionchange.success.title", "",
                         "commands.moderation.regionchange.success.description", region_name)

@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class EvalCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
             ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
 
@@ -32,18 +32,18 @@ public class EvalCommand implements Command {
                 ex.printStackTrace();
             }
 
-            engine.put("msg".toLowerCase(), event.getMessage());
+            engine.put("msg".toLowerCase(), e.getMessage());
             engine.put("shardmanager".toLowerCase(), Hadder.shardManager);
-            engine.put("rethink".toLowerCase(), event.getRethink());
-            engine.put("event".toLowerCase(), event);
-            engine.put("jda".toLowerCase(), event.getJDA());
-            engine.put("message".toLowerCase(), event.getMessage());
-            engine.put("guild".toLowerCase(), event.getGuild());
-            engine.put("channel".toLowerCase(), event.getChannel());
-            engine.put("author".toLowerCase(), event.getAuthor());
-            engine.put("member".toLowerCase(), event.getMember());
-            engine.put("self".toLowerCase(), event.getGuild().getSelfMember());
-            engine.put("audio".toLowerCase(), event.getAudioManager());
+            engine.put("rethink".toLowerCase(), e.getRethink());
+            engine.put("e".toLowerCase(), e);
+            engine.put("jda".toLowerCase(), e.getJDA());
+            engine.put("message".toLowerCase(), e.getMessage());
+            engine.put("guild".toLowerCase(), e.getGuild());
+            engine.put("channel".toLowerCase(), e.getChannel());
+            engine.put("author".toLowerCase(), e.getAuthor());
+            engine.put("member".toLowerCase(), e.getMember());
+            engine.put("self".toLowerCase(), e.getGuild().getSelfMember());
+            engine.put("audio".toLowerCase(), e.getAudioManager());
             engine.put("out".toLowerCase(), System.out);
 
             ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
@@ -61,21 +61,21 @@ public class EvalCommand implements Command {
                     }
                     out = engine.eval(script.toString());
 
-                    event.getTextChannel().sendMessage(event.getMessageEditor()
+                    e.getTextChannel().sendMessage(e.getMessageEditor()
                             .getMessage(MessageEditor.MessageType.INFO, "commands.owner.eval.success.title", "")
-                            .addField(event.getMessageEditor().getTerm("commands.owner.eval.success.input"),
+                            .addField(e.getMessageEditor().getTerm("commands.owner.eval.success.input"),
                                     "```java\n\n" + script + "```", false)
-                            .addField(event.getMessageEditor().getTerm("commands.owner.eval.success.output"),
+                            .addField(e.getMessageEditor().getTerm("commands.owner.eval.success.output"),
                                     "```java\n\n" + out.toString() + "```", false)
-                            .addField(event.getMessageEditor().getTerm("commands.owner.eval.success.timing"),
+                            .addField(e.getMessageEditor().getTerm("commands.owner.eval.success.timing"),
                                     System.currentTimeMillis() - startExec + " milliseconds", false)
                             .build()).queue();
                 } catch (Exception ex) {
-                    event.getTextChannel().sendMessage(event.getMessageEditor()
+                    e.getTextChannel().sendMessage(e.getMessageEditor()
                             .getMessage(MessageEditor.MessageType.INFO, "commands.owner.eval.success.title", "")
-                            .addField(event.getMessageEditor().getTerm("error"),
+                            .addField(e.getMessageEditor().getTerm("error"),
                                     "```java\n\n" + ex.getMessage() + "```", false)
-                            .addField(event.getMessageEditor().getTerm("commands.owner.eval.success.timing"),
+                            .addField(e.getMessageEditor().getTerm("commands.owner.eval.success.timing"),
                                     System.currentTimeMillis() - startExec + " milliseconds", false)
                             .build()).queue();
 
@@ -86,7 +86,7 @@ public class EvalCommand implements Command {
             }, 0, TimeUnit.MILLISECONDS);
 
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         }
     }
 

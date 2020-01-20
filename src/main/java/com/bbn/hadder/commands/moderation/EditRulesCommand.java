@@ -15,67 +15,67 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public class EditRulesCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        if (event.getRethink().getRulesMID(event.getGuild().getId()).length() == 18) {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+    public void executed(String[] args, CommandEvent e) {
+        if (e.getRethink().getRulesMID(e.getGuild().getId()).length() == 18) {
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.moderation.editrules.message.title",
                     "commands.moderation.editrules.message.description").build()).queue();
 
-            event.getEventWaiter().newOnMessageEventWaiter(event1 -> {
-                String rules = event1.getMessage().getContentRaw();
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+            e.getEventWaiter().newOnMessageEventWaiter(e1 -> {
+                String rules = e1.getMessage().getContentRaw();
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                         "commands.moderation.editrules.channel.title",
                         "commands.moderation.editrules.channel.description").build()).queue();
 
-                event.getEventWaiter().newOnMessageEventWaiter(event2 -> {
-                    if (event2.getMessage().getMentionedChannels().size() == 1) {
+                e.getEventWaiter().newOnMessageEventWaiter(e2 -> {
+                    if (e2.getMessage().getMentionedChannels().size() == 1) {
                         try {
-                            TextChannel channel = event2.getMessage().getMentionedChannels().get(0);
-                            checkChannel(event, rules, channel);
-                        } catch (Exception e) {
-                            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                            TextChannel channel = e2.getMessage().getMentionedChannels().get(0);
+                            checkChannel(e, rules, channel);
+                        } catch (Exception ex) {
+                            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                                     "commands.moderation.editrules.channel.error.title",
                                     "commands.moderation.editrules.channel.error.description")
                                     .build()).queue();
                         }
                     } else {
                         try {
-                            TextChannel channel = event1.getGuild().getTextChannelsByName(event2.getMessage().getContentRaw(), true).get(0);
-                            checkChannel(event, rules, channel);
-                        } catch (Exception e) {
-                            event.getTextChannel().sendMessage(
-                                    event.getMessageEditor().getMessage(
+                            TextChannel channel = e1.getGuild().getTextChannelsByName(e2.getMessage().getContentRaw(), true).get(0);
+                            checkChannel(e, rules, channel);
+                        } catch (Exception ex) {
+                            e.getTextChannel().sendMessage(
+                                    e.getMessageEditor().getMessage(
                                             MessageEditor.MessageType.ERROR,
                                             "commands.moderation.editrules.channel.error.title",
                                             "commands.moderation.editrules.channel.error.description")
                                             .build()).queue();
                         }
                     }
-                }, event.getJDA(), event.getAuthor());
-            }, event.getJDA(), event.getAuthor());
+                }, e.getJDA(), e.getAuthor());
+            }, e.getJDA(), e.getAuthor());
         } else {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.moderation.editrules.error.title", "",
-                    "commands.moderation.editrules.error.description", event.getRethink().getGuildPrefix(event.getGuild().getId())).build()).queue();
+                    "commands.moderation.editrules.error.description", e.getRethink().getGuildPrefix(e.getGuild().getId())).build()).queue();
         }
     }
 
-    public void checkChannel(CommandEvent event, String rules, TextChannel channel) {
+    public void checkChannel(CommandEvent e, String rules, TextChannel channel) {
         try {
-            channel.retrieveMessageById(event.getRethink().getRulesMID(event.getGuild().getId())).queue();
-            setRules(event, rules, channel);
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+            channel.retrieveMessageById(e.getRethink().getRulesMID(e.getGuild().getId())).queue();
+            setRules(e, rules, channel);
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.moderation.editrules.success.title",
                     "commands.moderation.editrules.success.description").build()).queue();
-        } catch (Exception e) {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+        } catch (Exception ex) {
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.moderation.editrules.channel.message.error.title",
                     "commands.moderation.editrules.channel.message.error.description").build()).queue();
         }
     }
 
-    public void setRules(CommandEvent event, String rules, TextChannel channel) {
-        channel.retrieveMessageById(event.getRethink().getRulesMID(event.getGuild().getId())).complete().editMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+    public void setRules(CommandEvent e, String rules, TextChannel channel) {
+        channel.retrieveMessageById(e.getRethink().getRulesMID(e.getGuild().getId())).complete().editMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Rules")
                 .setDescription(rules)
                 .build()).queue();
