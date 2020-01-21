@@ -35,7 +35,7 @@ public class Request {
             try {
                 JSONObject data = json.getJSONObject("data");
                 JSONObject response1 = data.getJSONObject("response");
-                return response1.toString().replace("{\"url\":\"", "").replace("\"}", "");
+                return response1.getString("url");
             } catch (Exception ignore) {
                 return json.getString("url");
             }
