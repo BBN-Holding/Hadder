@@ -24,6 +24,7 @@ import net.dv8tion.jda.api.entities.User;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -87,11 +88,13 @@ public class AvatarCommand implements Command {
                                             .setImage(url)
                                             .setFooter(json.getString("username") + "#" + json.getString("discriminator"))
                                             .build()).queue();
-                } catch (IOException ex) {
+                } catch (JSONException ex) {
                     e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                             "commands.fun.avatar.error.title",
                             "commands.fun.avatar.error.description"
                     ).build()).queue();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         } else {
