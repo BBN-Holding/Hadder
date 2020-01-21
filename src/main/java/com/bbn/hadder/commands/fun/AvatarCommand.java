@@ -19,7 +19,6 @@ package com.bbn.hadder.commands.fun;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,35 +26,33 @@ import okhttp3.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 public class AvatarCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (args.length == 0) {
-            Member member = e.getMember();
+            User u  = e.getAuthor();
             e.getTextChannel().sendMessage(
                     e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                             "commands.fun.avatar.success.title",
-                            member.getUser().getAsTag(),
+                            u.getAsTag(),
                             "",
                             "")
-                    .setImage(member.getUser().getAvatarUrl())
-                    .setFooter(member.getUser().getAsTag())
+                    .setImage(u.getAvatarUrl())
+                    .setFooter(u.getAsTag())
                     .build()).queue();
-        } else if (e.getMessage().getMentionedMembers().size() == 1) {
-            Member member = e.getMessage().getMentionedMembers().get(0);
+        } else if (e.getMessage().getMentionedUsers().size() == 1) {
+            User u = e.getMessage().getMentionedUsers().get(0);
             e.getTextChannel().sendMessage(
                     e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                             "commands.fun.avatar.success.title",
-                            member.getUser().getAsTag(),
+                            u.getAsTag(),
                             "",
                             "")
-                    .setImage(member.getUser().getAvatarUrl())
-                    .setFooter(member.getUser().getAsTag())
+                    .setImage(u.getAvatarUrl())
+                    .setFooter(u.getAsTag())
                     .build()).queue();
         } else if (args[0].length() == 18) {
             try {
