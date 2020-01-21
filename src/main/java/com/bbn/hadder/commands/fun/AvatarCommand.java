@@ -40,7 +40,8 @@ public class AvatarCommand implements Command {
                     .build()).queue();
         } else if (args[0].length() == 18) {
             try {
-                User u = e.getGuild().getMemberById(args[0]).getUser();
+                User u = e.getJDA().getUserById(args[0]);
+                System.out.println(u);
                 e.getTextChannel().sendMessage(
                         e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
