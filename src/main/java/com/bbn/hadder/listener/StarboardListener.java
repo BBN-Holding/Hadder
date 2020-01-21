@@ -53,7 +53,7 @@ public class StarboardListener extends ListenerAdapter {
                 if (rethink.hasStarboardChannel(e.getGuild().getId())) {
                     e.getTextChannel().retrieveMessageById(e.getMessageId()).queue(
                             msg -> {
-                                Integer stars = 0;
+                                int stars = 0;
                                 for (MessageReaction reaction : msg.getReactions()) {
                                     if (reaction.getReactionEmote().getName().equals("⭐")) {
                                         stars = reaction.getCount();
@@ -82,14 +82,14 @@ public class StarboardListener extends ListenerAdapter {
 
                 e.getTextChannel().retrieveMessageById(e.getMessageId()).queue(
                         msg -> {
-                            Integer stars = 0;
+                            int stars = 0;
                             for (MessageReaction reaction : msg.getReactions()) {
                                 if (reaction.getReactionEmote().getName().equals("⭐")) {
                                     stars = reaction.getCount();
                                 }
                             }
 
-                            Integer finalStars = stars;
+                            int finalStars = stars;
                             e.getGuild().getTextChannelById(rethinkServer.getStarboard())
                                     .retrieveMessageById(rethink.getStarboardMessage(e.getMessageId())).queue(
                                     msg2 -> {
@@ -108,10 +108,8 @@ public class StarboardListener extends ListenerAdapter {
                                         }
                                     }
                             );
-
                         }
                 );
-
             }
         }
     }
