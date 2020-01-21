@@ -23,64 +23,64 @@ public enum Perm {
 
     BOT_OWNER() {
         @Override
-        public boolean check(CommandEvent event) {
-            return event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+        public boolean check(CommandEvent e) {
+            return e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
         },
     MANAGE_MESSAGES {
         @Override
-        public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.MESSAGE_MANAGE) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+        public boolean check(CommandEvent e) {
+            return e.getMember().hasPermission(Permission.MESSAGE_MANAGE) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
         },
     EMBED_MESSAGES {
         @Override
-        public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.MESSAGE_EMBED_LINKS) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+        public boolean check(CommandEvent e) {
+            return e.getMember().hasPermission(Permission.MESSAGE_EMBED_LINKS) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
         },
     BAN_MEMBERS {
         @Override
-        public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.BAN_MEMBERS) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+        public boolean check(CommandEvent e) {
+            return e.getMember().hasPermission(Permission.BAN_MEMBERS) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
         },
     KICK_MEMBERS {
         @Override
-        public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.KICK_MEMBERS) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+        public boolean check(CommandEvent e) {
+            return e.getMember().hasPermission(Permission.KICK_MEMBERS) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
         },
     MANAGE_SERVER {
         @Override
-        public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.MANAGE_SERVER) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+        public boolean check(CommandEvent e) {
+            return e.getMember().hasPermission(Permission.MANAGE_SERVER) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
         },
     MANAGE_ROLES {
         @Override
-        public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.MANAGE_ROLES) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+        public boolean check(CommandEvent e) {
+            return e.getMember().hasPermission(Permission.MANAGE_ROLES) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
         },
     MANAGE_NICKNAMES {
         @Override
-        public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.NICKNAME_MANAGE) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+        public boolean check(CommandEvent e) {
+            return e.getMember().hasPermission(Permission.NICKNAME_MANAGE) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
         },
     ADMINISTRATOR {
         @Override
-        public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.ADMINISTRATOR) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+        public boolean check(CommandEvent e) {
+            return e.getMember().hasPermission(Permission.ADMINISTRATOR) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
         },
     MANAGE_WEBHOOKS {
         @Override
-        public boolean check(CommandEvent event) {
-            return event.getMember().hasPermission(Permission.MANAGE_WEBHOOKS) || event.getConfig().getOwners().contains(event.getAuthor().getIdLong());
+        public boolean check(CommandEvent e) {
+            return e.getMember().hasPermission(Permission.MANAGE_WEBHOOKS) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
     };
 
-    public abstract boolean check(CommandEvent event);
+    public abstract boolean check(CommandEvent e);
 }
