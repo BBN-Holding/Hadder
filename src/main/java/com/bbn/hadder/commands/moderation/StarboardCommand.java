@@ -24,11 +24,11 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public class StarboardCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent e) {
-        if (e.getMessage().getMentionedChannels().size()==1) {
-            e.getRethink().setStarboardChannel(e.getGuild().getId(), e.getMessage().getMentionedChannels().get(0).getId());
-            e.getChannel().sendMessage(
-                    e.getMessageEditor().getMessage(
+    public void executed(String[] args, CommandEvent event) {
+        if (event.getMessage().getMentionedChannels().size()==1) {
+            event.getRethinkServer().setStarboard(event.getMessage().getMentionedChannels().get(0).getId());
+            event.getChannel().sendMessage(
+                    event.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                                             "commands.moderation.starboard.success.title","")
                             .build())
@@ -37,7 +37,7 @@ public class StarboardCommand implements Command {
             if (args.length>0) {
                 TextChannel channel = e.getGuild().getTextChannelById(args[0]);
                 if (channel!=null) {
-                    e.getRethink().setStarboardChannel(e.getGuild().getId(), channel.getId());
+                    event.getRethinkServer().setStarboard(channel.getId());
                 }
             } else {
                 e.getHelpCommand().sendHelp(this, e);
@@ -45,8 +45,10 @@ public class StarboardCommand implements Command {
         }
 
         if (args.length==2) {
-            e.getRethink().setNeededStars(args[1], e.getGuild().getId());
+            event.getRethinkServer().setNeededstars(args[1]);
         }
+
+        event.getRethinkServer().push();
     }
 
     @Override

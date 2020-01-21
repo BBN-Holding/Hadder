@@ -24,13 +24,14 @@ public class UserPrefixCommand implements Command {
 
     public void executed(String[] args, CommandEvent e) {
         if (args.length == 1) {
-            e.getRethink().setUserPrefix(args[0], e.getAuthor().getId());
-            e.getTextChannel()
-                    .sendMessage(e.getMessageEditor()
+            event.getRethinkUser().setPrefix(args[0]);
+            event.getTextChannel()
+                    .sendMessage(event.getMessageEditor()
                             .getMessage(MessageEditor.MessageType.INFO, "commands.settings.prefix.success.title", "",
                                     "commands.settings.prefix.success.description", args[0])
                             .build())
                     .queue();
+            event.getRethinkUser().push();
         } else {
             e.getHelpCommand().sendHelp(this, e);
         }

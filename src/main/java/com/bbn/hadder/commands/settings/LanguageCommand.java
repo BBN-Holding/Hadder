@@ -53,15 +53,16 @@ public class LanguageCommand implements Command {
         }
     }
 
-    public void setLanguage(String language_code, String language, CommandEvent e) {
-        e.getRethink().setLanguage(e.getAuthor().getId(), language_code);
-        e.getTextChannel()
+    public void setLanguage(String language_code, String language, CommandEvent event) {
+        event.getRethinkUser().setLanguage(language_code);
+        event.getTextChannel()
                 .sendMessage(
                         e.getMessageEditor()
                                 .getMessage(MessageEditor.MessageType.INFO, "commands.settings.language.success.title",
                                         "", "commands.settings.language.success.description", language)
                                 .build())
                 .queue();
+        event.getRethinkUser().push();
     }
 
     @Override

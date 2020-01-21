@@ -29,8 +29,8 @@ public class PlayCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            if (e.getMember().getVoiceState().inVoiceChannel()) {
-                String input = e.getMessage().getContentRaw().replaceFirst(e.getRethink().getGuildPrefix(e.getGuild().getId()) + "play ", "").replaceFirst(e.getRethink().getUserPrefix(e.getAuthor().getId()) + "play ", "");
+            if (event.getMember().getVoiceState().inVoiceChannel()) {
+                String input = event.getMessage().getContentRaw().replaceFirst(event.getRethinkServer().getPrefix() + "play ", "").replaceFirst(event.getRethinkUser().getPrefix() + "play ", "");
                 try {
                     new URL(input).toURI();
                     Message msg = e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,

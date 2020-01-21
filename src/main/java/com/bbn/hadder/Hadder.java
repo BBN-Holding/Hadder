@@ -119,7 +119,8 @@ public class Hadder {
                         new BlacklistCommand(),
                         new PauseCommand(),
                         new LoopCommand(),
-                        new BassCommand()), config, helpCommand);
+                        new BassCommand(),
+                        new EchoCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),

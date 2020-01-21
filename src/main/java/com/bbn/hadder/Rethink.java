@@ -21,7 +21,9 @@ import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlOpFailedError;
 import com.rethinkdb.net.Connection;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.util.NoSuchElementException;
 
 
@@ -79,28 +81,10 @@ public class Rethink {
         return r.table(table).get(wherevalue).getField(column).run(conn);
     }
 
-    public void update(String table, String where, String what, String value) {
-        try {
-            r.table(table).get(where).update(r.hashMap(what, value)).run(conn);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void update(String table, String where, String what, int value) {
-        try {
-            r.table(table).get(where).update(r.hashMap(what, value)).run(conn);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void update(String table, String where, String what, boolean value) {
-        try {
-            r.table(table).get(where).update(r.hashMap(what, value)).run(conn);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
+    public JSONObject getObjectByID(String table, String id) {
+        String response = r.table(table).get(id).toJson().run(conn);
+        System.out.println(response);
+        return new JSONObject(response);
     }
 
     public void insert(String table, Object object) {
@@ -124,7 +108,7 @@ public class Rethink {
         try {
             r.tableCreate("server").run(conn);
         } catch (ReqlOpFailedError e) {
-           System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
         try {
             r.tableCreate("user").run(conn);
@@ -136,22 +120,6 @@ public class Rethink {
         } catch (ReqlOpFailedError e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public void setUserPrefix(String prefix, String user_id) {
-        this.update("user", user_id, "prefix", prefix);
-    }
-
-    public String getUserPrefix(String id) {
-        return (String) this.getByID("user", id, "prefix");
-    }
-
-    public void setGuildPrefix(String prefix, String guild_id) {
-        this.update("server", guild_id, "prefix", prefix);
-    }
-
-    public String getGuildPrefix(String id) {
-        return (String) this.getByID("server", id, "prefix");
     }
 
     public void insertGuild(String id) {
@@ -174,87 +142,54 @@ public class Rethink {
                 .with("blacklisted", "none"));
     }
 
-    public void setBlackListed(String id, String commands) {
-        this.update("user", id, "blacklisted", commands);
-    }
-
-    public String getBlackListed(String id) {
-        return (String) this.getByID("user", id, "blacklisted");
-    }
-
-    public void setNeededStars(String stars, String guild_id) {
-        this.update("server", guild_id, "neededstars", stars);
-    }
-
-    public String getNeededStars(String guild_id) {
-        return (String) this.getByID("server", guild_id, "neededstars");
-    }
-
-    public void setStarboardChannel(String guild_id, String channel_id) {
-        this.update("server", guild_id, "starboard", channel_id);
-    }
-
-    public String getStarboardChannel(String guild_id) {
-        return (String) this.getByID("server", guild_id, "starboard");
-    }
-
+    // TODO
     public boolean hasStarboardChannel(String guild_id) {
         return !this.getByID("server", guild_id, "starboard").equals("");
     }
-
+    // TODO
     public void insertStarboardMessage(String message_id, String guild_id, String starboard_message_id) {
         this.insert("stars", r.hashMap("id", message_id).with("guild", guild_id).with("starboardmsg", starboard_message_id));
     }
-
+    // TODO
     public String getStarboardMessage(String message_id) {
         return (String) this.getByID("stars", message_id, "starboardmsg");
     }
-
+    // TODO
     public void removeStarboardMessage(String message_id) {
         this.remove("stars", "id", message_id);
     }
-
+    // TODO
     public boolean hasStarboardMessage(String message_id) {
         return this.getByID("stars", message_id, "guild") != null;
     }
 
-    public void updateRules(String guild_id, String message_id, String role_id, String accept_emote, String decline_emote) {
-        this.update("server", guild_id, "message_id", message_id);
-        this.update("server", guild_id, "role_id", role_id);
-        this.update("server", guild_id, "accept_emote", accept_emote);
-        this.update("server", guild_id, "decline_emote", decline_emote);
+
+    public void pushServer(RethinkServer server) {
+        JSONObject object = new JSONObject();
+        for (Field field : server.getClass().getDeclaredFields()) {
+            if (!field.getName().equals("rethink")) {
+                try {
+                    object.put(field.getName(), field.get(server));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        r.table("server").get(server.getId()).update(object).run(conn);
     }
 
-    public String getRulesMID(String guild_id) {
-        return (String) this.getByID("server", guild_id, "message_id");
-    }
-
-    public String getRulesRID(String guild_id) {
-        return (String) this.getByID("server", guild_id, "role_id");
-    }
-
-    public String getRulesAEmote(String guild_id) {
-        return (String) this.getByID("server", guild_id, "accept_emote");
-    }
-
-    public String getRulesDEmote(String guild_id) {
-        return (String) this.getByID("server", guild_id, "decline_emote");
-    }
-
-    public void setInviteDetection(String guild_id, boolean b) {
-        this.update("server", guild_id, "invite_detect", b);
-    }
-
-    public Boolean getInviteDetection(String guild_id) {
-        return (Boolean) this.getByID("server", guild_id, "invite_detect");
-    }
-
-    public void setLanguage(String user_id, String language) {
-        this.update("user", user_id, "language", language);
-    }
-
-    public String getLanguage(String user_id) {
-        return (String) this.getByID("user", user_id, "language");
+    public void pushUser(RethinkUser user) {
+        JSONObject object = new JSONObject();
+        for (Field field : user.getClass().getDeclaredFields()) {
+            if (!field.getName().equals("rethink")) {
+                try {
+                    object.put(field.getName(), field.get(user));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        r.table("user").get(user.getId()).update(object).run(conn);
     }
 
 }
