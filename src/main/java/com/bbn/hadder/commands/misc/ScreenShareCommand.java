@@ -1,3 +1,19 @@
+/*
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bbn.hadder.commands.misc;
 
 import com.bbn.hadder.commands.Command;
@@ -14,52 +30,52 @@ import java.util.List;
 public class ScreenShareCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length>0) {
             if (args[0].matches("[0-9]*") && args.length==1 && args[0].length() == 18) {
-                if (event.getGuild().getVoiceChannelById(args[0]) != null) {
-                    event.getChannel().sendMessage(event.getMessageEditor().getMessage(
+                if (e.getGuild().getVoiceChannelById(args[0]) != null) {
+                    e.getChannel().sendMessage(e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                             "commands.misc.screenshare.success.title", "")
-                            .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + args[0] + "/").build()).queue();
+                            .setDescription("http://discordapp.com/channels/" + e.getGuild().getId() + "/" + args[0] + "/").build()).queue();
                 } else {
-                    event.getChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.id.error.title", "commands.misc.screenshare.id.error.description").build()).queue();
-                    event.getHelpCommand().sendHelp(this, event);
+                    e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.id.error.title", "commands.misc.screenshare.id.error.description").build()).queue();
+                    e.getHelpCommand().sendHelp(this, e);
                 }
             } else {
-                List<VoiceChannel> vcs = event.getGuild().getVoiceChannelsByName(String.join(" ", args), true);
+                List<VoiceChannel> vcs = e.getGuild().getVoiceChannelsByName(String.join(" ", args), true);
                 if (vcs.size() > 1) {
-                    EmbedBuilder eb = event.getMessageEditor().getMessage(MessageType.WARNING, "commands.misc.screenshare.channel.error.title", "commands.misc.screenshare.channel.error.description");
+                    EmbedBuilder eb = e.getMessageEditor().getMessage(MessageType.WARNING, "commands.misc.screenshare.channel.error.title", "commands.misc.screenshare.channel.error.description");
                     for (int i = 0; i < vcs.size(); i++) {
                         VoiceChannel voiceChannel = vcs.get(i);
                         eb.addField(i + ": " + voiceChannel.getName(), voiceChannel.getId(), false);
                     }
-                    event.getChannel().sendMessage(eb.build()).queue();
-                    new EventWaiter().newOnMessageEventWaiter(msgevent -> {
+                    e.getChannel().sendMessage(eb.build()).queue();
+                    new EventWaiter().newOnMessageEventWaiter(msge -> {
                         try {
-                            int i = Integer.parseInt(msgevent.getMessage().getContentRaw());
+                            int i = Integer.parseInt(msge.getMessage().getContentRaw());
                             if (vcs.size() > i) {
-                                event.getChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.misc.screenshare.success.title", "")
-                                        .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + vcs.get(i).getId() + "/").build()).queue();
+                                e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.misc.screenshare.success.title", "")
+                                        .setDescription("http://discordapp.com/channels/" + e.getGuild().getId() + "/" + vcs.get(i).getId() + "/").build()).queue();
                             } else {
-                                event.getChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.number.error.title", "").build()).queue();
-                                event.getHelpCommand().sendHelp(this, event);
+                                e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.number.error.title", "").build()).queue();
+                                e.getHelpCommand().sendHelp(this, e);
                             }
-                        } catch (NumberFormatException e) {
-                            event.getChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.id.error.title", "commands.misc.screenshare.number.error.description").build()).queue();
-                            event.getHelpCommand().sendHelp(this, event);
+                        } catch (NumberFormatException ex) {
+                            e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.id.error.title", "commands.misc.screenshare.number.error.description").build()).queue();
+                            e.getHelpCommand().sendHelp(this, e);
                         }
-                    }, event.getJDA(), event.getAuthor());
+                    }, e.getJDA(), e.getAuthor());
                 } else if (vcs.size()==0) {
-                    event.getChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.channel.existing.error", "commands.misc.screenshare.channel.existing.description").build()).queue();
-                    event.getHelpCommand().sendHelp(this, event);
+                    e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.channel.existing.error", "commands.misc.screenshare.channel.existing.description").build()).queue();
+                    e.getHelpCommand().sendHelp(this, e);
                 } else {
-                    event.getChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.misc.screenshare.success.title", "")
-                            .setDescription("http://discordapp.com/channels/" + event.getGuild().getId() + "/" + vcs.get(0).getId() + "/").build()).queue();
+                    e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.misc.screenshare.success.title", "")
+                            .setDescription("http://discordapp.com/channels/" + e.getGuild().getId() + "/" + vcs.get(0).getId() + "/").build()).queue();
                 }
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         }
     }
 
