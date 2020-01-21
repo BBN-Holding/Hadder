@@ -46,12 +46,12 @@ public class StarboardListener extends ListenerAdapter {
         update(e);
     }
 
-    public void update(GenericMessageReactionEvent event) {
-        if (event.getReaction().getReactionEmote().getName().equals("⭐")) {
-            RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", event.getGuild().getId()), rethink);
-            if (!rethink.hasStarboardMessage(event.getMessageId())) {
-                if (rethink.hasStarboardChannel(event.getGuild().getId())) {
-                    event.getTextChannel().retrieveMessageById(event.getMessageId()).queue(
+    public void update(GenericMessageReactionEvent e) {
+        if (e.getReaction().getReactionEmote().getName().equals("⭐")) {
+            RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
+            if (!rethink.hasStarboardMessage(e.getMessageId())) {
+                if (rethink.hasStarboardChannel(e.getGuild().getId())) {
+                    e.getTextChannel().retrieveMessageById(e.getMessageId()).queue(
                             msg -> {
                                 Integer stars = 0;
                                 for (MessageReaction reaction : msg.getReactions()) {
@@ -61,7 +61,7 @@ public class StarboardListener extends ListenerAdapter {
                                 }
 
                                 if (Integer.parseInt(rethinkServer.getNeededstars()) <= stars) {
-                                    event.getGuild().getTextChannelById(rethinkServer.getStarboard())
+                                    e.getGuild().getTextChannelById(rethinkServer.getStarboard())
                                             .sendMessage(new MessageBuilder()
                                                     .setContent("⭐ 1" + " " + e.getTextChannel().getAsMention())
                                                     .setEmbed(
@@ -90,8 +90,8 @@ public class StarboardListener extends ListenerAdapter {
                             }
 
                             Integer finalStars = stars;
-                            event.getGuild().getTextChannelById(rethinkServer.getStarboard())
-                                    .retrieveMessageById(rethink.getStarboardMessage(event.getMessageId())).queue(
+                            e.getGuild().getTextChannelById(rethinkServer.getStarboard())
+                                    .retrieveMessageById(rethink.getStarboardMessage(e.getMessageId())).queue(
                                     msg2 -> {
 
                                         if (Integer.parseInt(rethinkServer.getNeededstars()) <= finalStars) {

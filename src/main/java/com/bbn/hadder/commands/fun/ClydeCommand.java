@@ -38,9 +38,9 @@ public class ClydeCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_WEBHOOKS)) {
-                TextChannel channel = event.getMessage().getTextChannel();
-                String content = event.getMessage().getContentRaw().replace(event.getRethinkServer().getPrefix(), "").replace(event.getRethinkUser().getPrefix(), "").replace("clyde", "");
+            if (e.getGuild().getSelfMember().hasPermission(Permission.MANAGE_WEBHOOKS)) {
+                TextChannel channel = e.getMessage().getTextChannel();
+                String content = e.getMessage().getContentRaw().replace(e.getRethinkServer().getPrefix(), "").replace(e.getRethinkUser().getPrefix(), "").replace("clyde", "");
 
                 Webhook webhook = channel.createWebhook(e.getConfig().getClydeName()).complete();
                 try {

@@ -172,8 +172,8 @@ public class RulesCommand implements Command {
                                                     .build()).queue();
                                     ex.printStackTrace();
                                 }
-                                event.getRethinkServer().updateRules(rules.getId(), role.getId(), aemote.toString(), demote.toString());
-                                event.getRethinkServer().push();
+                                e.getRethinkServer().updateRules(rules.getId(), role.getId(), aemote.toString(), demote.toString());
+                                e.getRethinkServer().push();
                             } else {
                                 e.getTextChannel().sendMessage(
                                         e.getMessageEditor().getMessage(
@@ -218,8 +218,8 @@ public class RulesCommand implements Command {
                                                     .build()).queue();
                                     ex.printStackTrace();
                                 }
-                                event.getRethinkServer().updateRules(rules.getId(), role.getId(), aemote, demote);
-                                event.getRethinkServer().push();
+                                e.getRethinkServer().updateRules(rules.getId(), role.getId(), aemote, demote);
+                                e.getRethinkServer().push();
                             } else {
                                 e.getTextChannel().sendMessage(
                                         e.getMessageEditor().getMessage(

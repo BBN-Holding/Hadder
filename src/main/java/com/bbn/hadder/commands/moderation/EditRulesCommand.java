@@ -27,9 +27,9 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public class EditRulesCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        if (event.getRethinkServer().getMessage_id().length() == 18) {
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+    public void executed(String[] args, CommandEvent e) {
+        if (e.getRethinkServer().getMessage_id().length() == 18) {
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.moderation.editrules.message.title",
                     "commands.moderation.editrules.message.description").build()).queue();
 
@@ -68,15 +68,15 @@ public class EditRulesCommand implements Command {
         } else {
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                     "commands.moderation.editrules.error.title", "",
-                    "commands.moderation.editrules.error.description", event.getRethinkServer().getPrefix()).build()).queue();
+                    "commands.moderation.editrules.error.description", e.getRethinkServer().getPrefix()).build()).queue();
         }
     }
 
     public void checkChannel(CommandEvent e, String rules, TextChannel channel) {
         try {
-            channel.retrieveMessageById(event.getRethinkServer().getMessage_id()).queue();
-            setRules(event, rules, channel);
-            event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+            channel.retrieveMessageById(e.getRethinkServer().getMessage_id()).queue();
+            setRules(e, rules, channel);
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.moderation.editrules.success.title",
                     "commands.moderation.editrules.success.description").build()).queue();
         } catch (Exception ex) {
@@ -86,8 +86,8 @@ public class EditRulesCommand implements Command {
         }
     }
 
-    public void setRules(CommandEvent event, String rules, TextChannel channel) {
-        channel.retrieveMessageById(event.getRethinkServer().getMessage_id()).complete().editMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+    public void setRules(CommandEvent e, String rules, TextChannel channel) {
+        channel.retrieveMessageById(e.getRethinkServer().getMessage_id()).complete().editMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Rules")
                 .setDescription(rules)
                 .build()).queue();
