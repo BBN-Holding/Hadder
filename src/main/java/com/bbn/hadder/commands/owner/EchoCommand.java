@@ -10,7 +10,6 @@ import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
 import net.dv8tion.jda.api.audio.*;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 import javax.annotation.Nonnull;

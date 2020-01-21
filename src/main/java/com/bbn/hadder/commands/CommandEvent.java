@@ -28,7 +28,6 @@ import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import org.json.JSONObject;
 
 import javax.annotation.Nonnull;
 

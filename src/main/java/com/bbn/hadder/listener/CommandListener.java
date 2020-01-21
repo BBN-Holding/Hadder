@@ -24,7 +24,6 @@ import com.bbn.hadder.core.CommandHandler;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.json.JSONObject;
 
 public class CommandListener extends ListenerAdapter {
 

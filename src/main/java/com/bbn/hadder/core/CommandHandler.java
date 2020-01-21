@@ -26,7 +26,6 @@ import com.bbn.hadder.commands.general.HelpCommand;
 import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
