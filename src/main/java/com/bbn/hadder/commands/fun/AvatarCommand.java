@@ -21,6 +21,12 @@ import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class AvatarCommand implements Command {
 
@@ -53,7 +59,6 @@ public class AvatarCommand implements Command {
         } else if (args[0].length() == 18) {
             try {
                 User u = e.getJDA().getUserById(args[0]);
-                System.out.println(u);
                 e.getTextChannel().sendMessage(
                         e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
@@ -65,12 +70,30 @@ public class AvatarCommand implements Command {
                                 .setFooter(u.getAsTag())
                                 .build()).queue();
             } catch (NullPointerException ignore) {
-                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
-                        "commands.fun.avatar.error.title",
-                        "commands.fun.avatar.error.description"
-                ).build()).queue();
-            }
 
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/users/" + args[0]).addHeader("Authorization", "Bot " + e.getConfig().getBotToken()).build();
+
+                try {
+                    Response response = client.newCall(request).execute();
+                    JSONObject json = new JSONObject(response.body().string());
+                    String url = "https://cdn.discordapp.com/avatars/" + args[0] + "/" + json.getString("avatar") + ".png";
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
+                                            MessageEditor.MessageType.INFO,
+                                            "commands.fun.avatar.success.title",
+                                            json.getString("username") + "#" + json.getString("discriminator"),
+                                            "",
+                                            "")
+                                            .setImage(url)
+                                            .setFooter(json.getString("username") + "#" + json.getString("discriminator"))
+                                            .build()).queue();
+                } catch (IOException ex) {
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                            "commands.fun.avatar.error.title",
+                            "commands.fun.avatar.error.description"
+                    ).build()).queue();
+                }
+            }
         } else {
             e.getHelpCommand().sendHelp(this, e);
         }
