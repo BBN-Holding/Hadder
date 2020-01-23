@@ -21,9 +21,14 @@ import com.bbn.hadder.RethinkServer;
 import com.bbn.hadder.RethinkUser;
 import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.core.CommandHandler;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import java.awt.*;
+import java.time.Instant;
 
 public class CommandListener extends ListenerAdapter {
 
@@ -40,21 +45,41 @@ public class CommandListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.isFromType(ChannelType.TEXT) && !event.getAuthor().isBot()) {
-            RethinkUser rethinkUser = new RethinkUser(rethink.getObjectByID("user", event.getAuthor().getId()), rethink);
-            RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", event.getGuild().getId()), rethink);
-            rethinkUser.push();
-            rethinkServer.push();
-            String[] prefixes = {
-                    rethinkUser.getPrefix(), rethinkServer.getPrefix(),
-                    event.getGuild().getSelfMember().getAsMention() + " ", event.getGuild().getSelfMember().getAsMention(),
-                    event.getGuild().getSelfMember().getAsMention().replace("@", "@!") + " ",
-                    event.getGuild().getSelfMember().getAsMention().replace("@", "@!")
-            };
-            for (String prefix : prefixes) {
-                if (event.getMessage().getContentRaw().startsWith(prefix)) {
-                    handler.handle(event, rethink, prefix, audioManager, rethinkUser, rethinkServer);
-                    return;
+            if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) {
+                if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+                    RethinkUser rethinkUser = new RethinkUser(rethink.getObjectByID("user", event.getAuthor().getId()), rethink);
+                    RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", event.getGuild().getId()), rethink);
+                    rethinkUser.push();
+                    rethinkServer.push();
+                    String[] prefixes = {
+                            rethinkUser.getPrefix(), rethinkServer.getPrefix(),
+                            event.getGuild().getSelfMember().getAsMention() + " ", event.getGuild().getSelfMember().getAsMention(),
+                            event.getGuild().getSelfMember().getAsMention().replace("@", "@!") + " ",
+                            event.getGuild().getSelfMember().getAsMention().replace("@", "@!")
+                    };
+                    for (String prefix : prefixes) {
+                        if (event.getMessage().getContentRaw().startsWith(prefix)) {
+                            handler.handle(event, rethink, prefix, audioManager, rethinkUser, rethinkServer);
+                            return;
+                        }
+                    }
+                } else {
+                    event.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()
+                            .setTitle("No permission")
+                            .setDescription("I need the `MESSAGE EMBED LINKS` permission in order to work!")
+                            .setColor(Color.RED)
+                            .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                            .setTimestamp(Instant.now())
+                            .build()).queue();
                 }
+            } else {
+                event.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()
+                        .setTitle("No permission")
+                        .setDescription("I need the `MESSAGE WRITE` permission in order to work!")
+                        .setColor(Color.RED)
+                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setTimestamp(Instant.now())
+                        .build()).queue();
             }
         }
     }
