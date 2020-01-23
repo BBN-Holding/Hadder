@@ -58,8 +58,8 @@ public class RulesListener extends ListenerAdapter {
 
     private void addRole(MessageReactionAddEvent event) {
         RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", event.getGuild().getId()), rethink);
-        if (event.getMember().getRoles().contains(event.getGuild().getRoleById(rethinkServer.getMessage_id()))) {
-            event.getGuild().removeRoleFromMember(event.getMember(), event.getGuild().getRoleById(rethinkServer.getMessage_id())).reason("Accepted rules").queue();
+        if (event.getMember().getRoles().contains(event.getGuild().getRoleById(rethinkServer.getRole_id()))) {
+            event.getGuild().removeRoleFromMember(event.getMember(), event.getGuild().getRoleById(rethinkServer.getRole_id())).reason("Accepted rules").queue();
         } else event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethinkServer.getRole_id())).reason("Accepted rules").queue();
     }
 
