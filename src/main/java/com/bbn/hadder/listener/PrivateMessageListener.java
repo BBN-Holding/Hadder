@@ -19,11 +19,13 @@ package com.bbn.hadder.listener;
 import com.bbn.hadder.Rethink;
 import com.bbn.hadder.RethinkUser;
 import com.bbn.hadder.utils.MessageEditor;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.awt.*;
 import java.time.Instant;
 
 public class PrivateMessageListener extends ListenerAdapter {
@@ -50,6 +52,14 @@ public class PrivateMessageListener extends ListenerAdapter {
                     .setTitle("New DM by " + event.getAuthor().getAsTag())
                     .setAuthor(event.getAuthor().getName(), event.getAuthor().getAvatarUrl(), event.getAuthor().getAvatarUrl())
                     .setDescription(event.getMessage().getContentRaw())
+                    .setTimestamp(Instant.now())
+                    .build()).queue();
+
+            event.getChannel().sendMessage(new EmbedBuilder()
+                    .setTitle("No DM support")
+                    .setDescription("You have to execute your commands on a guild!")
+                    .setColor(Color.RED)
+                    .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
                     .setTimestamp(Instant.now())
                     .build()).queue();
         }
