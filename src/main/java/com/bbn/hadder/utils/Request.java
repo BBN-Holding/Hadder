@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class Request {
 
-    public static String get(String url) {
+    public static String getNSFW(String url) {
 
         OkHttpClient caller = new OkHttpClient();
         okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();

@@ -27,7 +27,7 @@ public class EroticCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (e.getTextChannel().isNSFW()) {
 
-            String url = Request.get("https://nekos.life/api/v2/img/erok");
+            String url = Request.getNSFW("https://nekos.life/api/v2/img/erok");
 
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                     .setAuthor(e.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url)
