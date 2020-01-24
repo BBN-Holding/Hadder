@@ -43,28 +43,28 @@ public class CommandListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.isFromType(ChannelType.TEXT) && !event.getAuthor().isBot()) {
-            if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) {
-                if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
-                    RethinkUser rethinkUser = new RethinkUser(rethink.getObjectByID("user", event.getAuthor().getId()), rethink);
-                    RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", event.getGuild().getId()), rethink);
+    public void onMessageReceived(MessageReceivedEvent e) {
+        if (e.isFromType(ChannelType.TEXT) && !e.getAuthor().isBot()) {
+            if (e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) {
+                if (e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+                    RethinkUser rethinkUser = new RethinkUser(rethink.getObjectByID("user", e.getAuthor().getId()), rethink);
+                    RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
                     rethinkUser.push();
                     rethinkServer.push();
                     String[] prefixes = {
                             rethinkUser.getPrefix(), rethinkServer.getPrefix(),
-                            event.getGuild().getSelfMember().getAsMention() + " ", event.getGuild().getSelfMember().getAsMention(),
-                            event.getGuild().getSelfMember().getAsMention().replace("@", "@!") + " ",
-                            event.getGuild().getSelfMember().getAsMention().replace("@", "@!")
+                            e.getGuild().getSelfMember().getAsMention() + " ", e.getGuild().getSelfMember().getAsMention(),
+                            e.getGuild().getSelfMember().getAsMention().replace("@", "@!") + " ",
+                            e.getGuild().getSelfMember().getAsMention().replace("@", "@!")
                     };
                     for (String prefix : prefixes) {
-                        if (event.getMessage().getContentRaw().startsWith(prefix)) {
-                            handler.handle(event, rethink, prefix, audioManager, rethinkUser, rethinkServer);
+                        if (e.getMessage().getContentRaw().startsWith(prefix)) {
+                            handler.handle(e, rethink, prefix, audioManager, rethinkUser, rethinkServer);
                             return;
                         }
                     }
                 } else {
-                    event.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()
+                    e.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()
                             .setTitle("No permission")
                             .setDescription("I need the `MESSAGE EMBED LINKS` permission in order to work!")
                             .setColor(Color.RED)
@@ -73,7 +73,7 @@ public class CommandListener extends ListenerAdapter {
                             .build()).queue();
                 }
             } else {
-                event.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()
+                e.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()
                         .setTitle("No permission")
                         .setDescription("I need the `MESSAGE WRITE` permission in order to work!")
                         .setColor(Color.RED)
