@@ -36,9 +36,7 @@ public class SpankCommand implements Command {
                     .build()).queue();
 
         } else {
-            e.getTextChannel()
-                    .sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build())
-                    .queue();
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build()).queue();
         }
     }
 

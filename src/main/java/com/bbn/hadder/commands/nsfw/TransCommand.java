@@ -37,8 +37,7 @@ public class TransCommand implements Command {
 
         } else {
             e.getTextChannel()
-                    .sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build())
-                    .queue();
+                    .sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_NSFW).build()).queue();
         }
     }
 
