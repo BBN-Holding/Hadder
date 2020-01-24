@@ -40,7 +40,6 @@ public class BlacklistCommand implements Command {
             switch (args[0].toLowerCase()) {
                 case "add":
                     if (args.length == 3) {
-                        Member member = e.getMessage().getMentionedMembers().get(0);
                         String blacklisted = e.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
@@ -61,7 +60,6 @@ public class BlacklistCommand implements Command {
 
                 case "remove":
                     if (args.length == 3) {
-                        Member member = e.getMessage().getMentionedMembers().get(0);
                         String blacklisted = e.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));

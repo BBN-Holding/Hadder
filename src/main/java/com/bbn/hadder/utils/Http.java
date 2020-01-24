@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class Request {
+public class Http {
 
     public static String getNSFW(String url) {
 

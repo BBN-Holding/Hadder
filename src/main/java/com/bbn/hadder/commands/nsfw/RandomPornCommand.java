@@ -19,7 +19,7 @@ package com.bbn.hadder.commands.nsfw;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import com.bbn.hadder.utils.Request;
+import com.bbn.hadder.utils.Http;
 
 public class RandomPornCommand implements Command {
 
@@ -27,7 +27,7 @@ public class RandomPornCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (e.getTextChannel().isNSFW()) {
 
-            String url = Request.getNSFW("https://api.nekos.dev/api/v3/images/nsfw/gif/all_tags/");
+            String url = Http.getNSFW("https://api.nekos.dev/api/v3/images/nsfw/gif/all_tags/");
 
             e.getTextChannel()
                     .sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)

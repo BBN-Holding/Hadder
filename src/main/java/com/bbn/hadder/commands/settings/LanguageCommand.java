@@ -60,8 +60,7 @@ public class LanguageCommand implements Command {
                         e.getMessageEditor()
                                 .getMessage(MessageEditor.MessageType.INFO, "commands.settings.language.success.title",
                                         "", "commands.settings.language.success.description", language)
-                                .build())
-                .queue();
+                                .build()).queue();
         e.getRethinkUser().push();
     }
 
