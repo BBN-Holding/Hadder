@@ -1,6 +1,24 @@
+/*
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bbn.hadder.commands;
 
 import com.bbn.hadder.Rethink;
+import com.bbn.hadder.RethinkServer;
+import com.bbn.hadder.RethinkUser;
 import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.general.HelpCommand;
 import com.bbn.hadder.core.CommandHandler;
@@ -22,8 +40,13 @@ public class CommandEvent extends MessageReceivedEvent {
     private MessageEditor messageEditor;
     private EventWaiter eventWaiter;
     private AudioManager audioManager;
+    private RethinkUser rethinkUser;
+    private RethinkServer rethinkServer;
 
-    public CommandEvent(@Nonnull JDA api, long responseNumber, @Nonnull Message message, Rethink rethink, Config config, CommandHandler commandHandler, HelpCommand helpCommand, MessageEditor messageEditor, EventWaiter eventWaiter, AudioManager audioManager) {
+    public CommandEvent(@Nonnull JDA api, long responseNumber, @Nonnull Message message, Rethink rethink, Config config,
+                        CommandHandler commandHandler, HelpCommand helpCommand, MessageEditor messageEditor,
+                        EventWaiter eventWaiter, AudioManager audioManager, RethinkUser rethinkUser,
+                        RethinkServer rethinkServer) {
         super(api, responseNumber, message);
         this.rethink = rethink;
         this.config = config;
@@ -32,17 +55,8 @@ public class CommandEvent extends MessageReceivedEvent {
         this.messageEditor = messageEditor;
         this.eventWaiter = eventWaiter;
         this.audioManager = audioManager;
-    }
-
-    public CommandEvent(MessageReceivedEvent event, Rethink rethink, Config config, CommandHandler commandHandler, HelpCommand helpCommand, MessageEditor messageEditor, EventWaiter eventWaiter, AudioManager audioManager) {
-        super(event.getJDA(), event.getResponseNumber(), event.getMessage());
-        this.rethink = rethink;
-        this.config = config;
-        this.commandHandler = commandHandler;
-        this.helpCommand = helpCommand;
-        this.messageEditor = messageEditor;
-        this.eventWaiter = eventWaiter;
-        this.audioManager = audioManager;
+        this.rethinkUser = rethinkUser;
+        this.rethinkServer = rethinkServer;
     }
 
     public Rethink getRethink() {
@@ -71,5 +85,13 @@ public class CommandEvent extends MessageReceivedEvent {
 
     public AudioManager getAudioManager() {
         return audioManager;
+    }
+
+    public RethinkServer getRethinkServer() {
+        return rethinkServer;
+    }
+
+    public RethinkUser getRethinkUser() {
+        return rethinkUser;
     }
 }

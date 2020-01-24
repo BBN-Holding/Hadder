@@ -1,3 +1,19 @@
+/*
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bbn.hadder.audio;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
@@ -11,15 +27,12 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/**
- * @author Skidder / GregTCLTK
- */
-
 public class TrackManager extends AudioEventAdapter {
 
     private final AudioPlayer player;
     private final AudioManager manager;
     private final Queue<AudioInfo> queue;
+    private AudioTrack lastTrack;
     private boolean loop = false;
 
     public TrackManager(AudioPlayer player, AudioManager manager) {
@@ -51,8 +64,9 @@ public class TrackManager extends AudioEventAdapter {
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         Guild g = queue.poll().getAuthor().getGuild();
+        this.lastTrack = track;
         if (loop) {
-            player.playTrack(track.makeClone());
+            player.playTrack(lastTrack.makeClone());
         } else if (queue.isEmpty()) {
             manager.players.remove(g.getId());
             manager.getPlayer(g).destroy();

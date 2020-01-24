@@ -27,7 +27,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>4.1.0_99</version>
+      <version>4.1.1_101</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -52,7 +52,7 @@
     <dependency>
       <groupId>org.kohsuke</groupId>
       <artifactId>github-api</artifactId>
-      <version>1.101</version>
+      <version>1.103</version>
     </dependency>
     <dependency>
       <groupId>com.sedmelluq</groupId>

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bbn.hadder.commands.music;
 
 import com.bbn.hadder.commands.Command;
@@ -8,55 +24,51 @@ import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 import java.net.URL;
 
-/**
- * @author Skidder / GregTCLTK
- */
-
 public class PlayCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            if (event.getMember().getVoiceState().inVoiceChannel()) {
-                String input = event.getMessage().getContentRaw().replaceFirst(event.getRethink().getGuildPrefix(event.getGuild().getId()) + "play ", "").replaceFirst(event.getRethink().getUserPrefix(event.getAuthor().getId()) + "play ", "");
+            if (e.getMember().getVoiceState().inVoiceChannel()) {
+                String input = e.getMessage().getContentRaw().replaceFirst(e.getRethinkServer().getPrefix() + "play ", "").replaceFirst(e.getRethinkUser().getPrefix() + "play ", "");
                 try {
                     new URL(input).toURI();
-                    Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    Message msg = e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                             "commands.music.play.load.title", "⭕",
                             "commands.music.play.load.description", "").build()).complete();
-                    event.getAudioManager().loadTrack(input, event, msg);
-                } catch (InsufficientPermissionException e) {
-                    event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                    e.getAudioManager().loadTrack(input, e, msg);
+                } catch (InsufficientPermissionException ex) {
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                             "commands.music.join.error.permission.title",
                             "commands.music.join.error.permission.description")
                             .build()).queue();
                 } catch (Exception ignore) {
-                    Message msg = event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    Message msg = e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                             "commands.music.play.load.title", "⭕",
                             "commands.music.play.load.description", "").build()).complete();
-                    event.getAudioManager().loadTrack("ytsearch: " + input, event, msg);
+                    e.getAudioManager().loadTrack("ytsearch: " + input, e, msg);
                 }
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.ERROR,
                         "commands.music.join.error.channel.title",
                         "commands.music.join.error.channel.description")
                         .build()).queue();
             }
-        } else if (event.getAudioManager().getPlayer(event.getGuild()).isPaused()) {
-            if (event.getMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && event.getGuild().getSelfMember().getVoiceState().getChannel().equals(event.getMember().getVoiceState().getChannel())) {
-                event.getAudioManager().getPlayer(event.getGuild()).setPaused(false);
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+        } else if (e.getAudioManager().getPlayer(e.getGuild()).isPaused()) {
+            if (e.getMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().getChannel().equals(e.getMember().getVoiceState().getChannel())) {
+                e.getAudioManager().getPlayer(e.getGuild()).setPaused(false);
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                         "commands.music.play.success.unpause.title",
                         "commands.music.play.success.unpause.description")
                         .build()).queue();
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.music.play.error.connected.title",
                         "commands.music.play.error.connected.description")
                         .build()).queue();
             }
-        } else event.getHelpCommand().sendHelp(this, event);
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

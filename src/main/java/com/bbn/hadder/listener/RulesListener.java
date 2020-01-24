@@ -1,10 +1,23 @@
-package com.bbn.hadder.listener;
-
 /*
- * @author Skidder / GregTCLTK
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
+package com.bbn.hadder.listener;
+
 import com.bbn.hadder.Rethink;
+import com.bbn.hadder.RethinkServer;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -18,40 +31,43 @@ public class RulesListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReactionAdd(MessageReactionAddEvent event) {
-        if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId())) && !event.getMember().getUser().isBot()) {
-            if (event.getReactionEmote().isEmote()) {
-                if (rethink.getRulesAEmote(event.getGuild().getId()).equals(event.getReactionEmote().getId())) {
-                    addRole(event);
-                } else if (rethink.getRulesDEmote(event.getGuild().getId()).equals(event.getReactionEmote().getId())) {
-                    event.getReaction().removeReaction(event.getUser()).queue();
-                    if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
-                        event.getMember().kick().reason("Declined the rules");
+    public void onMessageReactionAdd(MessageReactionAddEvent e) {
+        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
+        if (e.getMessageId().equals(rethinkServer.getMessageID()) && !e.getUser().isBot()) {
+            if (e.getReactionEmote().isEmote()) {
+                if (rethinkServer.getAcceptEmote().equals(e.getReactionEmote().getId())) {
+                    addRole(e);
+                } else if (rethinkServer.getDeclineEmote().equals(e.getReactionEmote().getId())) {
+                    e.getReaction().removeReaction(e.getUser()).queue();
+                    if (e.getGuild().getSelfMember().canInteract(e.getMember())) {
+                        e.getMember().kick().reason("Declined the rules");
                     }
                 }
-            } else if (event.getReactionEmote().isEmoji()) {
-                if (rethink.getRulesAEmote(event.getGuild().getId()).equals(event.getReactionEmote().getEmoji())) {
-                    addRole(event);
-                } else if (rethink.getRulesDEmote(event.getGuild().getId()).equals(event.getReactionEmote().getEmoji())) {
-                    event.getReaction().removeReaction(event.getUser()).queue();
-                    if (event.getGuild().getSelfMember().canInteract(event.getMember())) {
-                        event.getMember().kick().reason("Declined the rules");
+            } else if (e.getReactionEmote().isEmoji()) {
+                if (rethinkServer.getAcceptEmote().equals(e.getReactionEmote().getEmoji())) {
+                    addRole(e);
+                } else if (rethinkServer.getDeclineEmote().equals(e.getReactionEmote().getEmoji())) {
+                    e.getReaction().removeReaction(e.getUser()).queue();
+                    if (e.getGuild().getSelfMember().canInteract(e.getMember())) {
+                        e.getMember().kick().reason("Declined the rules");
                     }
                 }
             }
         }
     }
 
-    private void addRole(MessageReactionAddEvent event) {
-        if (event.getMember().getRoles().contains(event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId())))) {
-            event.getGuild().removeRoleFromMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
-        } else event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Accepted rules").queue();
+    private void addRole(MessageReactionAddEvent e) {
+        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
+        if (e.getMember().getRoles().contains(e.getGuild().getRoleById(rethinkServer.getRoleID()))) {
+            e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Accepted rules").queue();
+        } else e.getGuild().addRoleToMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Accepted rules").queue();
     }
 
     @Override
-    public void onMessageReactionRemove(MessageReactionRemoveEvent event) {
-        if (event.getMessageId().equals(rethink.getRulesMID(event.getGuild().getId())) && !event.getMember().getUser().isBot()) {
-                event.getGuild().removeRoleFromMember(event.getMember(), event.getGuild().getRoleById(rethink.getRulesRID(event.getGuild().getId()))).reason("Withdrawal of the acceptance of the rules").queue();
+    public void onMessageReactionRemove(MessageReactionRemoveEvent e) {
+        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
+        if (e.getMessageId().equals(rethinkServer.getMessageID()) && !e.getUser().isBot()) {
+                e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Withdrawal of the acceptance of the rules").queue();
         }
     }
 }

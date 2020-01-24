@@ -1,8 +1,20 @@
-package com.bbn.hadder.commands.owner;
-
 /*
- * @author Hax / Hax6775 / Schlauer_Hax
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
+package com.bbn.hadder.commands.owner;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
@@ -21,15 +33,14 @@ import java.util.List;
 public class BlacklistCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length == 0) {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         } else {
             switch (args[0].toLowerCase()) {
                 case "add":
                     if (args.length == 3) {
-                        Member member = event.getMessage().getMentionedMembers().get(0);
-                        String blacklisted = event.getRethink().getBlackListed(member.getId());
+                        String blacklisted = e.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
                         commands.addAll(Arrays.asList(args[1].split(",")));
@@ -37,19 +48,19 @@ public class BlacklistCommand implements Command {
 
                         ArrayList<String> commandsWithoutDuplicates = new ArrayList<>(hashSet);
                         String newblacklisted = ((commandsWithoutDuplicates.size()!=0) ? String.join(",", commandsWithoutDuplicates) : "none");
-                        event.getRethink().setBlackListed(member.getId(), newblacklisted);
-                        event.getTextChannel().sendMessage(
-                                event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                        e.getRethinkUser().setBlacklisted(newblacklisted);
+                        e.getTextChannel().sendMessage(
+                                e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                                         .setTitle("Removed Blacklisted Commands from User")
                                         .setDescription("Blacklisted commands: "+newblacklisted)
                                         .build()).queue();
+                        e.getRethinkUser().push();
                     }
                     break;
 
                 case "remove":
                     if (args.length == 3) {
-                        Member member = event.getMessage().getMentionedMembers().get(0);
-                        String blacklisted = event.getRethink().getBlackListed(member.getId());
+                        String blacklisted = e.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
                         commands.removeAll(Arrays.asList(args[1].split(",")));
@@ -57,34 +68,35 @@ public class BlacklistCommand implements Command {
 
                         ArrayList<String> commandsWithoutDuplicates = new ArrayList<>(hashSet);
                         String newblacklisted = ((commandsWithoutDuplicates.size()!=0) ? String.join(",", commandsWithoutDuplicates) : "none");
-                        event.getRethink().setBlackListed(member.getId(), newblacklisted);
-                        event.getTextChannel().sendMessage(
-                                event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                        e.getRethinkUser().setBlacklisted(newblacklisted);
+                        e.getTextChannel().sendMessage(
+                                e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                                         .setTitle("Removed Blacklisted Commands from User")
                                         .setDescription("Blacklisted commands: "+newblacklisted)
                                         .build()).queue();
+                        e.getRethinkUser().push();
                     }
                     break;
 
                 case "list":
                     StringBuilder stringBuilder = new StringBuilder();
-                    for (User user : event.getJDA().getUsers()) {
-                        if (!user.getId().equals(event.getJDA().getSelfUser().getId())) {
-                            String blacklisted = event.getRethink().getBlackListed(user.getId());
+                    for (User user : e.getJDA().getUsers()) {
+                        if (!user.getId().equals(e.getJDA().getSelfUser().getId())) {
+                            String blacklisted = e.getRethinkUser().getBlacklisted();
                             if (!"none".equals(blacklisted)) {
                                 stringBuilder.append(user.getAsTag()).append(" (").append(user.getId()).append(") - ").append(blacklisted).append("\n");
                             }
                         }
                     }
-                    event.getTextChannel().sendMessage(
-                            event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+                    e.getTextChannel().sendMessage(
+                            e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                                     .setTitle("Blacklisted Users:")
                                     .setDescription((stringBuilder.length()!=0) ? ("``" + stringBuilder.toString() + "``") : "No blacklisted Users")
                                     .build()).queue();
                     break;
 
                 default:
-                    event.getHelpCommand().sendHelp(this, event);
+                    e.getHelpCommand().sendHelp(this, e);
                     break;
             }
         }
