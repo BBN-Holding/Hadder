@@ -19,6 +19,7 @@ package com.bbn.hadder.commands.settings;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 public class LanguageCommand implements Command {
 
@@ -26,26 +27,32 @@ public class LanguageCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (args.length == 1) {
             switch (args[0].toLowerCase()) {
-            case "de":
-                setLanguage("de", "German", e);
-                break;
-            case "en":
-                setLanguage("en", "English", e);
-                break;
-            case "es":
-                setLanguage("es", "Spanish", e);
-                break;
-            case "fr":
-                setLanguage("fr", "French", e);
-                break;
-            case "ru":
-                setLanguage("ru", "Russian", e);
-                break;
-            case "tr":
-                setLanguage("tr", "Turkish", e);
-                break;
-            case "zh":
-                setLanguage("zh", "Chinese", e);
+                case "de":
+                    setLanguage("de", "German", e);
+                    break;
+                case "en":
+                    setLanguage("en", "English", e);
+                    break;
+                case "es":
+                    setLanguage("es", "Spanish", e);
+                    break;
+                case "fr":
+                    setLanguage("fr", "French", e);
+                    break;
+                case "ru":
+                    setLanguage("ru", "Russian", e);
+                    break;
+                case "tr":
+                    setLanguage("tr", "Turkish", e);
+                    break;
+                case "zh":
+                    setLanguage("zh", "Chinese", e);
+                    break;
+                default:
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                            "List",
+                            "`de`, `en`, `es`, `fr`, `ru`, `tr`, `zh`")
+                            .build()).queue();
                 break;
             }
         } else {
