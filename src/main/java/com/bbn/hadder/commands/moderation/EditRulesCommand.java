@@ -28,7 +28,7 @@ public class EditRulesCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
-        if (e.getRethinkServer().getMessage_id().length() == 18) {
+        if (e.getRethinkServer().getMessageID().length() == 18) {
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.moderation.editrules.message.title",
                     "commands.moderation.editrules.message.description").build()).queue();
@@ -74,7 +74,7 @@ public class EditRulesCommand implements Command {
 
     public void checkChannel(CommandEvent e, String rules, TextChannel channel) {
         try {
-            channel.retrieveMessageById(e.getRethinkServer().getMessage_id()).queue();
+            channel.retrieveMessageById(e.getRethinkServer().getMessageID()).queue();
             setRules(e, rules, channel);
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                     "commands.moderation.editrules.success.title",
@@ -87,7 +87,7 @@ public class EditRulesCommand implements Command {
     }
 
     public void setRules(CommandEvent e, String rules, TextChannel channel) {
-        channel.retrieveMessageById(e.getRethinkServer().getMessage_id()).complete().editMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
+        channel.retrieveMessageById(e.getRethinkServer().getMessageID()).complete().editMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Rules")
                 .setDescription(rules)
                 .build()).queue();

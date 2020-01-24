@@ -24,15 +24,15 @@ public class RethinkServer {
 
     private Rethink rethink;
 
-    String accept_emote = "";
-    String decline_emote = "";
-    String id;
-    boolean invite_detect = false;
-    String message_id = "";
-    String neededstars = "3";
-    String prefix = "h.";
-    String role_id = "";
-    String starboard = "";
+    private String accept_emote = "";
+    private String decline_emote = "";
+    private String id;
+    private boolean invite_detect = false;
+    private String message_id = "";
+    private String neededstars = "3";
+    private String prefix = "h.";
+    private String role_id = "";
+    private String starboard = "";
 
     public RethinkServer(JSONObject object, Rethink rethink) {
         for (Field field : this.getClass().getDeclaredFields()) {
@@ -48,19 +48,19 @@ public class RethinkServer {
         this.rethink = rethink;
     }
 
-    public String getAccept_emote() {
+    public String getAcceptEmote() {
         return accept_emote;
     }
 
-    public void setAccept_emote(String accept_emote) {
+    public void setAcceptEmote(String accept_emote) {
         this.accept_emote = accept_emote;
     }
 
-    public String getDecline_emote() {
+    public String getDeclineEmote() {
         return decline_emote;
     }
 
-    public void setDecline_emote(String decline_emote) {
+    public void setDeclineEmote(String decline_emote) {
         this.decline_emote = decline_emote;
     }
 
@@ -68,27 +68,27 @@ public class RethinkServer {
         return id;
     }
 
-    public boolean isInvite_detect() {
+    public boolean isInviteDetect() {
         return invite_detect;
     }
 
-    public void setInvite_detect(boolean invite_detect) {
+    public void setInviteDetect(boolean invite_detect) {
         this.invite_detect = invite_detect;
     }
 
-    public String getMessage_id() {
+    public String getMessageID() {
         return message_id;
     }
 
-    public void setMessage_id(String message_id) {
+    public void setMessageID(String message_id) {
         this.message_id = message_id;
     }
 
-    public String getNeededstars() {
+    public String getNeededStars() {
         return neededstars;
     }
 
-    public void setNeededstars(String neededstars) {
+    public void setNeededStars(String neededstars) {
         this.neededstars = neededstars;
     }
 
@@ -100,11 +100,11 @@ public class RethinkServer {
         this.prefix = prefix;
     }
 
-    public String getRole_id() {
+    public String getRoleID() {
         return role_id;
     }
 
-    public void setRole_id(String role_id) {
+    public void setRoleID(String role_id) {
         this.role_id = role_id;
     }
 
@@ -117,10 +117,10 @@ public class RethinkServer {
     }
 
     public void updateRules(String message_id, String role_id, String accept_emote, String decline_emote) {
-        this.setMessage_id(message_id);
-        this.setRole_id(role_id);
-        this.setAccept_emote(accept_emote);
-        this.setDecline_emote(decline_emote);
+        this.setMessageID(message_id);
+        this.setRoleID(role_id);
+        this.setAcceptEmote(accept_emote);
+        this.setDeclineEmote(decline_emote);
     }
 
     public void push() {

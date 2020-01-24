@@ -10,31 +10,23 @@ import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
-import net.dv8tion.jda.api.audio.CombinedAudio;
 import net.dv8tion.jda.api.audio.UserAudio;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.sound.sampled.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Perms(Perm.BOT_OWNER)
 public class RecordCommand implements Command {
 
-    private final HashMap<String, Queue<byte[]>> queue = new HashMap<String, Queue<byte[]>>();
+    private final HashMap<String, Queue<byte[]>> queue = new HashMap<>();
 
     @Override
     public void executed(String[] args, CommandEvent event) {
@@ -49,7 +41,7 @@ public class RecordCommand implements Command {
             for (Map.Entry<String, Queue<byte[]>> key : queue.entrySet()) {
                 File file = new File("./"+event.getJDA().getUserById(key.getKey())+".wav");
 
-                
+
             }
         }
     }

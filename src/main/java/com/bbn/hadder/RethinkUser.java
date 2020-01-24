@@ -24,10 +24,10 @@ public class RethinkUser {
 
     private Rethink rethink;
 
-    String id;
-    String prefix = "h.";
-    String language = "en";
-    String blacklisted = "none";
+    private String id;
+    private String prefix = "h.";
+    private String language = "en";
+    private String blacklisted = "none";
 
     public RethinkUser(JSONObject object, Rethink rethink) {
         for (Field field : this.getClass().getDeclaredFields()) {

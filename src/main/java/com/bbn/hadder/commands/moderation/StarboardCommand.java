@@ -45,7 +45,7 @@ public class StarboardCommand implements Command {
         }
 
         if (args.length==2) {
-            e.getRethinkServer().setNeededstars(args[1]);
+            e.getRethinkServer().setNeededStars(args[1]);
         }
 
         e.getRethinkServer().push();

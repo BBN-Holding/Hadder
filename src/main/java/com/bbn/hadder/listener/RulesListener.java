@@ -33,20 +33,20 @@ public class RulesListener extends ListenerAdapter {
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent e) {
         RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-        if (e.getMessageId().equals(rethinkServer.getMessage_id()) && !e.getUser().isBot()) {
+        if (e.getMessageId().equals(rethinkServer.getMessageID()) && !e.getUser().isBot()) {
             if (e.getReactionEmote().isEmote()) {
-                if (rethinkServer.getAccept_emote().equals(e.getReactionEmote().getId())) {
+                if (rethinkServer.getAcceptEmote().equals(e.getReactionEmote().getId())) {
                     addRole(e);
-                } else if (rethinkServer.getDecline_emote().equals(e.getReactionEmote().getId())) {
+                } else if (rethinkServer.getDeclineEmote().equals(e.getReactionEmote().getId())) {
                     e.getReaction().removeReaction(e.getUser()).queue();
                     if (e.getGuild().getSelfMember().canInteract(e.getMember())) {
                         e.getMember().kick().reason("Declined the rules");
                     }
                 }
             } else if (e.getReactionEmote().isEmoji()) {
-                if (rethinkServer.getAccept_emote().equals(e.getReactionEmote().getEmoji())) {
+                if (rethinkServer.getAcceptEmote().equals(e.getReactionEmote().getEmoji())) {
                     addRole(e);
-                } else if (rethinkServer.getDecline_emote().equals(e.getReactionEmote().getEmoji())) {
+                } else if (rethinkServer.getDeclineEmote().equals(e.getReactionEmote().getEmoji())) {
                     e.getReaction().removeReaction(e.getUser()).queue();
                     if (e.getGuild().getSelfMember().canInteract(e.getMember())) {
                         e.getMember().kick().reason("Declined the rules");
@@ -58,16 +58,16 @@ public class RulesListener extends ListenerAdapter {
 
     private void addRole(MessageReactionAddEvent e) {
         RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-        if (e.getMember().getRoles().contains(e.getGuild().getRoleById(rethinkServer.getRole_id()))) {
-            e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRole_id())).reason("Accepted rules").queue();
-        } else e.getGuild().addRoleToMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRole_id())).reason("Accepted rules").queue();
+        if (e.getMember().getRoles().contains(e.getGuild().getRoleById(rethinkServer.getRoleID()))) {
+            e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Accepted rules").queue();
+        } else e.getGuild().addRoleToMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Accepted rules").queue();
     }
 
     @Override
     public void onMessageReactionRemove(MessageReactionRemoveEvent e) {
         RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-        if (e.getMessageId().equals(rethinkServer.getMessage_id()) && !e.getUser().isBot()) {
-                e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRole_id())).reason("Withdrawal of the acceptance of the rules").queue();
+        if (e.getMessageId().equals(rethinkServer.getMessageID()) && !e.getUser().isBot()) {
+                e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Withdrawal of the acceptance of the rules").queue();
         }
     }
 }
