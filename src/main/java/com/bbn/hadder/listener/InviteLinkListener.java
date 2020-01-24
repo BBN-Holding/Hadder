@@ -1,10 +1,23 @@
-package com.bbn.hadder.listener;
-
 /*
- * @author Skidder / GregTCLTK
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
+package com.bbn.hadder.listener;
+
 import com.bbn.hadder.Rethink;
+import com.bbn.hadder.RethinkServer;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
@@ -27,12 +40,13 @@ public class InviteLinkListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
-        if (event.isFromType(ChannelType.TEXT)) {
-            if (event.getMessage().getContentRaw().contains("discord.gg/") && (!event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId()))) {
-                checkInvite(event.getMessage(), "discord.gg/");
-            } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && (!event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId()))) {
-                checkInvite(event.getMessage(), "discordapp.com/invite/");
+    public void onMessageReceived(@Nonnull MessageReceivedEvent e) {
+        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
+        if (e.isFromType(ChannelType.TEXT)) {
+            if (e.getMessage().getContentRaw().contains("discord.gg/") && (!e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.isInviteDetect())) {
+                checkInvite(e.getMessage(), "discord.gg/");
+            } else if (e.getMessage().getContentRaw().contains("discordapp.com/invite") && (!e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.isInviteDetect())) {
+                checkInvite(e.getMessage(), "discordapp.com/invite/");
             }
         }
     }
@@ -54,12 +68,13 @@ public class InviteLinkListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageUpdate(@Nonnull MessageUpdateEvent event) {
-        if (event.isFromType(ChannelType.TEXT)) {
-            if (event.getMessage().getContentRaw().contains("discord.gg/") && !event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId())) {
-                checkInvite(event.getMessage(), "discord.gg/");
-            } else if (event.getMessage().getContentRaw().contains("discordapp.com/invite") && !event.getMember().hasPermission(Permission.ADMINISTRATOR) && rethink.getInviteDetection(event.getGuild().getId())) {
-                checkInvite(event.getMessage(), "discordapp.com/invite/");
+    public void onMessageUpdate(@Nonnull MessageUpdateEvent e) {
+        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
+        if (e.isFromType(ChannelType.TEXT)) {
+            if (e.getMessage().getContentRaw().contains("discord.gg/") && !e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.isInviteDetect()) {
+                checkInvite(e.getMessage(), "discord.gg/");
+            } else if (e.getMessage().getContentRaw().contains("discordapp.com/invite") && !e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.isInviteDetect()) {
+                checkInvite(e.getMessage(), "discordapp.com/invite/");
             }
         }
     }

@@ -1,8 +1,20 @@
-package com.bbn.hadder.commands.moderation;
-
 /*
- * @author Skidder / GregTCLTK
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
+package com.bbn.hadder.commands.moderation;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
@@ -14,21 +26,22 @@ import com.bbn.hadder.utils.MessageEditor;
 public class InviteDetectCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length == 1) {
             String opinion = args[0].toLowerCase();
             switch (opinion) {
                 case "on":
-                    if (!event.getRethink().getInviteDetection(event.getGuild().getId())) {
-                        event.getRethink().setInviteDetection(event.getGuild().getId(), true);
-                        event.getTextChannel().sendMessage(
-                                event.getMessageEditor().getMessage(
+                    if (!e.getRethinkServer().isInviteDetect()) {
+                        e.getRethinkServer().setInviteDetect(true);
+                        e.getTextChannel().sendMessage(
+                                e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
                                         "commands.moderation.invitedetect.activate.success.title",
                                         "commands.moderation.invitedetect.activate.success.description")
                                         .build()).queue();
+                        e.getRethinkServer().push();
                     } else {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.ERROR,
                                 "commands.moderation.invitedetect.activate.error.title",
                                 "commands.moderation.invitedetect.activate.error.description")
@@ -37,15 +50,16 @@ public class InviteDetectCommand implements Command {
                     break;
 
                 case "off":
-                    if (event.getRethink().getInviteDetection(event.getGuild().getId())) {
-                        event.getRethink().setInviteDetection(event.getGuild().getId(), false);
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                    if (e.getRethinkServer().isInviteDetect()) {
+                        e.getRethinkServer().setInviteDetect(false);
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
                                 "commands.moderation.invitedetect.deactivate.success.title",
                                 "commands.moderation.invitedetect.deactivate.success.description")
                                 .build()).queue();
+                        e.getRethinkServer().push();
                     } else {
-                        event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.ERROR,
                                 "commands.moderation.invitedetect.deactivate.error.title",
                                 "commands.moderation.invitedetect.deactivate.error.description")
@@ -53,10 +67,10 @@ public class InviteDetectCommand implements Command {
                     }
                     break;
                 default:
-                    event.getHelpCommand().sendHelp(this, event);
+                    e.getHelpCommand().sendHelp(this, e);
             }
         } else {
-            event.getHelpCommand().sendHelp(this, event);
+            e.getHelpCommand().sendHelp(this, e);
         }
     }
 

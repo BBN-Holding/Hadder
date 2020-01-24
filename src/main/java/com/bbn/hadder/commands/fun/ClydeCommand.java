@@ -1,8 +1,20 @@
-package com.bbn.hadder.commands.fun;
-
 /*
- * @author Skidder / GregTCLTK
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
+package com.bbn.hadder.commands.fun;
 
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.WebhookClientBuilder;
@@ -24,13 +36,13 @@ import java.util.concurrent.TimeUnit;
 public class ClydeCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
+    public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            if (event.getGuild().getSelfMember().hasPermission(Permission.MANAGE_WEBHOOKS)) {
-                TextChannel channel = event.getMessage().getTextChannel();
-                String content = event.getMessage().getContentRaw().replace(event.getRethink().getGuildPrefix(event.getGuild().getId()), "").replace(event.getRethink().getUserPrefix(event.getAuthor().getId()), "").replace("clyde", "");
+            if (e.getGuild().getSelfMember().hasPermission(Permission.MANAGE_WEBHOOKS)) {
+                TextChannel channel = e.getMessage().getTextChannel();
+                String content = e.getMessage().getContentRaw().replace(e.getRethinkServer().getPrefix(), "").replace(e.getRethinkUser().getPrefix(), "").replace("clyde", "");
 
-                Webhook webhook = channel.createWebhook(event.getConfig().getClydeName()).complete();
+                Webhook webhook = channel.createWebhook(e.getConfig().getClydeName()).complete();
                 try {
                     InputStream s = new URL("https://discordapp.com/assets/f78426a064bc9dd24847519259bc42af.png").openStream();
                     webhook.getManager().setAvatar(Icon.from(s)).queue();
@@ -40,24 +52,24 @@ public class ClydeCommand implements Command {
                     WebhookClient client = builder.build();
                     try {
                         TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
                     }
                     client.send(content);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
                 try {
                     TimeUnit.SECONDS.sleep(2);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
                 }
                 webhook.delete().queue();
-                event.getMessage().delete().queue();
+                e.getMessage().delete().queue();
             } else {
-                event.getTextChannel().sendMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
             }
-        } else event.getHelpCommand().sendHelp(this, event);
+        } else e.getHelpCommand().sendHelp(this, e);
 
     }
 

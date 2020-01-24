@@ -1,3 +1,19 @@
+/*
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bbn.hadder.commands.moderation;
 
 import com.bbn.hadder.commands.Command;
@@ -8,29 +24,31 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public class StarboardCommand implements Command {
 
     @Override
-    public void executed(String[] args, CommandEvent event) {
-        if (event.getMessage().getMentionedChannels().size()==1) {
-            event.getRethink().setStarboardChannel(event.getGuild().getId(), event.getMessage().getMentionedChannels().get(0).getId());
-            event.getChannel().sendMessage(
-                    event.getMessageEditor().getMessage(
+    public void executed(String[] args, CommandEvent e) {
+        if (e.getMessage().getMentionedChannels().size()==1) {
+            e.getRethinkServer().setStarboard(e.getMessage().getMentionedChannels().get(0).getId());
+            e.getChannel().sendMessage(
+                    e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                                             "commands.moderation.starboard.success.title","")
                             .build())
                     .queue();
         } else {
             if (args.length>0) {
-                TextChannel channel = event.getGuild().getTextChannelById(args[0]);
+                TextChannel channel = e.getGuild().getTextChannelById(args[0]);
                 if (channel!=null) {
-                    event.getRethink().setStarboardChannel(event.getGuild().getId(), channel.getId());
+                    e.getRethinkServer().setStarboard(channel.getId());
                 }
             } else {
-                event.getHelpCommand().sendHelp(this, event);
+                e.getHelpCommand().sendHelp(this, e);
             }
         }
 
         if (args.length==2) {
-            event.getRethink().setNeededStars(args[1], event.getGuild().getId());
+            e.getRethinkServer().setNeededStars(args[1]);
         }
+
+        e.getRethinkServer().push();
     }
 
     @Override

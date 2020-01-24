@@ -1,6 +1,22 @@
+/*
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.bbn.hadder.utils;
 
-import com.bbn.hadder.Rethink;
+import com.bbn.hadder.RethinkUser;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 
@@ -11,11 +27,11 @@ import java.util.ResourceBundle;
 
 public class MessageEditor {
 
-    private Rethink rethink;
+    private RethinkUser rethinkUser;
     private User user;
 
-    public MessageEditor(Rethink rethink, User user) {
-        this.rethink = rethink;
+    public MessageEditor(RethinkUser rethinkUser, User user) {
+        this.rethinkUser = rethinkUser;
         this.user = user;
     }
 
@@ -34,7 +50,7 @@ public class MessageEditor {
 
     public EmbedBuilder getMessage(MessageType type, String title, String title_extra, String title_extra_two,
                             String description, String description_extra, String description_extra_two) {
-        String language = (this.user!=null) ? rethink.getLanguage(this.user.getId()) : null;
+        String language = (this.user!=null) ? rethinkUser.getLanguage() : null;
         EmbedBuilder eb = this.getDefaultSettings(type);
         if (!"".equals(title)) eb.setTitle(this.handle(language, title, title_extra, title_extra_two));
         if (!"".equals(description)) eb.setDescription(this.handle(language, description, description_extra, description_extra_two));
@@ -105,11 +121,11 @@ public class MessageEditor {
     }
 
     public String getTerm(String string) {
-        return this.handle(rethink.getLanguage(user.getId()), string, "", "");
+        return this.handle(rethinkUser.getLanguage(), string, "", "");
     }
 
     public String getTerm(String string, String extra, String extra_two) {
-        return this.handle(rethink.getLanguage(user.getId()), string, extra, extra_two);
+        return this.handle(rethinkUser.getLanguage(), string, extra, extra_two);
     }
 
     private String handle(String language_code, String string, String extra, String extra_two) {
