@@ -100,7 +100,7 @@ public class RegionChangeCommand implements Command {
                                         .build()).queue();
                         break;
                 }
-                
+
             } else
                 e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
         } else e.getTextChannel().sendMessage(
