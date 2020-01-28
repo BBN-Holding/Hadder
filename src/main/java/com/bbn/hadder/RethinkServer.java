@@ -24,15 +24,15 @@ public class RethinkServer {
 
     private Rethink rethink;
 
-    String accept_emote = "";
-    String decline_emote = "";
+    String accept_emote = null;
+    String decline_emote = null;
     String id;
     boolean invite_detect = false;
-    String message_id = "";
+    String message_id = null;
     String neededstars = "3";
     String prefix = "h.";
-    String role_id = "";
-    String starboard = "";
+    String role_id = null;
+    String starboard = null;
 
     public RethinkServer(JSONObject object, Rethink rethink) {
         for (Field field : this.getClass().getDeclaredFields()) {

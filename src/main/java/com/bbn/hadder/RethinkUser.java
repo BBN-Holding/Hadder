@@ -27,7 +27,7 @@ public class RethinkUser {
     String id;
     String prefix = "h.";
     String language = "en";
-    String blacklisted = "none";
+    String blacklisted = null;
 
     public RethinkUser(JSONObject object, Rethink rethink) {
         for (Field field : this.getClass().getDeclaredFields()) {

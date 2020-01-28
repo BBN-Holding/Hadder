@@ -18,6 +18,7 @@ package com.bbn.hadder;
 
 import com.bbn.hadder.core.Config;
 import com.rethinkdb.RethinkDB;
+import com.rethinkdb.gen.exc.ReqlNonExistenceError;
 import com.rethinkdb.gen.exc.ReqlOpFailedError;
 import com.rethinkdb.net.Connection;
 import org.json.JSONArray;
@@ -125,10 +126,10 @@ public class Rethink {
         this.insert("server", r
                 .hashMap("id", id)
                 .with("prefix", "h.")
-                .with("message_id", "")
-                .with("role_id", "")
+                .with("message_id", null)
+                .with("role_id", null)
                 .with("invite_detect", false)
-                .with("starboard", "")
+                .with("starboard", null)
                 .with("neededstars", "4")
         );
     }
@@ -143,7 +144,7 @@ public class Rethink {
 
     // TODO
     public boolean hasStarboardChannel(String guild_id) {
-        return !this.getByID("server", guild_id, "starboard").equals("");
+        return this.getByID("server", guild_id, "starboard") != null;
     }
     // TODO
     public void insertStarboardMessage(String message_id, String guild_id, String starboard_message_id) {
@@ -159,7 +160,12 @@ public class Rethink {
     }
     // TODO
     public boolean hasStarboardMessage(String message_id) {
-        return this.getByID("stars", message_id, "guild") != null;
+        try {
+            this.getByID("stars", message_id, "guild");
+            return true;
+        } catch (ReqlNonExistenceError e) {
+            return false;
+        }
     }
 
 
