@@ -15,6 +15,29 @@
     <maven.compiler.target>1.13</maven.compiler.target>
   </properties>
 
+  <developers>
+    <developer>
+      <id>Hax#6775</id>
+      <name>Hax</name>
+      <email>hax@bigbotnetwork.com</email>
+      <url>https://bigbotnetwork.com/</url>
+      <timezone>Europe/Berlin</timezone>
+      <properties>
+        <picUrl>https://cdn.discordapp.com/avatars/261083609148948488/f2c9efc629ef65fffa634f0d63cd467e.webp</picUrl>
+      </properties>
+    </developer>
+    <developer>
+      <id>Skidder#6775</id>
+      <name>Greg</name>
+      <email>skidder@bigbotnetwork.com</email>
+      <url>https://bigbotnetwork.com/</url>
+      <timezone>Europe/Berlin</timezone>
+      <properties>
+        <picUrl>https://cdn.discordapp.com/avatars/477141528981012511/a_ba4bd8e5b381874edcd06a68d1acd3aa.gif</picUrl>
+      </properties>
+    </developer>
+  </developers>
+
   <repositories>
     <repository>
       <id>jcenter</id>
@@ -24,6 +47,11 @@
   </repositories>
 
   <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <version>3.5.4</version>
+    </dependency>
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
