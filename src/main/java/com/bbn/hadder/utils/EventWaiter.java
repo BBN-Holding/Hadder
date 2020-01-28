@@ -19,6 +19,7 @@ package com.bbn.hadder.utils;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
@@ -34,6 +35,22 @@ public class EventWaiter {
                     onEvent.accept(event);
                     event.getJDA().getShardManager().removeEventListener(this);
                 } else if (event.getAuthor().getId().equals(user.getId())) {
+                    onEvent.accept(event);
+                    event.getJDA().getShardManager().removeEventListener(this);
+                }
+            }
+        };
+        jda.getShardManager().addEventListener(listener);
+    }
+
+    public void newOnReactionEventWaiter(Consumer<GuildMessageReactionAddEvent> onEvent, JDA jda, User user) {
+        Object listener = new ListenerAdapter() {
+            @Override
+            public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
+                if (user==null) {
+                    onEvent.accept(event);
+                    event.getJDA().getShardManager().removeEventListener(this);
+                } else if (event.getUser().getId().equals(user.getId())) {
                     onEvent.accept(event);
                     event.getJDA().getShardManager().removeEventListener(this);
                 }
