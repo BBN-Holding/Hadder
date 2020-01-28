@@ -56,13 +56,15 @@ public class RulesCommand implements Command {
                     try {
                         TextChannel channel = e1.getGuild().getTextChannelsByName(e1.getMessage().getContentRaw(), true).get(0);
                         createRules(e, e1, channel);
-                    } catch (Exception ex) {
+                    } catch (NullPointerException ex) {
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.ERROR,
                                         "commands.moderation.rules.channel.error.title",
                                         "commands.moderation.rules.channel.error.description")
                                         .build()).queue();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
                     }
                 }
             }, e.getJDA(), e.getAuthor());

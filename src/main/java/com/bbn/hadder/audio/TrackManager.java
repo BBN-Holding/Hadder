@@ -32,7 +32,7 @@ public class TrackManager extends AudioEventAdapter {
     private final AudioPlayer player;
     private final AudioManager manager;
     private final Queue<AudioInfo> queue;
-    AudioTrack lastTrack;
+    private AudioTrack lastTrack;
     private boolean loop = false;
 
     public TrackManager(AudioPlayer player, AudioManager manager) {

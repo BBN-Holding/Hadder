@@ -60,7 +60,7 @@ public class StarboardListener extends ListenerAdapter {
                                     }
                                 }
 
-                                if (Integer.parseInt(rethinkServer.getNeededstars()) <= stars) {
+                                if (Integer.parseInt(rethinkServer.getNeededStars()) <= stars) {
                                     e.getGuild().getTextChannelById(rethinkServer.getStarboard())
                                             .sendMessage(new MessageBuilder()
                                                     .setContent("⭐ 1" + " " + e.getTextChannel().getAsMention())
@@ -94,7 +94,7 @@ public class StarboardListener extends ListenerAdapter {
                                     .retrieveMessageById(rethink.getStarboardMessage(e.getMessageId())).queue(
                                     msg2 -> {
 
-                                        if (Integer.parseInt(rethinkServer.getNeededstars()) <= finalStars) {
+                                        if (Integer.parseInt(rethinkServer.getNeededStars()) <= finalStars) {
                                             msg2.editMessage(new MessageBuilder()
                                                     .setContent("⭐ " + finalStars + " " + e.getTextChannel().getAsMention())
                                                     .setEmbed(

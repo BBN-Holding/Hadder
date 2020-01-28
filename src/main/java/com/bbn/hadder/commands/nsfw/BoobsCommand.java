@@ -19,7 +19,7 @@ package com.bbn.hadder.commands.nsfw;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import com.bbn.hadder.utils.Request;
+import com.bbn.hadder.utils.Http;
 
 public class BoobsCommand implements Command {
 
@@ -27,7 +27,7 @@ public class BoobsCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (e.getTextChannel().isNSFW()) {
 
-            String url = Request.get("https://api.nekos.dev/api/v3/images/nsfw/gif/tits/");
+            String url = Http.getNSFW("https://api.nekos.dev/api/v3/images/nsfw/gif/tits/");
 
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                     .setAuthor(e.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url)

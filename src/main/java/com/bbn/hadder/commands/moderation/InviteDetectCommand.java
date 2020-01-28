@@ -31,8 +31,8 @@ public class InviteDetectCommand implements Command {
             String opinion = args[0].toLowerCase();
             switch (opinion) {
                 case "on":
-                    if (!e.getRethinkServer().isInvite_detect()) {
-                        e.getRethinkServer().setInvite_detect(true);
+                    if (!e.getRethinkServer().isInviteDetect()) {
+                        e.getRethinkServer().setInviteDetect(true);
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
@@ -50,8 +50,8 @@ public class InviteDetectCommand implements Command {
                     break;
 
                 case "off":
-                    if (e.getRethinkServer().isInvite_detect()) {
-                        e.getRethinkServer().setInvite_detect(false);
+                    if (e.getRethinkServer().isInviteDetect()) {
+                        e.getRethinkServer().setInviteDetect(false);
                         e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
                                 "commands.moderation.invitedetect.deactivate.success.title",
