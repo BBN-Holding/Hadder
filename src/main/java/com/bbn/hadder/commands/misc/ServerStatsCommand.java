@@ -23,7 +23,11 @@ public class ServerStatsCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
+        if (args.length == 0) {
 
+        } else if (args.length == 1) {
+
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override
