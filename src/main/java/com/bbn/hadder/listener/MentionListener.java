@@ -66,6 +66,7 @@ public class MentionListener extends ListenerAdapter {
                 );
                 builder.addField("Dependencies", stringBuilder.toString(), false);
                 StringBuilder devs = new StringBuilder();
+                //TODO: Fix Mail stuff
                 model.getDevelopers().forEach(
                         developer -> devs.append(developer.getId()).append(" - [Website](").append(developer.getUrl()).append("), [E-Mail](https://hax.bigbotnetwork.de/redirect.html?url=mailto:").append(developer.getEmail()).append(")\n")
                 );
