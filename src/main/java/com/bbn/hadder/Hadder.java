@@ -123,7 +123,8 @@ public class Hadder {
                         new PauseCommand(),
                         new LoopCommand(),
                         new BassCommand(),
-                        new EchoCommand()), config, helpCommand);
+                        new EchoCommand(),
+                        new ServerStatsCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
