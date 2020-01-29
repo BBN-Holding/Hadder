@@ -82,7 +82,7 @@
     <dependency>
       <groupId>org.kohsuke</groupId>
       <artifactId>github-api</artifactId>
-      <version>1.105</version>
+      <version>1.106</version>
     </dependency>
     <dependency>
       <groupId>com.sedmelluq</groupId>
