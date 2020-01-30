@@ -29,6 +29,9 @@ public class ServerStatsCommand implements Command {
                 "commands.misc.serverstats.description", e.getGuild().getName())
                 .addField("Owner", e.getGuild().getOwner().getUser().getAsTag(), false)
                 .addField("ID", e.getGuild().getId(), false)
+                .addField("Region", e.getGuild().getRegion().getName(), false)
+                .setThumbnail(e.getGuild().getIconUrl())
+                .setImage(e.getGuild().getBannerUrl())
                 .build()).queue();
     }
 
