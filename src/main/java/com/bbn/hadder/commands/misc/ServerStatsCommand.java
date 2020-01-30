@@ -18,16 +18,18 @@ package com.bbn.hadder.commands.misc;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.utils.MessageEditor;
 
 public class ServerStatsCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
-        if (args.length == 0) {
-
-        } else if (args.length == 1) {
-
-        } else e.getHelpCommand().sendHelp(this, e);
+        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                "commands.misc.serverstats.title", "",
+                "commands.misc.serverstats.description", e.getGuild().getName())
+                .addField("Owner", e.getGuild().getOwner().getUser().getAsTag(), false)
+                .addField("ID", e.getGuild().getId(), false)
+                .build()).queue();
     }
 
     @Override
@@ -42,11 +44,11 @@ public class ServerStatsCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Server-ID]";
+        return null;
     }
 
     @Override
     public String example() {
-        return "448554629282922527";
+        return null;
     }
 }
