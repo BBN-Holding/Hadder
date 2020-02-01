@@ -35,8 +35,9 @@ public class ServerStatsCommand implements Command {
                 .addField("Region", e.getGuild().getRegion().getName(), true)
                 .addField("Time created", new Date(e.getGuild().getTimeCreated().toInstant().toEpochMilli()).toString(), true)
                 .addField("Roles", String.valueOf(e.getGuild().getRoles().size()), true)
-                .addField("Text/Voice Channels", "`" + e.getGuild().getTextChannels().size() + "`" + "/" + "`" + e.getGuild().getVoiceChannels().size() + "`", true)
+                .addField("Text/Voice/Store Channels", "`" + e.getGuild().getTextChannels().size() + "`" + "/" + "`" + e.getGuild().getVoiceChannels().size() + "`" + "/" + "`" + e.getGuild().getStoreChannels().size() + "`", true)
                 .addField("Verification Level", e.getGuild().getVerificationLevel().getKey() + ": " +  e.getGuild().getVerificationLevel(), true)
+                .addField("MFA Level", String.valueOf(e.getGuild().getRequiredMFALevel().getKey()), true)
                 .setThumbnail(e.getGuild().getIconUrl())
                 .setImage(e.getGuild().getBannerUrl());
 
