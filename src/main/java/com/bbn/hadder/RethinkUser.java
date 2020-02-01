@@ -43,16 +43,8 @@ public class RethinkUser {
         this.rethink = rethink;
     }
 
-    public RethinkUser(String id) {
-        this.id = id;
-    }
-
     public Rethink getRethink() {
         return rethink;
-    }
-
-    public void setRethink(Rethink rethink) {
-        this.rethink = rethink;
     }
 
     public String getId() {
