@@ -15,13 +15,12 @@ import java.time.format.DateTimeFormatter;
 
 public class ProfileCommand implements Command {
 
-
     @Override
     public void executed(String[] args, CommandEvent e) {
         Member member = null;
         if (args.length == 0) {
             member = e.getMember();
-        } else if (StringUtils.isNumeric(args[0])) {
+        } else if (StringUtils.isNumeric(args[0]) && args[0].length() == 18) {
             member = e.getGuild().getMemberById(args[0]);
         } else if (!StringUtils.isNumeric(args[0]) && args[0].contains("#")) {
             try {
@@ -59,7 +58,7 @@ public class ProfileCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"profile", "user"};
+        return new String[]{"profile", "user", "userinfo"};
     }
 
     @Override
