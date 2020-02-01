@@ -34,6 +34,8 @@ public class ServerStatsCommand implements Command {
                 .addField("ID", e.getGuild().getId(), true)
                 .addField("Region", e.getGuild().getRegion().getName(), true)
                 .addField("Time created", new Date(e.getGuild().getTimeCreated().toInstant().toEpochMilli()).toString(), true)
+                .addField("Roles", String.valueOf(e.getGuild().getRoles().size()), true)
+                .addField("Text/Voice Channels", "`" + e.getGuild().getTextChannels().size() + "`" + "/" + "`" + e.getGuild().getVoiceChannels().size() + "`", true)
                 .setThumbnail(e.getGuild().getIconUrl())
                 .setImage(e.getGuild().getBannerUrl());
 
@@ -45,7 +47,7 @@ public class ServerStatsCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"serverstats"};
+        return new String[]{"serverstats", "guildstats"};
     }
 
     @Override
