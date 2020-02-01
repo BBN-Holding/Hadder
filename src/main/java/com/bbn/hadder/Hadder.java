@@ -124,7 +124,8 @@ public class Hadder {
                         new LoopCommand(),
                         new BassCommand(),
                         new EchoCommand(),
-                        new ServerStatsCommand()), config, helpCommand);
+                        new ServerStatsCommand(),
+                        new ProfileCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
