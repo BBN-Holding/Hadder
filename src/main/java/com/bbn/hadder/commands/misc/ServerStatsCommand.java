@@ -19,20 +19,28 @@ package com.bbn.hadder.commands.misc;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.util.Date;
 
 public class ServerStatsCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
-        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+        EmbedBuilder eb = e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                 "commands.misc.serverstats.title", "",
                 "commands.misc.serverstats.description", e.getGuild().getName())
-                .addField("Owner", e.getGuild().getOwner().getUser().getAsTag(), false)
-                .addField("ID", e.getGuild().getId(), false)
-                .addField("Region", e.getGuild().getRegion().getName(), false)
+                .addField("Owner", e.getGuild().getOwner().getUser().getAsTag(), true)
+                .addField("ID", e.getGuild().getId(), true)
+                .addField("Region", e.getGuild().getRegion().getName(), true)
+                .addField("Time created", new Date(e.getGuild().getTimeCreated().toInstant().toEpochMilli()).toString(), true)
                 .setThumbnail(e.getGuild().getIconUrl())
-                .setImage(e.getGuild().getBannerUrl())
-                .build()).queue();
+                .setImage(e.getGuild().getBannerUrl());
+
+        if (e.getGuild().getDescription() != null) eb.addField("Description", e.getGuild().getDescription(), true);
+        if (e.getGuild().getVanityCode() != null) eb.addField("Vanity Code", "[" + e.getGuild().getVanityCode() + "](https://discord.gg/" + e.getGuild().getVanityCode() + ")", true);
+
+        e.getTextChannel().sendMessage(eb.build()).queue();
     }
 
     @Override
