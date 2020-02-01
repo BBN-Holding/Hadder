@@ -31,6 +31,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
+import net.dv8tion.jda.api.utils.ChunkingFilter;
 
 import java.util.List;
 
@@ -54,7 +55,9 @@ public class Hadder {
 
         builder.setAutoReconnect(true);
         builder.setShardsTotal(1);
-        builder.setActivity(Activity.streaming("on the BigBotNetwork", "https://twitch.tv/BigBotNetwork"));
+        builder.setChunkingFilter(ChunkingFilter.ALL);
+        builder.setBulkDeleteSplittingEnabled(true);
+        builder.setActivity(Activity.listening("to h.help"));
         builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
         builder.setToken(config.getBotToken());
 
@@ -120,7 +123,8 @@ public class Hadder {
                         new PauseCommand(),
                         new LoopCommand(),
                         new BassCommand(),
-                        new EchoCommand()), config, helpCommand);
+                        new EchoCommand(),
+                        new ServerStatsCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),

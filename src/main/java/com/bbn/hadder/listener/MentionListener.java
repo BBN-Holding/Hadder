@@ -19,7 +19,6 @@ package com.bbn.hadder.listener;
 import com.bbn.hadder.Rethink;
 import com.bbn.hadder.RethinkServer;
 import com.bbn.hadder.RethinkUser;
-import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -56,31 +55,26 @@ public class MentionListener extends ListenerAdapter {
                 } catch (IOException | XmlPullParserException ex) {
                     ex.printStackTrace();
                 }
-                EmbedBuilder builder = new EmbedBuilder().setTitle("Hi!").addField("Version", model.getVersion(), false)
-                        .addField("Userprefix", rethinkUser.getPrefix(), true).addField("Guildprefix", rethinkServer.getPrefix(), true);
+                EmbedBuilder builder = new EmbedBuilder()
+                        .setTitle("Hi!")
+                        .addField("Version", model.getVersion(), false)
+                        .addField("User-Prefix", rethinkUser.getPrefix(), true)
+                        .addField("Guild-Prefix", rethinkServer.getPrefix(), true);
                 StringBuilder stringBuilder = new StringBuilder();
                 model.getDependencies().forEach(
-                        dependency -> stringBuilder.append(dependency.getArtifactId()+" - "+dependency.getVersion()+"\n")
+                        dependency -> stringBuilder.append(dependency.getArtifactId()).append(" - ").append(dependency.getVersion()).append("\n")
                 );
                 builder.addField("Dependencies", stringBuilder.toString(), false);
                 StringBuilder devs = new StringBuilder();
+                //TODO: Fix Mail stuff
                 model.getDevelopers().forEach(
-                        developer -> devs.append(developer.getId()+" - [Website]("+developer.getUrl()+"), [E-Mail](https://hax.bigbotnetwork.de/redirect.html?url=mailto:"+developer.getEmail()+")\n")
+                        developer -> devs.append(developer.getId()).append(" - [Website](").append(developer.getUrl()).append("), [E-Mail](https://hax.bigbotnetwork.de/redirect.html?url=mailto:").append(developer.getEmail()).append(")\n")
                 );
                 builder.addField("Developer", devs.toString(), false);
                 builder.addField("Join our Dev Server!", "[Click here!](https://discord.gg/58My2dM)", true);
                 builder.addField("Github", "[Click here!](https://github.com/BigBotNetwork/Hadder)",false);
                 builder.addField("Twitch", "[Click here!](https://www.twitch.tv/bigbotnetwork)", false);
                 e.getChannel().sendMessage(builder.build()).queue();
-
-                /*e.getChannel().sendMessage(new MessageEditor(rethinkUser, e.getAuthor()).getMessage(MessageEditor.MessageType.INFO)
-                        .setTitle("Hello I'm Hadder.")
-                        .setAuthor(e.getJDA().getSelfUser().getName(), e.getJDA().getSelfUser().getAvatarUrl(), e.getJDA().getSelfUser().getAvatarUrl())
-                        .addField("Users", String.valueOf(e.getJDA().getUsers().size()), false)
-                        .addField("Guilds", String.valueOf(e.getJDA().getGuilds().size()), false)
-                        .addField("Prefix (User)", rethinkUser.getPrefix(), false)
-                        .addField("Prefix (Guild)", rethinkServer.getPrefix(), false)
-                        .build()).queue();*/
             } else if (e.getMessage().getContentRaw().equalsIgnoreCase("@someone")) {
                 int member = new Random().nextInt(e.getGuild().getMembers().size() - 1);
                 if (member > 0 && member < e.getGuild().getMembers().size()) {
