@@ -68,7 +68,7 @@ public class VolumeCommand implements Command {
 
     @Override
     public String usage() {
-        return "[New volume]";
+        return "[volume]";
     }
 
     @Override

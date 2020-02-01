@@ -104,7 +104,7 @@ public class HelpCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Command name]";
+        return "[command]";
     }
 
     @Override

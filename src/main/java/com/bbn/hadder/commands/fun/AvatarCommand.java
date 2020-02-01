@@ -111,7 +111,7 @@ public class AvatarCommand implements Command {
 
     @Override
     public String usage() {
-        return "[User]";
+        return "[user]";
     }
 
     @Override

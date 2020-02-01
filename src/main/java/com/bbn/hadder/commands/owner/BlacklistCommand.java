@@ -113,7 +113,7 @@ public class BlacklistCommand implements Command {
 
     @Override
     public String usage() {
-        return "add|remove|list command @User";
+        return "[add|remove|list] [command] [user]";
     }
 
     @Override

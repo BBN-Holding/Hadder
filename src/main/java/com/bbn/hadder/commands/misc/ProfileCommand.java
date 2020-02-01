@@ -68,7 +68,7 @@ public class ProfileCommand implements Command {
 
     @Override
     public String usage() {
-        return "@User|UserID|Username";
+        return "[user/id]";
     }
 
     @Override

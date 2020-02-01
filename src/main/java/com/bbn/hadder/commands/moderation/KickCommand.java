@@ -89,7 +89,7 @@ public class KickCommand implements Command {
 
     @Override
     public String usage() {
-        return "[User(s)]";
+        return "[user]";
     }
 
     @Override
