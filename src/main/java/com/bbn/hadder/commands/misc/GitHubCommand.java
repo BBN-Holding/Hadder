@@ -117,7 +117,7 @@ public class GitHubCommand implements Command {
 
     @Override
     public String usage() {
-        return "[GH name]";
+        return "[user]";
     }
 
     @Override

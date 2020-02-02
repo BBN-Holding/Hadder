@@ -83,7 +83,7 @@ public class PlayCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Song URL/Name]";
+        return "[URL/name]";
     }
 
     @Override

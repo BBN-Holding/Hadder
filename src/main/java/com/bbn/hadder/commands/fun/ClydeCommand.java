@@ -85,7 +85,7 @@ public class ClydeCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Content]";
+        return "[content]";
     }
 
     @Override

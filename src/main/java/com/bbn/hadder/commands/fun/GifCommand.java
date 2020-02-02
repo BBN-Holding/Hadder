@@ -70,11 +70,11 @@ public class GifCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Term]";
+        return "[term]";
     }
 
     @Override
     public String example() {
-        return "Cute cat";
+        return "cute cat";
     }
 }

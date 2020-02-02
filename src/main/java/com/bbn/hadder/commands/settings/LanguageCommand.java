@@ -82,7 +82,7 @@ public class LanguageCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Language code]";
+        return "[language code]";
     }
 
     @Override

@@ -134,7 +134,7 @@ public class RegionChangeCommand implements Command {
 
     @Override
     public String usage() {
-        return "[New region]";
+        return "[new region]";
     }
 
     @Override

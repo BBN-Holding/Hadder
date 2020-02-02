@@ -24,10 +24,10 @@ public class RethinkUser {
 
     private Rethink rethink;
 
-    public String id;
-    public String prefix = "h.";
-    public String language = "en";
-    public String blacklisted = null;
+    String id;
+    String prefix = "h.";
+    String language = "en";
+    String blacklisted = "none";
 
     public RethinkUser(JSONObject object, Rethink rethink) {
         for (Field field : this.getClass().getDeclaredFields()) {
@@ -43,16 +43,8 @@ public class RethinkUser {
         this.rethink = rethink;
     }
 
-    public RethinkUser(String id) {
-        this.id = id;
-    }
-
     public Rethink getRethink() {
         return rethink;
-    }
-
-    public void setRethink(Rethink rethink) {
-        this.rethink = rethink;
     }
 
     public String getId() {
