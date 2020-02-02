@@ -41,7 +41,7 @@ public class BlacklistCommand implements Command {
                     if (args.length == 3) {
                         String blacklisted = e.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
-                        if (null != blacklisted) commands.addAll(Arrays.asList(blacklisted.split(",")));
+                        if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
                         commands.addAll(Arrays.asList(args[1].split(",")));
                         LinkedHashSet<String> hashSet = new LinkedHashSet<>(commands);
 
@@ -61,7 +61,7 @@ public class BlacklistCommand implements Command {
                     if (args.length == 3) {
                         String blacklisted = e.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
-                        if (null != blacklisted) commands.addAll(Arrays.asList(blacklisted.split(",")));
+                        if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
                         commands.removeAll(Arrays.asList(args[1].split(",")));
                         LinkedHashSet<String> hashSet = new LinkedHashSet<>(commands);
 
@@ -82,7 +82,7 @@ public class BlacklistCommand implements Command {
                     for (User user : e.getJDA().getUsers()) {
                         if (!user.getId().equals(e.getJDA().getSelfUser().getId())) {
                             String blacklisted = e.getRethinkUser().getBlacklisted();
-                            if (null != blacklisted) {
+                            if (!"none".equals(blacklisted)) {
                                 stringBuilder.append(user.getAsTag()).append(" (").append(user.getId()).append(") - ").append(blacklisted).append("\n");
                             }
                         }
