@@ -86,6 +86,10 @@ public class RegionChangeCommand implements Command {
                     case "us-south":
                         setRegion(Region.US_SOUTH, "US South", e);
                         break;
+                    /*case "south-korea":
+                        setRegion(Region.SOUTH_KOREA, "South Korea", e);
+                        break;
+                        TODO: Publish when JDA v4.2.0 is released*/
                     default:
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(
@@ -97,7 +101,6 @@ public class RegionChangeCommand implements Command {
                         break;
                 }
 
-                //TODO: Maybe South Korea. Check the geo restricted discussion
             } else
                 e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
         } else e.getTextChannel().sendMessage(
@@ -131,7 +134,7 @@ public class RegionChangeCommand implements Command {
 
     @Override
     public String usage() {
-        return "[New region]";
+        return "[new region]";
     }
 
     @Override

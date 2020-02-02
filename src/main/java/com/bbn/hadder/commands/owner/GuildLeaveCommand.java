@@ -58,7 +58,7 @@ public class GuildLeaveCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Guild-ID]";
+        return "[id]";
     }
 
     @Override

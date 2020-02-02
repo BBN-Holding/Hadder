@@ -49,7 +49,7 @@ public class UserPrefixCommand implements Command {
 
     @Override
     public String usage() {
-        return "[New Prefix]";
+        return "[new prefix]";
     }
 
     @Override

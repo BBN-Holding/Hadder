@@ -18,16 +18,12 @@ package com.bbn.hadder.audio;
 
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.*;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.util.AbstractMap;
@@ -130,6 +126,8 @@ public class AudioManager {
         });
     }
 
+    /*
+    TODO: DJ integration
     public boolean isDj(Member member) {
         return member.getRoles().stream().anyMatch(r -> r.getName().equals("DJ"));
     }
@@ -137,22 +135,18 @@ public class AudioManager {
     public boolean isCurrentDj(Member member) {
         return getTrackManager(member.getGuild()).getTrackInfo(getPlayer(member.getGuild()).getPlayingTrack()).getAuthor().equals(member);
     }
-
+*/
     public void forceSkipTrack(CommandEvent event) {
         getPlayer(event.getGuild()).stopTrack();
     }
 
-    public String getTimestamp(long milis) {
-        long seconds = milis / 1000;
-        long hours = Math.floorDiv(seconds, 3600);
-        seconds = seconds - (hours * 3600);
-        long mins = Math.floorDiv(seconds, 60);
-        seconds = seconds - (mins * 60);
-        return (hours == 0 ? "" : hours + ":") + String.format("%02d", mins) + ":" + String.format("%02d", seconds);
-    }
-
-    public String getOrNull(String s) {
-        return s.isEmpty() ? "N/A" : s;
+    public String getTimestamp(long m) {
+        long s = m / 1000;
+        long hours = Math.floorDiv(s, 3600);
+        s = s - (hours * 3600);
+        long minutes = Math.floorDiv(s, 60);
+        s = s - (minutes * 60);
+        return (hours == 0 ? "" : hours + ":") + String.format("%02d", minutes) + ":" + String.format("%02d", s);
     }
 
 }

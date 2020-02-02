@@ -91,11 +91,11 @@ public class ScreenShareCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Channel]";
+        return "[channel]";
     }
 
     @Override
     public String example() {
-        return "Gaming-Lounge";
+        return "Talk";
     }
 }

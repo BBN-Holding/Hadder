@@ -63,7 +63,7 @@ public class BassCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Bass-Level]";
+        return "[bass level]";
     }
 
     @Override
