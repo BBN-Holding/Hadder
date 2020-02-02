@@ -104,7 +104,7 @@ public class BanCommand implements Command {
 
     @Override
     public String usage() {
-        return "[User(s)]";
+        return "[user]";
     }
 
     @Override

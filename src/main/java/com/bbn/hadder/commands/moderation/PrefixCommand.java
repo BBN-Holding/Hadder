@@ -62,7 +62,7 @@ public class PrefixCommand implements Command {
 
     @Override
     public String usage() {
-        return "[New Prefix]";
+        return "[new prefix]";
     }
 
     @Override

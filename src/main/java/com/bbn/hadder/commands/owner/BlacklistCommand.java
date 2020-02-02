@@ -21,7 +21,6 @@ import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
@@ -50,9 +49,9 @@ public class BlacklistCommand implements Command {
                         String newblacklisted = ((commandsWithoutDuplicates.size()!=0) ? String.join(",", commandsWithoutDuplicates) : "none");
                         e.getRethinkUser().setBlacklisted(newblacklisted);
                         e.getTextChannel().sendMessage(
-                                e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                                        .setTitle("Removed Blacklisted Commands from User")
-                                        .setDescription("Blacklisted commands: "+newblacklisted)
+                                e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                                        "commands.owner.blacklist.success.add.title", "",
+                                        "commands.owner.blacklist.success.add.description", newblacklisted)
                                         .build()).queue();
                         e.getRethinkUser().push();
                     }
@@ -70,9 +69,9 @@ public class BlacklistCommand implements Command {
                         String newblacklisted = ((commandsWithoutDuplicates.size()!=0) ? String.join(",", commandsWithoutDuplicates) : "none");
                         e.getRethinkUser().setBlacklisted(newblacklisted);
                         e.getTextChannel().sendMessage(
-                                e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                                        .setTitle("Removed Blacklisted Commands from User")
-                                        .setDescription("Blacklisted commands: "+newblacklisted)
+                                e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                                        "commands.owner.blacklist.success.remove.title", "",
+                                        "commands.owner.blacklist.success.remove.description", newblacklisted)
                                         .build()).queue();
                         e.getRethinkUser().push();
                     }
@@ -114,7 +113,7 @@ public class BlacklistCommand implements Command {
 
     @Override
     public String usage() {
-        return "add|remove|list command @User";
+        return "[add|remove|list] [command] [user]";
     }
 
     @Override

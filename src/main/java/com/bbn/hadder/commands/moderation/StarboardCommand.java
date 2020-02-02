@@ -63,7 +63,7 @@ public class StarboardCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Channel] [Needed stars]";
+        return "[channel] [needed stars]";
     }
 
     @Override

@@ -112,7 +112,7 @@ public class RoleCommand implements Command {
 
     @Override
     public String usage() {
-        return "[add/remove] [Role>] [User]";
+        return "[add/remove] [role] [user]";
     }
 
     @Override

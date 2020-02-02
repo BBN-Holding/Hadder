@@ -114,7 +114,7 @@ public class EvalCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Code]";
+        return "[code]";
     }
 
     @Override

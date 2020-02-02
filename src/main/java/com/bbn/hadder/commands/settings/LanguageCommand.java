@@ -19,7 +19,6 @@ package com.bbn.hadder.commands.settings;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.EmbedBuilder;
 
 public class LanguageCommand implements Command {
 
@@ -83,7 +82,7 @@ public class LanguageCommand implements Command {
 
     @Override
     public String usage() {
-        return "[Language code]";
+        return "[language code]";
     }
 
     @Override

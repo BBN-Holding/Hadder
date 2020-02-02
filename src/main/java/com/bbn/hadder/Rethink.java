@@ -174,7 +174,7 @@ public class Rethink {
                 }
             }
         }
-        r.table("server").get(server.getId()).update(object).run(conn);
+        r.table("server").get(server.getId()).update(object.toMap()).run(conn);
     }
 
     public void pushUser(RethinkUser user) {
@@ -188,7 +188,7 @@ public class Rethink {
                 }
             }
         }
-        r.table("user").get(user.getId()).update(object).run(conn);
+        r.table("user").get(user.getId()).update(object.toMap()).run(conn);
     }
 
 }
