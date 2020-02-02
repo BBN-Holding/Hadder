@@ -19,6 +19,7 @@ package com.bbn.hadder.commands.music;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
+import org.jsoup.internal.StringUtil;
 
 public class VolumeCommand implements Command {
 
@@ -27,7 +28,7 @@ public class VolumeCommand implements Command {
         if (args.length > 0) {
             if (e.getAudioManager().hasPlayer(e.getGuild()) && e.getAudioManager().getPlayer(e.getGuild()).getPlayingTrack() != null) {
                 if (e.getMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().getChannel().equals(e.getMember().getVoiceState().getChannel())) {
-                    try {
+                    if (StringUtil.isNumeric(args[0])) {
                         int volume = Integer.parseInt(args[0]);
                         if (volume < 201 && volume > 0 || e.getConfig().getOwners().contains(e.getAuthor().getIdLong())) {
                             e.getAudioManager().getPlayer(e.getGuild()).setVolume(volume);
@@ -39,9 +40,7 @@ public class VolumeCommand implements Command {
                                     "commands.music.volume.error.int.title",
                                     "commands.music.volume.error.int.description").build()).queue();
                         }
-                    } catch (NumberFormatException ex) {
-                        e.getHelpCommand().sendHelp(this, e);
-                    }
+                    } else e.getHelpCommand().sendHelp(this, e);
                 } else {
                     e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                             "commands.music.volume.error.connected.title",
