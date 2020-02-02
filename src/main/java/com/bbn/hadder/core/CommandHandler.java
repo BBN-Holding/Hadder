@@ -69,7 +69,7 @@ public class CommandHandler {
 
                     boolean run = true;
                     String blacklisted = rethinkUser.getBlacklisted();
-                    if (null != blacklisted) {
+                    if (!"none".equals(blacklisted)) {
                         for (String BLLabel : blacklisted.split(",")) {
                             if (Arrays.asList(cmd.labels()).contains(BLLabel)) {
                                 run = false;
