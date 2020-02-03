@@ -28,7 +28,6 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import javax.annotation.Nonnull;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
@@ -51,7 +50,7 @@ public class MentionListener extends ListenerAdapter {
                 MavenXpp3Reader reader = new MavenXpp3Reader();
                 Model model = null;
                 try {
-                    model = reader.read(new FileReader("pom.xml"));
+                    model = reader.read(this.getClass().getClassLoader().getResourceAsStream("pom.xml"));
                 } catch (IOException | XmlPullParserException ex) {
                     ex.printStackTrace();
                 }
