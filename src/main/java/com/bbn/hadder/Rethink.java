@@ -51,11 +51,6 @@ public class Rethink {
         }
     }
 
-    public void disconnect() {
-        conn.close();
-        System.out.println("DISCONNECTED");
-    }
-
     private JSONArray getAsArray(String table, String where, String value) {
         try {
             String string = r.table(table).filter(row -> row.g(where.toLowerCase()).eq(value)).coerceTo("array").toJson().run(conn);
