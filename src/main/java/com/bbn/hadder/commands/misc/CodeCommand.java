@@ -18,13 +18,38 @@ package com.bbn.hadder.commands.misc;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.utils.MessageEditor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CodeCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
-            
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invite/" + args[0]).addHeader("Authorization", "Bot " + e.getConfig().getBotToken()).build();
+
+            try {
+                Response response = client.newCall(request).execute();
+                JSONObject json = new JSONObject(response.body().string());
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                        "commands.misc.code.success.title",
+                        "commands.misc.code.success.description")
+                        .addField("Code", "[" + args[0] + "](https://discord.gg/" + args[0] + ")", true)
+                        .addField("Guild Name", json.getJSONObject("guild").getString("name"), true)
+                        .build()).queue();
+                e.getTextChannel().sendMessage(json.toString()).queue();
+            } catch (JSONException ex) {
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        "commands.misc.code.error.title",
+                        "commands.misc.code.error.description").build()).queue();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         } else e.getHelpCommand().sendHelp(this, e);
     }
 
@@ -35,7 +60,7 @@ public class CodeCommand implements Command {
 
     @Override
     public String description() {
-        return "Shows information about a invite code,.";
+        return "commands.misc.code.help.description";
     }
 
     @Override
