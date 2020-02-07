@@ -18,6 +18,7 @@ package com.bbn.hadder;
 
 import com.bbn.hadder.core.Config;
 import com.rethinkdb.RethinkDB;
+import com.rethinkdb.gen.exc.ReqlNonExistenceError;
 import com.rethinkdb.gen.exc.ReqlOpFailedError;
 import com.rethinkdb.net.Connection;
 import org.json.JSONArray;
@@ -154,7 +155,12 @@ public class Rethink {
     }
     // TODO
     public boolean hasStarboardMessage(String message_id) {
-        return this.getByID("stars", message_id, "guild") != null;
+        try {
+            this.getByID("stars", message_id, "guild");
+            return true;
+        } catch (ReqlNonExistenceError e) {
+            return false;
+        }
     }
 
 
