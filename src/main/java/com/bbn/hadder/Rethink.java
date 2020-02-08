@@ -27,7 +27,6 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.util.NoSuchElementException;
 
-
 public class Rethink {
     private RethinkDB r = RethinkDB.r;
     private Connection conn;
@@ -191,5 +190,4 @@ public class Rethink {
         }
         r.table("user").get(user.getId()).update(object.toMap()).run(conn);
     }
-
 }

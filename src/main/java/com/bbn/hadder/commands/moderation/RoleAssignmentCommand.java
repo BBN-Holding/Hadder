@@ -20,13 +20,17 @@ import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
+import com.bbn.hadder.utils.MessageEditor;
+import net.dv8tion.jda.api.Permission;
 
 @Perms(Perm.MANAGE_ROLES)
 public class RoleAssignmentCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
+        if (e.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
 
+        } else e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
     }
 
     @Override
