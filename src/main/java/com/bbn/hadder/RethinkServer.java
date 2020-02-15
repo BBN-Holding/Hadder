@@ -68,7 +68,7 @@ public class RethinkServer {
         return id;
     }
 
-    public boolean isInviteDetect() {
+    public boolean hasInviteDetect() {
         return invite_detect;
     }
 
