@@ -19,12 +19,9 @@ package com.bbn.hadder.commands.music;
 import com.bbn.hadder.audio.AudioPlayerSendHandler;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
-import com.bbn.hadder.core.Perm;
-import com.bbn.hadder.core.Perms;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.managers.AudioManager;
 
-@Perms(Perm.BOT_OWNER)
 public class EchoCommand implements Command {
 
     @Override
@@ -48,7 +45,7 @@ public class EchoCommand implements Command {
 
     @Override
     public String description() {
-        return null;
+        return "commands.music.echo.help.description";
     }
 
     @Override
