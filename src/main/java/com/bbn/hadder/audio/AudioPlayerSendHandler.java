@@ -18,12 +18,13 @@ package com.bbn.hadder.audio;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
+import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 
 import javax.annotation.Nullable;
 import java.nio.ByteBuffer;
 
-public class AudioPlayerSendHandler implements AudioSendHandler {
+public class AudioPlayerSendHandler implements AudioSendHandler, AudioReceiveHandler {
 
     private final AudioPlayer audioPlayer;
     private AudioFrame lastFrame;
