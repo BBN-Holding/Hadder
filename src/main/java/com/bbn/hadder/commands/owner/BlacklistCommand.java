@@ -16,6 +16,7 @@
 
 package com.bbn.hadder.commands.owner;
 
+import com.bbn.hadder.RethinkUser;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
@@ -38,7 +39,8 @@ public class BlacklistCommand implements Command {
         } else {
             switch (args[0].toLowerCase()) {
                 case "add":
-                    if (args.length == 3) {
+                    if (args.length == 3 && e.getMessage().getMentionedUsers().size() == 1) {
+                        RethinkUser u = new RethinkUser(e.getRethink().getObjectByID("user", e.getMessage().getMentionedUsers().get(0).getId()), e.getRethink());
                         String blacklisted = e.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
@@ -47,18 +49,19 @@ public class BlacklistCommand implements Command {
 
                         ArrayList<String> commandsWithoutDuplicates = new ArrayList<>(hashSet);
                         String newblacklisted = ((commandsWithoutDuplicates.size()!=0) ? String.join(",", commandsWithoutDuplicates) : "none");
-                        e.getRethinkUser().setBlacklisted(newblacklisted);
+                        u.setBlacklisted(newblacklisted);
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                                         "commands.owner.blacklist.success.add.title", "",
                                         "commands.owner.blacklist.success.add.description", newblacklisted)
                                         .build()).queue();
-                        e.getRethinkUser().push();
-                    }
+                        u.push();
+                    } else e.getHelpCommand().sendHelp(this, e);
                     break;
 
                 case "remove":
-                    if (args.length == 3) {
+                    if (args.length == 3 && e.getMessage().getMentionedUsers().size() == 1) {
+                        RethinkUser u = new RethinkUser(e.getRethink().getObjectByID("user", e.getMessage().getMentionedUsers().get(0).getId()), e.getRethink());
                         String blacklisted = e.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
@@ -67,21 +70,22 @@ public class BlacklistCommand implements Command {
 
                         ArrayList<String> commandsWithoutDuplicates = new ArrayList<>(hashSet);
                         String newblacklisted = ((commandsWithoutDuplicates.size()!=0) ? String.join(",", commandsWithoutDuplicates) : "none");
-                        e.getRethinkUser().setBlacklisted(newblacklisted);
+                        u.setBlacklisted(newblacklisted);
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
                                         "commands.owner.blacklist.success.remove.title", "",
                                         "commands.owner.blacklist.success.remove.description", newblacklisted)
                                         .build()).queue();
-                        e.getRethinkUser().push();
-                    }
+                        u.push();
+                    } else e.getHelpCommand().sendHelp(this, e);
                     break;
 
                 case "list":
                     StringBuilder stringBuilder = new StringBuilder();
                     for (User user : e.getJDA().getUsers()) {
                         if (!user.getId().equals(e.getJDA().getSelfUser().getId())) {
-                            String blacklisted = e.getRethinkUser().getBlacklisted();
+                            RethinkUser u = new RethinkUser(e.getRethink().getObjectByID("user", user.getId()), e.getRethink());
+                            String blacklisted = u.getBlacklisted();
                             if (!"none".equals(blacklisted)) {
                                 stringBuilder.append(user.getAsTag()).append(" (").append(user.getId()).append(") - ").append(blacklisted).append("\n");
                             }
@@ -89,7 +93,7 @@ public class BlacklistCommand implements Command {
                     }
                     e.getTextChannel().sendMessage(
                             e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                                    .setTitle("Blacklisted Users:")
+                                    .setTitle("Blacklisted Users")
                                     .setDescription((stringBuilder.length()!=0) ? ("``" + stringBuilder.toString() + "``") : "No blacklisted Users")
                                     .build()).queue();
                     break;

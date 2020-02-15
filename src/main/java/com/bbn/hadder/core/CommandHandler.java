@@ -76,8 +76,8 @@ public class CommandHandler {
                             }
                         }
                     }
-                    if (run)
-                        cmd.executed(args, commandEvent);
+                    if (run) cmd.executed(args, commandEvent);
+                    else event.getMessage().addReaction("❌").queue();
                     return;
                 }
             }

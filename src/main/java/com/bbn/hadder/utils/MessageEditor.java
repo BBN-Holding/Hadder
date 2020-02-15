@@ -133,6 +133,6 @@ public class MessageEditor {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("Translations/Translations", locale);
         if (resourceBundle.containsKey(string))
             return resourceBundle.getString(string).replaceAll("%extra%", extra).replaceAll("%extra_two%", extra_two);
-        else return "This key doesn't exist. Please report this to the Bot Developers. Key: " + string + " Language_code: " + language_code;
+        else return "This key doesn't exist. Please report this to the Bot Developers. Key: `" + string + "` Language_code: `" + language_code + "`";
     }
 }

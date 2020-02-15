@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>Hadder</groupId>
   <artifactId>Hadder</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
 
   <name>Hadder</name>
 
@@ -56,7 +56,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>4.1.1_105</version>
+      <version>4.1.1_108</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
