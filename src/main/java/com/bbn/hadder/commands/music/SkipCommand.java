@@ -33,7 +33,7 @@ public class SkipCommand implements Command {
             } else {
                 e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.music.skip.error.connected.title",
-                        "commands.music.skip.error.connected.description ").build()).queue();
+                        "commands.music.skip.error.connected.description").build()).queue();
             }
         } else {
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
