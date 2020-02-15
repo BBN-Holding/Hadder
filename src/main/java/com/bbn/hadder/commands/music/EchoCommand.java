@@ -57,5 +57,4 @@ public class EchoCommand implements Command {
     public String example() {
         return null;
     }
-
 }
