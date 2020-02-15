@@ -28,6 +28,7 @@ public class RoleAssignmentCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
+        //TODO: THIS LOL
         if (e.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
 
         } else e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
