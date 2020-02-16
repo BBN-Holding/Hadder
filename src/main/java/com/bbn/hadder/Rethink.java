@@ -136,23 +136,18 @@ public class Rethink {
                 .with("blacklisted", "none"));
     }
 
-    // TODO
-    public boolean hasStarboardChannel(String guild_id) {
-        return !this.getByID("server", guild_id, "starboard").equals("");
-    }
-    // TODO
     public void insertStarboardMessage(String message_id, String guild_id, String starboard_message_id) {
         this.insert("stars", r.hashMap("id", message_id).with("guild", guild_id).with("starboardmsg", starboard_message_id));
     }
-    // TODO
+
     public String getStarboardMessage(String message_id) {
         return (String) this.getByID("stars", message_id, "starboardmsg");
     }
-    // TODO
+
     public void removeStarboardMessage(String message_id) {
         this.remove("stars", "id", message_id);
     }
-    // TODO
+
     public boolean hasStarboardMessage(String message_id) {
         try {
             this.getByID("stars", message_id, "guild");
@@ -161,7 +156,6 @@ public class Rethink {
             return false;
         }
     }
-
 
     public void pushServer(RethinkServer server) {
         JSONObject object = new JSONObject();

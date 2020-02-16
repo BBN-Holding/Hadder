@@ -116,6 +116,10 @@ public class RethinkServer {
         this.starboard = starboard;
     }
 
+    public boolean hasStarboardChannel() {
+        return !starboard.equals("");
+    }
+
     public void updateRules(String message_id, String role_id, String accept_emote, String decline_emote) {
         this.setMessageID(message_id);
         this.setRoleID(role_id);
