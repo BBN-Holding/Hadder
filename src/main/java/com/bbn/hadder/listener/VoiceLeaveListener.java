@@ -30,7 +30,8 @@ public class VoiceLeaveListener extends ListenerAdapter {
 
     @Override
     public void onGuildVoiceLeave(GuildVoiceLeaveEvent e) {
-        if (audioManager.hasPlayer(e.getGuild()) && e.getChannelLeft().getMembers().equals(e.getGuild().getSelfMember())) {
+        System.out.println(e.getChannelJoined());
+        if (audioManager.hasPlayer(e.getGuild()) && e.getChannelLeft().getMembers().get(0).equals(e.getGuild().getSelfMember())) {
             audioManager.players.remove(e.getGuild().getId());
             audioManager.getPlayer(e.getGuild()).destroy();
             audioManager.getTrackManager(e.getGuild()).purgeQueue();
