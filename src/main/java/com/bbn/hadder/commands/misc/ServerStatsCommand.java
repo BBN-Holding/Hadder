@@ -43,6 +43,7 @@ public class ServerStatsCommand implements Command {
                 .addField("Member Count", String.valueOf(e.getGuild().getMemberCount()), true)
                 .addField("Explicit Content Level", e.getGuild().getExplicitContentLevel().getKey() + ": " + e.getGuild().getExplicitContentLevel(), true)
                 .addField("Features", e.getGuild().getFeatures().toString().replaceAll("\\[", "`").replaceAll(",", "`, `").replaceAll("]", "`"), true)
+                .addBlankField(true)
                 .setThumbnail(e.getGuild().getIconUrl())
                 .setImage(e.getGuild().getBannerUrl());
 
