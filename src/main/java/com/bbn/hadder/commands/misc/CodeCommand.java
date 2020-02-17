@@ -41,8 +41,10 @@ public class CodeCommand implements Command {
                         "commands.misc.code.success.description")
                         .addField("Code", "[" + args[0] + "](https://discord.gg/" + args[0] + ")", true)
                         .addField("Guild Name", json.getJSONObject("guild").getString("name"), true)
-                        .addField("Guild ID", json.getJSONObject("guild").getString("id"), true)
+                        .addBlankField(true)
                         .addField("Verification Level", String.valueOf(json.getJSONObject("guild").getInt("verification_level")), true)
+                        .addField("Guild ID", json.getJSONObject("guild").getString("id"), true)
+                        .addBlankField(true)
                         .setThumbnail("https://cdn.discordapp.com/icons/" + json.getJSONObject("guild").getString("id") + "/" + json.getJSONObject("guild").getString("icon") + ".png")
                         .build()).queue();
             } catch (JSONException ex) {
