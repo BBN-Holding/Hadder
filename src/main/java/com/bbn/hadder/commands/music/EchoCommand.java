@@ -19,6 +19,7 @@ package com.bbn.hadder.commands.music;
 import com.bbn.hadder.audio.AudioPlayerSendHandler;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.managers.AudioManager;
 
@@ -33,6 +34,10 @@ public class EchoCommand implements Command {
             audioManager.setSendingHandler(handler);
             audioManager.setReceivingHandler(handler);
             audioManager.openAudioConnection(e.getMember().getVoiceState().getChannel());
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    "commands.music.echo.success.title",
+                    "commands.music.echo.success.description")
+                    .build()).queue();
         } else {
             audioManager.closeAudioConnection();
         }
