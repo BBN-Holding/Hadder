@@ -69,9 +69,7 @@ public class InviteDetectCommand implements Command {
                 default:
                     e.getHelpCommand().sendHelp(this, e);
             }
-        } else {
-            e.getHelpCommand().sendHelp(this, e);
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

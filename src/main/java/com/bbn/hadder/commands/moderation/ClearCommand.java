@@ -92,9 +92,7 @@ public class ClearCommand implements Command {
             } else {
                 e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
             }
-        } else {
-            e.getHelpCommand().sendHelp(this, e);
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

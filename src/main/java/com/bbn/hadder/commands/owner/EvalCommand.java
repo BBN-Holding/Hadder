@@ -96,9 +96,7 @@ public class EvalCommand implements Command {
 
             }, 0, TimeUnit.MILLISECONDS);
 
-        } else {
-            e.getHelpCommand().sendHelp(this, e);
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override
