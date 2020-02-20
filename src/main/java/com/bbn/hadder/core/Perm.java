@@ -33,12 +33,6 @@ public enum Perm {
             return e.getMember().hasPermission(Permission.MESSAGE_MANAGE) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
         },
-    EMBED_MESSAGES {
-        @Override
-        public boolean check(CommandEvent e) {
-            return e.getMember().hasPermission(Permission.MESSAGE_EMBED_LINKS) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
-        }
-        },
     BAN_MEMBERS {
         @Override
         public boolean check(CommandEvent e) {

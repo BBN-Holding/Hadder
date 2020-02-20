@@ -31,7 +31,7 @@ public class InviteDetectCommand implements Command {
             String opinion = args[0].toLowerCase();
             switch (opinion) {
                 case "on":
-                    if (!e.getRethinkServer().isInviteDetect()) {
+                    if (!e.getRethinkServer().hasInviteDetect()) {
                         e.getRethinkServer().setInviteDetect(true);
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(
@@ -50,7 +50,7 @@ public class InviteDetectCommand implements Command {
                     break;
 
                 case "off":
-                    if (e.getRethinkServer().isInviteDetect()) {
+                    if (e.getRethinkServer().hasInviteDetect()) {
                         e.getRethinkServer().setInviteDetect(false);
                         e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                                 MessageEditor.MessageType.INFO,
@@ -69,9 +69,7 @@ public class InviteDetectCommand implements Command {
                 default:
                     e.getHelpCommand().sendHelp(this, e);
             }
-        } else {
-            e.getHelpCommand().sendHelp(this, e);
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

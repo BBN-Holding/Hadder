@@ -86,17 +86,16 @@ public class RegionChangeCommand implements Command {
                     case "us-south":
                         setRegion(Region.US_SOUTH, "US South", e);
                         break;
-                    /*case "south-korea":
+                    case "south-korea":
                         setRegion(Region.SOUTH_KOREA, "South Korea", e);
                         break;
-                        TODO: Publish when JDA v4.2.0 is released*/
                     default:
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
                                         "commands.moderation.regionchange.regions.title",
                                         "")
-                                        .setDescription("**LOCKED:**\n`amsterdam` `frankfurt` `eu-west` `eu-central` `london`\n\n**UNLOCKED:**\n`europe` `brazil` `hongkong` `india` `japan` `singapore` `south-africa` `sydney` `us-central` `us-east` `us-west` `us-south`")
+                                        .setDescription("**LOCKED:**\n`amsterdam` `frankfurt` `eu-west` `eu-central` `london` `south korea`\n\n**UNLOCKED:**\n`europe` `brazil` `hongkong` `india` `japan` `singapore` `south-africa` `sydney` `us-central` `us-east` `us-west` `us-south`")
                                         .build()).queue();
                         break;
                 }
@@ -124,7 +123,7 @@ public class RegionChangeCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"changeregion", "cr", "change-region"};
+        return new String[]{"changeregion", "cr", "change-region", "region"};
     }
 
     @Override

@@ -50,7 +50,7 @@ public class StarboardListener extends ListenerAdapter {
         if (e.getReaction().getReactionEmote().getName().equals("⭐")) {
             RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
             if (!rethink.hasStarboardMessage(e.getMessageId())) {
-                if (rethink.hasStarboardChannel(e.getGuild().getId())) {
+                if (rethinkServer.hasStarboardChannel()) {
                     e.getTextChannel().retrieveMessageById(e.getMessageId()).queue(
                             msg -> {
                                 int stars = 0;

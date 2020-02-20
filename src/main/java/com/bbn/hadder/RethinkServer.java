@@ -24,15 +24,15 @@ public class RethinkServer {
 
     private Rethink rethink;
 
-    String accept_emote = "";
-    String decline_emote = "";
-    String id;
-    boolean invite_detect = false;
-    String message_id = "";
-    String neededstars = "3";
-    String prefix = "h.";
-    String role_id = "";
-    String starboard = "";
+    public String accept_emote = "";
+    public String decline_emote = "";
+    public String id;
+    public boolean invite_detect = false;
+    public String message_id = "";
+    public String neededstars = "3";
+    public String prefix = "h.";
+    public String role_id = "";
+    public String starboard = "";
 
     public RethinkServer(JSONObject object, Rethink rethink) {
         for (Field field : this.getClass().getDeclaredFields()) {
@@ -68,7 +68,7 @@ public class RethinkServer {
         return id;
     }
 
-    public boolean isInviteDetect() {
+    public boolean hasInviteDetect() {
         return invite_detect;
     }
 
@@ -114,6 +114,10 @@ public class RethinkServer {
 
     public void setStarboard(String starboard) {
         this.starboard = starboard;
+    }
+
+    public boolean hasStarboardChannel() {
+        return !"".equals(starboard);
     }
 
     public void updateRules(String message_id, String role_id, String accept_emote, String decline_emote) {

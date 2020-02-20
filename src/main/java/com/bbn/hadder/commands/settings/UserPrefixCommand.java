@@ -32,9 +32,7 @@ public class UserPrefixCommand implements Command {
                             .build())
                     .queue();
             e.getRethinkUser().push();
-        } else {
-            e.getHelpCommand().sendHelp(this, e);
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class PrefixCommand implements Command {
                 e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.moderation.prefix.success.title",
-                        "✅",
+                        "",
                         "commands.moderation.prefix.success.description",
                         args[0]).build()
                 ).queue();
@@ -45,9 +45,7 @@ public class PrefixCommand implements Command {
                                 "",
                                 "commands.moderation.prefix.error.description").build()).queue();
             }
-        } else {
-            e.getHelpCommand().sendHelp(this, e);
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

@@ -58,8 +58,6 @@ public class BanCommand implements Command {
                                 "commands.moderation.ban.error.title",
                                 "commands.moderation.ban.yourself.error.description").build()).queue();
             }
-        } else if (e.getMessage().getMentionedMembers().size() == 0) {
-            e.getHelpCommand().sendHelp(this, e);
         } else if (e.getMessage().getMentionedMembers().size() > 1) {
             for (int i = 0; i < e.getMessage().getMentionedMembers().size(); i++) {
                 Member member = e.getMessage().getMentionedMembers().get(i);
@@ -89,7 +87,7 @@ public class BanCommand implements Command {
                     "",
                     "commands.moderation.ban.massban.success.description",
                     String.valueOf(e.getMessage().getMentionedMembers().size())).build()).queue();
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override
