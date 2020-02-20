@@ -112,4 +112,3 @@ public class BanCommand implements Command {
         return "@Skidder";
     }
 }
-
