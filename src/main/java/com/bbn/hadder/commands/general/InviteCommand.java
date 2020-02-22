@@ -16,7 +16,6 @@
 
 package com.bbn.hadder.commands.general;
 
-import com.bbn.hadder.Hadder;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.MessageEditor;
@@ -32,7 +31,7 @@ public class InviteCommand implements Command {
                         "",
                         "commands.general.invite.success.description",
                         "(https://discordapp.com/oauth2/authorize?client_id="
-                                + Hadder.shardManager.getGuilds().get(0).getSelfMember().getId()
+                                + e.getJDA().getSelfUser().getId()
                                 + "&scope=bot&permissions=1043852663)")
                 .build()).queue();
     }
