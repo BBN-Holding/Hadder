@@ -76,10 +76,10 @@ public class Config {
                 .key("DiscordBestBots").value(null)
                 .key("DiscordBoats").value(null)
                 .key("YetAnotherBotList").value(null)
-                .value("DiscordExtremeList").value(null)
-                .value("DiscordBotReviews").value(null)
-                .value("DiscordBots").value(null)
-                .value("BotListSpace").value(null)
+                .key("DiscordExtremeList").value(null)
+                .key("DiscordBotReviews").value(null)
+                .key("DiscordBots").value(null)
+                .key("BotListSpace").value(null)
                 .endObject().endObject().toString();
     }
 
