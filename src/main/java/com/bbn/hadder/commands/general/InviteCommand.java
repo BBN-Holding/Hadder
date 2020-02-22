@@ -33,7 +33,7 @@ public class InviteCommand implements Command {
                         "commands.general.invite.success.description",
                         "(https://discordapp.com/oauth2/authorize?client_id="
                                 + Hadder.shardManager.getGuilds().get(0).getSelfMember().getId()
-                                + "&scope=bot&permissions=470133879)")
+                                + "&scope=bot&permissions=1043852663)")
                 .build()).queue();
     }
 
