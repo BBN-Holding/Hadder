@@ -142,7 +142,7 @@ public class Config {
     public String getDiscordExtremeListToken() {
         return config.getJSONObject("Tokens").getString("DiscordExtremeList");
     }
-    
+
     public String getDiscordBotsToken() {
         return config.getJSONObject("Tokens").getString("DiscordBots");
     }
