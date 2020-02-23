@@ -70,17 +70,22 @@ public class Config {
                 .key("Tokens").object()
                 .key("BotToken").value(null)
                 .key("Giphy").value(null)
+                .key("GitHub").value(null)
                 .key("MythicalBotList").value(null)
                 .key("BotsForDiscord").value(null)
                 .key("DiscordBotList").value(null)
-                .key("DiscordBestBots").value(null)
                 .key("DiscordBoats").value(null)
                 .key("YetAnotherBotList").value(null)
                 .key("DiscordExtremeList").value(null)
                 .key("DiscordBotReviews").value(null)
                 .key("DiscordBots").value(null)
                 .key("BotListSpace").value(null)
-                .endObject().endObject().toString();
+                .key("DiscordBots2").value(null)
+                .key("CloudList").value(null)
+                .key("Arcane").value(null)
+                .endObject()
+                .key("Clyde").value("Clyde")
+                .endObject().toString();
     }
 
     public String getBotToken() {
@@ -157,6 +162,10 @@ public class Config {
 
     public String getCloudListToken() {
         return config.getJSONObject("Tokens").getString("CloudList");
+    }
+
+    public String getArcaneToken() {
+        return config.getJSONObject("Tokens").getString("Arcane");
     }
 
     public String getClydeName() {
