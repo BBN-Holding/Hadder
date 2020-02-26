@@ -56,7 +56,7 @@ public class RulesCommand implements Command {
                     try {
                         TextChannel channel = e1.getGuild().getTextChannelsByName(e1.getMessage().getContentRaw(), true).get(0);
                         createRules(e, e1, channel);
-                    } catch (NullPointerException ex) {
+                    } catch (NullPointerException | IndexOutOfBoundsException ex) {
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.ERROR,
