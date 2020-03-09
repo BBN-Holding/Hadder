@@ -53,7 +53,7 @@ public class Rethink {
 
     private JSONArray getAsArray(String table, String where, String value) {
         try {
-            String string = r.table(table).filter(row -> row.g(where.toLowerCase()).eq(value)).coerceTo("array").toJson().run(conn).toString();
+            String string = r.table(table).filter(row -> row.g(where.toLowerCase()).eq(value)).coerceTo("array").toJson().run(conn);
             return new JSONArray(string);
         } catch (NoSuchElementException e) {
             return null;
@@ -77,7 +77,7 @@ public class Rethink {
     }
 
     public JSONObject getObjectByID(String table, String id) {
-        String response = r.table(table).get(id).toJson().run(conn).toString();
+        String response = r.table(table).get(id).toJson().run(conn);
         return new JSONObject(response);
     }
 
