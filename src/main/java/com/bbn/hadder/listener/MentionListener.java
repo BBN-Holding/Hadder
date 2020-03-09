@@ -50,7 +50,7 @@ public class MentionListener extends ListenerAdapter {
                 MavenXpp3Reader reader = new MavenXpp3Reader();
                 Model model = null;
                 try {
-                    model = reader.read(this.getClass().getClassLoader().getResourceAsStream("pom.xml"));
+                    model = reader.read(getClass().getResourceAsStream("pom.xml"));
                 } catch (IOException | XmlPullParserException ex) {
                     ex.printStackTrace();
                 }
