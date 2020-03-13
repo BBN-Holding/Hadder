@@ -26,53 +26,59 @@ public enum Perm {
         public boolean check(CommandEvent e) {
             return e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
-        },
+    },
     MANAGE_MESSAGES {
         @Override
         public boolean check(CommandEvent e) {
             return e.getMember().hasPermission(Permission.MESSAGE_MANAGE) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
-        },
+    },
     BAN_MEMBERS {
         @Override
         public boolean check(CommandEvent e) {
             return e.getMember().hasPermission(Permission.BAN_MEMBERS) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
-        },
+    },
     KICK_MEMBERS {
         @Override
         public boolean check(CommandEvent e) {
             return e.getMember().hasPermission(Permission.KICK_MEMBERS) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
-        },
+    },
     MANAGE_SERVER {
         @Override
         public boolean check(CommandEvent e) {
             return e.getMember().hasPermission(Permission.MANAGE_SERVER) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
-        },
+    },
     MANAGE_ROLES {
         @Override
         public boolean check(CommandEvent e) {
             return e.getMember().hasPermission(Permission.MANAGE_ROLES) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
-        },
+    },
     MANAGE_NICKNAMES {
         @Override
         public boolean check(CommandEvent e) {
             return e.getMember().hasPermission(Permission.NICKNAME_MANAGE) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
-        },
+    },
     ADMINISTRATOR {
         @Override
         public boolean check(CommandEvent e) {
             return e.getMember().hasPermission(Permission.ADMINISTRATOR) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
-        },
+    },
     MANAGE_WEBHOOKS {
         @Override
         public boolean check(CommandEvent e) {
             return e.getMember().hasPermission(Permission.MANAGE_WEBHOOKS) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
+        }
+    },
+    VOICE_MOVE_OTHERS {
+        @Override
+        public boolean check(CommandEvent e) {
+            return e.getMember().hasPermission(Permission.VOICE_MOVE_OTHERS) || e.getConfig().getOwners().contains(e.getAuthor().getIdLong());
         }
     };
 
