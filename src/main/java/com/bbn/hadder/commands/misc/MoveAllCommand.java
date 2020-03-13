@@ -21,13 +21,12 @@ public class MoveAllCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (args.length == 2) {
-            int count = 0;
             Objects.requireNonNull(e.getGuild().getVoiceChannelById(args[0])).getMembers().forEach(
                     member -> {
                         e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue();
                     }
             );
-            e.getChannel().sendMessage(new EmbedBuilder().setTitle("Successfully Moved!").setDescription("I moved " + 
+            e.getChannel().sendMessage(new EmbedBuilder().setTitle("Successfully Moved!").setDescription("I moved " +
                     Objects.requireNonNull(e.getGuild().getVoiceChannelById(args[0])).getMembers().size() + " Members. Have fun!").build()).queue();
         } else {
             e.getHelpCommand().sendHelp(this, e);
