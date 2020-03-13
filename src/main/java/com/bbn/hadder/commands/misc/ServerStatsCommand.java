@@ -42,7 +42,8 @@ public class ServerStatsCommand implements Command {
                 .addField("MFA Level", String.valueOf(e.getGuild().getRequiredMFALevel().getKey()), true)
                 .addField("Member Count", String.valueOf(e.getGuild().getMemberCount()), true)
                 .addField("Explicit Content Level", e.getGuild().getExplicitContentLevel().getKey() + ": " + e.getGuild().getExplicitContentLevel(), true)
-                //TODO: Features
+                .addField("Features", e.getGuild().getFeatures().toString().replaceAll("\\[", "`").replaceAll(",", "`, `").replaceAll("]", "`"), true)
+                .addBlankField(true)
                 .setThumbnail(e.getGuild().getIconUrl())
                 .setImage(e.getGuild().getBannerUrl());
 

@@ -54,8 +54,6 @@ public class KickCommand implements Command {
             } else {
                 e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.moderation.kick.error.title", "commands.moderation.kick.yourself.error.description").build()).queue();
             }
-        } else if (e.getMessage().getMentionedMembers().size() == 0) {
-            e.getHelpCommand().sendHelp(this, e);
         } else if (e.getMessage().getMentionedMembers().size() > 1) {
             for (int i = 0; i < e.getMessage().getMentionedMembers().size(); i++) {
                 Member member = e.getMessage().getMentionedMembers().get(i);
@@ -74,7 +72,7 @@ public class KickCommand implements Command {
                 }
             }
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.moderation.kick.success.title", "✅", "commands.moderation.kick.masskick.success.description", String.valueOf(e.getMessage().getMentionedMembers().size())).build()).queue();
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

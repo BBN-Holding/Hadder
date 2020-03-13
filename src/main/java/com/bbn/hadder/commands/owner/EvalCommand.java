@@ -43,7 +43,6 @@ public class EvalCommand implements Command {
             } catch (ScriptException ex) {
                 ex.printStackTrace();
             }
-
             engine.put("msg".toLowerCase(), e.getMessage());
             engine.put("shardmanager".toLowerCase(), Hadder.shardManager);
             engine.put("rethink".toLowerCase(), e.getRethink());
@@ -97,9 +96,7 @@ public class EvalCommand implements Command {
 
             }, 0, TimeUnit.MILLISECONDS);
 
-        } else {
-            e.getHelpCommand().sendHelp(this, e);
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

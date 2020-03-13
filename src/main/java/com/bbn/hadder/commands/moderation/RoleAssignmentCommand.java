@@ -10,48 +10,47 @@
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
+ *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
-package com.bbn.hadder.commands.settings;
+package com.bbn.hadder.commands.moderation;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.core.Perm;
+import com.bbn.hadder.core.Perms;
 import com.bbn.hadder.utils.MessageEditor;
+import net.dv8tion.jda.api.Permission;
 
-public class UserPrefixCommand implements Command {
+@Perms(Perm.MANAGE_ROLES)
+public class RoleAssignmentCommand implements Command {
 
+    @Override
     public void executed(String[] args, CommandEvent e) {
-        if (args.length == 1) {
-            e.getRethinkUser().setPrefix(args[0]);
-            e.getTextChannel()
-                    .sendMessage(e.getMessageEditor()
-                            .getMessage(MessageEditor.MessageType.INFO, "commands.settings.prefix.success.title", "",
-                                    "commands.settings.prefix.success.description", args[0])
-                            .build())
-                    .queue();
-            e.getRethinkUser().push();
-        } else e.getHelpCommand().sendHelp(this, e);
+        //TODO: THIS LOL
+        if (e.getGuild().getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
+
+        } else e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
     }
 
     @Override
     public String[] labels() {
-        return new String[] { "userprefix" };
+        return new String[0];
     }
 
     @Override
     public String description() {
-        return "commands.settings.prefix.help.description";
+        return null;
     }
 
     @Override
     public String usage() {
-        return "[new prefix]";
+        return null;
     }
 
     @Override
     public String example() {
-        return "!";
+        return null;
     }
 }

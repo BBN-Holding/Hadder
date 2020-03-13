@@ -39,12 +39,10 @@ public class StarboardCommand implements Command {
                 if (channel!=null) {
                     e.getRethinkServer().setStarboard(channel.getId());
                 }
-            } else {
-                e.getHelpCommand().sendHelp(this, e);
-            }
+            } else e.getHelpCommand().sendHelp(this, e);
         }
 
-        if (args.length==2) {
+        if (args.length == 2) {
             e.getRethinkServer().setNeededStars(args[1]);
         }
 

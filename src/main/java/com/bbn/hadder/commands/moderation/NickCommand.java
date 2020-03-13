@@ -54,9 +54,7 @@ public class NickCommand implements Command {
                                                 "commands.moderation.nick.success.description", e.getMessage().getMentionedMembers().get(0).getUser().getAsTag()
                                         ).build()).queue();
                             }
-                        } else {
-                            e.getHelpCommand().sendHelp(this, e);
-                        }
+                        } else e.getHelpCommand().sendHelp(this, e);
                     } else {
                         e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                     }
@@ -81,9 +79,7 @@ public class NickCommand implements Command {
                                 ).build()).queue();
                     }
                 }
-            } else if (e.getMessage().getMentionedMembers().size() == 0) {
-                e.getHelpCommand().sendHelp(this, e);
-            } else {
+            } else if (e.getMessage().getMentionedUsers().size() > 1) {
                 for (int i = 0; i < e.getMessage().getMentionedMembers().size(); i++) {
                     Member member = e.getMessage().getMentionedMembers().get(i);
                     if (!e.getJDA().getSelfUser().getId().equals(member.getId())) {
@@ -99,7 +95,7 @@ public class NickCommand implements Command {
                                 "✅",
                                 "commands.moderation.nick.myself.success.description", String.valueOf(e.getMessage().getMentionedMembers().size())
                         ).build()).queue();
-            }
+            } else e.getHelpCommand().sendHelp(this, e);
         } else {
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
         }

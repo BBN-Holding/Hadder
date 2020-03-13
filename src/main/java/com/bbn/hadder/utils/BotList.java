@@ -36,11 +36,11 @@ public class BotList {
     private static String DiscordBoats = "https://discord.boats/api/bot/637002314162372639";
     private static String YetAnotherBotList = "https://yabl.xyz/api/bot/637002314162372639/stats";
     private static String DiscordExtremeList = "https://api.discordextremelist.xyz/v1/bot/637002314162372639";
-    private static String DiscordBotReviews = "https://discordbotreviews.xyz/api/bot/637002314162372639/stats";
     private static String DiscordBots = "https://top.gg/api/bots/637002314162372639/stats";
     private static String BotListSpace = "https://api.botlist.space/v1/bots/637002314162372639";
     private static String DiscordBots2 = "https://discord.bots.gg/api/v1/bots/637002314162372639/stats";
     private static String CloudList = "https://www.cloudlist.xyz/api/stats/637002314162372639";
+    private static String ArcaneBotCenter = "https://arcane-botcenter.xyz/api/637002314162372639/stats";
 
     private Config config;
 
@@ -58,6 +58,7 @@ public class BotList {
             json.put("users", Hadder.shardManager.getUsers().size());
             json.put("shard_count", Hadder.shardManager.getShards().size());
             json.put("shardCount", Hadder.shardManager.getShards().size());
+            json.put("member_count", Hadder.shardManager.getUsers().size());
 
             RequestBody body = RequestBody.create(MediaType.parse("application/json"), json.toString());
 
@@ -151,21 +152,6 @@ public class BotList {
                 e.printStackTrace();
             }
 
-            // Discord Bot Reviews
-
-            Request discordbotreviews = new Request.Builder()
-                    .url(DiscordBotReviews)
-                    .post(body)
-                    .addHeader("Authorization", config.getDiscordBotReviewsToken())
-                    .build();
-
-            try {
-                new OkHttpClient().newCall(discordbotreviews).execute().close();
-                System.out.println("Successfully posted count to Discord Bot Reviews!");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             // Discord Bots
 
             Request discordbots = new Request.Builder()
@@ -222,6 +208,21 @@ public class BotList {
             try {
                 new OkHttpClient().newCall(cloudlist).execute().close();
                 System.out.println("Successfully posted count to the CloudList!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Arcane Bot Center
+
+            Request arcane = new Request.Builder()
+                    .url(ArcaneBotCenter)
+                    .post(body)
+                    .addHeader("Authorization", config.getArcaneToken())
+                    .build();
+
+            try {
+                new OkHttpClient().newCall(arcane).execute().close();
+                System.out.println("Successfully posted count to the Arcane Bot Center!");
             } catch (IOException e) {
                 e.printStackTrace();
             }

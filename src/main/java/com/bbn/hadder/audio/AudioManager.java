@@ -76,17 +76,31 @@ public class AudioManager {
 
             @Override
             public void trackLoaded(AudioTrack track) {
-                getTrackManager(guild).queue(track, event.getMember());
-                msg.editMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                        "commands.music.play.success.loading.title", "⏯",
-                        "", "")
-                        .addField(event.getMessageEditor().getTerm("commands.music.play.success.title"), track.getInfo().title, false)
-                        .addField(event.getMessageEditor().getTerm("commands.music.play.success.author"), track.getInfo().author, true)
-                        .addField(event.getMessageEditor().getTerm("commands.music.play.success.length"),
-                                String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(track.getInfo().length),
-                                        TimeUnit.MILLISECONDS.toMinutes(track.getInfo().length) % TimeUnit.HOURS.toMinutes(1),
-                                        TimeUnit.MILLISECONDS.toSeconds(track.getInfo().length) % TimeUnit.MINUTES.toSeconds(1)), true)
-                        .build()).queue();
+                if (getTrackManager(guild).getQueuedTracks().isEmpty()) {
+                    getTrackManager(guild).queue(track, event.getMember());
+                    msg.editMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                            "commands.music.play.success.loading.title", "⏯",
+                            "", "")
+                            .addField(event.getMessageEditor().getTerm("commands.music.play.success.title"), track.getInfo().title, false)
+                            .addField(event.getMessageEditor().getTerm("commands.music.play.success.author"), track.getInfo().author, true)
+                            .addField(event.getMessageEditor().getTerm("commands.music.play.success.length"),
+                                    String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(track.getInfo().length),
+                                            TimeUnit.MILLISECONDS.toMinutes(track.getInfo().length) % TimeUnit.HOURS.toMinutes(1),
+                                            TimeUnit.MILLISECONDS.toSeconds(track.getInfo().length) % TimeUnit.MINUTES.toSeconds(1)), true)
+                            .build()).queue();
+                } else {
+                    getTrackManager(guild).queue(track, event.getMember());
+                    msg.editMessage(event.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                            "commands.music.play.success.queueing.title", "⏺",
+                            "", "")
+                            .addField(event.getMessageEditor().getTerm("commands.music.play.success.title"), track.getInfo().title, false)
+                            .addField(event.getMessageEditor().getTerm("commands.music.play.success.author"), track.getInfo().author, true)
+                            .addField(event.getMessageEditor().getTerm("commands.music.play.success.length"),
+                                    String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(track.getInfo().length),
+                                            TimeUnit.MILLISECONDS.toMinutes(track.getInfo().length) % TimeUnit.HOURS.toMinutes(1),
+                                            TimeUnit.MILLISECONDS.toSeconds(track.getInfo().length) % TimeUnit.MINUTES.toSeconds(1)), true)
+                            .build()).queue();
+                }
             }
 
             @Override
@@ -148,5 +162,4 @@ public class AudioManager {
         s = s - (minutes * 60);
         return (hours == 0 ? "" : hours + ":") + String.format("%02d", minutes) + ":" + String.format("%02d", s);
     }
-
 }

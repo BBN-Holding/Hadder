@@ -18,6 +18,7 @@ package com.bbn.hadder;
 
 import com.bbn.hadder.core.Config;
 import com.rethinkdb.RethinkDB;
+import com.rethinkdb.gen.exc.ReqlNonExistenceError;
 import com.rethinkdb.gen.exc.ReqlOpFailedError;
 import com.rethinkdb.net.Connection;
 import org.json.JSONArray;
@@ -25,7 +26,6 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.NoSuchElementException;
-
 
 public class Rethink {
     private RethinkDB r = RethinkDB.r;
@@ -49,11 +49,6 @@ public class Rethink {
             e.printStackTrace();
             System.out.println("DB CONNECTION FAILED");
         }
-    }
-
-    public void disconnect() {
-        conn.close();
-        System.out.println("DISCONNECTED");
     }
 
     private JSONArray getAsArray(String table, String where, String value) {
@@ -141,27 +136,26 @@ public class Rethink {
                 .with("blacklisted", "none"));
     }
 
-    // TODO
-    public boolean hasStarboardChannel(String guild_id) {
-        return !this.getByID("server", guild_id, "starboard").equals("");
-    }
-    // TODO
     public void insertStarboardMessage(String message_id, String guild_id, String starboard_message_id) {
         this.insert("stars", r.hashMap("id", message_id).with("guild", guild_id).with("starboardmsg", starboard_message_id));
     }
-    // TODO
+
     public String getStarboardMessage(String message_id) {
         return (String) this.getByID("stars", message_id, "starboardmsg");
     }
-    // TODO
+
     public void removeStarboardMessage(String message_id) {
         this.remove("stars", "id", message_id);
     }
-    // TODO
-    public boolean hasStarboardMessage(String message_id) {
-        return this.getByID("stars", message_id, "guild") != null;
-    }
 
+    public boolean hasStarboardMessage(String message_id) {
+        try {
+            this.getByID("stars", message_id, "guild");
+            return true;
+        } catch (ReqlNonExistenceError e) {
+            return false;
+        }
+    }
 
     public void pushServer(RethinkServer server) {
         JSONObject object = new JSONObject();
@@ -190,5 +184,4 @@ public class Rethink {
         }
         r.table("user").get(user.getId()).update(object.toMap()).run(conn);
     }
-
 }

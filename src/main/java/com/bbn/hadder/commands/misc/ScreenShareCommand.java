@@ -74,9 +74,7 @@ public class ScreenShareCommand implements Command {
                             .setDescription("http://discordapp.com/channels/" + e.getGuild().getId() + "/" + vcs.get(0).getId() + "/").build()).queue();
                 }
             }
-        } else {
-            e.getHelpCommand().sendHelp(this, e);
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override

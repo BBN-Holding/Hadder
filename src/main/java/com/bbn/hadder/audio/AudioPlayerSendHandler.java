@@ -18,15 +18,20 @@ package com.bbn.hadder.audio;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
+import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
+import net.dv8tion.jda.api.audio.CombinedAudio;
 
 import javax.annotation.Nullable;
 import java.nio.ByteBuffer;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class AudioPlayerSendHandler implements AudioSendHandler {
+public class AudioPlayerSendHandler implements AudioSendHandler, AudioReceiveHandler {
 
     private final AudioPlayer audioPlayer;
     private AudioFrame lastFrame;
+    private final Queue<byte[]> queue = new ConcurrentLinkedQueue<>();
 
     public AudioPlayerSendHandler(AudioPlayer audioPlayer) {
         this.audioPlayer = audioPlayer;
@@ -34,28 +39,49 @@ public class AudioPlayerSendHandler implements AudioSendHandler {
 
     @Override
     public boolean canProvide() {
-        if (lastFrame == null) {
+        if (audioPlayer.getPlayingTrack() == null)
+            return !queue.isEmpty();
+        else if (lastFrame == null) {
             lastFrame = audioPlayer.provide();
+            return lastFrame != null;
         }
-
-        return lastFrame != null;
+        return false;
     }
 
     @Nullable
     @Override
     public ByteBuffer provide20MsAudio() {
-        if (lastFrame == null) {
-            lastFrame = audioPlayer.provide();
+        if (audioPlayer.getPlayingTrack() == null) {
+            byte[] data = queue.poll();
+            return data == null ? null : ByteBuffer.wrap(data);
+        } else {
+            if (lastFrame == null) {
+                lastFrame = audioPlayer.provide();
+            }
+
+            byte[] data = lastFrame != null ? lastFrame.getData() : null;
+            lastFrame = null;
+
+            return ByteBuffer.wrap(data);
         }
+    }
 
-        byte[] data = lastFrame != null ? lastFrame.getData() : null;
-        lastFrame = null;
+    @Override
+    public boolean canReceiveCombined() {
+        return queue.size() < 10;
+    }
 
-        return ByteBuffer.wrap(data);
+    @Override
+    public void handleCombinedAudio(CombinedAudio combinedAudio) {
+        if (combinedAudio.getUsers().isEmpty())
+            return;
+
+        byte[] data = combinedAudio.getAudioData(1.0f);
+        queue.add(data);
     }
 
     @Override
     public boolean isOpus() {
-        return true;
+        return audioPlayer.getPlayingTrack() != null;
     }
 }

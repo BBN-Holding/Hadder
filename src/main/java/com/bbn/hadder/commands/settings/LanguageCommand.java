@@ -54,9 +54,7 @@ public class LanguageCommand implements Command {
                             .build()).queue();
                 break;
             }
-        } else {
-            e.getHelpCommand().sendHelp(this, e);
-        }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     public void setLanguage(String language_code, String language, CommandEvent e) {
