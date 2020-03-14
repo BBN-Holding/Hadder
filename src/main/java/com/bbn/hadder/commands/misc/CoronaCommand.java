@@ -18,12 +18,33 @@ package com.bbn.hadder.commands.misc;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
+import com.bbn.hadder.utils.MessageEditor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class CoronaCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url("https://api.covid.stream/latest/numbers").build();
 
+        try {
+            Response response = client.newCall(request).execute();
+            JSONObject json = new JSONObject(response.body().string()).getJSONObject("data");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("`Confirmed cases:` **").append(json.get("totalConfirmedNumber")).append("**\n").append("`Deaths:` **").append(json.get("totalDeathNumbers")).append("** \n").append("`Recovered:`" ).append("** \n");
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO).setDescription(stringBuilder).build()).queue();
+        } catch (IOException ex) {
+            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR)
+                            .setTitle("API Error")
+                            .setDescription("Try again later!")
+                            .build()).queue();
+        }
     }
 
     @Override
