@@ -37,7 +37,7 @@ public class CoronaCommand implements Command {
             Response response = client.newCall(request).execute();
             JSONObject json = new JSONObject(response.body().string()).getJSONObject("data");
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("`Confirmed cases:` **").append(json.get("totalConfirmedNumber")).append("**\n").append("`Deaths:` **").append(json.get("totalDeathNumbers")).append("** \n").append("`Recovered:`" ).append("** \n");
+            stringBuilder.append("`Confirmed cases:` **").append(json.get("totalConfirmedNumbers")).append("**\n").append("`Deaths:` **").append(json.get("totalDeathNumbers")).append("** \n").append("`Recovered:` **").append(json.get("totalRecoveredNumbers")).append("** \n");
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO).setDescription(stringBuilder).build()).queue();
         } catch (IOException ex) {
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR)
