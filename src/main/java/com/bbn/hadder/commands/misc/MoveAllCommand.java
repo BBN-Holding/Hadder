@@ -20,24 +20,22 @@ import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
-import net.dv8tion.jda.api.EmbedBuilder;
+import com.bbn.hadder.utils.MessageEditor;
 
-import java.util.Objects;
-
+@Perms(Perm.VOICE_MOVE_OTHERS)
 public class MoveAllCommand implements Command {
 
-    @Perms(Perm.VOICE_MOVE_OTHERS)
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (args.length == 2) {
-            int count = Objects.requireNonNull(e.getGuild().getVoiceChannelById(args[0])).getMembers().size();
-            Objects.requireNonNull(e.getGuild().getVoiceChannelById(args[0])).getMembers().forEach(
-                    member -> {
-                        e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue();
-                    }
+            int count = e.getGuild().getVoiceChannelById(args[0]).getMembers().size();
+            e.getGuild().getVoiceChannelById(args[0]).getMembers().forEach(
+                    member -> e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue()
             );
-            e.getChannel().sendMessage(new EmbedBuilder().setTitle("Successfully Moved!").setDescription("I moved " +
-                     count + " Members. Have fun!").build()).queue();
+            e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                    "commands.misc.moveall.success.title", "",
+                    "commands.misc.moveall.success.description", String.valueOf(count))
+                    .build()).queue();
         } else e.getHelpCommand().sendHelp(this, e);
     }
 
