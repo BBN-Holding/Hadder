@@ -25,6 +25,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
@@ -64,13 +65,17 @@ public class CommandListener extends ListenerAdapter {
                         }
                     }
                 } else {
-                    e.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()
-                            .setTitle("No permission")
-                            .setDescription("I need the `MESSAGE EMBED LINKS` permission in order to work!")
-                            .setColor(Color.RED)
-                            .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
-                            .setTimestamp(Instant.now())
-                            .build()).queue();
+                    try {
+                        e.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()
+                                .setTitle("No permission")
+                                .setDescription("I need the `MESSAGE EMBED LINKS` permission in order to work!")
+                                .setColor(Color.RED)
+                                .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                                .setTimestamp(Instant.now())
+                                .build()).queue();
+                    } catch (ErrorResponseException ex) {
+                        e.getTextChannel().sendMessage("I need the `MESSAGE EMBED LINKS` permission in order to work!").queue();
+                    }
                 }
             } else {
                 e.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()

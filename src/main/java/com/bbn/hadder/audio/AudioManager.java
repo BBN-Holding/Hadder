@@ -162,5 +162,4 @@ public class AudioManager {
         s = s - (minutes * 60);
         return (hours == 0 ? "" : hours + ":") + String.format("%02d", minutes) + ":" + String.format("%02d", s);
     }
-
 }
