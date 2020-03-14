@@ -8,6 +8,7 @@ import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 
@@ -20,9 +21,14 @@ public class MoveAllCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (args.length == 2) {
+            int count = Objects.requireNonNull(e.getGuild().getVoiceChannelById(args[0])).getMembers().size();
             Objects.requireNonNull(e.getGuild().getVoiceChannelById(args[0])).getMembers().forEach(
-                    member -> e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue()
+                    member -> {
+                        e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue();
+                    }
             );
+            e.getChannel().sendMessage(new EmbedBuilder().setTitle("Successfully Moved!").setDescription("I moved " +
+                     count + " Members. Have fun!").build()).queue();
         } else {
             e.getHelpCommand().sendHelp(this, e);
         }
