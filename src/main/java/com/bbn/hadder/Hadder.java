@@ -127,7 +127,8 @@ public class Hadder {
                         new ServerStatsCommand(),
                         new ProfileCommand(),
                         new CodeCommand(),
-                        new MoveAllCommand()), config, helpCommand);
+                        new MoveAllCommand(),
+                        new CoronaCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),
