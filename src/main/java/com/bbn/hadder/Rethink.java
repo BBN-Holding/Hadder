@@ -72,8 +72,8 @@ public class Rethink {
         else return null;
     }
 
-    public Object getByID(String table, String wherevalue, String column) {
-        return r.table(table).get(wherevalue).getField(column).run(conn);
+    public Object getByID(String table, String where, String column) {
+        return r.table(table).get(where).getField(column).run(conn);
     }
 
     public JSONObject getObjectByID(String table, String id) {
