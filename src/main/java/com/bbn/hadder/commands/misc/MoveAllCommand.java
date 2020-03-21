@@ -20,6 +20,7 @@ import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
 import com.bbn.hadder.utils.MessageEditor;
+import org.apache.commons.lang3.StringUtils;
 
 @Perms(Perm.VOICE_MOVE_OTHERS)
 public class MoveAllCommand implements Command {
@@ -27,14 +28,26 @@ public class MoveAllCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (args.length == 2) {
-            int count = e.getGuild().getVoiceChannelById(args[0]).getMembers().size();
-            e.getGuild().getVoiceChannelById(args[0]).getMembers().forEach(
-                    member -> e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue()
-            );
-            e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                    "commands.misc.moveall.success.title", "",
-                    "commands.misc.moveall.success.description", String.valueOf(count))
-                    .build()).queue();
+            if (StringUtils.isNumeric(args[0]) && args[0].length() == 18) {
+                if (StringUtils.isNumeric(args[1]) && args[1].length() == 18) {
+                    int count = e.getGuild().getVoiceChannelById(args[0]).getMembers().size();
+                    e.getGuild().getVoiceChannelById(args[0]).getMembers().forEach(
+                            member -> e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue()
+                    );
+                    e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                            "commands.misc.moveall.success.title", "",
+                            "commands.misc.moveall.success.description", String.valueOf(count))
+                            .build()).queue();
+                } else {
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                            "commands.misc.moveall.error.target.int.title",
+                            "commands.misc.moveall.error.target.int.description").build()).queue();
+                }
+            } else {
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        "commands.misc.moveall.error.source.int.title",
+                        "commands.misc.moveall.error.source.int.description").build()).queue();
+            }
         } else e.getHelpCommand().sendHelp(this, e);
     }
 
