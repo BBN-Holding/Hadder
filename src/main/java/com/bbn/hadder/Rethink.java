@@ -78,6 +78,7 @@ public class Rethink {
 
     public JSONObject getObjectByID(String table, String id) {
         String response = r.table(table).get(id).toJson().run(conn);
+        System.out.println(response);
         return new JSONObject(response);
     }
 
