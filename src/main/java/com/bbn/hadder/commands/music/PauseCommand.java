@@ -34,8 +34,8 @@ public class PauseCommand implements Command {
                             .build()).queue();
                 } else {
                     e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
-                            "commands.music.pause.error.paused.title",
-                            "commands.music.pause.error.paused.description")
+                            "commands.music.pause.error.paused.title", "",
+                            "commands.music.pause.error.paused.description", e.getRethinkServer().getPrefix())
                             .build()).queue();
                 }
             } else {
