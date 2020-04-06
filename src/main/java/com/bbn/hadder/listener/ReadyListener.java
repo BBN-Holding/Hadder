@@ -40,11 +40,13 @@ public class ReadyListener extends ListenerAdapter {
     public void onReady(@Nonnull ReadyEvent e) {
         rethink.setup();
         new Thread(() -> {
-            for (User user : e.getJDA().getUsers()) {
-                if (!user.getId().equals(e.getJDA().getSelfUser().getId())) {
-                    rethink.insertUser(user.getId());
-                }
-            }
+            e.getJDA().getGuilds().forEach(guild -> guild.retrieveMembers().thenApply((v) -> guild.getMemberCache()).thenAccept((members) -> {
+                members.forEach((member) -> {
+                    if (!member.getId().equals(e.getJDA().getSelfUser().getId())) {
+                    rethink.insertUser(member.getId());
+                    }
+                });
+            }));
             for (Guild g : e.getJDA().getGuilds()) {
                 rethink.insertGuild(g.getId());
             }
