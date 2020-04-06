@@ -51,7 +51,7 @@ public class Hadder {
         Rethink rethink = new Rethink(config);
         rethink.connect();
 
-        DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder());
+        DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
 
         builder.setAutoReconnect(true);
         builder.setShardsTotal(1);
