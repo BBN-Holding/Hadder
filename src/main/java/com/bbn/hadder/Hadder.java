@@ -51,7 +51,7 @@ public class Hadder {
         Rethink rethink = new Rethink(config);
         rethink.connect();
 
-        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(config.getBotToken());
+        DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder());
 
         builder.setAutoReconnect(true);
         builder.setShardsTotal(1);
@@ -59,6 +59,7 @@ public class Hadder {
         builder.setBulkDeleteSplittingEnabled(true);
         builder.setActivity(Activity.listening("to h.help"));
         builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
+        builder.setToken(config.getBotToken());
 
         HelpCommand helpCommand = new HelpCommand();
         AudioManager audioManager = new AudioManager();
