@@ -22,6 +22,7 @@ import com.rethinkdb.gen.exc.ReqlNonExistenceError;
 import com.rethinkdb.gen.exc.ReqlOpFailedError;
 import com.rethinkdb.net.Connection;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
@@ -78,7 +79,12 @@ public class Rethink {
 
     public JSONObject getObjectByID(String table, String id) {
         String response = r.table(table).get(id).toJson().run(conn);
-        return new JSONObject(response);
+        try {
+            return new JSONObject(response);
+        } catch (JSONException e) {
+            System.out.println(response);
+            return null;
+        }
     }
 
     public void insert(String table, Object object) {

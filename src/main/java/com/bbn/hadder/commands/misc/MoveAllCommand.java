@@ -30,14 +30,21 @@ public class MoveAllCommand implements Command {
         if (args.length == 2) {
             if (StringUtils.isNumeric(args[0]) && args[0].length() == 18) {
                 if (StringUtils.isNumeric(args[1]) && args[1].length() == 18) {
-                    int count = e.getGuild().getVoiceChannelById(args[0]).getMembers().size();
-                    e.getGuild().getVoiceChannelById(args[0]).getMembers().forEach(
-                            member -> e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue()
-                    );
-                    e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                            "commands.misc.moveall.success.title", "",
-                            "commands.misc.moveall.success.description", String.valueOf(count))
-                            .build()).queue();
+                    if (!args[0].equals(args[1])) {
+                        int count = e.getGuild().getVoiceChannelById(args[0]).getMembers().size();
+                        e.getGuild().getVoiceChannelById(args[0]).getMembers().forEach(
+                                member -> e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue()
+                        );
+                        e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                                "commands.misc.moveall.success.title", "",
+                                "commands.misc.moveall.success.description", String.valueOf(count))
+                                .build()).queue();
+                    } else {
+                        e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                                "commands.misc.moveall.error.equals.title",
+                                "commands.misc.moveall.error.equals.description")
+                                .build()).queue();
+                    }
                 } else {
                     e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                             "commands.misc.moveall.error.target.int.title",
