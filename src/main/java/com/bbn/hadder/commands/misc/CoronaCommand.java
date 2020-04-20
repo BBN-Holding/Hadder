@@ -31,13 +31,17 @@ public class CoronaCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent e) {
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("https://corona.lmao.ninja/all").build();
+        Request request = new Request.Builder().url("https://corona.lmao.ninja/v2/all").build();
 
         try {
             Response response = client.newCall(request).execute();
             JSONObject json = new JSONObject(response.body().string());
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("`Confirmed cases:` **").append(json.get("cases")).append("**\n").append("`Deaths:` **").append(json.get("deaths")).append("** \n").append("`Recovered:` **").append(json.get("recovered")).append("** \n").append("`Active cases:` **").append(json.get("active")).append("**");
+            stringBuilder
+                    .append("`Confirmed cases:` **").append(json.get("cases")).append("**\n")
+                    .append("`Deaths:` **").append(json.get("deaths")).append("** \n")
+                    .append("`Recovered:` **").append(json.get("recovered")).append("** \n")
+                    .append("`Active cases:` **").append(json.get("active")).append("**");
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO).setDescription(stringBuilder).build()).queue();
         } catch (IOException ex) {
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR)
