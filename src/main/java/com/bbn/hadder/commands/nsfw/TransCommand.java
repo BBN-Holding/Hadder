@@ -27,7 +27,7 @@ public class TransCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (e.getTextChannel().isNSFW()) {
 
-            String url = Http.getNSFW("https://nekos.life/api/v2/img/trap/");
+            String url = Http.getNSFW("https://nekos.life/api/v2/img/trap");
 
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                     .setAuthor(e.getMessageEditor().getTerm("commands.nsfw.gif.error.title"), url)

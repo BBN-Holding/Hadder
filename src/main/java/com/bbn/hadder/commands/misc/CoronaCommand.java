@@ -42,7 +42,10 @@ public class CoronaCommand implements Command {
                     .append("`Deaths:` **").append(json.get("deaths")).append("** \n")
                     .append("`Recovered:` **").append(json.get("recovered")).append("** \n")
                     .append("`Active cases:` **").append(json.get("active")).append("**");
-            e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO).setDescription(stringBuilder).build()).queue();
+            e.getTextChannel().sendMessage(e.getMessageEditor()
+                    .getMessage(MessageEditor.MessageType.INFO)
+                    .setDescription(stringBuilder)
+                    .build()).queue();
         } catch (IOException ex) {
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR)
                             .setTitle("API Error")
