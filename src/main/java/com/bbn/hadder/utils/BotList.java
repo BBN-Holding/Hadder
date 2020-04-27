@@ -33,7 +33,7 @@ public class BotList {
     private static String MythicalBotList = "https://mythicalbots.xyz/api/bot/637002314162372639";
     private static String BotsForDiscord = "https://botsfordiscord.com/api/bot/637002314162372639";
     private static String DiscordBotList = "https://discordbotlist.com/api/bots/637002314162372639/stats";
-    private static String DiscordBoats = "https://discord.boats/api/bot/637002314162372639";
+    private static String DiscordBoats = "https://discord.boats/api/v2/bot/637002314162372639";
     private static String YetAnotherBotList = "https://yabl.xyz/api/bot/637002314162372639/stats";
     private static String DiscordExtremeList = "https://api.discordextremelist.xyz/v1/bot/637002314162372639";
     private static String DiscordBots = "https://top.gg/api/bots/637002314162372639/stats";
