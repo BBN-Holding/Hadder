@@ -39,7 +39,6 @@ public class BotList {
     private static String DiscordBots = "https://top.gg/api/bots/637002314162372639/stats";
     private static String BotListSpace = "https://api.botlist.space/v1/bots/637002314162372639";
     private static String DiscordBots2 = "https://discord.bots.gg/api/v1/bots/637002314162372639/stats";
-    private static String CloudList = "https://www.cloudlist.xyz/api/stats/637002314162372639";
     private static String ArcaneBotCenter = "https://arcane-center.xyz/api/637002314162372639/stats";
 
     private Config config;
@@ -193,21 +192,6 @@ public class BotList {
             try {
                 new OkHttpClient().newCall(discordbots2).execute().close();
                 System.out.println("Successfully posted count to discord.bots.gg!");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            // CloudList
-
-            Request cloudlist = new Request.Builder()
-                    .url(CloudList)
-                    .post(body)
-                    .addHeader("Authorization", config.getCloudListToken())
-                    .build();
-
-            try {
-                new OkHttpClient().newCall(cloudlist).execute().close();
-                System.out.println("Successfully posted count to the CloudList!");
             } catch (IOException e) {
                 e.printStackTrace();
             }
