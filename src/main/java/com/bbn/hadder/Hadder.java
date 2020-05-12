@@ -52,7 +52,7 @@ public class Hadder {
         Rethink rethink = new Rethink(config);
         rethink.connect();
 
-        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(GatewayIntent.GUILD_MEMBERS, GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_PRESENCES);
+        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(GatewayIntent.GUILD_MEMBERS, GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_VOICE_STATES);
 
         builder.setAutoReconnect(true);
         builder.setShardsTotal(1);
