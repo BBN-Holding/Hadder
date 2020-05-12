@@ -66,7 +66,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>4.1.1_142</version>
+      <version>4.1.1_148</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -86,7 +86,7 @@
     <dependency>
       <groupId>club.minnced</groupId>
       <artifactId>discord-webhooks</artifactId>
-      <version>0.3.0</version>
+      <version>0.3.1</version>
     </dependency>
     <dependency>
       <groupId>org.kohsuke</groupId>
