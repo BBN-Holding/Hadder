@@ -76,6 +76,6 @@ public class RethinkUser {
     }
 
     public void push() {
-        rethink.pushUser(this);
+        rethink.push(this);
     }
 }

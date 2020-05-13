@@ -140,7 +140,7 @@ public class Rethink {
         }
     }
 
-    public void pushServer(RethinkServer server) {
+    public void push(RethinkServer server) {
         JSONObject object = new JSONObject();
         for (Field field : server.getClass().getDeclaredFields()) {
             if (!field.getName().equals("rethink")) {
@@ -154,7 +154,7 @@ public class Rethink {
         r.table("server").get(server.getId()).update(object.toMap()).run(conn);
     }
 
-    public void pushUser(RethinkUser user) {
+    public void push(RethinkUser user) {
         JSONObject object = new JSONObject();
         for (Field field : user.getClass().getDeclaredFields()) {
             if (!field.getName().equals("rethink")) {
