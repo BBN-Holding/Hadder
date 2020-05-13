@@ -21,12 +21,10 @@ import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlNonExistenceError;
 import com.rethinkdb.gen.exc.ReqlOpFailedError;
 import com.rethinkdb.net.Connection;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
-import java.util.NoSuchElementException;
 
 public class Rethink {
     private RethinkDB r = RethinkDB.r;
@@ -52,33 +50,12 @@ public class Rethink {
         }
     }
 
-    private JSONArray getAsArray(String table, String where, String value) {
-        try {
-            String string = r.table(table).filter(row -> row.g(where.toLowerCase()).eq(value)).coerceTo("array").toJson().run(conn);
-            return new JSONArray(string);
-        } catch (NoSuchElementException e) {
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new JSONArray();
-    }
-
-    public Object get(String table, String where, String value, String column) {
-        JSONArray array = this.getAsArray(table, where, value);
-        if (array.length() > 0)
-            if (array.getJSONObject(0).has(column))
-                return array.getJSONObject(0).get(column);
-            else return null;
-        else return null;
-    }
-
     public Object getByID(String table, String where, String column) {
-        return r.table(table).get(where).getField(column).run(conn);
+        return r.table(table).get(where).getField(column).run(conn).first();
     }
 
     public JSONObject getObjectByID(String table, String id) {
-        String response = r.table(table).get(id).toJson().run(conn);
+        String response = String.valueOf(r.table(table).get(id).toJson().run(conn).first());
         try {
             return new JSONObject(response);
         } catch (JSONException e) {
