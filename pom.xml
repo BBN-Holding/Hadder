@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>Hadder</groupId>
   <artifactId>Hadder</artifactId>
-  <version>1.3.3</version>
+  <version>1.3.11</version>
   <name>Hadder</name>
   <inceptionYear>2019</inceptionYear>
   <description>Hadder is a multi-purpose Discord bot.</description>
