@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>Hadder</groupId>
   <artifactId>Hadder</artifactId>
-  <version>1.3.3</version>
+  <version>1.3.11</version>
   <name>Hadder</name>
   <inceptionYear>2019</inceptionYear>
   <description>Hadder is a multi-purpose Discord bot.</description>
@@ -66,7 +66,7 @@
     <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
-      <version>4.1.1_148</version>
+      <version>4.1.1_149</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -76,7 +76,7 @@
     <dependency>
       <groupId>com.rethinkdb</groupId>
       <artifactId>rethinkdb-driver</artifactId>
-      <version>2.4.0</version>
+      <version>2.4.2</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -96,7 +96,7 @@
     <dependency>
       <groupId>com.sedmelluq</groupId>
       <artifactId>lavaplayer</artifactId>
-      <version>1.3.47</version>
+      <version>1.3.48</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
