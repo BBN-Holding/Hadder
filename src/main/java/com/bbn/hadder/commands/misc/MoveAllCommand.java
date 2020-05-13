@@ -1,52 +1,76 @@
 /*
- * @author Hax / Hax6775 / Schlauer_Hax
+ * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.bbn.hadder.commands.misc;
-
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Member;
+import com.bbn.hadder.utils.MessageEditor;
+import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
+@Perms(Perm.VOICE_MOVE_OTHERS)
 public class MoveAllCommand implements Command {
 
-    @Perms(Perm.VOICE_MOVE_OTHERS)
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (args.length == 2) {
-            int count = Objects.requireNonNull(e.getGuild().getVoiceChannelById(args[0])).getMembers().size();
-            Objects.requireNonNull(e.getGuild().getVoiceChannelById(args[0])).getMembers().forEach(
-                    member -> {
-                        e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue();
+            if (StringUtils.isNumeric(args[0]) && args[0].length() == 18) {
+                if (StringUtils.isNumeric(args[1]) && args[1].length() == 18) {
+                    if (!args[0].equals(args[1])) {
+                        int count = e.getGuild().getVoiceChannelById(args[0]).getMembers().size();
+                        e.getGuild().getVoiceChannelById(args[0]).getMembers().forEach(
+                                member -> e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[1])).queue()
+                        );
+                        e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                                "commands.misc.moveall.success.title", "",
+                                "commands.misc.moveall.success.description", String.valueOf(count))
+                                .build()).queue();
+                    } else {
+                        e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                                "commands.misc.moveall.error.equals.title",
+                                "commands.misc.moveall.error.equals.description")
+                                .build()).queue();
                     }
-            );
-            e.getChannel().sendMessage(new EmbedBuilder().setTitle("Successfully Moved!").setDescription("I moved " +
-                     count + " Members. Have fun!").build()).queue();
-        } else {
-            e.getHelpCommand().sendHelp(this, e);
-        }
+                } else {
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                            "commands.misc.moveall.error.target.int.title",
+                            "commands.misc.moveall.error.target.int.description").build()).queue();
+                }
+            } else {
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        "commands.misc.moveall.error.source.int.title",
+                        "commands.misc.moveall.error.source.int.description").build()).queue();
+            }
+        } else e.getHelpCommand().sendHelp(this, e);
     }
 
     @Override
     public String[] labels() {
-        return new String[]{"moveall", "move-all"};
+        return new String[]{"moveall", "move-all", "ma"};
     }
 
     @Override
     public String description() {
-        return "Moves All users in channel1 to channel2";
+        return "commands.misc.moveall.help.description";
     }
 
     @Override
     public String usage() {
-        return "[channel1] [channel2]";
+        return "[source-channel] [target-channel]";
     }
 
     @Override

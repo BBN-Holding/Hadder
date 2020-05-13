@@ -29,6 +29,7 @@ import com.bbn.hadder.core.*;
 import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
@@ -51,11 +52,11 @@ public class Hadder {
         Rethink rethink = new Rethink(config);
         rethink.connect();
 
-        DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
+        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS));
 
         builder.setAutoReconnect(true);
         builder.setShardsTotal(1);
-        builder.setChunkingFilter(ChunkingFilter.ALL);
+        builder.setChunkingFilter(ChunkingFilter.NONE);
         builder.setBulkDeleteSplittingEnabled(true);
         builder.setActivity(Activity.listening("to h.help"));
         builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
@@ -127,7 +128,8 @@ public class Hadder {
                         new ServerStatsCommand(),
                         new ProfileCommand(),
                         new CodeCommand(),
-                        new MoveAllCommand()), config, helpCommand);
+                        new MoveAllCommand(),
+                        new CoronaCommand()), config, helpCommand);
 
         builder.addEventListeners(
                 new MentionListener(rethink),

@@ -15,6 +15,7 @@ Hadder Discord is a multi-purpose Discord bot with 100% uptime.
 [![Discord Bots](https://top.gg/api/widget/637002314162372639.svg)](https://top.gg/bot/637002314162372639)
 [![Hadder's Widget](https://api.botlist.space/widget/637002314162372639/2 "Hadder's Widget")](https://botlist.space/bot/637002314162372639?utm_source=bls&utm_medium=widget&utm_campaign=637002314162372639)
 [![Discord Bots](https://discordbotlist.com/bots/637002314162372639/widget)](https://discordbotlist.com/bots/637002314162372639)
+[![Arcane Bot Center](https://arcane-botcenter.xyz/api/widget/637002314162372639.svg)](https://arcane-botcenter.xyz/bot/637002314162372639)
 
 ## Hadder Team
 ### Developer
