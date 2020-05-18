@@ -128,6 +128,6 @@ public class RethinkServer {
     }
 
     public void push() {
-        rethink.pushServer(this);
+        rethink.push(this);
     }
 }
