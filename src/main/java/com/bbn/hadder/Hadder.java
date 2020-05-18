@@ -140,7 +140,8 @@ public class Hadder {
                 new InviteLinkListener(rethink),
                 new RulesListener(rethink),
                 new StarboardListener(rethink),
-                new VoiceLeaveListener(audioManager));
+                new VoiceLeaveListener(audioManager),
+                new OwnerMessageListener(config));
 
         try {
             shardManager = builder.build();
