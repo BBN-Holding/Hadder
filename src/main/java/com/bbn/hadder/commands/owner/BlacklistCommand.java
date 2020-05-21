@@ -39,33 +39,14 @@ public class BlacklistCommand implements Command {
         } else {
             switch (args[0].toLowerCase()) {
                 case "add":
-                    if (args.length == 3 && e.getMessage().getMentionedUsers().size() == 1) {
-                        RethinkUser u = new RethinkUser(e.getRethink().getObjectByID("user", e.getMessage().getMentionedUsers().get(0).getId()), e.getRethink());
-                        String blacklisted = e.getRethinkUser().getBlacklisted();
-                        List<String> commands = new ArrayList<>();
-                        if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
-                        commands.addAll(Arrays.asList(args[1].split(",")));
-                        LinkedHashSet<String> hashSet = new LinkedHashSet<>(commands);
-
-                        ArrayList<String> commandsWithoutDuplicates = new ArrayList<>(hashSet);
-                        String newblacklisted = ((commandsWithoutDuplicates.size()!=0) ? String.join(",", commandsWithoutDuplicates) : "none");
-                        u.setBlacklisted(newblacklisted);
-                        e.getTextChannel().sendMessage(
-                                e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                                        "commands.owner.blacklist.success.add.title", "",
-                                        "commands.owner.blacklist.success.add.description", newblacklisted)
-                                        .build()).queue();
-                        u.push();
-                    } else e.getHelpCommand().sendHelp(this, e);
-                    break;
-
                 case "remove":
                     if (args.length == 3 && e.getMessage().getMentionedUsers().size() == 1) {
                         RethinkUser u = new RethinkUser(e.getRethink().getObjectByID("user", e.getMessage().getMentionedUsers().get(0).getId()), e.getRethink());
                         String blacklisted = e.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
-                        commands.removeAll(Arrays.asList(args[1].split(",")));
+                        if (args[0].toLowerCase().equals("add")) commands.addAll(Arrays.asList(args[1].split(",")));
+                        else commands.removeAll(Arrays.asList(args[1].split(",")));
                         LinkedHashSet<String> hashSet = new LinkedHashSet<>(commands);
 
                         ArrayList<String> commandsWithoutDuplicates = new ArrayList<>(hashSet);
@@ -73,8 +54,8 @@ public class BlacklistCommand implements Command {
                         u.setBlacklisted(newblacklisted);
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                                        "commands.owner.blacklist.success.remove.title", "",
-                                        "commands.owner.blacklist.success.remove.description", newblacklisted)
+                                        "commands.owner.blacklist.success."+args[0].toLowerCase()+".title", "",
+                                        "commands.owner.blacklist.success."+args[0].toLowerCase()+".description", newblacklisted)
                                         .build()).queue();
                         u.push();
                     } else e.getHelpCommand().sendHelp(this, e);
