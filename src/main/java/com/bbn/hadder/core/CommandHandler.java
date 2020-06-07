@@ -16,9 +16,9 @@
 
 package com.bbn.hadder.core;
 
-import com.bbn.hadder.Rethink;
-import com.bbn.hadder.RethinkServer;
-import com.bbn.hadder.RethinkUser;
+import com.bbn.hadder.db.Rethink;
+import com.bbn.hadder.db.RethinkServer;
+import com.bbn.hadder.db.RethinkUser;
 import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;

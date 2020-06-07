@@ -16,7 +16,7 @@
 
 package com.bbn.hadder.commands.owner;
 
-import com.bbn.hadder.RethinkUser;
+import com.bbn.hadder.db.RethinkUser;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;

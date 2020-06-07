@@ -10,11 +10,11 @@
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
+ *  See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
-package com.bbn.hadder;
+package com.bbn.hadder.db;
 
 import com.bbn.hadder.core.Config;
 import com.rethinkdb.RethinkDB;
@@ -31,7 +31,7 @@ public class Rethink {
     private Connection conn;
     private Config config;
 
-    Rethink(Config config) {
+    public Rethink(Config config) {
         this.config = config;
     }
 
