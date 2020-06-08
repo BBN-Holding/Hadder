@@ -99,7 +99,6 @@ public class Hadder {
                         new AvatarCommand(),
                         new EvalCommand(),
                         new JoinCommand(),
-                        new LeaveCommand(),
                         new GuildLeaveCommand(),
                         new MemeCommand(),
                         new InviteDetectCommand(),
