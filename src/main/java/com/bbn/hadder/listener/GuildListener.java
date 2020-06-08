@@ -16,7 +16,7 @@
 
 package com.bbn.hadder.listener;
 
-import com.bbn.hadder.Rethink;
+import com.bbn.hadder.db.Rethink;
 import com.bbn.hadder.core.Config;
 import com.bbn.hadder.utils.BotList;
 import com.bbn.hadder.utils.MessageEditor;

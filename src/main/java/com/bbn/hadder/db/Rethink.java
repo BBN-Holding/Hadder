@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder;
+package com.bbn.hadder.db;
 
 import com.bbn.hadder.core.Config;
 import com.rethinkdb.RethinkDB;
@@ -31,7 +31,7 @@ public class Rethink {
     private Connection conn;
     private Config config;
 
-    Rethink(Config config) {
+    public Rethink(Config config) {
         this.config = config;
     }
 

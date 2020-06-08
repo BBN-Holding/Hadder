@@ -26,6 +26,7 @@ import com.bbn.hadder.commands.fun.*;
 import com.bbn.hadder.commands.settings.*;
 import com.bbn.hadder.commands.music.*;
 import com.bbn.hadder.core.*;
+import com.bbn.hadder.db.Rethink;
 import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -98,7 +99,6 @@ public class Hadder {
                         new AvatarCommand(),
                         new EvalCommand(),
                         new JoinCommand(),
-                        new LeaveCommand(),
                         new GuildLeaveCommand(),
                         new MemeCommand(),
                         new InviteDetectCommand(),

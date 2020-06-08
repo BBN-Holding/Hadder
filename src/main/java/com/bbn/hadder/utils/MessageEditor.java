@@ -16,7 +16,7 @@
 
 package com.bbn.hadder.utils;
 
-import com.bbn.hadder.RethinkUser;
+import com.bbn.hadder.db.RethinkUser;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 

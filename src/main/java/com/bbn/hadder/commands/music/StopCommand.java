@@ -26,6 +26,7 @@ public class StopCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (e.getAudioManager().hasPlayer(e.getGuild()) && e.getAudioManager().getPlayer(e.getGuild()).getPlayingTrack() != null) {
             if (e.getMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().getChannel().equals(e.getMember().getVoiceState().getChannel())) {
+                e.getAudioManager().getTrackManager(e.getGuild()).setLoop(false);
                 e.getAudioManager().players.remove(e.getGuild().getId());
                 e.getAudioManager().getPlayer(e.getGuild()).destroy();
                 e.getAudioManager().getTrackManager(e.getGuild()).purgeQueue();
@@ -48,7 +49,7 @@ public class StopCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"stop"};
+        return new String[]{"stop", "leave"};
     }
 
     @Override
