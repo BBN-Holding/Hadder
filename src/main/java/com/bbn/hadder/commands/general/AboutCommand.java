@@ -30,8 +30,8 @@ public class AboutCommand implements Command {
                         "commands.general.about.success.title",
                         "commands.general.about.success.description")
                         .addField(e.getMessageEditor().getTerm("commands.general.about.success.field.one.title"), e.getMessageEditor().getTerm("commands.general.about.success.field.one.description", "(https://donatebot.io/checkout/448554629282922527?buyer=" + e.getAuthor().getId() + "). :smiley:", ""), true)
-                .setThumbnail("https://bigbotnetwork.com/images/Hadder.png")
-                .build()).queue();
+                        .setThumbnail("https://bigbotnetwork.com/images/Hadder.png")
+                        .build()).queue();
     }
 
     @Override

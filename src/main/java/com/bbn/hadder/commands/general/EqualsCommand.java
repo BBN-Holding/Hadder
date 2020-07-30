@@ -41,10 +41,10 @@ public class EqualsCommand implements Command {
                 String secondString = msge2.getMessage().getContentRaw();
                 e.getChannel().sendMessage(
                         e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
-                                .setTitle((firstString.equals(secondString)) ? e.getMessageEditor().getTerm( "commands.general.equals.string.equals.true") : e.getMessageEditor().getTerm( "commands.general.equals.string.equals.false"))
-                                .addField(e.getMessageEditor().getTerm( "commands.general.equals.string.first"), firstString, false)
-                                .addField(e.getMessageEditor().getTerm( "commands.general.equals.string.second"), secondString, false)
-                                .addField(e.getMessageEditor().getTerm( "commands.general.equals.string.result"), String.valueOf(firstString.equals(secondString)), false)
+                                .setTitle((firstString.equals(secondString)) ? e.getMessageEditor().getTerm("commands.general.equals.string.equals.true") : e.getMessageEditor().getTerm("commands.general.equals.string.equals.false"))
+                                .addField(e.getMessageEditor().getTerm("commands.general.equals.string.first"), firstString, false)
+                                .addField(e.getMessageEditor().getTerm("commands.general.equals.string.second"), secondString, false)
+                                .addField(e.getMessageEditor().getTerm("commands.general.equals.string.result"), String.valueOf(firstString.equals(secondString)), false)
                                 .build()).queue();
             }, e.getJDA(), e.getAuthor());
         }, e.getJDA(), e.getAuthor());

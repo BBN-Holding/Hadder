@@ -33,16 +33,16 @@ public class FeedbackCommand implements Command {
         e.getTextChannel().sendMessage(
                 e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
-                "commands.misc.feedback.title.request.title",
-                "commands.misc.feedback.title.request.description")
-                .build()).queue();
-        new EventWaiter().newOnMessageEventWaiter(e1 -> {
-                String title = e1.getMessage().getContentDisplay();
-                e1.getChannel().sendMessage(e.getMessageEditor().getMessage(
-                        MessageEditor.MessageType.INFO,
-                        "commands.misc.feedback.description.request.title",
-                        "commands.misc.feedback.description.request.description")
+                        "commands.misc.feedback.title.request.title",
+                        "commands.misc.feedback.title.request.description")
                         .build()).queue();
+        new EventWaiter().newOnMessageEventWaiter(e1 -> {
+            String title = e1.getMessage().getContentDisplay();
+            e1.getChannel().sendMessage(e.getMessageEditor().getMessage(
+                    MessageEditor.MessageType.INFO,
+                    "commands.misc.feedback.description.request.title",
+                    "commands.misc.feedback.description.request.description")
+                    .build()).queue();
             new EventWaiter().newOnMessageEventWaiter(e2 -> {
                 String description = e2.getMessage().getContentDisplay();
                 try {
@@ -56,12 +56,12 @@ public class FeedbackCommand implements Command {
                                     "commands.misc.feedback.success.title",
                                     "")
                                     .setDescription(issue.getHtmlUrl().toString())
-                            .build()).queue();
+                                    .build()).queue();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                }, e.getJDA(), e.getAuthor());
             }, e.getJDA(), e.getAuthor());
+        }, e.getJDA(), e.getAuthor());
 
     }
 

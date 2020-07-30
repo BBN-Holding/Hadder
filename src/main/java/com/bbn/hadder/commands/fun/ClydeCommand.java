@@ -66,7 +66,8 @@ public class ClydeCommand implements Command {
                 }
                 webhook.delete().queue();
                 e.getMessage().delete().queue();
-            } else e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
+            } else
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
         } else e.getHelpCommand().sendHelp(this, e);
 
     }

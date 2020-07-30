@@ -1,10 +1,8 @@
 {
   "Owners": [
-
-
   ],
   "Database": {
-    "IP":"",
+    "IP": "",
     "Port": 6775,
     "DBName": "",
     "Username": "",

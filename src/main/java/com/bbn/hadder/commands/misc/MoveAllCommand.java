@@ -15,6 +15,7 @@
  */
 
 package com.bbn.hadder.commands.misc;
+
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;

@@ -71,7 +71,7 @@ public class MentionListener extends ListenerAdapter {
                 );
                 builder.addField("Developer", devs.toString(), false);
                 builder.addField("Join our Dev Server!", "[Click here!](https://discord.gg/58My2dM)", true);
-                builder.addField("Github", "[Click here!](https://github.com/BigBotNetwork/Hadder)",false);
+                builder.addField("Github", "[Click here!](https://github.com/BigBotNetwork/Hadder)", false);
                 builder.addField("Twitch", "[Click here!](https://www.twitch.tv/bigbotnetwork)", false);
                 e.getChannel().sendMessage(builder.build()).queue();
             } else if (e.getMessage().getContentRaw().equalsIgnoreCase("@someone")) {

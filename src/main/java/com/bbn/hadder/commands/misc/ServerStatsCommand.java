@@ -38,7 +38,7 @@ public class ServerStatsCommand implements Command {
                 .addField("Emotes", String.valueOf(e.getGuild().getEmotes().size()), true)
                 .addField("Categories", String.valueOf(e.getGuild().getCategories().size()), true)
                 .addField("Text/Voice/Store Channels", "`" + e.getGuild().getTextChannels().size() + "`" + "/" + "`" + e.getGuild().getVoiceChannels().size() + "`" + "/" + "`" + e.getGuild().getStoreChannels().size() + "`", true)
-                .addField("Verification Level", e.getGuild().getVerificationLevel().getKey() + ": " +  e.getGuild().getVerificationLevel(), true)
+                .addField("Verification Level", e.getGuild().getVerificationLevel().getKey() + ": " + e.getGuild().getVerificationLevel(), true)
                 .addField("MFA Level", String.valueOf(e.getGuild().getRequiredMFALevel().getKey()), true)
                 .addField("Member Count", String.valueOf(e.getGuild().getMemberCount()), true)
                 .addField("Explicit Content Level", e.getGuild().getExplicitContentLevel().getKey() + ": " + e.getGuild().getExplicitContentLevel(), true)
@@ -48,7 +48,8 @@ public class ServerStatsCommand implements Command {
                 .setImage(e.getGuild().getBannerUrl());
 
         if (e.getGuild().getDescription() != null) eb.addField("Description", e.getGuild().getDescription(), true);
-        if (e.getGuild().getVanityCode() != null) eb.addField("Vanity Code", "[" + e.getGuild().getVanityCode() + "](https://discord.gg/" + e.getGuild().getVanityCode() + ")", true);
+        if (e.getGuild().getVanityCode() != null)
+            eb.addField("Vanity Code", "[" + e.getGuild().getVanityCode() + "](https://discord.gg/" + e.getGuild().getVanityCode() + ")", true);
 
         e.getTextChannel().sendMessage(eb.build()).queue();
     }

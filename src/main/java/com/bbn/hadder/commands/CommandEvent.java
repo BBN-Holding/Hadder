@@ -16,13 +16,13 @@
 
 package com.bbn.hadder.commands;
 
-import com.bbn.hadder.db.Rethink;
-import com.bbn.hadder.db.RethinkServer;
-import com.bbn.hadder.db.RethinkUser;
 import com.bbn.hadder.audio.AudioManager;
 import com.bbn.hadder.commands.general.HelpCommand;
 import com.bbn.hadder.core.CommandHandler;
 import com.bbn.hadder.core.Config;
+import com.bbn.hadder.db.Rethink;
+import com.bbn.hadder.db.RethinkServer;
+import com.bbn.hadder.db.RethinkUser;
 import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.JDA;

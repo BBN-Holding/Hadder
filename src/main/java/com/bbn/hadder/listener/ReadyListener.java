@@ -16,8 +16,8 @@
 
 package com.bbn.hadder.listener;
 
-import com.bbn.hadder.db.Rethink;
 import com.bbn.hadder.core.Config;
+import com.bbn.hadder.db.Rethink;
 import com.bbn.hadder.utils.BotList;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;

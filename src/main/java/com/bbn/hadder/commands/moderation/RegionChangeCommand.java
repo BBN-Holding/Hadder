@@ -108,14 +108,14 @@ public class RegionChangeCommand implements Command {
                         .build()).queue();
     }
 
-    public void setRegion (Region region, String region_name, CommandEvent e) {
+    public void setRegion(Region region, String region_name, CommandEvent e) {
         e.getGuild().getManager().setRegion(region).reason("Region changed by " + e.getAuthor().getAsTag()).queue();
         e.getTextChannel().sendMessage(
                 e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.moderation.regionchange.success.title", "",
                         "commands.moderation.regionchange.success.description", region_name)
-                .build()).queue();
+                        .build()).queue();
     }
 
     @Override

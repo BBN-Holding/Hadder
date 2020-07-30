@@ -31,7 +31,7 @@ public class EventWaiter {
         Object listener = new ListenerAdapter() {
             @Override
             public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
-                if (user==null) {
+                if (user == null) {
                     onEvent.accept(event);
                     event.getJDA().getShardManager().removeEventListener(this);
                 } else if (event.getAuthor().getId().equals(user.getId())) {
@@ -47,7 +47,7 @@ public class EventWaiter {
         Object listener = new ListenerAdapter() {
             @Override
             public void onGuildMessageReactionAdd(@Nonnull GuildMessageReactionAddEvent event) {
-                if (user==null) {
+                if (user == null) {
                     onEvent.accept(event);
                     event.getJDA().getShardManager().removeEventListener(this);
                 } else if (event.getUser().getId().equals(user.getId())) {
