@@ -18,8 +18,8 @@ package com.bbn.hadder.commands.nsfw;
 
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
-import com.bbn.hadder.utils.MessageEditor;
 import com.bbn.hadder.utils.Http;
+import com.bbn.hadder.utils.MessageEditor;
 
 public class RandomPornCommand implements Command {
 
@@ -44,7 +44,7 @@ public class RandomPornCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[] { "randomporn", "pornrandom" };
+        return new String[]{"randomporn", "pornrandom"};
     }
 
     @Override

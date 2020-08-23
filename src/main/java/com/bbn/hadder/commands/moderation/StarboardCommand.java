@@ -25,18 +25,18 @@ public class StarboardCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
-        if (e.getMessage().getMentionedChannels().size()==1) {
+        if (e.getMessage().getMentionedChannels().size() == 1) {
             e.getRethinkServer().setStarboard(e.getMessage().getMentionedChannels().get(0).getId());
             e.getChannel().sendMessage(
                     e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
-                                            "commands.moderation.starboard.success.title","")
+                            "commands.moderation.starboard.success.title", "")
                             .build())
                     .queue();
         } else {
-            if (args.length>0) {
+            if (args.length > 0) {
                 TextChannel channel = e.getGuild().getTextChannelById(args[0]);
-                if (channel!=null) {
+                if (channel != null) {
                     e.getRethinkServer().setStarboard(channel.getId());
                 }
             } else e.getHelpCommand().sendHelp(this, e);

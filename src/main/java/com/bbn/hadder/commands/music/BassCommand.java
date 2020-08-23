@@ -22,8 +22,8 @@ import com.bbn.hadder.utils.MessageEditor;
 import com.sedmelluq.discord.lavaplayer.filter.equalizer.EqualizerFactory;
 
 public class BassCommand implements Command {
-    private static final float[] BASS_BOOST = { 0.2f, 0.15f, 0.1f, 0.05f, 0.0f, -0.05f, -0.1f, -0.1f, -0.1f, -0.1f, -0.1f,
-            -0.1f, -0.1f, -0.1f, -0.1f };
+    private static final float[] BASS_BOOST = {0.2f, 0.15f, 0.1f, 0.05f, 0.0f, -0.05f, -0.1f, -0.1f, -0.1f, -0.1f, -0.1f,
+            -0.1f, -0.1f, -0.1f, -0.1f};
 
     @Override
     public void executed(String[] args, CommandEvent e) {

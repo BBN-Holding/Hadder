@@ -24,7 +24,9 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrackManager extends AudioEventAdapter {
@@ -91,13 +93,11 @@ public class TrackManager extends AudioEventAdapter {
         queue.remove(entry);
     }
 
-    public boolean isLoop()
-    {
+    public boolean isLoop() {
         return loop;
     }
 
-    public void setLoop(boolean repeating)
-    {
+    public void setLoop(boolean repeating) {
         this.loop = repeating;
     }
 }

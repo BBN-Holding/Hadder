@@ -49,11 +49,12 @@ public class MessageEditor {
     }
 
     public EmbedBuilder getMessage(MessageType type, String title, String title_extra, String title_extra_two,
-                            String description, String description_extra, String description_extra_two) {
-        String language = (this.user!=null) ? rethinkUser.getLanguage() : null;
+                                   String description, String description_extra, String description_extra_two) {
+        String language = (this.user != null) ? rethinkUser.getLanguage() : null;
         EmbedBuilder eb = this.getDefaultSettings(type);
         if (!"".equals(title)) eb.setTitle(this.handle(language, title, title_extra, title_extra_two));
-        if (!"".equals(description)) eb.setDescription(this.handle(language, description, description_extra, description_extra_two));
+        if (!"".equals(description))
+            eb.setDescription(this.handle(language, description, description_extra, description_extra_two));
         return eb;
     }
 
@@ -133,6 +134,7 @@ public class MessageEditor {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("Translations/Translations", locale);
         if (resourceBundle.containsKey(string))
             return resourceBundle.getString(string).replaceAll("%extra%", extra).replaceAll("%extra_two%", extra_two);
-        else return "This key doesn't exist. Please report this to the Bot Developers. Key: `" + string + "` Language_code: `" + language_code + "`";
+        else
+            return "This key doesn't exist. Please report this to the Bot Developers. Key: `" + string + "` Language_code: `" + language_code + "`";
     }
 }

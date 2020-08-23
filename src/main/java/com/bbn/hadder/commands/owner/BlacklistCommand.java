@@ -16,11 +16,11 @@
 
 package com.bbn.hadder.commands.owner;
 
-import com.bbn.hadder.db.RethinkUser;
 import com.bbn.hadder.commands.Command;
 import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.core.Perm;
 import com.bbn.hadder.core.Perms;
+import com.bbn.hadder.db.RethinkUser;
 import com.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.entities.User;
 
@@ -50,12 +50,12 @@ public class BlacklistCommand implements Command {
                         LinkedHashSet<String> hashSet = new LinkedHashSet<>(commands);
 
                         ArrayList<String> commandsWithoutDuplicates = new ArrayList<>(hashSet);
-                        String newblacklisted = ((commandsWithoutDuplicates.size()!=0) ? String.join(",", commandsWithoutDuplicates) : "none");
+                        String newblacklisted = ((commandsWithoutDuplicates.size() != 0) ? String.join(",", commandsWithoutDuplicates) : "none");
                         u.setBlacklisted(newblacklisted);
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                                        "commands.owner.blacklist.success."+args[0].toLowerCase()+".title", "",
-                                        "commands.owner.blacklist.success."+args[0].toLowerCase()+".description", newblacklisted)
+                                        "commands.owner.blacklist.success." + args[0].toLowerCase() + ".title", "",
+                                        "commands.owner.blacklist.success." + args[0].toLowerCase() + ".description", newblacklisted)
                                         .build()).queue();
                         u.push();
                     } else e.getHelpCommand().sendHelp(this, e);
@@ -75,7 +75,7 @@ public class BlacklistCommand implements Command {
                     e.getTextChannel().sendMessage(
                             e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO)
                                     .setTitle("Blacklisted Users")
-                                    .setDescription((stringBuilder.length()!=0) ? ("``" + stringBuilder.toString() + "``") : "No blacklisted Users")
+                                    .setDescription((stringBuilder.length() != 0) ? ("``" + stringBuilder.toString() + "``") : "No blacklisted Users")
                                     .build()).queue();
                     break;
 

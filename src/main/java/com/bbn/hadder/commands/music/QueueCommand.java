@@ -38,10 +38,10 @@ public class QueueCommand implements Command {
             long queuelength = 0;
             for (AudioInfo g : queue) {
                 queuelength = queuelength + g.getTrack().getInfo().length;
-                builder.append("("+e.getAudioManager().getTimestamp(g.getTrack().getInfo().length)+") **").append(g.getTrack().getInfo().author).append("**: `").append(g.getTrack().getInfo().title).append("` \n");
+                builder.append("(" + e.getAudioManager().getTimestamp(g.getTrack().getInfo().length) + ") **").append(g.getTrack().getInfo().author).append("**: `").append(g.getTrack().getInfo().title).append("` \n");
             }
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                    "commands.music.queue.success.title", "("+String.valueOf(e.getAudioManager().getTimestamp(queuelength))+")",
+                    "commands.music.queue.success.title", "(" + String.valueOf(e.getAudioManager().getTimestamp(queuelength)) + ")",
                     "commands.music.queue.success.description", builder.toString())
                     .build()).queue();
         }

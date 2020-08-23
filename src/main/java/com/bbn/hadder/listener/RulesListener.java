@@ -60,14 +60,15 @@ public class RulesListener extends ListenerAdapter {
         RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
         if (e.getMember().getRoles().contains(e.getGuild().getRoleById(rethinkServer.getRoleID()))) {
             e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Accepted rules").queue();
-        } else e.getGuild().addRoleToMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Accepted rules").queue();
+        } else
+            e.getGuild().addRoleToMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Accepted rules").queue();
     }
 
     @Override
     public void onMessageReactionRemove(MessageReactionRemoveEvent e) {
         RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
         if (e.getMessageId().equals(rethinkServer.getMessageID()) && !e.getUser().isBot()) {
-                e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Withdrawal of the acceptance of the rules").queue();
+            e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Withdrawal of the acceptance of the rules").queue();
         }
     }
 }

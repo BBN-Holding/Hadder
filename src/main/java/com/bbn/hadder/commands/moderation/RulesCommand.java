@@ -86,7 +86,7 @@ public class RulesCommand implements Command {
                                 "",
                                 "commands.moderation.rules.rules.description",
                                 channel.getName())
-                        .build()).queue();
+                                .build()).queue();
                 e.getEventWaiter().newOnMessageEventWaiter(e2 -> {
                     String message = e2.getMessage().getContentRaw();
                     e2.getChannel().sendMessage(
@@ -94,21 +94,21 @@ public class RulesCommand implements Command {
                                     MessageEditor.MessageType.INFO,
                                     "commands.moderation.rules.role.title",
                                     "commands.moderation.rules.role.description")
-                            .build()).queue();
+                                    .build()).queue();
                     new EventWaiter().newOnMessageEventWaiter(e3 -> {
                         if (e3.getMessage().getMentionedRoles().size() == 1) {
                             Role role = e3.getMessage().getMentionedRoles().get(0);
                             setRole(e, channel, message, e3, role);
                         } else if (e3.getGuild().getRolesByName(e3.getMessage().getContentRaw(), true).size() > 0) {
-                                Role role = e3.getGuild().getRolesByName(e3.getMessage().getContentRaw(), true).get(0);
-                                setRole(e, channel, message, e3, role);
+                            Role role = e3.getGuild().getRolesByName(e3.getMessage().getContentRaw(), true).get(0);
+                            setRole(e, channel, message, e3, role);
                         } else {
                             e3.getChannel().sendMessage(
                                     e.getMessageEditor().getMessage(
                                             MessageEditor.MessageType.ERROR,
                                             "commands.moderation.rules.role.error.title",
                                             "commands.moderation.rules.role.error.description")
-                                    .build()).queue();
+                                            .build()).queue();
                         }
                     }, e.getJDA(), e.getAuthor());
                 }, e.getJDA(), e.getAuthor());
@@ -124,7 +124,7 @@ public class RulesCommand implements Command {
                             MessageEditor.MessageType.ERROR,
                             "commands.moderation.rules.guild.error.title",
                             "commands.moderation.rules.guild.error.description")
-                    .build()).queue();
+                            .build()).queue();
         }
     }
 
