@@ -32,7 +32,12 @@ public class SkipCommand implements Command {
                             "commands.music.skip.success.title",
                             "commands.music.skip.success.description").build()).queue();
                 } else {
-                    e.getTextChannel().sendMessage("Get rekt lol Mach Loop aus noob").queue();
+                    e.getAudioManager().getTrackManager(e.getGuild()).setLoop(false);
+                    e.getAudioManager().forceSkipTrack(e);
+                    e.getAudioManager().getTrackManager(e.getGuild()).setLoop(true);
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                            "commands.music.skip.success.title",
+                            "commands.music.skip.success.description").build()).queue();
                 }
             } else {
                 e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
