@@ -68,6 +68,7 @@ public class InviteDetectCommand implements Command {
                     break;
                 default:
                     e.getHelpCommand().sendHelp(this, e);
+                    break;
             }
         } else e.getHelpCommand().sendHelp(this, e);
     }
