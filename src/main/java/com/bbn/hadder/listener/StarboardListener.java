@@ -16,8 +16,8 @@
 
 package com.bbn.hadder.listener;
 
-import com.bbn.hadder.Rethink;
-import com.bbn.hadder.RethinkServer;
+import com.bbn.hadder.db.Rethink;
+import com.bbn.hadder.db.RethinkServer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.MessageReaction;

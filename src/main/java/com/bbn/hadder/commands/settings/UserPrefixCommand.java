@@ -37,7 +37,7 @@ public class UserPrefixCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[] { "userprefix" };
+        return new String[]{"userprefix"};
     }
 
     @Override

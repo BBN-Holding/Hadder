@@ -29,7 +29,7 @@ public class JoinCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (e.getMember().getVoiceState().inVoiceChannel()) {
             AudioManager audioManager = e.getGuild().getAudioManager();
-            if(!audioManager.isAttemptingToConnect()) {
+            if (!audioManager.isAttemptingToConnect()) {
                 VoiceChannel vc = e.getMember().getVoiceState().getChannel();
                 if (e.getGuild().getSelfMember().getVoiceState().inVoiceChannel()) {
                     if (!e.getGuild().getSelfMember().getVoiceState().getChannel().getId().equals(vc.getId())) {
@@ -51,11 +51,11 @@ public class JoinCommand implements Command {
                         }
                     } else {
                         e.getTextChannel().sendMessage(
-                            e.getMessageEditor().getMessage(
-                                MessageEditor.MessageType.WARNING,
-                                "commands.music.join.error.connecting.already.title",
-                                "commands.music.join.error.connecting.already.description")
-                                .build()).queue();
+                                e.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.WARNING,
+                                        "commands.music.join.error.connecting.already.title",
+                                        "commands.music.join.error.connecting.already.description")
+                                        .build()).queue();
                     }
                 } else {
                     try {
@@ -74,16 +74,16 @@ public class JoinCommand implements Command {
                 }
             } else {
                 e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
-                    MessageEditor.MessageType.WARNING,
-                    "commands.music.join.error.connecting.trying.title",
-                    "commands.music.join.error.connecting.trying.description")
-                    .build()).queue();
+                        MessageEditor.MessageType.WARNING,
+                        "commands.music.join.error.connecting.trying.title",
+                        "commands.music.join.error.connecting.trying.description")
+                        .build()).queue();
             }
         } else {
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
-                MessageEditor.MessageType.ERROR,
-                "commands.music.join.error.channel.title",
-                "commands.music.join.error.channel.description")
+                    MessageEditor.MessageType.ERROR,
+                    "commands.music.join.error.channel.title",
+                    "commands.music.join.error.channel.description")
                     .build()).queue();
         }
     }

@@ -49,10 +49,10 @@ public class LanguageCommand implements Command {
                     break;
                 default:
                     e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                            "List",
-                            "`de`, `en`, `es`, `fr`, `ru`, `tr`, `zh`")
+                            "commands.settings.language.error.title", "",
+                            "commands.settings.language.error.description", "`de`, `en`, `es`, `fr`, `ru`, `tr`, `zh`")
                             .build()).queue();
-                break;
+                    break;
             }
         } else e.getHelpCommand().sendHelp(this, e);
     }
@@ -70,7 +70,7 @@ public class LanguageCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[] { "language" };
+        return new String[]{"language"};
     }
 
     @Override

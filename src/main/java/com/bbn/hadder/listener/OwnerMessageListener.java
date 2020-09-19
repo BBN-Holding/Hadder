@@ -26,7 +26,7 @@ public class OwnerMessageListener extends ListenerAdapter {
             if (!emotename.contains(" ")) {
                 Emote[] emotes = event.getJDA().getEmotesByName(emotename, true).toArray(new Emote[0]);
                 StringBuilder sb = new StringBuilder();
-                if (emotes.length!=0) {
+                if (emotes.length != 0) {
                     for (Emote emote : emotes) {
                         sb.append(emote.getAsMention()).append(" ");
                     }

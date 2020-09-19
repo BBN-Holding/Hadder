@@ -17,15 +17,21 @@
 package com.bbn.hadder;
 
 import com.bbn.hadder.audio.AudioManager;
+import com.bbn.hadder.commands.fun.AvatarCommand;
+import com.bbn.hadder.commands.fun.ClydeCommand;
+import com.bbn.hadder.commands.fun.GifCommand;
+import com.bbn.hadder.commands.fun.MemeCommand;
 import com.bbn.hadder.commands.general.*;
 import com.bbn.hadder.commands.misc.*;
 import com.bbn.hadder.commands.moderation.*;
+import com.bbn.hadder.commands.music.*;
 import com.bbn.hadder.commands.nsfw.*;
 import com.bbn.hadder.commands.owner.*;
-import com.bbn.hadder.commands.fun.*;
-import com.bbn.hadder.commands.settings.*;
-import com.bbn.hadder.commands.music.*;
-import com.bbn.hadder.core.*;
+import com.bbn.hadder.commands.settings.LanguageCommand;
+import com.bbn.hadder.commands.settings.UserPrefixCommand;
+import com.bbn.hadder.core.CommandHandler;
+import com.bbn.hadder.core.Config;
+import com.bbn.hadder.db.Rethink;
 import com.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -98,7 +104,6 @@ public class Hadder {
                         new AvatarCommand(),
                         new EvalCommand(),
                         new JoinCommand(),
-                        new LeaveCommand(),
                         new GuildLeaveCommand(),
                         new MemeCommand(),
                         new InviteDetectCommand(),

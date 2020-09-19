@@ -31,7 +31,7 @@ public class AvatarCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (args.length == 0) {
-            User u  = e.getAuthor();
+            User u = e.getAuthor();
             e.getTextChannel().sendMessage(
                     e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
@@ -39,9 +39,9 @@ public class AvatarCommand implements Command {
                             u.getAsTag(),
                             "",
                             "")
-                    .setImage(u.getAvatarUrl())
-                    .setFooter(u.getAsTag())
-                    .build()).queue();
+                            .setImage(u.getAvatarUrl())
+                            .setFooter(u.getAsTag())
+                            .build()).queue();
         } else if (e.getMessage().getMentionedUsers().size() == 1) {
             User u = e.getMessage().getMentionedUsers().get(0);
             e.getTextChannel().sendMessage(
@@ -51,9 +51,9 @@ public class AvatarCommand implements Command {
                             u.getAsTag(),
                             "",
                             "")
-                    .setImage(u.getAvatarUrl())
-                    .setFooter(u.getAsTag())
-                    .build()).queue();
+                            .setImage(u.getAvatarUrl())
+                            .setFooter(u.getAsTag())
+                            .build()).queue();
         } else if (args[0].length() == 18) {
             try {
                 User u = e.getJDA().getUserById(args[0]);
@@ -77,14 +77,14 @@ public class AvatarCommand implements Command {
                     JSONObject json = new JSONObject(response.body().string());
                     String url = "https://cdn.discordapp.com/avatars/" + args[0] + "/" + json.getString("avatar") + ".png";
                     e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
-                                            MessageEditor.MessageType.INFO,
-                                            "commands.fun.avatar.success.title",
-                                            json.getString("username") + "#" + json.getString("discriminator"),
-                                            "",
-                                            "")
-                                            .setImage(url)
-                                            .setFooter(json.getString("username") + "#" + json.getString("discriminator"))
-                                            .build()).queue();
+                            MessageEditor.MessageType.INFO,
+                            "commands.fun.avatar.success.title",
+                            json.getString("username") + "#" + json.getString("discriminator"),
+                            "",
+                            "")
+                            .setImage(url)
+                            .setFooter(json.getString("username") + "#" + json.getString("discriminator"))
+                            .build()).queue();
                 } catch (JSONException ex) {
                     e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                             "commands.fun.avatar.error.title",

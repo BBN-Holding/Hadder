@@ -26,10 +26,19 @@ public class SkipCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (e.getAudioManager().hasPlayer(e.getGuild()) && !e.getAudioManager().getTrackManager(e.getGuild()).getQueuedTracks().isEmpty()) {
             if (e.getMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().getChannel().equals(e.getMember().getVoiceState().getChannel())) {
-                e.getAudioManager().forceSkipTrack(e);
-                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                        "commands.music.skip.success.title",
-                        "commands.music.skip.success.description").build()).queue();
+                if (!e.getAudioManager().getTrackManager(e.getGuild()).isLoop()) {
+                    e.getAudioManager().forceSkipTrack(e);
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                            "commands.music.skip.success.title",
+                            "commands.music.skip.success.description").build()).queue();
+                } else {
+                    e.getAudioManager().getTrackManager(e.getGuild()).setLoop(false);
+                    e.getAudioManager().forceSkipTrack(e);
+                    e.getAudioManager().getTrackManager(e.getGuild()).setLoop(true);
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                            "commands.music.skip.success.title",
+                            "commands.music.skip.success.description").build()).queue();
+                }
             } else {
                 e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
                         "commands.music.skip.error.connected.title",

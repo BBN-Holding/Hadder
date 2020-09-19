@@ -16,9 +16,9 @@
 
 package com.bbn.hadder.listener;
 
-import com.bbn.hadder.Rethink;
-import com.bbn.hadder.RethinkServer;
-import com.bbn.hadder.RethinkUser;
+import com.bbn.hadder.db.Rethink;
+import com.bbn.hadder.db.RethinkServer;
+import com.bbn.hadder.db.RethinkUser;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -71,7 +71,7 @@ public class MentionListener extends ListenerAdapter {
                 );
                 builder.addField("Developer", devs.toString(), false);
                 builder.addField("Join our Dev Server!", "[Click here!](https://discord.gg/58My2dM)", true);
-                builder.addField("Github", "[Click here!](https://github.com/BigBotNetwork/Hadder)",false);
+                builder.addField("Github", "[Click here!](https://github.com/BigBotNetwork/Hadder)", false);
                 builder.addField("Twitch", "[Click here!](https://www.twitch.tv/bigbotnetwork)", false);
                 e.getChannel().sendMessage(builder.build()).queue();
             } else if (e.getMessage().getContentRaw().equalsIgnoreCase("@someone")) {

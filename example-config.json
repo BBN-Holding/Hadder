@@ -1,11 +1,13 @@
 {
-  "Owners":
-  [],
-  "Database":{"IP":"",
+  "Owners": [
+  ],
+  "Database": {
+    "IP": "",
     "Port": 6775,
     "DBName": "",
     "Username": "",
-    "Password": ""},
+    "Password": ""
+  },
   "Tokens": {
     "BotToken": "",
     "Giphy": "",
@@ -13,14 +15,15 @@
     "MythicalBotList": "",
     "BotsForDiscord": "",
     "DiscordBotList": "",
-    "DiscordBestBots": "",
     "DiscordBoats": "",
     "YetAnotherBotList": "",
     "DiscordExtremeList": "",
     "DiscordBotReviews": "",
     "DiscordBots": "",
     "BotListSpace": "",
-    "DiscordBots2": ""
+    "DiscordBots2": "",
+    "CloudList": "",
+    "Arcane": ""
   },
   "Clyde": ""
 }

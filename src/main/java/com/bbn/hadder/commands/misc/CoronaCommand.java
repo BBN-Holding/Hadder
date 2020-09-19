@@ -48,9 +48,9 @@ public class CoronaCommand implements Command {
                     .build()).queue();
         } catch (IOException ex) {
             e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR)
-                            .setTitle("API Error")
-                            .setDescription("Try again later!")
-                            .build()).queue();
+                    .setTitle("API Error")
+                    .setDescription("Try again later!")
+                    .build()).queue();
         }
     }
 

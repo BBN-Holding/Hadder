@@ -21,7 +21,6 @@ import com.bbn.hadder.commands.CommandEvent;
 import com.bbn.hadder.utils.EventWaiter;
 import com.bbn.hadder.utils.MessageEditor;
 import com.bbn.hadder.utils.MessageEditor.MessageType;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 
@@ -31,8 +30,8 @@ public class ScreenShareCommand implements Command {
 
     @Override
     public void executed(String[] args, CommandEvent e) {
-        if (args.length>0) {
-            if (args[0].matches("[0-9]*") && args.length==1 && args[0].length() == 18) {
+        if (args.length > 0) {
+            if (args[0].matches("[0-9]*") && args.length == 1 && args[0].length() == 18) {
                 if (e.getGuild().getVoiceChannelById(args[0]) != null) {
                     e.getChannel().sendMessage(e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
@@ -66,7 +65,7 @@ public class ScreenShareCommand implements Command {
                             e.getHelpCommand().sendHelp(this, e);
                         }
                     }, e.getJDA(), e.getAuthor());
-                } else if (vcs.size()==0) {
+                } else if (vcs.size() == 0) {
                     e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.channel.existing.error", "commands.misc.screenshare.channel.existing.description").build()).queue();
                     e.getHelpCommand().sendHelp(this, e);
                 } else {

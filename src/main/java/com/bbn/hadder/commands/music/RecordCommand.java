@@ -51,7 +51,7 @@ public class RecordCommand implements Command {
             audioManager.openAudioConnection(event.getMember().getVoiceState().getChannel());
         } else {
             for (Map.Entry<String, Queue<byte[]>> key : queue.entrySet()) {
-                File file = new File("./"+event.getJDA().getUserById(key.getKey())+".wav");
+                File file = new File("./" + event.getJDA().getUserById(key.getKey()) + ".wav");
 
 
             }

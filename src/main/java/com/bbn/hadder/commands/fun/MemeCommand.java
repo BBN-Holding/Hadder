@@ -41,18 +41,18 @@ public class MemeCommand implements Command {
             String url = json.getString("url");
             e.getTextChannel().sendMessage(
                     e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
-                    "commands.fun.meme.success.title", "")
-                    .setImage(url)
+                            "commands.fun.meme.success.title", "")
+                            .setImage(url)
                             .setAuthor("Subreddit: " + json.getString("subreddit"))
-                    .build()).queue();
+                            .build()).queue();
         } catch (IOException ignore) {
             e.getTextChannel().sendMessage(
                     e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.ERROR,
                             "error",
                             "commands.fun.meme.api.error")
-                    .setColor(Color.RED)
-                    .build()).queue();
+                            .setColor(Color.RED)
+                            .build()).queue();
         }
     }
 
