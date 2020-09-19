@@ -33,14 +33,12 @@ jobs:
           remote: /home/Hadder-Build.jar
           host: ${{ secrets.HOST }}
           privateKey: ${{ secrets.PK }}
-          passphrase: ${{ secrets.PP }}
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.PK }}
-          passphrase: ${{ secrets.PP }}
           script: /home/deploy.sh
       - name: Send Webhook Notification
         if: always()
