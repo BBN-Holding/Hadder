@@ -70,7 +70,7 @@ public class MentionListener extends ListenerAdapter {
                         developer -> devs.append(developer.getId()).append(" - [Website](").append(developer.getUrl()).append("), [E-Mail](https://hax.bigbotnetwork.de/redirect.html?url=mailto:").append(developer.getEmail()).append(")\n")
                 );
                 builder.addField("Developer", devs.toString(), false);
-                builder.addField("Join our Dev Server!", "[Click here!](https://discord.gg/58My2dM)", true);
+                builder.addField("Join our Dev Server!", "[Click here!](https://discord.gg/nPwjaJk)", true);
                 builder.addField("Github", "[Click here!](https://github.com/BigBotNetwork/Hadder)", false);
                 builder.addField("Twitch", "[Click here!](https://www.twitch.tv/bigbotnetwork)", false);
                 e.getChannel().sendMessage(builder.build()).queue();

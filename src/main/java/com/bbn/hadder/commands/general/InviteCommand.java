@@ -30,7 +30,7 @@ public class InviteCommand implements Command {
                         "commands.general.invite.success.title",
                         "",
                         "commands.general.invite.success.description",
-                        "(https://discordapp.com/oauth2/authorize?client_id="
+                        "(https://discord.com/oauth2/authorize?client_id="
                                 + e.getJDA().getSelfUser().getId()
                                 + "&scope=bot&permissions=1043852663)")
                         .build()).queue();

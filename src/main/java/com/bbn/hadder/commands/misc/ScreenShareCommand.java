@@ -36,7 +36,7 @@ public class ScreenShareCommand implements Command {
                     e.getChannel().sendMessage(e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
                             "commands.misc.screenshare.success.title", "")
-                            .setDescription("http://discordapp.com/channels/" + e.getGuild().getId() + "/" + args[0] + "/").build()).queue();
+                            .setDescription("http://discord.com/channels/" + e.getGuild().getId() + "/" + args[0] + "/").build()).queue();
                 } else {
                     e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.id.error.title", "commands.misc.screenshare.id.error.description").build()).queue();
                     e.getHelpCommand().sendHelp(this, e);
@@ -55,7 +55,7 @@ public class ScreenShareCommand implements Command {
                             int i = Integer.parseInt(msge.getMessage().getContentRaw());
                             if (vcs.size() > i) {
                                 e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.misc.screenshare.success.title", "")
-                                        .setDescription("http://discordapp.com/channels/" + e.getGuild().getId() + "/" + vcs.get(i).getId() + "/").build()).queue();
+                                        .setDescription("http://discord.com/channels/" + e.getGuild().getId() + "/" + vcs.get(i).getId() + "/").build()).queue();
                             } else {
                                 e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR, "commands.misc.screenshare.number.error.title", "").build()).queue();
                                 e.getHelpCommand().sendHelp(this, e);
@@ -70,7 +70,7 @@ public class ScreenShareCommand implements Command {
                     e.getHelpCommand().sendHelp(this, e);
                 } else {
                     e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO, "commands.misc.screenshare.success.title", "")
-                            .setDescription("http://discordapp.com/channels/" + e.getGuild().getId() + "/" + vcs.get(0).getId() + "/").build()).queue();
+                            .setDescription("http://discord.com/channels/" + e.getGuild().getId() + "/" + vcs.get(0).getId() + "/").build()).queue();
                 }
             }
         } else e.getHelpCommand().sendHelp(this, e);

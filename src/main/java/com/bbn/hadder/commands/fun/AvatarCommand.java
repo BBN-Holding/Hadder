@@ -70,7 +70,7 @@ public class AvatarCommand implements Command {
             } catch (NullPointerException ignore) {
 
                 OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/users/" + args[0]).addHeader("Authorization", "Bot " + e.getConfig().getBotToken()).build();
+                Request request = new Request.Builder().url("https://canary.discord.com/api/v8/users/" + args[0]).addHeader("Authorization", "Bot " + e.getConfig().getBotToken()).build();
 
                 try {
                     Response response = client.newCall(request).execute();
