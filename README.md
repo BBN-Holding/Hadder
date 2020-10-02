@@ -2,7 +2,7 @@
 
 Hadder Discord is a multi-purpose Discord bot with 100% uptime.
 
-<a href="https://discord.gg/58My2dM"><img src="https://discordapp.com/api/guilds/448554629282922527/embed.png"/></a>
+<a href="https://discord.gg/nPwjaJk"><img src="https://discord.com/api/guilds/757966278936756345/embed.png"/></a>
 [![Build Status](https://github.com/BigBotNetwork/Hadder/workflows/Hadder/badge.svg)](https://github.com/BigBotNetwork/Hadder)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ddb8cb7ec85f467caa691c175e1f01b5)](https://www.codacy.com/gh/BigBotNetwork/Hadder?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BigBotNetwork/Hadder&amp;utm_campaign=Badge_Grade)
 [![CodeFactor](https://www.codefactor.io/repository/github/bigbotnetwork/hadder/badge)](https://www.codefactor.io/repository/github/bigbotnetwork/hadder)
@@ -10,12 +10,6 @@ Hadder Discord is a multi-purpose Discord bot with 100% uptime.
 [![GitHub issues](https://img.shields.io/github/issues/BigBotNetwork/Hadder)](https://github.com/BigBotNetwork/Hadder/issues)
 [![GitHub license](https://img.shields.io/github/license/BigBotNetwork/Hadder)](https://github.com/BigBotNetwork/Hadder/blob/master/LICENSE)
 [![time tracker](https://wakatime.com/badge/github/BigBotNetwork/Hadder.svg)](https://wakatime.com/badge/github/BigBotNetwork/Hadder)
-
-[![MBL](Https://Mythicalbots.Xyz/Bot/637002314162372639/Embed?Q=Dark/ )](Https://Mythicalbots.Xyz/Bot/637002314162372639)
-[![Discord Bots](https://top.gg/api/widget/637002314162372639.svg)](https://top.gg/bot/637002314162372639)
-[![Hadder's Widget](https://api.botlist.space/widget/637002314162372639/2 "Hadder's Widget")](https://botlist.space/bot/637002314162372639?utm_source=bls&utm_medium=widget&utm_campaign=637002314162372639)
-[![Discord Bots](https://discordbotlist.com/bots/637002314162372639/widget)](https://discordbotlist.com/bots/637002314162372639)
-[![Arcane Bot Center](https://arcane-botcenter.xyz/api/widget/637002314162372639.svg)](https://arcane-botcenter.xyz/bot/637002314162372639)
 
 ## Hadder Team
 ### Developer

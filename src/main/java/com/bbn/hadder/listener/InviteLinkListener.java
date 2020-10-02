@@ -20,6 +20,8 @@ import com.bbn.hadder.db.Rethink;
 import com.bbn.hadder.db.RethinkServer;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.MessageUpdateEvent;
@@ -41,21 +43,14 @@ public class InviteLinkListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent e) {
-        if (e.isFromType(ChannelType.TEXT)) {
-            RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-            if (e.getMessage().getContentRaw().contains("discord.gg/") && (!e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect())) {
-                checkInvite(e.getMessage(), "discord.gg/");
-            } else if (e.getMessage().getContentRaw().contains("discordapp.com/invite") && !e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
-                checkInvite(e.getMessage(), "discordapp.com/invite/");
-            }
-        }
+        scanMessage(e.isFromType(ChannelType.TEXT), e.getGuild(), e.getMessage(), e.getMember());
     }
 
     public void checkInvite(Message message, String regex) {
         String split = message.getContentRaw().split(regex, 10)[1];
         String invite = split.split(" ")[0];
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invites/" + invite).build();
+        Request request = new Request.Builder().url("https://canary.discord.com/api/v8/invites/" + invite).build();
         try {
             Response response = client.newCall(request).execute();
             JSONObject json = new JSONObject(response.body().string());
@@ -69,12 +64,18 @@ public class InviteLinkListener extends ListenerAdapter {
 
     @Override
     public void onMessageUpdate(@Nonnull MessageUpdateEvent e) {
-        if (e.isFromType(ChannelType.TEXT)) {
-            RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-            if (e.getMessage().getContentRaw().contains("discord.gg/") && !e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
-                checkInvite(e.getMessage(), "discord.gg/");
-            } else if (e.getMessage().getContentRaw().contains("discordapp.com/invite") && !e.getMember().hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
-                checkInvite(e.getMessage(), "discordapp.com/invite/");
+        scanMessage(e.isFromType(ChannelType.TEXT), e.getGuild(), e.getMessage(), e.getMember());
+    }
+
+    public void scanMessage(boolean fromType, Guild guild, Message message, Member member) {
+        if (fromType) {
+            RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", guild.getId()), rethink);
+            if (message.getContentRaw().contains("discord.gg/") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
+                checkInvite(message, "discord.gg/");
+            } else if (message.getContentRaw().contains("discord.com/invite") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
+                checkInvite(message, "discord.com/invite/");
+            } else if (message.getContentRaw().contains("discordapp.com/invite") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
+                checkInvite(message, "discordapp.com/invite/");
             }
         }
     }

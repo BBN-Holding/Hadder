@@ -31,7 +31,7 @@ public class CodeCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
             OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder().url("https://canary.discordapp.com/api/v6/invite/" + args[0] + "?with_counts=true").addHeader("Authorization", "Bot " + e.getConfig().getBotToken()).build();
+            Request request = new Request.Builder().url("https://canary.discord.com/api/v8/invite/" + args[0] + "?with_counts=true").addHeader("Authorization", "Bot " + e.getConfig().getBotToken()).build();
 
             try {
                 Response response = client.newCall(request).execute();
@@ -77,6 +77,6 @@ public class CodeCommand implements Command {
 
     @Override
     public String example() {
-        return "58My2dM";
+        return "nPwjaJk";
     }
 }
