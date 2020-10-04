@@ -32,7 +32,7 @@ jobs:
           local: ./target/Hadder-Build.jar
           remote: /home/Hadder-Build.jar
           host: ${{ secrets.HOST }}
-          privateKey: "123"
+          privateKey: ${{ secrets.PK }}
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
