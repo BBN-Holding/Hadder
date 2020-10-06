@@ -34,13 +34,13 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           passphrase: ${{ secrets.PASSWORD }}
-          privateKey: ${{ secrets.PK }}
+          privateKey: ${{ secrets.PRIVATE_KEY }}
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
-          key: ${{ secrets.PK }}
+          key: ${{ secrets.PRIVATE_KEY }}
           script: /home/deploy.sh
       - name: Send Webhook Notification
         if: always()
