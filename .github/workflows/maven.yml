@@ -30,8 +30,10 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: ./target/Hadder-Build.jar
-          remote: /home/Hadder-Build.jar
+          remote: /home/bots/Hadder/Hadder-Build.jar
           host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          passphrase: ${{ secrets.PASSWORD }}
           privateKey: ${{ secrets.PK }}
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
