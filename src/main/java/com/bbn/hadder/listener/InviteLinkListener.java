@@ -43,7 +43,7 @@ public class InviteLinkListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent e) {
-        scanMessage(e.isFromType(ChannelType.TEXT), e.getGuild(), e.getMessage(), e.getMember());
+        if (e.isFromType(ChannelType.TEXT)) scanMessage(e.getGuild(), e.getMessage(), e.getMember());
     }
 
     public void checkInvite(Message message, String regex) {
@@ -64,19 +64,17 @@ public class InviteLinkListener extends ListenerAdapter {
 
     @Override
     public void onMessageUpdate(@Nonnull MessageUpdateEvent e) {
-        scanMessage(e.isFromType(ChannelType.TEXT), e.getGuild(), e.getMessage(), e.getMember());
+        if (e.isFromType(ChannelType.TEXT)) scanMessage(e.getGuild(), e.getMessage(), e.getMember());
     }
 
-    public void scanMessage(boolean fromType, Guild guild, Message message, Member member) {
-        if (fromType) {
-            RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", guild.getId()), rethink);
-            if (message.getContentRaw().contains("discord.gg/") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
-                checkInvite(message, "discord.gg/");
-            } else if (message.getContentRaw().contains("discord.com/invite") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
-                checkInvite(message, "discord.com/invite/");
-            } else if (message.getContentRaw().contains("discordapp.com/invite") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
-                checkInvite(message, "discordapp.com/invite/");
-            }
+    public void scanMessage(Guild guild, Message message, Member member) {
+        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", guild.getId()), rethink);
+        if (message.getContentRaw().contains("discord.gg/") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
+            checkInvite(message, "discord.gg/");
+        } else if (message.getContentRaw().contains("discord.com/invite") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
+            checkInvite(message, "discord.com/invite/");
+        } else if (message.getContentRaw().contains("discordapp.com/invite") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
+            checkInvite(message, "discordapp.com/invite/");
         }
     }
 }
