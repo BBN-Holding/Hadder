@@ -75,7 +75,7 @@ public class InviteDetectCommand implements Command {
 
     @Override
     public String[] labels() {
-        return new String[]{"invitedetect", "detectinvite"};
+        return new String[]{"invitedetect", "detectinvite", "invite-detect"};
     }
 
     @Override

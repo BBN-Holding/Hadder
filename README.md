@@ -19,34 +19,43 @@ Hax#6775
 ## A few commands
 | **Command**    | **Description**                                               |
 |----------------|---------------------------------------------------------------|
-| h.help         | Shows each command and explains its usage.                    |
-| h.about        | Shows information about Hadder.                               |
-| h.equals       | Checks if two strings are the same.                           |
-| h.invite       | Shows the invite link to invite Hadder to your server.        |
-| h.ping         | Shows the ping to the Discord API.                            |
-| h.avatar       | Sends the avatar of the specified member.                     |
-| h.gif          | Looks for a GIF on Giphy.                                     |
-| h.meme         | Sends you a random meme.                                      |
-| h.clyde        | Sends a message as a webhook named Clyde.                     |
-| h.feedback     | Sends feedback directly to the developers.                    |
-| h.github       | Displays information about a GitHub user profile.             |
-| h.screenshare  | Shows you the link to share your screen.                      |
-| h.ban          | Bans one or more users from the server.                       |
-| h.clear        | Deletes the specified number of messages.                     |
-| h.prefix       | Sets the Guild-Prefix.                                        |
-| h.invitedetect | Activate or deactivate the Discord invite link detection.     |
-| h.kick         | Kicks one or more user from the server.                       |
-| h.nick         | Rename a one or more user.                                    |
-| h.regionchange | Changes the server region to locked regions.                  |
+| h.about        | Shows information about Hadder                                |
+| h.avatar       | Sends the avatar of the specified Member                      |
+| h.ban          | Bans one or more users from the server                        |
+| h.bass         | Change the bass for the song which is played at the moment    |
+| h.clear        | Deletes the specified number of messages                      |
+| h.clyde        | Sends a message as a webhook named Clyde                      |
+| h.code         | Shows information about a invite code                         |
+| h.corona       | Shows the newest stats of COVID-19                            |
+| h.echo         | Sends your voice through Hadder                               |
+| h.editrules    | Edits the rules message                                       |
+| h.equals       | Checks if two strings are equal                               |
+| h.feedback     | Sends feedback directly to the developers                     |
+| h.gif          | Looks for a GIF on Giphy                                      |
+| h.github       | Displays information about a GitHub user profile              |
+| h.help         | Shows each command and explains its usage                     |
+| h.info         | Shows information about the playing song                      |
+| h.invite       | Shows the invitation link to invite Hadder to your server     |
+| h.invitedetect | Activate or deactivate the Discord invite link detection      |
+| h.join         | Joins your voice channel                                      |
+| h.kick         | Kicks one or more user from the server                        |
+| h.language     | Sets the new primary language for a user                      |
+| h.loop         | Repeats a song/queue                                          |
+| h.meme         | Sends you a random meme                                       |
+| h.moveall      | Moves all users in the source channel to the target channel   |
+| h.nick         | Rename a one or more user                                     |
+| h.pause        | Pause the playing song                                        |
+| h.ping         | Shows the ping to the Discord API                             |
+| h.play         | Plays the specified song                                      |
+| h.prefix       | Sets the Guild-Prefix                                         |
+| h.profile      | Shows some information about the specified user               |
+| h.queue        | Shows the music queue                                         |
+| h.regionchange | Changes the server region to locked regions                   |
 | h.role         | Adds and removes one or more role(s) from one or more user(s) |
 | h.rules        | Setup the rules on your Discord server                        |
-| h.starboard    | Sets the starboard channel.                                   |
-| h.editrules    | Edits the rules message.                                      |
-| h.join         | Joins your voice channel.                                     |
-| h.leave        | Leaves your voice channel.                                    |
-| h.play         | Plays the specified song.                                     |
-| h.stop         | Stops the song.                                               |
-| h.info         | Shows information about the playing song.                     |
-| h.queue        | Shows the music queue.                                        |
-| h.skip         | Skips the currently playing song.                             |
-| h.volume       | Change the volume of the music.                               |
+| h.screenshare  | Shows you the link to share your screen                       |
+| h.serverstats  | Shows information about a server                              |
+| h.skip         | Skips the currently playing song                              |
+| h.starboard    | Sets the starboard channel                                    |
+| h.stop         | Stops the song                                                |
+| h.volume       | Change the volume of the music                                |
