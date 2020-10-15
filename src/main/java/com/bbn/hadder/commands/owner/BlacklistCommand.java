@@ -45,7 +45,7 @@ public class BlacklistCommand implements Command {
                         String blacklisted = e.getRethinkUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
-                        if (args[0].toLowerCase().equals("add")) commands.addAll(Arrays.asList(args[1].split(",")));
+                        if (args[0].equalsIgnoreCase("add")) commands.addAll(Arrays.asList(args[1].split(",")));
                         else commands.removeAll(Arrays.asList(args[1].split(",")));
                         LinkedHashSet<String> hashSet = new LinkedHashSet<>(commands);
 
