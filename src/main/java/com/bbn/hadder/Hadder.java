@@ -137,7 +137,7 @@ public class Hadder {
                         new CoronaCommand()), config, helpCommand);
 
         builder.addEventListeners(
-                new MentionListener(rethink),
+                new MentionListener(rethink, config),
                 new PrivateMessageListener(rethink),
                 new CommandListener(rethink, commandHandler, audioManager),
                 new GuildListener(rethink, config),

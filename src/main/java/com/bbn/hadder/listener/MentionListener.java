@@ -16,6 +16,7 @@
 
 package com.bbn.hadder.listener;
 
+import com.bbn.hadder.core.Config;
 import com.bbn.hadder.db.Rethink;
 import com.bbn.hadder.db.RethinkServer;
 import com.bbn.hadder.db.RethinkUser;
@@ -23,9 +24,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GitHub;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -34,9 +34,11 @@ import java.util.Random;
 public class MentionListener extends ListenerAdapter {
 
     private Rethink rethink;
+    private Config config;
 
-    public MentionListener(Rethink rethink) {
+    public MentionListener(Rethink rethink, Config config) {
         this.rethink = rethink;
+        this.config = config;
     }
 
     @Override
@@ -47,32 +49,24 @@ public class MentionListener extends ListenerAdapter {
             if (e.isFromType(ChannelType.TEXT) && (e.getMessage().getContentRaw().equals(e.getGuild().getSelfMember().getAsMention()) ||
                     e.getMessage().getContentRaw().equals(e.getGuild().getSelfMember().getAsMention().replace("@", "@!")))) {
 
-                MavenXpp3Reader reader = new MavenXpp3Reader();
-                Model model = null;
+                String version = null;
+
                 try {
-                    model = reader.read(getClass().getResourceAsStream("pom.xml"));
-                } catch (IOException | XmlPullParserException ex) {
-                    ex.printStackTrace();
+                    GitHub connection = GitHub.connectUsingOAuth(config.getGitHubToken());
+                    GHRepository Hadder = connection.getOrganization("BigBotNetwork").getRepository("Hadder");
+                    version = Hadder.getLatestRelease().getTagName();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
                 }
+
                 EmbedBuilder builder = new EmbedBuilder()
                         .setTitle("Hi!")
-                        .addField("Version", model.getVersion(), false)
+                        .addField("Version", version, false)
                         .addField("User-Prefix", rethinkUser.getPrefix(), true)
-                        .addField("Guild-Prefix", rethinkServer.getPrefix(), true);
-                StringBuilder stringBuilder = new StringBuilder();
-                model.getDependencies().forEach(
-                        dependency -> stringBuilder.append(dependency.getArtifactId()).append(" - ").append(dependency.getVersion()).append("\n")
-                );
-                builder.addField("Dependencies", stringBuilder.toString(), false);
-                StringBuilder devs = new StringBuilder();
-                //TODO: Fix Mail stuff
-                model.getDevelopers().forEach(
-                        developer -> devs.append(developer.getId()).append(" - [Website](").append(developer.getUrl()).append("), [E-Mail](https://hax.bigbotnetwork.de/redirect.html?url=mailto:").append(developer.getEmail()).append(")\n")
-                );
-                builder.addField("Developer", devs.toString(), false);
-                builder.addField("Join our Dev Server!", "[Click here!](https://discord.gg/nPwjaJk)", true);
-                builder.addField("Github", "[Click here!](https://github.com/BigBotNetwork/Hadder)", false);
-                builder.addField("Twitch", "[Click here!](https://www.twitch.tv/bigbotnetwork)", false);
+                        .addField("Guild-Prefix", rethinkServer.getPrefix(), true)
+                        .addField("Join our Dev Server!", "[Click here!](https://discord.gg/nPwjaJk)", true)
+                        .addField("Github", "[Click here!](https://github.com/BigBotNetwork/Hadder)", false)
+                        .addField("Twitch", "[Click here!](https://www.twitch.tv/bigbotnetwork)", false);
                 e.getChannel().sendMessage(builder.build()).queue();
             } else if (e.getMessage().getContentRaw().equalsIgnoreCase("@someone")) {
                 int member = new Random().nextInt(e.getGuild().getMembers().size() - 1);
