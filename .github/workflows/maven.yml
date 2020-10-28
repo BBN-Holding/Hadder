@@ -30,18 +30,18 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: ./target/Hadder-Build.jar
-          remote: /home/bots/Hadder/Hadder-Build.jar
+          remote: /root/bots/Hadder/Hadder-Build.jar
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          passphrase: ${{ secrets.PASSWORD }}
-          privateKey: ${{ secrets.PRIVATE_KEY }}
+          password: ${{ secrets.PASSWORD }}
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          key: ${{ secrets.PRIVATE_KEY }}
-          script: /home/deploy.sh
+          script: /root/bots/Hadder/deploy.sh
       - name: Send Webhook Notification
         if: always()
         env:
