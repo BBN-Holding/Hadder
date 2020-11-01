@@ -64,7 +64,7 @@ public class Hadder {
         builder.setShardsTotal(1);
         builder.setChunkingFilter(ChunkingFilter.NONE);
         builder.setBulkDeleteSplittingEnabled(true);
-        builder.setActivity(Activity.listening("to h.help"));
+        builder.setActivity(Activity.listening("h.help"));
         builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
         builder.setToken(config.getBotToken());
 
