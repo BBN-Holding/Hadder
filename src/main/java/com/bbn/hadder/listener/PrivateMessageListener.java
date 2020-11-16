@@ -38,17 +38,18 @@ public class PrivateMessageListener extends ListenerAdapter {
 
     public void onMessageReceived(MessageReceivedEvent e) {
         if (e.isFromType(ChannelType.PRIVATE) && !e.getAuthor().getId().equals(e.getJDA().getSelfUser().getId())) {
-            PrivateChannel Skidder = e.getJDA().getUserById("477141528981012511").openPrivateChannel().complete();
+            PrivateChannel Skidder = e.getJDA().getUserById("401817301919465482").openPrivateChannel().complete();
             PrivateChannel Hax = e.getJDA().getUserById("261083609148948488").openPrivateChannel().complete();
-            RethinkUser rethinkUser = new RethinkUser(rethink.getObjectByID("user", "261083609148948488"), rethink);
+            RethinkUser HaxUser = new RethinkUser(rethink.getObjectByID("user", "261083609148948488"), rethink);
+            RethinkUser SkidderUser = new RethinkUser(rethink.getObjectByID("user", "261083609148948488"), rethink);
 
-            Skidder.sendMessage(new MessageEditor(rethinkUser, e.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
+            Skidder.sendMessage(new MessageEditor(SkidderUser, e.getJDA().getUserById("401817301919465482")).getMessage(MessageEditor.MessageType.INFO)
                     .setTitle("New DM by " + e.getAuthor().getAsTag())
                     .setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl())
                     .setDescription(e.getMessage().getContentRaw())
                     .setTimestamp(Instant.now())
                     .build()).queue();
-            Hax.sendMessage(new MessageEditor(rethinkUser, e.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
+            Hax.sendMessage(new MessageEditor(HaxUser, e.getJDA().getUserById("261083609148948488")).getMessage(MessageEditor.MessageType.INFO)
                     .setTitle("New DM by " + e.getAuthor().getAsTag())
                     .setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl())
                     .setDescription(e.getMessage().getContentRaw())
