@@ -22,7 +22,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class VoiceLeaveListener extends ListenerAdapter {
 
-    private AudioManager audioManager;
+    private final AudioManager audioManager;
 
     public VoiceLeaveListener(AudioManager audioManager) {
         this.audioManager = audioManager;

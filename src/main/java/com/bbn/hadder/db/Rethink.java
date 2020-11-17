@@ -27,9 +27,9 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 
 public class Rethink {
-    private RethinkDB r = RethinkDB.r;
+    private final RethinkDB r = RethinkDB.r;
     private Connection conn;
-    private Config config;
+    private final Config config;
 
     public Rethink(Config config) {
         this.config = config;

@@ -27,8 +27,8 @@ import java.util.ResourceBundle;
 
 public class MessageEditor {
 
-    private RethinkUser rethinkUser;
-    private User user;
+    private final RethinkUser rethinkUser;
+    private final User user;
 
     public MessageEditor(RethinkUser rethinkUser, User user) {
         this.rethinkUser = rethinkUser;

@@ -24,7 +24,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class RulesListener extends ListenerAdapter {
 
-    private Rethink rethink;
+    private final Rethink rethink;
 
     public RulesListener(Rethink rethink) {
         this.rethink = rethink;
