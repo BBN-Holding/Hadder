@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 
 public class StarboardListener extends ListenerAdapter {
 
-    private Rethink rethink;
+    private final Rethink rethink;
 
     public StarboardListener(Rethink rethink) {
         this.rethink = rethink;

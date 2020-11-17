@@ -22,9 +22,9 @@ public class OwnerMessageListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         if (config.getOwners().contains(event.getAuthor().getIdLong()) && event.getMessage().getContentRaw().startsWith(":") && event.getMessage().getContentRaw().endsWith(":")) {
-            String emotename = event.getMessage().getContentRaw().split(":")[1];
-            if (!emotename.contains(" ")) {
-                Emote[] emotes = event.getJDA().getEmotesByName(emotename, true).toArray(new Emote[0]);
+            String emoteName = event.getMessage().getContentRaw().split(":")[1];
+            if (!emoteName.contains(" ")) {
+                Emote[] emotes = event.getJDA().getEmotesByName(emoteName, true).toArray(new Emote[0]);
                 StringBuilder sb = new StringBuilder();
                 if (emotes.length != 0) {
                     for (Emote emote : emotes) {

@@ -30,7 +30,7 @@ import java.time.Instant;
 
 public class PrivateMessageListener extends ListenerAdapter {
 
-    private Rethink rethink;
+    private final Rethink rethink;
 
     public PrivateMessageListener(Rethink rethink) {
         this.rethink = rethink;

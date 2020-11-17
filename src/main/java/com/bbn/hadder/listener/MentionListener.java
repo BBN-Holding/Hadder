@@ -33,8 +33,8 @@ import java.util.Random;
 
 public class MentionListener extends ListenerAdapter {
 
-    private Rethink rethink;
-    private Config config;
+    private final Rethink rethink;
+    private final Config config;
 
     public MentionListener(Rethink rethink, Config config) {
         this.rethink = rethink;

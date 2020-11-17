@@ -33,9 +33,9 @@ import java.time.Instant;
 
 public class CommandListener extends ListenerAdapter {
 
-    private Rethink rethink;
-    private CommandHandler handler;
-    private AudioManager audioManager;
+    private final Rethink rethink;
+    private final CommandHandler handler;
+    private final AudioManager audioManager;
 
     public CommandListener(Rethink rethink, CommandHandler handler, AudioManager audioManager) {
         this.rethink = rethink;
