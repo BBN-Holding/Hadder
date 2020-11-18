@@ -59,9 +59,14 @@ public class Rethink {
         try {
             return new JSONObject(response);
         } catch (JSONException e) {
-            e.printStackTrace();
-            System.out.println(response);
-            return null;
+            insertUser(id);
+            String response2 = String.valueOf(r.table(table).get(id).toJson().run(conn).first());
+            try {
+                return new JSONObject(response2);
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+                return null;
+            }
         }
     }
 
