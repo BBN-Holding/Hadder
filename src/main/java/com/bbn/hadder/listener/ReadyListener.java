@@ -50,6 +50,7 @@ public class ReadyListener extends ListenerAdapter {
             }
         }).start();
 
-        new BotList(config).post();
+        //TODO: Renew all bot lists
+        //new BotList(config).post();
     }
 }
