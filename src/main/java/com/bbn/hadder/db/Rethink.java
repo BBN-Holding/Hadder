@@ -59,6 +59,7 @@ public class Rethink {
         try {
             return new JSONObject(response);
         } catch (JSONException e) {
+            e.printStackTrace();
             System.out.println(response);
             return null;
         }
