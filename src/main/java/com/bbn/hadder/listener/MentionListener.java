@@ -43,7 +43,7 @@ public class MentionListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent e) {
-        if (!e.getAuthor().isBot()) {
+        if (!e.getAuthor().isBot() && e.isFromType(ChannelType.TEXT)) {
             RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
             RethinkUser rethinkUser = new RethinkUser(rethink.getObjectByID("user", e.getAuthor().getId()), rethink);
             if (e.isFromType(ChannelType.TEXT) && (e.getMessage().getContentRaw().equals(e.getGuild().getSelfMember().getAsMention()) ||
