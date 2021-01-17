@@ -58,7 +58,7 @@ public class PrivateMessageListener extends ListenerAdapter {
 
             e.getChannel().sendMessage(new EmbedBuilder()
                     .setTitle("No DM support")
-                    .setDescription("You have to execute your commands on a guild!")
+                    .setDescription("You have to execute your commands on a guild! For further support join our Discord server [here](https://discord.gg/nPwjaJk)")
                     .setColor(Color.RED)
                     .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
                     .setTimestamp(Instant.now())
