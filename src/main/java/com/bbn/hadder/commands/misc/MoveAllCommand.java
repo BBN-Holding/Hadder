@@ -56,6 +56,27 @@ public class MoveAllCommand implements Command {
                         "commands.misc.moveall.error.source.int.title",
                         "commands.misc.moveall.error.source.int.description").build()).queue();
             }
+        } else if (args.length == 1) {
+            if (StringUtils.isNumeric(args[0]) && args[0].length() == 18) {
+                if (e.getMember().getVoiceState().inVoiceChannel()) {
+                    int count = e.getMember().getVoiceState().getChannel().getMembers().size();
+                    e.getMember().getVoiceState().getChannel().getMembers().forEach(
+                            member -> e.getGuild().moveVoiceMember(member, e.getGuild().getVoiceChannelById(args[0])).queue()
+                    );
+                    e.getChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,
+                            "commands.misc.moveall.success.title", "",
+                            "commands.misc.moveall.success.description", String.valueOf(count))
+                            .build()).queue();
+                } else {
+                    e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                            "commands.misc.moveall.error.source.int.title",
+                            "commands.misc.moveall.error.source.int.description").build()).queue();
+                }
+            } else {
+                e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.ERROR,
+                        "commands.misc.moveall.error.target.int.title",
+                        "commands.misc.moveall.error.target.int.description").build()).queue();
+            }
         } else e.getHelpCommand().sendHelp(this, e);
     }
 
@@ -71,7 +92,7 @@ public class MoveAllCommand implements Command {
 
     @Override
     public String usage() {
-        return "[source-channel] [target-channel]";
+        return "([source-channel]) [target-channel]";
     }
 
     @Override
