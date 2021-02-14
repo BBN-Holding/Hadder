@@ -1,4 +1,4 @@
-base_url: 'https://bigbotnetwork.com'
+base_url: 'https://bbn.one'
 commit_message: 'New %language% translation'
 files:
   - source: /src/main/resources/Translations/Translations_en.properties

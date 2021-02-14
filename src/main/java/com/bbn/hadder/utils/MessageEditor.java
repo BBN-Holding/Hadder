@@ -73,21 +73,21 @@ public class MessageEditor {
             case INFO:
                 builder
                         .setColor(new Color(78, 156, 174))
-                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
                         .setTimestamp(Instant.now());
                 break;
 
             case ERROR:
                 builder
                         .setColor(Color.RED)
-                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
                         .setTimestamp(Instant.now());
                 break;
 
             case WARNING:
                 builder
                         .setColor(Color.ORANGE)
-                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
                         .setTimestamp(Instant.now());
                 break;
 
@@ -96,7 +96,7 @@ public class MessageEditor {
                         .setTitle("⛔ No Permission ⛔")
                         .setDescription("You are not authorized to execute this command!")
                         .setColor(Color.RED)
-                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
                         .setTimestamp(Instant.now());
                 break;
 
@@ -105,7 +105,7 @@ public class MessageEditor {
                         .setTitle("⛔ No Permission ⛔")
                         .setDescription("Unfortunately, I do not have the required rights to perform this action!")
                         .setColor(Color.RED)
-                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
                         .setTimestamp(Instant.now());
                 break;
 
@@ -114,7 +114,7 @@ public class MessageEditor {
                         .setTitle("⛔ No NSFW ⛔")
                         .setDescription("You can only execute this command in NSFW channels!")
                         .setColor(Color.RED)
-                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
                         .setTimestamp(Instant.now());
                 break;
         }

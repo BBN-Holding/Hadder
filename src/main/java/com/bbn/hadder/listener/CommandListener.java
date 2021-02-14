@@ -70,7 +70,7 @@ public class CommandListener extends ListenerAdapter {
                                 .setTitle("No permission")
                                 .setDescription("I need the `MESSAGE EMBED LINKS` permission in order to work!")
                                 .setColor(Color.RED)
-                                .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                                .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
                                 .setTimestamp(Instant.now())
                                 .build()).queue();
                     } catch (ErrorResponseException ex) {
@@ -82,7 +82,7 @@ public class CommandListener extends ListenerAdapter {
                         .setTitle("No permission")
                         .setDescription("I need the `MESSAGE WRITE` permission in order to work!")
                         .setColor(Color.RED)
-                        .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                        .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
                         .setTimestamp(Instant.now())
                         .build()).queue();
             }

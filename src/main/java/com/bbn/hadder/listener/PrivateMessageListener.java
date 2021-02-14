@@ -60,7 +60,7 @@ public class PrivateMessageListener extends ListenerAdapter {
                     .setTitle("No DM support")
                     .setDescription("You have to execute your commands on a guild! For further support join our Discord server [here](https://discord.gg/nPwjaJk)")
                     .setColor(Color.RED)
-                    .setFooter("Hadder", "https://bigbotnetwork.com/images/Hadder.png")
+                    .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
                     .setTimestamp(Instant.now())
                     .build()).queue();
         }
