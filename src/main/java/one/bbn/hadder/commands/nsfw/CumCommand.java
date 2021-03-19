@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ * Copyright 2019-2021 GregTCLTK and Schlauer-Hax
  *
  * Licensed under the GNU Affero General Public License, Version 3.0;
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.commands.nsfw;
+package one.bbn.hadder.commands.nsfw;
 
-import com.bbn.hadder.commands.Command;
-import com.bbn.hadder.commands.CommandEvent;
-import com.bbn.hadder.utils.Http;
-import com.bbn.hadder.utils.MessageEditor;
+import one.bbn.hadder.commands.Command;
+import one.bbn.hadder.commands.CommandEvent;
+import one.bbn.hadder.utils.Http;
+import one.bbn.hadder.utils.MessageEditor;
 
 public class CumCommand implements Command {
 

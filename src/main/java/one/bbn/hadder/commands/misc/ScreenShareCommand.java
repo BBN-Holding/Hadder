@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ * Copyright 2019-2021 GregTCLTK and Schlauer-Hax
  *
  * Licensed under the GNU Affero General Public License, Version 3.0;
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.commands.misc;
+package one.bbn.hadder.commands.misc;
 
-import com.bbn.hadder.commands.Command;
-import com.bbn.hadder.commands.CommandEvent;
-import com.bbn.hadder.utils.EventWaiter;
-import com.bbn.hadder.utils.MessageEditor;
-import com.bbn.hadder.utils.MessageEditor.MessageType;
+import one.bbn.hadder.commands.Command;
+import one.bbn.hadder.commands.CommandEvent;
+import one.bbn.hadder.utils.EventWaiter;
+import one.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 
@@ -44,7 +43,7 @@ public class ScreenShareCommand implements Command {
             } else {
                 List<VoiceChannel> vcs = e.getGuild().getVoiceChannelsByName(String.join(" ", args), true);
                 if (vcs.size() > 1) {
-                    EmbedBuilder eb = e.getMessageEditor().getMessage(MessageType.WARNING, "commands.misc.screenshare.channel.error.title", "commands.misc.screenshare.channel.error.description");
+                    EmbedBuilder eb = e.getMessageEditor().getMessage(MessageEditor.MessageType.WARNING, "commands.misc.screenshare.channel.error.title", "commands.misc.screenshare.channel.error.description");
                     for (int i = 0; i < vcs.size(); i++) {
                         VoiceChannel voiceChannel = vcs.get(i);
                         eb.addField(i + ": " + voiceChannel.getName(), voiceChannel.getId(), false);

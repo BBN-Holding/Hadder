@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ * Copyright 2019-2021 GregTCLTK and Schlauer-Hax
  *
  * Licensed under the GNU Affero General Public License, Version 3.0;
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.commands.owner;
+package one.bbn.hadder.commands.owner;
 
-import com.bbn.hadder.Hadder;
-import com.bbn.hadder.commands.Command;
-import com.bbn.hadder.commands.CommandEvent;
-import com.bbn.hadder.core.Perm;
-import com.bbn.hadder.core.Perms;
-import com.bbn.hadder.utils.MessageEditor;
+import one.bbn.hadder.Hadder;
+import one.bbn.hadder.commands.Command;
+import one.bbn.hadder.commands.CommandEvent;
+import one.bbn.hadder.core.Perm;
+import one.bbn.hadder.core.Perms;
+import one.bbn.hadder.utils.MessageEditor;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;

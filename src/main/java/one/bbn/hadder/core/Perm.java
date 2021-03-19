@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 GregTCLTK and Schlauer-Hax
+ * Copyright 2019-2021 GregTCLTK and Schlauer-Hax
  *
  * Licensed under the GNU Affero General Public License, Version 3.0;
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.core;
+package one.bbn.hadder.core;
 
-import com.bbn.hadder.commands.CommandEvent;
+import one.bbn.hadder.commands.CommandEvent;
 import net.dv8tion.jda.api.Permission;
 
 public enum Perm {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.db;
+package one.bbn.hadder.db;
 
 import org.json.JSONObject;
 

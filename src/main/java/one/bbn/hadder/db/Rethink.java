@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.db;
+package one.bbn.hadder.db;
 
-import com.bbn.hadder.core.Config;
+import one.bbn.hadder.core.Config;
 import com.rethinkdb.RethinkDB;
 import com.rethinkdb.gen.exc.ReqlNonExistenceError;
 import com.rethinkdb.gen.exc.ReqlOpFailedError;
