@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.listener;
+package one.bbn.hadder.listener;
 
-import com.bbn.hadder.core.Config;
-import com.bbn.hadder.db.Rethink;
-import com.bbn.hadder.utils.BotList;
+import one.bbn.hadder.core.Config;
+import one.bbn.hadder.db.Rethink;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;

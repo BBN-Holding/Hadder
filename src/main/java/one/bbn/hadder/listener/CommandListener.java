@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.listener;
+package one.bbn.hadder.listener;
 
-import com.bbn.hadder.audio.AudioManager;
-import com.bbn.hadder.core.CommandHandler;
-import com.bbn.hadder.db.Rethink;
-import com.bbn.hadder.db.RethinkServer;
-import com.bbn.hadder.db.RethinkUser;
+import one.bbn.hadder.audio.AudioManager;
+import one.bbn.hadder.core.CommandHandler;
+import one.bbn.hadder.db.Rethink;
+import one.bbn.hadder.db.RethinkServer;
+import one.bbn.hadder.db.RethinkUser;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;

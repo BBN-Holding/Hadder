@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.listener;
+package one.bbn.hadder.listener;
 
-import com.bbn.hadder.db.Rethink;
-import com.bbn.hadder.db.RethinkServer;
+import one.bbn.hadder.db.Rethink;
+import one.bbn.hadder.db.RethinkServer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.MessageReaction;

@@ -2,9 +2,9 @@
  * @author Hax / Hax6775 / Schlauer_Hax
  */
 
-package com.bbn.hadder.listener;
+package one.bbn.hadder.listener;
 
-import com.bbn.hadder.core.Config;
+import one.bbn.hadder.core.Config;
 import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;

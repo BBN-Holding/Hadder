@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.utils;
+package one.bbn.hadder.utils;
 
-import com.bbn.hadder.Hadder;
-import com.bbn.hadder.core.Config;
+import one.bbn.hadder.Hadder;
+import one.bbn.hadder.core.Config;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

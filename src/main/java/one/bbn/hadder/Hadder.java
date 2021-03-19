@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder;
+package one.bbn.hadder;
 
-import com.bbn.hadder.audio.AudioManager;
-import com.bbn.hadder.commands.fun.AvatarCommand;
-import com.bbn.hadder.commands.fun.ClydeCommand;
-import com.bbn.hadder.commands.fun.GifCommand;
-import com.bbn.hadder.commands.fun.MemeCommand;
-import com.bbn.hadder.commands.general.*;
-import com.bbn.hadder.commands.misc.*;
-import com.bbn.hadder.commands.moderation.*;
-import com.bbn.hadder.commands.music.*;
-import com.bbn.hadder.commands.nsfw.*;
-import com.bbn.hadder.commands.owner.*;
-import com.bbn.hadder.commands.settings.LanguageCommand;
-import com.bbn.hadder.commands.settings.UserPrefixCommand;
-import com.bbn.hadder.core.CommandHandler;
-import com.bbn.hadder.core.Config;
-import com.bbn.hadder.db.Rethink;
-import com.bbn.hadder.listener.*;
+import one.bbn.hadder.audio.AudioManager;
+import one.bbn.hadder.commands.fun.AvatarCommand;
+import one.bbn.hadder.commands.fun.ClydeCommand;
+import one.bbn.hadder.commands.fun.GifCommand;
+import one.bbn.hadder.commands.fun.MemeCommand;
+import one.bbn.hadder.commands.general.*;
+import one.bbn.hadder.commands.misc.*;
+import one.bbn.hadder.commands.moderation.*;
+import one.bbn.hadder.commands.music.*;
+import one.bbn.hadder.commands.nsfw.*;
+import one.bbn.hadder.commands.owner.*;
+import one.bbn.hadder.commands.settings.LanguageCommand;
+import one.bbn.hadder.commands.settings.UserPrefixCommand;
+import one.bbn.hadder.core.CommandHandler;
+import one.bbn.hadder.core.Config;
+import one.bbn.hadder.db.Rethink;
+import one.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;

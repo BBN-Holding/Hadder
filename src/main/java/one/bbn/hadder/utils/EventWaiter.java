@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.utils;
+package one.bbn.hadder.utils;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;

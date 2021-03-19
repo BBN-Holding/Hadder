@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.listener;
+package one.bbn.hadder.listener;
 
-import com.bbn.hadder.audio.AudioManager;
+import one.bbn.hadder.audio.AudioManager;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bbn.hadder.utils;
+package one.bbn.hadder.utils;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
