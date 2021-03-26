@@ -1,0 +1,95 @@
+/*
+ * Copyright 2019-2021 GregTCLTK and Schlauer-Hax
+ *
+ * Licensed under the GNU Affero General Public License, Version 3.0;
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.gnu.org/licenses/agpl-3.0.en.html
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package one.bbn.hadder.commands.moderation;
+
+import one.bbn.hadder.commands.Command;
+import one.bbn.hadder.commands.CommandEvent;
+import one.bbn.hadder.core.Perm;
+import one.bbn.hadder.core.Perms;
+import one.bbn.hadder.utils.MessageEditor;
+
+@Perms(Perm.MANAGE_SERVER)
+public class InviteDetectCommand implements Command {
+
+    @Override
+    public void executed(String[] args, CommandEvent e) {
+        if (args.length == 1) {
+            String opinion = args[0].toLowerCase();
+            switch (opinion) {
+                case "on":
+                    if (!e.getMongoServer().hasInviteDetect()) {
+                        e.getMongoServer().setInviteDetect(true);
+                        e.getTextChannel().sendMessage(
+                                e.getMessageEditor().getMessage(
+                                        MessageEditor.MessageType.INFO,
+                                        "commands.moderation.invitedetect.activate.success.title",
+                                        "commands.moderation.invitedetect.activate.success.description")
+                                        .build()).queue();
+                        e.getMongoServer().push();
+                    } else {
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
+                                MessageEditor.MessageType.ERROR,
+                                "commands.moderation.invitedetect.activate.error.title",
+                                "commands.moderation.invitedetect.activate.error.description")
+                                .build()).queue();
+                    }
+                    break;
+
+                case "off":
+                    if (e.getMongoServer().hasInviteDetect()) {
+                        e.getMongoServer().setInviteDetect(false);
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
+                                MessageEditor.MessageType.INFO,
+                                "commands.moderation.invitedetect.deactivate.success.title",
+                                "commands.moderation.invitedetect.deactivate.success.description")
+                                .build()).queue();
+                        e.getMongoServer().push();
+                    } else {
+                        e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
+                                MessageEditor.MessageType.ERROR,
+                                "commands.moderation.invitedetect.deactivate.error.title",
+                                "commands.moderation.invitedetect.deactivate.error.description")
+                                .build()).queue();
+                    }
+                    break;
+                default:
+                    e.getHelpCommand().sendHelp(this, e);
+                    break;
+            }
+        } else e.getHelpCommand().sendHelp(this, e);
+    }
+
+    @Override
+    public String[] labels() {
+        return new String[]{"invitedetect", "detectinvite", "invite-detect"};
+    }
+
+    @Override
+    public String description() {
+        return "commands.moderation.invitedetect.help.description";
+    }
+
+    @Override
+    public String usage() {
+        return "[on/off]";
+    }
+
+    @Override
+    public String example() {
+        return "on";
+    }
+}
