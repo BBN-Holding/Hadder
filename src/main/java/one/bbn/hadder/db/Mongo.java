@@ -20,10 +20,10 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
 import one.bbn.hadder.core.Config;
 import org.bson.Document;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.util.NoSuchElementException;
 
 public class Mongo {
 
@@ -49,18 +49,13 @@ public class Mongo {
     public JSONObject getObjectByID(String collection, String id) {
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put("id", id);
-        String response = db.getCollection(collection).find(whereQuery).cursor().next().toJson();
         try {
+            String response = db.getCollection(collection).find(whereQuery).cursor().next().toJson();
             return new JSONObject(response);
-        } catch (JSONException e) {
+        } catch (NoSuchElementException e) {
             insertUser(id);
             String response2 = db.getCollection(collection).find(whereQuery).cursor().next().toJson();
-            try {
-                return new JSONObject(response2);
-            } catch (JSONException ex) {
-                ex.printStackTrace();
-                return null;
-            }
+            return new JSONObject(response2);
         }
     }
 

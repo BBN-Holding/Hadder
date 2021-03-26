@@ -20,7 +20,6 @@ import one.bbn.hadder.core.Config;
 import one.bbn.hadder.db.Mongo;
 import one.bbn.hadder.utils.BotList;
 import one.bbn.hadder.utils.MessageEditor;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -39,14 +38,6 @@ public class GuildListener extends ListenerAdapter {
     }
 
     public void onGuildJoin(GuildJoinEvent e) {
-        new Thread(() -> {
-            for (Member member : e.getGuild().getMembers()) {
-                if (!member.getUser().getId().equals(e.getJDA().getSelfUser().getId())) {
-                    mongo.insertUser(member.getUser().getId());
-                }
-            }
-        }).start();
-
         mongo.insertGuild(e.getGuild().getId());
         e.getJDA().getTextChannelById("759783393230979142").sendMessage(new MessageEditor(null, null).getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Joined Server")

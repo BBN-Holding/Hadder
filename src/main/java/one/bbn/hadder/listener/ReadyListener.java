@@ -19,6 +19,7 @@ package one.bbn.hadder.listener;
 import one.bbn.hadder.core.Config;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import one.bbn.hadder.utils.BotList;
 
 import javax.annotation.Nonnull;
 
@@ -32,7 +33,6 @@ public class ReadyListener extends ListenerAdapter {
 
     @Override
     public void onReady(@Nonnull ReadyEvent e) {
-        //TODO: Renew all bot lists
-        //new BotList(config).post();
+        new BotList(config).post();
     }
 }
