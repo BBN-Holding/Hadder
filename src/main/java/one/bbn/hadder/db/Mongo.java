@@ -53,7 +53,10 @@ public class Mongo {
             String response = db.getCollection(collection).find(whereQuery).cursor().next().toJson();
             return new JSONObject(response);
         } catch (NoSuchElementException e) {
-            insertUser(id);
+            if (collection.equals("user"))
+                insertUser(id);
+            else if (collection.equals("server"))
+                insertGuild(id);
             String response2 = db.getCollection(collection).find(whereQuery).cursor().next().toJson();
             return new JSONObject(response2);
         }
