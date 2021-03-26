@@ -18,7 +18,6 @@ package one.bbn.hadder.db;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
-import com.rethinkdb.gen.exc.ReqlNonExistenceError;
 import one.bbn.hadder.core.Config;
 import org.bson.Document;
 import org.json.JSONException;
@@ -138,12 +137,8 @@ public class Mongo {
     }
 
     public boolean hasStarboardMessage(String message_id) {
-        try {
-            this.getByID("stars", "id", message_id, "guild");
-            return true;
-        } catch (ReqlNonExistenceError e) {
-            return false;
-        }
+        this.getByID("stars", "id", message_id, "guild");
+        return true;
     }
 
     public void insertStarboardMessage(String message_id, String guild_id, String starboard_message_id) {
