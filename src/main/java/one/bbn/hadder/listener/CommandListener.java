@@ -18,9 +18,9 @@ package one.bbn.hadder.listener;
 
 import one.bbn.hadder.audio.AudioManager;
 import one.bbn.hadder.core.CommandHandler;
-import one.bbn.hadder.db.Rethink;
-import one.bbn.hadder.db.RethinkServer;
-import one.bbn.hadder.db.RethinkUser;
+import one.bbn.hadder.db.Mongo;
+import one.bbn.hadder.db.MongoServer;
+import one.bbn.hadder.db.MongoUser;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -33,12 +33,12 @@ import java.time.Instant;
 
 public class CommandListener extends ListenerAdapter {
 
-    private final Rethink rethink;
+    private final Mongo mongo;
     private final CommandHandler handler;
     private final AudioManager audioManager;
 
-    public CommandListener(Rethink rethink, CommandHandler handler, AudioManager audioManager) {
-        this.rethink = rethink;
+    public CommandListener(Mongo mongo, CommandHandler handler, AudioManager audioManager) {
+        this.mongo = mongo;
         this.handler = handler;
         this.audioManager = audioManager;
     }
@@ -48,19 +48,19 @@ public class CommandListener extends ListenerAdapter {
         if (e.isFromType(ChannelType.TEXT) && !e.getAuthor().isBot()) {
             if (e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) {
                 if (e.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
-                    RethinkUser rethinkUser = new RethinkUser(rethink.getObjectByID("user", e.getAuthor().getId()), rethink);
-                    RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-                    rethinkUser.push();
-                    rethinkServer.push();
+                    MongoUser mongoUser = new MongoUser(mongo.getObjectByID("user", e.getAuthor().getId()), mongo);
+                    MongoServer mongoServer = new MongoServer(mongo.getObjectByID("server", e.getGuild().getId()), mongo);
+                    mongoUser.push();
+                    mongoServer.push();
                     String[] prefixes = {
-                            rethinkUser.getPrefix(), rethinkServer.getPrefix(),
+                            mongoUser.getPrefix(), mongoServer.getPrefix(),
                             e.getGuild().getSelfMember().getAsMention() + " ", e.getGuild().getSelfMember().getAsMention(),
                             e.getGuild().getSelfMember().getAsMention().replace("@", "@!") + " ",
                             e.getGuild().getSelfMember().getAsMention().replace("@", "@!")
                     };
                     for (String prefix : prefixes) {
                         if (e.getMessage().getContentRaw().startsWith(prefix)) {
-                            handler.handle(e, rethink, prefix, audioManager, rethinkUser, rethinkServer);
+                            handler.handle(e, mongo, prefix, audioManager, mongoUser, mongoServer);
                             return;
                         }
                     }

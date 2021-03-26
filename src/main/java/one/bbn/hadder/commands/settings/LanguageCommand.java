@@ -58,14 +58,14 @@ public class LanguageCommand implements Command {
     }
 
     public void setLanguage(String language_code, String language, CommandEvent e) {
-        e.getRethinkUser().setLanguage(language_code);
+        e.getMongoUser().setLanguage(language_code);
         e.getTextChannel()
                 .sendMessage(
                         e.getMessageEditor()
                                 .getMessage(MessageEditor.MessageType.INFO, "commands.settings.language.success.title",
                                         "", "commands.settings.language.success.description", language)
                                 .build()).queue();
-        e.getRethinkUser().push();
+        e.getMongoUser().push();
     }
 
     @Override

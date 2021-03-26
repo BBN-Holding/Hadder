@@ -20,9 +20,9 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 
-public class RethinkServer {
+public class MongoServer {
 
-    private Rethink rethink;
+    private Mongo mongo;
 
     public String accept_emote = "";
     public String decline_emote = "";
@@ -34,9 +34,9 @@ public class RethinkServer {
     public String role_id = "";
     public String starboard = "";
 
-    public RethinkServer(JSONObject object, Rethink rethink) {
+    public MongoServer(JSONObject object, Mongo mongo) {
         for (Field field : this.getClass().getDeclaredFields()) {
-            if (!field.getName().equals("rethink")) {
+            if (!field.getName().equals("mongo")) {
                 try {
                     if (object.has(field.getName()))
                         field.set(this, object.get(field.getName()));
@@ -45,7 +45,7 @@ public class RethinkServer {
                 }
             }
         }
-        this.rethink = rethink;
+        this.mongo = mongo;
     }
 
     public String getAcceptEmote() {
@@ -128,6 +128,6 @@ public class RethinkServer {
     }
 
     public void push() {
-        rethink.push(this);
+        mongo.push(this);
     }
 }

@@ -31,7 +31,7 @@ import one.bbn.hadder.commands.settings.LanguageCommand;
 import one.bbn.hadder.commands.settings.UserPrefixCommand;
 import one.bbn.hadder.core.CommandHandler;
 import one.bbn.hadder.core.Config;
-import one.bbn.hadder.db.Rethink;
+import one.bbn.hadder.db.Mongo;
 import one.bbn.hadder.listener.*;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -55,8 +55,8 @@ public class Hadder {
         if (!config.fileExists()) config.create();
         config.load();
 
-        Rethink rethink = new Rethink(config);
-        rethink.connect();
+        Mongo mongo = new Mongo(config);
+        mongo.connect();
 
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(GatewayIntent.getIntents(32509));
 
@@ -137,14 +137,14 @@ public class Hadder {
                         new CoronaCommand()), config, helpCommand);
 
         builder.addEventListeners(
-                new MentionListener(rethink, config),
-                new PrivateMessageListener(rethink),
-                new CommandListener(rethink, commandHandler, audioManager),
-                new GuildListener(rethink, config),
-                new ReadyListener(rethink, config),
-                new InviteLinkListener(rethink),
-                new RulesListener(rethink),
-                new StarboardListener(rethink),
+                new MentionListener(mongo, config),
+                new PrivateMessageListener(mongo),
+                new CommandListener(mongo, commandHandler, audioManager),
+                new GuildListener(mongo, config),
+                new ReadyListener(config),
+                new InviteLinkListener(mongo),
+                new RulesListener(mongo),
+                new StarboardListener(mongo),
                 new VoiceLeaveListener(audioManager),
                 new OwnerMessageListener(config));
 

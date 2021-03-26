@@ -34,8 +34,8 @@ public class NickCommand implements Command {
                 if (!e.getMessage().getMentionedMembers().get(0).getId().equals(e.getGuild().getSelfMember().getId())) {
                     if (e.getGuild().getSelfMember().canInteract(e.getMessage().getMentionedMembers().get(0))) {
                         if (args.length > 1) {
-                            if (e.getMessage().getContentRaw().startsWith(e.getRethinkUser().getPrefix())) {
-                                e.getGuild().modifyNickname(e.getMessage().getMentionedMembers().get(0), e.getMessage().getContentRaw().replaceFirst(e.getRethinkUser().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + e.getAuthor().getAsTag()).queue();
+                            if (e.getMessage().getContentRaw().startsWith(e.getMongoUser().getPrefix())) {
+                                e.getGuild().modifyNickname(e.getMessage().getMentionedMembers().get(0), e.getMessage().getContentRaw().replaceFirst(e.getMongoUser().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + e.getAuthor().getAsTag()).queue();
                                 e.getTextChannel().sendMessage(
                                         e.getMessageEditor().getMessage(
                                                 MessageEditor.MessageType.INFO,
@@ -44,8 +44,8 @@ public class NickCommand implements Command {
                                                 "commands.moderation.nick.success.description",
                                                 e.getMessage().getMentionedMembers().get(0).getUser().getAsTag()
                                         ).build()).queue();
-                            } else if (e.getMessage().getContentRaw().startsWith(e.getRethinkServer().getPrefix())) {
-                                e.getGuild().modifyNickname(e.getMessage().getMentionedMembers().get(0), e.getMessage().getContentRaw().replaceFirst(e.getRethinkServer().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + e.getAuthor().getAsTag()).queue();
+                            } else if (e.getMessage().getContentRaw().startsWith(e.getMongoServer().getPrefix())) {
+                                e.getGuild().modifyNickname(e.getMessage().getMentionedMembers().get(0), e.getMessage().getContentRaw().replaceFirst(e.getMongoServer().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + e.getAuthor().getAsTag()).queue();
                                 e.getTextChannel().sendMessage(
                                         e.getMessageEditor().getMessage(
                                                 MessageEditor.MessageType.INFO,
@@ -59,8 +59,8 @@ public class NickCommand implements Command {
                         e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.NO_SELF_PERMISSION).build()).queue();
                     }
                 } else {
-                    if (e.getMessage().getContentRaw().startsWith(e.getRethinkUser().getPrefix())) {
-                        e.getGuild().getSelfMember().modifyNickname(e.getMessage().getContentRaw().replaceFirst(e.getRethinkUser().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + e.getAuthor().getAsTag()).queue();
+                    if (e.getMessage().getContentRaw().startsWith(e.getMongoUser().getPrefix())) {
+                        e.getGuild().getSelfMember().modifyNickname(e.getMessage().getContentRaw().replaceFirst(e.getMongoUser().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + e.getAuthor().getAsTag()).queue();
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,
@@ -68,8 +68,8 @@ public class NickCommand implements Command {
                                         "✅",
                                         "commands.moderation.nick.myself.success.description",
                                         "").build()).queue();
-                    } else if (e.getMessage().getContentRaw().startsWith(e.getRethinkServer().getPrefix())) {
-                        e.getGuild().getSelfMember().modifyNickname(e.getMessage().getContentRaw().replaceFirst(e.getRethinkServer().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + e.getAuthor().getAsTag()).queue();
+                    } else if (e.getMessage().getContentRaw().startsWith(e.getMongoServer().getPrefix())) {
+                        e.getGuild().getSelfMember().modifyNickname(e.getMessage().getContentRaw().replaceFirst(e.getMongoServer().getPrefix() + "nick " + args[0], "")).reason("Nicked by " + e.getAuthor().getAsTag()).queue();
                         e.getTextChannel().sendMessage(
                                 e.getMessageEditor().getMessage(
                                         MessageEditor.MessageType.INFO,

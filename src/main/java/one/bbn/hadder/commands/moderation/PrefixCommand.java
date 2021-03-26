@@ -29,8 +29,8 @@ public class PrefixCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (args.length == 1) {
             if (!args[0].contains("\"")) {
-                e.getRethinkServer().setPrefix(args[0]);
-                e.getRethinkServer().push();
+                e.getMongoServer().setPrefix(args[0]);
+                e.getMongoServer().push();
                 e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(
                         MessageEditor.MessageType.INFO,
                         "commands.moderation.prefix.success.title",

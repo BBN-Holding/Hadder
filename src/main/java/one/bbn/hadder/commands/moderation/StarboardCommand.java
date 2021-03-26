@@ -26,7 +26,7 @@ public class StarboardCommand implements Command {
     @Override
     public void executed(String[] args, CommandEvent e) {
         if (e.getMessage().getMentionedChannels().size() == 1) {
-            e.getRethinkServer().setStarboard(e.getMessage().getMentionedChannels().get(0).getId());
+            e.getMongoServer().setStarboard(e.getMessage().getMentionedChannels().get(0).getId());
             e.getChannel().sendMessage(
                     e.getMessageEditor().getMessage(
                             MessageEditor.MessageType.INFO,
@@ -37,16 +37,16 @@ public class StarboardCommand implements Command {
             if (args.length > 0) {
                 TextChannel channel = e.getGuild().getTextChannelById(args[0]);
                 if (channel != null) {
-                    e.getRethinkServer().setStarboard(channel.getId());
+                    e.getMongoServer().setStarboard(channel.getId());
                 }
             } else e.getHelpCommand().sendHelp(this, e);
         }
 
         if (args.length == 2) {
-            e.getRethinkServer().setNeededStars(args[1]);
+            e.getMongoServer().setNeededStars(args[1]);
         }
 
-        e.getRethinkServer().push();
+        e.getMongoServer().push();
     }
 
     @Override

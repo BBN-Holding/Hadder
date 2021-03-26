@@ -17,9 +17,9 @@
 package one.bbn.hadder.listener;
 
 import one.bbn.hadder.core.Config;
-import one.bbn.hadder.db.Rethink;
-import one.bbn.hadder.db.RethinkServer;
-import one.bbn.hadder.db.RethinkUser;
+import one.bbn.hadder.db.Mongo;
+import one.bbn.hadder.db.MongoServer;
+import one.bbn.hadder.db.MongoUser;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -33,19 +33,19 @@ import java.util.Random;
 
 public class MentionListener extends ListenerAdapter {
 
-    private final Rethink rethink;
+    private final Mongo mongo;
     private final Config config;
 
-    public MentionListener(Rethink rethink, Config config) {
-        this.rethink = rethink;
+    public MentionListener(Mongo mongo, Config config) {
+        this.mongo = mongo;
         this.config = config;
     }
 
     @Override
     public void onMessageReceived(@Nonnull MessageReceivedEvent e) {
         if (!e.getAuthor().isBot() && e.isFromType(ChannelType.TEXT)) {
-            RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-            RethinkUser rethinkUser = new RethinkUser(rethink.getObjectByID("user", e.getAuthor().getId()), rethink);
+            MongoServer mongoServer = new MongoServer(mongo.getObjectByID("server", e.getGuild().getId()), mongo);
+            MongoUser mongoUser = new MongoUser(mongo.getObjectByID("user", e.getAuthor().getId()), mongo);
             if (e.isFromType(ChannelType.TEXT) && (e.getMessage().getContentRaw().equals(e.getGuild().getSelfMember().getAsMention()) ||
                     e.getMessage().getContentRaw().equals(e.getGuild().getSelfMember().getAsMention().replace("@", "@!")))) {
 
@@ -62,8 +62,8 @@ public class MentionListener extends ListenerAdapter {
                 EmbedBuilder builder = new EmbedBuilder()
                         .setTitle("Hi!")
                         .addField("Version", version, false)
-                        .addField("User-Prefix", rethinkUser.getPrefix(), true)
-                        .addField("Guild-Prefix", rethinkServer.getPrefix(), true)
+                        .addField("User-Prefix", mongoUser.getPrefix(), true)
+                        .addField("Guild-Prefix", mongoServer.getPrefix(), true)
                         .addField("Join our Dev Server!", "[Click here!](https://discord.gg/nPwjaJk)", true)
                         .addField("Github", "[Click here!](https://github.com/BigBotNetwork/Hadder)", false)
                         .addField("Twitch", "[Click here!](https://www.twitch.tv/bigbotnetwork)", false);

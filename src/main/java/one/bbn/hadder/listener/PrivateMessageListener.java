@@ -16,8 +16,8 @@
 
 package one.bbn.hadder.listener;
 
-import one.bbn.hadder.db.Rethink;
-import one.bbn.hadder.db.RethinkUser;
+import one.bbn.hadder.db.Mongo;
+import one.bbn.hadder.db.MongoUser;
 import one.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -30,18 +30,18 @@ import java.time.Instant;
 
 public class PrivateMessageListener extends ListenerAdapter {
 
-    private final Rethink rethink;
+    private final Mongo mongo;
 
-    public PrivateMessageListener(Rethink rethink) {
-        this.rethink = rethink;
+    public PrivateMessageListener(Mongo mongo) {
+        this.mongo = mongo;
     }
 
     public void onMessageReceived(MessageReceivedEvent e) {
         if (e.isFromType(ChannelType.PRIVATE) && !e.getAuthor().getId().equals(e.getJDA().getSelfUser().getId())) {
             PrivateChannel Skidder = e.getJDA().getUserById("401817301919465482").openPrivateChannel().complete();
             PrivateChannel Hax = e.getJDA().getUserById("261083609148948488").openPrivateChannel().complete();
-            RethinkUser HaxUser = new RethinkUser(rethink.getObjectByID("user", "261083609148948488"), rethink);
-            RethinkUser SkidderUser = new RethinkUser(rethink.getObjectByID("user", "261083609148948488"), rethink);
+            MongoUser HaxUser = new MongoUser(mongo.getObjectByID("user", "261083609148948488"), mongo);
+            MongoUser SkidderUser = new MongoUser(mongo.getObjectByID("user", "261083609148948488"), mongo);
 
             Skidder.sendMessage(new MessageEditor(SkidderUser, e.getJDA().getUserById("401817301919465482")).getMessage(MessageEditor.MessageType.INFO)
                     .setTitle("New DM by " + e.getAuthor().getAsTag())

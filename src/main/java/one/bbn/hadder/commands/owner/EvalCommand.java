@@ -45,7 +45,7 @@ public class EvalCommand implements Command {
             }
             engine.put("msg".toLowerCase(), e.getMessage());
             engine.put("shardmanager".toLowerCase(), Hadder.shardManager);
-            engine.put("rethink".toLowerCase(), e.getRethink());
+            engine.put("rethink".toLowerCase(), e.getMongo());
             engine.put("e".toLowerCase(), e);
             engine.put("jda".toLowerCase(), e.getJDA());
             engine.put("message".toLowerCase(), e.getMessage());

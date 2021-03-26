@@ -16,8 +16,8 @@
 
 package one.bbn.hadder.listener;
 
-import one.bbn.hadder.db.Rethink;
-import one.bbn.hadder.db.RethinkServer;
+import one.bbn.hadder.db.Mongo;
+import one.bbn.hadder.db.MongoServer;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Guild;
@@ -35,10 +35,10 @@ import javax.annotation.Nonnull;
 
 public class InviteLinkListener extends ListenerAdapter {
 
-    private Rethink rethink;
+    private Mongo mongo;
 
-    public InviteLinkListener(Rethink rethink) {
-        this.rethink = rethink;
+    public InviteLinkListener(Mongo mongo) {
+        this.mongo = mongo;
     }
 
     @Override
@@ -68,12 +68,12 @@ public class InviteLinkListener extends ListenerAdapter {
     }
 
     public void scanMessage(Guild guild, Message message, Member member) {
-        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", guild.getId()), rethink);
-        if (message.getContentRaw().contains("discord.gg/") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
+        MongoServer mongoServer = new MongoServer(mongo.getObjectByID("server", guild.getId()), mongo);
+        if (message.getContentRaw().contains("discord.gg/") && !member.hasPermission(Permission.ADMINISTRATOR) && mongoServer.hasInviteDetect()) {
             checkInvite(message, "discord.gg/");
-        } else if (message.getContentRaw().contains("discord.com/invite") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
+        } else if (message.getContentRaw().contains("discord.com/invite") && !member.hasPermission(Permission.ADMINISTRATOR) && mongoServer.hasInviteDetect()) {
             checkInvite(message, "discord.com/invite/");
-        } else if (message.getContentRaw().contains("discordapp.com/invite") && !member.hasPermission(Permission.ADMINISTRATOR) && rethinkServer.hasInviteDetect()) {
+        } else if (message.getContentRaw().contains("discordapp.com/invite") && !member.hasPermission(Permission.ADMINISTRATOR) && mongoServer.hasInviteDetect()) {
             checkInvite(message, "discordapp.com/invite/");
         }
     }

@@ -17,9 +17,6 @@
 package one.bbn.hadder.listener;
 
 import one.bbn.hadder.core.Config;
-import one.bbn.hadder.db.Rethink;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -27,28 +24,14 @@ import javax.annotation.Nonnull;
 
 public class ReadyListener extends ListenerAdapter {
 
-    private final Rethink rethink;
     private final Config config;
 
-    public ReadyListener(Rethink rethink, Config config) {
-        this.rethink = rethink;
+    public ReadyListener(Config config) {
         this.config = config;
     }
 
     @Override
     public void onReady(@Nonnull ReadyEvent e) {
-        rethink.setup();
-        new Thread(() -> {
-            for (User user : e.getJDA().getUsers()) {
-                if (!user.getId().equals(e.getJDA().getSelfUser().getId())) {
-                    rethink.insertUser(user.getId());
-                }
-            }
-            for (Guild g : e.getJDA().getGuilds()) {
-                rethink.insertGuild(g.getId());
-            }
-        }).start();
-
         //TODO: Renew all bot lists
         //new BotList(config).post();
     }

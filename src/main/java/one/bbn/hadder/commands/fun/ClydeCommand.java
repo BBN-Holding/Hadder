@@ -40,7 +40,7 @@ public class ClydeCommand implements Command {
         if (args.length > 0) {
             if (e.getGuild().getSelfMember().hasPermission(Permission.MANAGE_WEBHOOKS)) {
                 TextChannel channel = e.getMessage().getTextChannel();
-                String content = e.getMessage().getContentRaw().replace(e.getRethinkServer().getPrefix(), "").replace(e.getRethinkUser().getPrefix(), "").replace("clyde", "");
+                String content = e.getMessage().getContentRaw().replace(e.getMongoServer().getPrefix(), "").replace(e.getMongoUser().getPrefix(), "").replace("clyde", "");
 
                 Webhook webhook = channel.createWebhook(e.getConfig().getClydeName()).complete();
                 try {

@@ -16,7 +16,7 @@
 
 package one.bbn.hadder.utils;
 
-import one.bbn.hadder.db.RethinkUser;
+import one.bbn.hadder.db.MongoUser;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 
@@ -27,11 +27,11 @@ import java.util.ResourceBundle;
 
 public class MessageEditor {
 
-    private final RethinkUser rethinkUser;
+    private final MongoUser mongoUser;
     private final User user;
 
-    public MessageEditor(RethinkUser rethinkUser, User user) {
-        this.rethinkUser = rethinkUser;
+    public MessageEditor(MongoUser mongoUser, User user) {
+        this.mongoUser = mongoUser;
         this.user = user;
     }
 
@@ -50,7 +50,7 @@ public class MessageEditor {
 
     public EmbedBuilder getMessage(MessageType type, String title, String title_extra, String title_extra_two,
                                    String description, String description_extra, String description_extra_two) {
-        String language = (this.user != null) ? rethinkUser.getLanguage() : null;
+        String language = (this.user != null) ? mongoUser.getLanguage() : null;
         EmbedBuilder eb = this.getDefaultSettings(type);
         if (!"".equals(title)) eb.setTitle(this.handle(language, title, title_extra, title_extra_two));
         if (!"".equals(description))
@@ -122,11 +122,11 @@ public class MessageEditor {
     }
 
     public String getTerm(String string) {
-        return this.handle(rethinkUser.getLanguage(), string, "", "");
+        return this.handle(mongoUser.getLanguage(), string, "", "");
     }
 
     public String getTerm(String string, String extra, String extra_two) {
-        return this.handle(rethinkUser.getLanguage(), string, extra, extra_two);
+        return this.handle(mongoUser.getLanguage(), string, extra, extra_two);
     }
 
     private String handle(String language_code, String string, String extra, String extra_two) {

@@ -20,9 +20,9 @@ import one.bbn.hadder.audio.AudioManager;
 import one.bbn.hadder.commands.Command;
 import one.bbn.hadder.commands.CommandEvent;
 import one.bbn.hadder.commands.general.HelpCommand;
-import one.bbn.hadder.db.Rethink;
-import one.bbn.hadder.db.RethinkServer;
-import one.bbn.hadder.db.RethinkUser;
+import one.bbn.hadder.db.Mongo;
+import one.bbn.hadder.db.MongoServer;
+import one.bbn.hadder.db.MongoUser;
 import one.bbn.hadder.utils.EventWaiter;
 import one.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -42,7 +42,7 @@ public class CommandHandler {
         this.helpCommand = helpCommand;
     }
 
-    public void handle(MessageReceivedEvent event, Rethink rethink, String prefix, AudioManager audioManager, RethinkUser rethinkUser, RethinkServer rethinkServer) {
+    public void handle(MessageReceivedEvent event, Mongo mongo, String prefix, AudioManager audioManager, MongoUser mongoUser, MongoServer mongoServer) {
         String invoke = event.getMessage().getContentRaw().replaceFirst(prefix, "").split(" ")[0];
         for (Command cmd : commandList) {
             for (String label : cmd.labels()) {
@@ -53,8 +53,8 @@ public class CommandHandler {
                     String[] args = argString.split(" ");
                     if (args.length > 0 && args[0].equals("")) args = new String[0];
 
-                    CommandEvent commandEvent = new CommandEvent(event.getJDA(), event.getResponseNumber(), event.getMessage(), rethink,
-                            config, this, helpCommand, new MessageEditor(rethinkUser, event.getAuthor()), new EventWaiter(), audioManager, rethinkUser, rethinkServer);
+                    CommandEvent commandEvent = new CommandEvent(event.getJDA(), event.getResponseNumber(), event.getMessage(), mongo,
+                            config, this, helpCommand, new MessageEditor(mongoUser, event.getAuthor()), new EventWaiter(), audioManager, mongoUser, mongoServer);
                     if (cmd.getClass().getAnnotations().length > 0 && !Arrays.asList(cmd.getClass().getAnnotations()).contains(Perms.class)) {
                         for (Perm perm : cmd.getClass().getAnnotation(Perms.class).value()) {
                             if (!perm.check(commandEvent)) {
@@ -68,7 +68,7 @@ public class CommandHandler {
                     }
 
                     boolean run = true;
-                    String blacklisted = rethinkUser.getBlacklisted();
+                    String blacklisted = mongoUser.getBlacklisted();
                     if (!"none".equals(blacklisted)) {
                         for (String BLLabel : blacklisted.split(",")) {
                             if (Arrays.asList(cmd.labels()).contains(BLLabel)) {

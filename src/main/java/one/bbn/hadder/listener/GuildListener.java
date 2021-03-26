@@ -17,7 +17,7 @@
 package one.bbn.hadder.listener;
 
 import one.bbn.hadder.core.Config;
-import one.bbn.hadder.db.Rethink;
+import one.bbn.hadder.db.Mongo;
 import one.bbn.hadder.utils.BotList;
 import one.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.entities.Member;
@@ -30,11 +30,11 @@ import java.time.Instant;
 
 public class GuildListener extends ListenerAdapter {
 
-    private final Rethink rethink;
+    private final Mongo mongo;
     private final Config config;
 
-    public GuildListener(Rethink rethink, Config config) {
-        this.rethink = rethink;
+    public GuildListener(Mongo mongo, Config config) {
+        this.mongo = mongo;
         this.config = config;
     }
 
@@ -42,12 +42,12 @@ public class GuildListener extends ListenerAdapter {
         new Thread(() -> {
             for (Member member : e.getGuild().getMembers()) {
                 if (!member.getUser().getId().equals(e.getJDA().getSelfUser().getId())) {
-                    rethink.insertUser(member.getUser().getId());
+                    mongo.insertUser(member.getUser().getId());
                 }
             }
         }).start();
 
-        rethink.insertGuild(e.getGuild().getId());
+        mongo.insertGuild(e.getGuild().getId());
         e.getJDA().getTextChannelById("759783393230979142").sendMessage(new MessageEditor(null, null).getMessage(MessageEditor.MessageType.INFO)
                 .setTitle("Joined Server")
                 .setThumbnail(e.getGuild().getIconUrl())
@@ -79,7 +79,7 @@ public class GuildListener extends ListenerAdapter {
 
     public void onGuildMemberJoin(GuildMemberJoinEvent e) {
         if (!e.getUser().getId().equals(e.getJDA().getSelfUser().getId())) {
-            rethink.insertUser(e.getUser().getId());
+            mongo.insertUser(e.getUser().getId());
         }
     }
 }

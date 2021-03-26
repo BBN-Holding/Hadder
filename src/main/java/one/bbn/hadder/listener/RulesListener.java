@@ -16,37 +16,37 @@
 
 package one.bbn.hadder.listener;
 
-import one.bbn.hadder.db.Rethink;
-import one.bbn.hadder.db.RethinkServer;
+import one.bbn.hadder.db.Mongo;
+import one.bbn.hadder.db.MongoServer;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class RulesListener extends ListenerAdapter {
 
-    private final Rethink rethink;
+    private final Mongo mongo;
 
-    public RulesListener(Rethink rethink) {
-        this.rethink = rethink;
+    public RulesListener(Mongo mongo) {
+        this.mongo = mongo;
     }
 
     @Override
     public void onMessageReactionAdd(MessageReactionAddEvent e) {
-        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-        if (e.getMessageId().equals(rethinkServer.getMessageID()) && !e.getUser().isBot()) {
+        MongoServer mongoServer = new MongoServer(mongo.getObjectByID("server", e.getGuild().getId()), mongo);
+        if (e.getMessageId().equals(mongoServer.getMessageID()) && !e.getUser().isBot()) {
             if (e.getReactionEmote().isEmote()) {
-                if (rethinkServer.getAcceptEmote().equals(e.getReactionEmote().getId())) {
+                if (mongoServer.getAcceptEmote().equals(e.getReactionEmote().getId())) {
                     addRole(e);
-                } else if (rethinkServer.getDeclineEmote().equals(e.getReactionEmote().getId())) {
+                } else if (mongoServer.getDeclineEmote().equals(e.getReactionEmote().getId())) {
                     e.getReaction().removeReaction(e.getUser()).queue();
                     if (e.getGuild().getSelfMember().canInteract(e.getMember())) {
                         e.getMember().kick().reason("Declined the rules");
                     }
                 }
             } else if (e.getReactionEmote().isEmoji()) {
-                if (rethinkServer.getAcceptEmote().equals(e.getReactionEmote().getEmoji())) {
+                if (mongoServer.getAcceptEmote().equals(e.getReactionEmote().getEmoji())) {
                     addRole(e);
-                } else if (rethinkServer.getDeclineEmote().equals(e.getReactionEmote().getEmoji())) {
+                } else if (mongoServer.getDeclineEmote().equals(e.getReactionEmote().getEmoji())) {
                     e.getReaction().removeReaction(e.getUser()).queue();
                     if (e.getGuild().getSelfMember().canInteract(e.getMember())) {
                         e.getMember().kick().reason("Declined the rules");
@@ -57,18 +57,18 @@ public class RulesListener extends ListenerAdapter {
     }
 
     private void addRole(MessageReactionAddEvent e) {
-        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-        if (e.getMember().getRoles().contains(e.getGuild().getRoleById(rethinkServer.getRoleID()))) {
-            e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Accepted rules").queue();
+        MongoServer mongoServer = new MongoServer(mongo.getObjectByID("server", e.getGuild().getId()), mongo);
+        if (e.getMember().getRoles().contains(e.getGuild().getRoleById(mongoServer.getRoleID()))) {
+            e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(mongoServer.getRoleID())).reason("Accepted rules").queue();
         } else
-            e.getGuild().addRoleToMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Accepted rules").queue();
+            e.getGuild().addRoleToMember(e.getMember(), e.getGuild().getRoleById(mongoServer.getRoleID())).reason("Accepted rules").queue();
     }
 
     @Override
     public void onMessageReactionRemove(MessageReactionRemoveEvent e) {
-        RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-        if (e.getMessageId().equals(rethinkServer.getMessageID()) && !e.getUser().isBot()) {
-            e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(rethinkServer.getRoleID())).reason("Withdrawal of the acceptance of the rules").queue();
+        MongoServer mongoServer = new MongoServer(mongo.getObjectByID("server", e.getGuild().getId()), mongo);
+        if (e.getMessageId().equals(mongoServer.getMessageID()) && !e.getUser().isBot()) {
+            e.getGuild().removeRoleFromMember(e.getMember(), e.getGuild().getRoleById(mongoServer.getRoleID())).reason("Withdrawal of the acceptance of the rules").queue();
         }
     }
 }

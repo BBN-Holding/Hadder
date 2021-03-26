@@ -30,7 +30,7 @@ public class PlayCommand implements Command {
     public void executed(String[] args, CommandEvent e) {
         if (args.length > 0) {
             if (e.getMember().getVoiceState().inVoiceChannel()) {
-                String input = e.getMessage().getContentRaw().replaceFirst(e.getRethinkServer().getPrefix() + "play ", "").replaceFirst(e.getRethinkUser().getPrefix() + "play ", "");
+                String input = e.getMessage().getContentRaw().replaceFirst(e.getMongoServer().getPrefix() + "play ", "").replaceFirst(e.getMongoUser().getPrefix() + "play ", "");
                 try {
                     new URL(input).toURI();
                     Message msg = e.getTextChannel().sendMessage(e.getMessageEditor().getMessage(MessageEditor.MessageType.INFO,

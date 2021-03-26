@@ -20,9 +20,9 @@ import one.bbn.hadder.audio.AudioManager;
 import one.bbn.hadder.commands.general.HelpCommand;
 import one.bbn.hadder.core.CommandHandler;
 import one.bbn.hadder.core.Config;
-import one.bbn.hadder.db.Rethink;
-import one.bbn.hadder.db.RethinkServer;
-import one.bbn.hadder.db.RethinkUser;
+import one.bbn.hadder.db.Mongo;
+import one.bbn.hadder.db.MongoServer;
+import one.bbn.hadder.db.MongoUser;
 import one.bbn.hadder.utils.EventWaiter;
 import one.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.JDA;
@@ -33,34 +33,34 @@ import javax.annotation.Nonnull;
 
 public class CommandEvent extends MessageReceivedEvent {
 
-    private Rethink rethink;
+    private Mongo mongo;
     private Config config;
     private CommandHandler commandHandler;
     private HelpCommand helpCommand;
     private MessageEditor messageEditor;
     private EventWaiter eventWaiter;
     private AudioManager audioManager;
-    private RethinkUser rethinkUser;
-    private RethinkServer rethinkServer;
+    private MongoUser mongoUser;
+    private MongoServer mongoServer;
 
-    public CommandEvent(@Nonnull JDA api, long responseNumber, @Nonnull Message message, Rethink rethink, Config config,
+    public CommandEvent(@Nonnull JDA api, long responseNumber, @Nonnull Message message, Mongo mongo, Config config,
                         CommandHandler commandHandler, HelpCommand helpCommand, MessageEditor messageEditor,
-                        EventWaiter eventWaiter, AudioManager audioManager, RethinkUser rethinkUser,
-                        RethinkServer rethinkServer) {
+                        EventWaiter eventWaiter, AudioManager audioManager, MongoUser mongoUser,
+                        MongoServer mongoServer) {
         super(api, responseNumber, message);
-        this.rethink = rethink;
+        this.mongo = mongo;
         this.config = config;
         this.commandHandler = commandHandler;
         this.helpCommand = helpCommand;
         this.messageEditor = messageEditor;
         this.eventWaiter = eventWaiter;
         this.audioManager = audioManager;
-        this.rethinkUser = rethinkUser;
-        this.rethinkServer = rethinkServer;
+        this.mongoUser = mongoUser;
+        this.mongoServer = mongoServer;
     }
 
-    public Rethink getRethink() {
-        return rethink;
+    public Mongo getMongo() {
+        return mongo;
     }
 
     public Config getConfig() {
@@ -87,11 +87,11 @@ public class CommandEvent extends MessageReceivedEvent {
         return audioManager;
     }
 
-    public RethinkServer getRethinkServer() {
-        return rethinkServer;
+    public MongoServer getMongoServer() {
+        return mongoServer;
     }
 
-    public RethinkUser getRethinkUser() {
-        return rethinkUser;
+    public MongoUser getMongoUser() {
+        return mongoUser;
     }
 }

@@ -20,18 +20,18 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 
-public class RethinkUser {
+public class MongoUser {
 
-    private Rethink rethink;
+    private Mongo mongo;
 
     public String id;
     public String prefix = "h.";
     public String language = "en";
     public String blacklisted = "none";
 
-    public RethinkUser(JSONObject object, Rethink rethink) {
+    public MongoUser(JSONObject object, Mongo mongo) {
         for (Field field : this.getClass().getDeclaredFields()) {
-            if (!field.getName().equals("rethink")) {
+            if (!field.getName().equals("mongo")) {
                 try {
                     if (object.has(field.getName()))
                         field.set(this, object.getString(field.getName()));
@@ -40,11 +40,11 @@ public class RethinkUser {
                 }
             }
         }
-        this.rethink = rethink;
+        this.mongo = mongo;
     }
 
-    public Rethink getRethink() {
-        return rethink;
+    public Mongo getMongo() {
+        return mongo;
     }
 
     public String getId() {
@@ -76,6 +76,6 @@ public class RethinkUser {
     }
 
     public void push() {
-        rethink.push(this);
+        mongo.push(this);
     }
 }

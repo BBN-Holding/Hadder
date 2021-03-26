@@ -16,8 +16,8 @@
 
 package one.bbn.hadder.listener;
 
-import one.bbn.hadder.db.Rethink;
-import one.bbn.hadder.db.RethinkServer;
+import one.bbn.hadder.db.Mongo;
+import one.bbn.hadder.db.MongoServer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.MessageReaction;
@@ -30,10 +30,10 @@ import javax.annotation.Nonnull;
 
 public class StarboardListener extends ListenerAdapter {
 
-    private final Rethink rethink;
+    private final Mongo mongo;
 
-    public StarboardListener(Rethink rethink) {
-        this.rethink = rethink;
+    public StarboardListener(Mongo mongo) {
+        this.mongo = mongo;
     }
 
     @Override
@@ -48,9 +48,9 @@ public class StarboardListener extends ListenerAdapter {
 
     public void update(GenericMessageReactionEvent e) {
         if (e.getReaction().getReactionEmote().getName().equals("⭐")) {
-            RethinkServer rethinkServer = new RethinkServer(rethink.getObjectByID("server", e.getGuild().getId()), rethink);
-            if (!rethink.hasStarboardMessage(e.getMessageId())) {
-                if (rethinkServer.hasStarboardChannel()) {
+            MongoServer mongoServer = new MongoServer(mongo.getObjectByID("server", e.getGuild().getId()), mongo);
+            if (!mongo.hasStarboardMessage(e.getMessageId())) {
+                if (mongoServer.hasStarboardChannel()) {
                     e.getTextChannel().retrieveMessageById(e.getMessageId()).queue(
                             msg -> {
                                 int stars = 0;
@@ -60,8 +60,8 @@ public class StarboardListener extends ListenerAdapter {
                                     }
                                 }
 
-                                if (Integer.parseInt(rethinkServer.getNeededStars()) <= stars) {
-                                    e.getGuild().getTextChannelById(rethinkServer.getStarboard())
+                                if (Integer.parseInt(mongoServer.getNeededStars()) <= stars) {
+                                    e.getGuild().getTextChannelById(mongoServer.getStarboard())
                                             .sendMessage(new MessageBuilder()
                                                     .setContent("⭐ 1" + " " + e.getTextChannel().getAsMention())
                                                     .setEmbed(
@@ -70,7 +70,7 @@ public class StarboardListener extends ListenerAdapter {
                                                                     .setDescription(msg.getContentRaw())
                                                                     .setTimestamp(msg.getTimeCreated()).build()).build()).queue(
                                             starboardmsg -> {
-                                                rethink.insertStarboardMessage(msg.getId(), e.getGuild().getId(), starboardmsg.getId());
+                                                mongo.insertStarboardMessage(msg.getId(), e.getGuild().getId(), starboardmsg.getId());
                                             }
                                     );
                                 }
@@ -90,11 +90,11 @@ public class StarboardListener extends ListenerAdapter {
                             }
 
                             int finalStars = stars;
-                            e.getGuild().getTextChannelById(rethinkServer.getStarboard())
-                                    .retrieveMessageById(rethink.getStarboardMessage(e.getMessageId())).queue(
+                            e.getGuild().getTextChannelById(mongoServer.getStarboard())
+                                    .retrieveMessageById(mongo.getStarboardMessage(e.getMessageId())).queue(
                                     msg2 -> {
 
-                                        if (Integer.parseInt(rethinkServer.getNeededStars()) <= finalStars) {
+                                        if (Integer.parseInt(mongoServer.getNeededStars()) <= finalStars) {
                                             msg2.editMessage(new MessageBuilder()
                                                     .setContent("⭐ " + finalStars + " " + e.getTextChannel().getAsMention())
                                                     .setEmbed(
@@ -104,7 +104,7 @@ public class StarboardListener extends ListenerAdapter {
                                                                     .setTimestamp(msg.getTimeCreated()).build()).build()).queue();
                                         } else {
                                             msg2.delete().queue();
-                                            rethink.removeStarboardMessage(msg.getId());
+                                            mongo.removeStarboardMessage(msg.getId());
                                         }
                                     }
                             );

@@ -20,7 +20,7 @@ import one.bbn.hadder.commands.Command;
 import one.bbn.hadder.commands.CommandEvent;
 import one.bbn.hadder.core.Perm;
 import one.bbn.hadder.core.Perms;
-import one.bbn.hadder.db.RethinkUser;
+import one.bbn.hadder.db.MongoUser;
 import one.bbn.hadder.utils.MessageEditor;
 import net.dv8tion.jda.api.entities.User;
 
@@ -41,8 +41,8 @@ public class BlacklistCommand implements Command {
                 case "add":
                 case "remove":
                     if (args.length == 3 && e.getMessage().getMentionedUsers().size() == 1) {
-                        RethinkUser u = new RethinkUser(e.getRethink().getObjectByID("user", e.getMessage().getMentionedUsers().get(0).getId()), e.getRethink());
-                        String blacklisted = e.getRethinkUser().getBlacklisted();
+                        MongoUser u = new MongoUser(e.getMongo().getObjectByID("user", e.getMessage().getMentionedUsers().get(0).getId()), e.getMongo());
+                        String blacklisted = e.getMongoUser().getBlacklisted();
                         List<String> commands = new ArrayList<>();
                         if (!"none".equals(blacklisted)) commands.addAll(Arrays.asList(blacklisted.split(",")));
                         if (args[0].equalsIgnoreCase("add")) commands.addAll(Arrays.asList(args[1].split(",")));
@@ -65,7 +65,7 @@ public class BlacklistCommand implements Command {
                     StringBuilder stringBuilder = new StringBuilder();
                     for (User user : e.getJDA().getUsers()) {
                         if (!user.getId().equals(e.getJDA().getSelfUser().getId())) {
-                            RethinkUser u = new RethinkUser(e.getRethink().getObjectByID("user", user.getId()), e.getRethink());
+                            MongoUser u = new MongoUser(e.getMongo().getObjectByID("user", user.getId()), e.getMongo());
                             String blacklisted = u.getBlacklisted();
                             if (!"none".equals(blacklisted)) {
                                 stringBuilder.append(user.getAsTag()).append(" (").append(user.getId()).append(") - ").append(blacklisted).append("\n");
