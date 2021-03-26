@@ -16,6 +16,7 @@
 
 package one.bbn.hadder;
 
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import one.bbn.hadder.audio.AudioManager;
 import one.bbn.hadder.commands.fun.AvatarCommand;
 import one.bbn.hadder.commands.fun.ClydeCommand;
@@ -67,6 +68,7 @@ public class Hadder {
         builder.setActivity(Activity.listening("h.help"));
         builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
         builder.setToken(config.getBotToken());
+        builder.disableCache(CacheFlag.ACTIVITY, CacheFlag.EMOTE, CacheFlag.CLIENT_STATUS);
 
         HelpCommand helpCommand = new HelpCommand();
         AudioManager audioManager = new AudioManager();
