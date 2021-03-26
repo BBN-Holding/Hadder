@@ -58,7 +58,7 @@ public class Hadder {
         Mongo mongo = new Mongo(config);
         mongo.connect();
 
-        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(GatewayIntent.getIntents(32509));
+        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(GatewayIntent.getIntents(14053));
 
         builder.setAutoReconnect(true);
         builder.setShardsTotal(1);
