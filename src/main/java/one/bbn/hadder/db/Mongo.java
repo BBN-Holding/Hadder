@@ -27,7 +27,6 @@ import java.lang.reflect.Field;
 
 public class Mongo {
 
-    MongoClient client;
     MongoDatabase db;
     Config config;
 
@@ -36,8 +35,7 @@ public class Mongo {
     }
 
     public void connect() {
-        client = MongoClients.create("mongodb://" + config.getDatabaseUsername() + ":" + config.getDatabasePassword() + "@" + config.getDatabaseIP() + ":" + config.getDatabasePort() + "/?authSource=admin");
-        db = client.getDatabase("Hadder");
+        db = MongoClients.create("mongodb://" + config.getDatabaseUsername() + ":" + config.getDatabasePassword() + "@" + config.getDatabaseIP() + ":" + config.getDatabasePort() + "/?authSource=admin").getDatabase("Hadder");
     }
 
     public Object getByID(String collection_name, String where, String what, String column) {
@@ -69,11 +67,11 @@ public class Mongo {
     public void remove(String table, String where, String value) {
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put(where, value);
-        client.getDatabase("VoiceAnalyzer").getCollection(table).deleteOne(whereQuery);
+        db.getCollection(table).deleteOne(whereQuery);
     }
 
     public void insert(String table, Document doc) {
-        client.getDatabase("VoiceAnalyzer").getCollection(table).insertOne(doc);
+        db.getCollection(table).insertOne(doc);
     }
 
     public void insertUser(String id) {
