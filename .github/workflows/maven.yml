@@ -32,6 +32,7 @@ jobs:
           local: ./target/Hadder-Build.jar
           remote: /root/bots/Hadder/Hadder-Build.jar
           host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
       - name: executing remote ssh commands using password
