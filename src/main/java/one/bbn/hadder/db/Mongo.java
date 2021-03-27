@@ -43,7 +43,11 @@ public class Mongo {
         BasicDBObject whereQuery = new BasicDBObject();
         whereQuery.put(where, what);
         FindIterable<Document> it = collection.find(whereQuery);
-        return it.cursor().next().get(column);
+        try {
+            return it.cursor().next().get(column);
+        } catch (NoSuchElementException ignore) {
+            return null;
+        }
     }
 
     public JSONObject getObjectByID(String collection, String id) {
@@ -133,8 +137,7 @@ public class Mongo {
     }
 
     public boolean hasStarboardMessage(String message_id) {
-        this.getByID("stars", "id", message_id, "guild");
-        return true;
+        return this.getByID("stars", "id", message_id, "guild") != null;
     }
 
     public void insertStarboardMessage(String message_id, String guild_id, String starboard_message_id) {
