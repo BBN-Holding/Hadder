@@ -65,7 +65,7 @@ public class MentionListener extends ListenerAdapter {
                         .addField("User-Prefix", mongoUser.getPrefix(), true)
                         .addField("Guild-Prefix", mongoServer.getPrefix(), true)
                         .addField("Join our Dev Server!", "[Click here!](https://discord.gg/nPwjaJk)", true)
-                        .addField("Github", "[Click here!](https://github.com/BBN-Holding/Hadder)", false)
+                        .addField("Github", "[Click here!](https://github.com/BBN-Holding/Hadder)", false);
                 e.getChannel().sendMessage(builder.build()).queue();
             } else if (e.getMessage().getContentRaw().equalsIgnoreCase("@someone")) {
                 int member = new Random().nextInt(e.getGuild().getMembers().size() - 1);
