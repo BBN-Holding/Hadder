@@ -3,13 +3,13 @@
 Hadder Discord is a multi-purpose Discord bot with 100% uptime.
 
 <a href="https://discord.gg/nPwjaJk"><img src="https://discord.com/api/guilds/757966278936756345/embed.png"/></a>
-[![Build Status](https://github.com/BigBotNetwork/Hadder/workflows/Hadder/badge.svg)](https://github.com/BigBotNetwork/Hadder)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ddb8cb7ec85f467caa691c175e1f01b5)](https://www.codacy.com/gh/BigBotNetwork/Hadder?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BigBotNetwork/Hadder&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://github.com/BBN-Holding/Hadder/workflows/Hadder/badge.svg)](https://github.com/BBN-Holding/Hadder)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ddb8cb7ec85f467caa691c175e1f01b5)](https://www.codacy.com/gh/BBN-Holding/Hadder?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBN-Holding/Hadder&amp;utm_campaign=Badge_Grade)
 [![CodeFactor](https://www.codefactor.io/repository/github/bigbotnetwork/hadder/badge)](https://www.codefactor.io/repository/github/bigbotnetwork/hadder)
 [![Crowdin](https://badges.crowdin.net/e/bc0babde730eb3eada34778502a31b03/localized.svg)](https://bbn.crowdin.com/hadder)
-[![GitHub issues](https://img.shields.io/github/issues/BigBotNetwork/Hadder)](https://github.com/BigBotNetwork/Hadder/issues)
-[![GitHub license](https://img.shields.io/github/license/BigBotNetwork/Hadder)](https://github.com/BigBotNetwork/Hadder/blob/master/LICENSE)
-[![time tracker](https://wakatime.com/badge/github/BigBotNetwork/Hadder.svg)](https://wakatime.com/badge/github/BigBotNetwork/Hadder)
+[![GitHub issues](https://img.shields.io/github/issues/BBN-Holding/Hadder)](https://github.com/BBN-Holding/Hadder/issues)
+[![GitHub license](https://img.shields.io/github/license/BBN-Holding/Hadder)](https://github.com/BBN-Holding/Hadder/blob/master/LICENSE)
+[![time tracker](https://wakatime.com/badge/github/BBN-Holding/Hadder.svg)](https://wakatime.com/badge/github/BBN-Holding/Hadder)
 
 ## Hadder Team
 ### Developer
