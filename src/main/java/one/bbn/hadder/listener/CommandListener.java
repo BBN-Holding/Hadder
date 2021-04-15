@@ -78,13 +78,16 @@ public class CommandListener extends ListenerAdapter {
                     }
                 }
             } else {
-                e.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()
-                        .setTitle("No permission")
-                        .setDescription("I need the `MESSAGE WRITE` permission in order to work!")
-                        .setColor(Color.RED)
-                        .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
-                        .setTimestamp(Instant.now())
-                        .build()).queue();
+                try {
+                    e.getAuthor().openPrivateChannel().complete().sendMessage(new EmbedBuilder()
+                            .setTitle("No permission")
+                            .setDescription("I need the `MESSAGE WRITE` permission in order to work!")
+                            .setColor(Color.RED)
+                            .setFooter("Hadder", "https://bbn.one/images/Hadder.png")
+                            .setTimestamp(Instant.now())
+                            .build()).queue();
+                } catch (ErrorResponseException ignore) {}
+
             }
         }
     }
