@@ -19,7 +19,7 @@ package one.bbn.hadder.commands.music;
 import one.bbn.hadder.commands.Command;
 import one.bbn.hadder.commands.CommandEvent;
 import one.bbn.hadder.utils.MessageEditor;
-import org.jsoup.internal.StringUtil;
+import org.codehaus.plexus.util.StringUtils;
 
 public class VolumeCommand implements Command {
 
@@ -28,7 +28,7 @@ public class VolumeCommand implements Command {
         if (args.length > 0) {
             if (e.getAudioManager().hasPlayer(e.getGuild()) && e.getAudioManager().getPlayer(e.getGuild()).getPlayingTrack() != null) {
                 if (e.getMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().inVoiceChannel() && e.getGuild().getSelfMember().getVoiceState().getChannel().equals(e.getMember().getVoiceState().getChannel())) {
-                    if (StringUtil.isNumeric(args[0])) {
+                    if (StringUtils.isNumeric(args[0])) {
                         int volume = Integer.parseInt(args[0]);
                         if (volume < 201 && volume > 0 || e.getConfig().getOwners().contains(e.getAuthor().getIdLong())) {
                             e.getAudioManager().getPlayer(e.getGuild()).setVolume(volume);
